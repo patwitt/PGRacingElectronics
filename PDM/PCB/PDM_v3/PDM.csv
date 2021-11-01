@@ -1,0 +1,18 @@
+"Id";"Oznaczenie";"Obudowa";"Ilość";"Oznaczenie";"Dostawca i numer artykułu";
+6;"R1";"R_0805_2012Metric";1;"0.1";;;//
+7;"R7,R6,R5";"R_0603_1608Metric_Pad1.05x0.95mm_HandSolder";3;"10k";;;//
+8;"R4,R3,R2";"R_0603_1608Metric_Pad1.05x0.95mm_HandSolder";3;"22k";;;//
+9;"Q3,Q2,Q1";"SOT-23";3;"Q_NPN_BCE";;;//
+10;"MAIN,F.PUMP,FANS";"TO-263-7_TabPin4";3;"BTS50010-1TAE";;;//
+11;"C1";"Kondensator";1;"0.2F";;;//
+12;"EMU,LSU";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";2;"3";;;//
+13;"RPI";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";1;"5";;;//
+14;"STM32";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";1;"12";;;//
+15;"RTCS";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";1;"Fuse";;;//
+16;"INJECTORS,COILS";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";2;"15";;;//
+17;"BACKLIGHT";"Fuse_1812_4532Metric_Pad1.30x3.40mm_HandSolder";1;"2";;;//
+18;"D1";"D_SMC_Handsoldering";1;"D";;;
+19;"R13,R12,R11";"R_0603_1608Metric_Pad1.05x0.95mm_HandSolder";3;"1R";;;//
+20;"D4,D3,D2";"D_SMA_Handsoldering";3;"D_TVS_ALT";;;//
+21;"C10,C9,C5";"C_0805_2012Metric_Pad1.15x1.40mm_HandSolder";3;"10nF";;;//
+22;"C4,C3,C2";"C_0805_2012Metric_Pad1.15x1.40mm_HandSolder";3;"100nF";;;//

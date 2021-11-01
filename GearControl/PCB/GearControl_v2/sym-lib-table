@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name STM32F4_REV2-rescue)(type Legacy)(uri ${KIPRJMOD}/STM32F4_REV2-rescue.lib)(options "")(descr ""))
+  (lib (name GearControl_PCB_v2-rescue)(type Legacy)(uri ${KIPRJMOD}/GearControl_PCB_v2-rescue.lib)(options "")(descr ""))
+  (lib (name GearControl-rescue)(type Legacy)(uri ${KIPRJMOD}/GearControl-rescue.lib)(options "")(descr ""))
+)

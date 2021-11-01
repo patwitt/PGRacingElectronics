@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP KF50BDT-TR
+D KF50BDT-TR, Low Dropout Voltage Regulator, 0.5A, 5 V +/-2%, -0.5  20 Vin, 3-Pin DPAK
+K
+F http://www.st.com/web/en/resource/technical/document/datasheet/CD00000970.pdf
+$ENDCMP
+#
+#End Doc Library
