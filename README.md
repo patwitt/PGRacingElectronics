@@ -74,11 +74,11 @@ About Dashboard
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Dashboard Project -->
-## Power Distribution Module
+## PDM
 About PDM
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Dashboard Project -->
-## Electronic Throttle Control
+## ETC
 About ETC
 <p align="right">(<a href="#top">back to top</a>)</p>
