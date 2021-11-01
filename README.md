@@ -1,4 +1,5 @@
 
+<!-- [![Contributors][contributors-shield]][contributors-url] -->
 <div id="top"></div>
 
 <!-- PROJECT LOGO -->
@@ -82,3 +83,6 @@ About PDM
 ## ETC
 About ETC
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+[contributors-shield]: https://img.shields.io/github/contributors/patwitt/PGRacingElectronics.svg?style=for-the-badge
+[contributors-url]: https://github.com/patwitt/PGRacingElectronics/graphs/contributors
