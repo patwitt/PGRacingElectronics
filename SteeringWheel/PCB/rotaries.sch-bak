@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 4
+Sheet 3 3
 Title ""
 Date ""
 Rev ""
@@ -13,387 +13,486 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B6452
-P 3300 1800
-AR Path="/619B6452" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B6452" Ref="1k1"  Part="1" 
-F 0 "1k1" V 3496 1800 50  0001 C CNN
-F 1 "1k" V 3404 1800 50  0000 C CNN
-F 2 "" H 3300 1800 50  0001 C CNN
-F 3 "~" H 3300 1800 50  0001 C CNN
-	1    3300 1800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3100 1800 3200 1800
-Wire Wire Line
-	3400 1850 3100 1900
-Wire Wire Line
-	3350 1750 3350 1800
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B645B
-P 3300 1900
-AR Path="/619B645B" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B645B" Ref="1k2"  Part="1" 
-F 0 "1k2" V 3496 1900 50  0001 C CNN
-F 1 "1k" V 3404 1900 50  0000 C CNN
-F 2 "" H 3300 1900 50  0001 C CNN
-F 3 "~" H 3300 1900 50  0001 C CNN
-	1    3300 1900
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3200 1900 3100 1900
-Wire Wire Line
-	3350 1850 3350 1900
-Wire Wire Line
-	3400 1950 3100 2000
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B6464
-P 3300 2000
-AR Path="/619B6464" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B6464" Ref="1k3"  Part="1" 
-F 0 "1k3" V 3496 2000 50  0001 C CNN
-F 1 "1k" V 3404 2000 50  0000 C CNN
-F 2 "" H 3300 2000 50  0001 C CNN
-F 3 "~" H 3300 2000 50  0001 C CNN
-	1    3300 2000
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3100 2000 3200 2000
-Wire Wire Line
-	3350 1950 3350 2000
-Wire Wire Line
-	3400 2050 3100 2100
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B646D
-P 3300 2100
-AR Path="/619B646D" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B646D" Ref="1k4"  Part="1" 
-F 0 "1k4" V 3496 2100 50  0001 C CNN
-F 1 "1k" V 3404 2100 50  0000 C CNN
-F 2 "" H 3300 2100 50  0001 C CNN
-F 3 "~" H 3300 2100 50  0001 C CNN
-	1    3300 2100
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3100 2100 3200 2100
-Wire Wire Line
-	3350 2050 3350 2100
-Wire Wire Line
-	3400 2150 3100 2200
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B6476
-P 3300 2200
-AR Path="/619B6476" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B6476" Ref="1k5"  Part="1" 
-F 0 "1k5" V 3496 2200 50  0001 C CNN
-F 1 "1k" V 3404 2200 50  0000 C CNN
-F 2 "" H 3300 2200 50  0001 C CNN
-F 3 "~" H 3300 2200 50  0001 C CNN
-	1    3300 2200
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3200 2200 3100 2200
-Wire Wire Line
-	3350 2150 3350 2200
-Wire Wire Line
-	3100 2300 3400 2250
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B647F
-P 3300 2300
-AR Path="/619B647F" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B647F" Ref="1k6"  Part="1" 
-F 0 "1k6" V 3496 2300 50  0001 C CNN
-F 1 "1k" V 3404 2300 50  0000 C CNN
-F 2 "" H 3300 2300 50  0001 C CNN
-F 3 "~" H 3300 2300 50  0001 C CNN
-	1    3300 2300
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3100 2300 3200 2300
-$Comp
-L power:GND #PWR?
-U 1 1 619B6486
-P 3100 1800
-AR Path="/619B6486" Ref="#PWR?"  Part="1" 
-AR Path="/619ACF8C/619B6486" Ref="#PWR0116"  Part="1" 
-F 0 "#PWR0116" H 3100 1550 50  0001 C CNN
-F 1 "GND" H 3105 1627 50  0000 C CNN
-F 2 "" H 3100 1800 50  0001 C CNN
-F 3 "" H 3100 1800 50  0001 C CNN
-	1    3100 1800
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3100 2400 3400 2400
-Wire Wire Line
-	3350 2250 3350 2350
-$Comp
-L power:+3.3V #PWR?
-U 1 1 619B648E
-P 3100 2400
-AR Path="/619B648E" Ref="#PWR?"  Part="1" 
-AR Path="/619ACF8C/619B648E" Ref="#PWR0117"  Part="1" 
-F 0 "#PWR0117" H 3100 2250 50  0001 C CNN
-F 1 "+3.3V" H 3115 2573 50  0000 C CNN
-F 2 "" H 3100 2400 50  0001 C CNN
-F 3 "" H 3100 2400 50  0001 C CNN
-	1    3100 2400
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B6494
-P 5250 1800
-AR Path="/619B6494" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B6494" Ref="1k7"  Part="1" 
-F 0 "1k7" V 5446 1800 50  0001 C CNN
-F 1 "1k" V 5354 1800 50  0000 C CNN
-F 2 "" H 5250 1800 50  0001 C CNN
-F 3 "~" H 5250 1800 50  0001 C CNN
-	1    5250 1800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 1800 5150 1800
-Wire Wire Line
-	5350 1850 5050 1900
-Wire Wire Line
-	5350 1800 5350 1850
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B649D
-P 5250 1900
-AR Path="/619B649D" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B649D" Ref="1k8"  Part="1" 
-F 0 "1k8" V 5446 1900 50  0001 C CNN
-F 1 "1k" V 5354 1900 50  0000 C CNN
-F 2 "" H 5250 1900 50  0001 C CNN
-F 3 "~" H 5250 1900 50  0001 C CNN
-	1    5250 1900
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5150 1900 5050 1900
-Connection ~ 5050 1900
-Wire Wire Line
-	5350 1900 5350 1950
-Wire Wire Line
-	5350 1950 5050 2000
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64A7
-P 5250 2000
-AR Path="/619B64A7" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64A7" Ref="1k9"  Part="1" 
-F 0 "1k9" V 5446 2000 50  0001 C CNN
-F 1 "1k" V 5354 2000 50  0000 C CNN
-F 2 "" H 5250 2000 50  0001 C CNN
-F 3 "~" H 5250 2000 50  0001 C CNN
-	1    5250 2000
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2000 5150 2000
-Connection ~ 5050 2000
-Wire Wire Line
-	5350 2000 5350 2050
-Wire Wire Line
-	5350 2050 5050 2100
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64B1
-P 5250 2100
-AR Path="/619B64B1" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64B1" Ref="1k10"  Part="1" 
-F 0 "1k10" V 5446 2100 50  0001 C CNN
-F 1 "1k" V 5354 2100 50  0000 C CNN
-F 2 "" H 5250 2100 50  0001 C CNN
-F 3 "~" H 5250 2100 50  0001 C CNN
-	1    5250 2100
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2100 5150 2100
-Connection ~ 5050 2100
-$Comp
-L Switch:SW_Rotary10 Uni_RotarySwitch?
-U 1 1 619B64B9
-P 4650 2400
-AR Path="/619B64B9" Ref="Uni_RotarySwitch?"  Part="1" 
-AR Path="/619ACF8C/619B64B9" Ref="Uni_RotarySwitch1"  Part="1" 
-F 0 "Uni_RotarySwitch1" H 4550 3181 50  0000 C CNN
-F 1 "SW_Rotary10" H 4550 3090 50  0000 C CNN
-F 2 "" H 4450 3100 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 4450 3100 50  0001 C CNN
-	1    4650 2400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5350 2100 5350 2150
-Wire Wire Line
-	5350 2150 5050 2200
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64C1
-P 5250 2200
-AR Path="/619B64C1" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64C1" Ref="1k11"  Part="1" 
-F 0 "1k11" V 5446 2200 50  0001 C CNN
-F 1 "1k" V 5354 2200 50  0000 C CNN
-F 2 "" H 5250 2200 50  0001 C CNN
-F 3 "~" H 5250 2200 50  0001 C CNN
-	1    5250 2200
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5150 2200 5050 2200
-Connection ~ 5050 2200
-Wire Wire Line
-	5350 2200 5350 2250
-Wire Wire Line
-	5050 2300 5350 2250
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64CB
-P 5250 2300
-AR Path="/619B64CB" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64CB" Ref="1k12"  Part="1" 
-F 0 "1k12" V 5446 2300 50  0001 C CNN
-F 1 "1k" V 5354 2300 50  0000 C CNN
-F 2 "" H 5250 2300 50  0001 C CNN
-F 3 "~" H 5250 2300 50  0001 C CNN
-	1    5250 2300
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2300 5150 2300
-Connection ~ 5050 2300
-Wire Wire Line
-	5350 2300 5350 2350
-Wire Wire Line
-	5350 2350 5050 2500
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64D5
-P 5250 2500
-AR Path="/619B64D5" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64D5" Ref="1k13"  Part="1" 
-F 0 "1k13" V 5446 2500 50  0001 C CNN
-F 1 "1k" V 5354 2500 50  0000 C CNN
-F 2 "" H 5250 2500 50  0001 C CNN
-F 3 "~" H 5250 2500 50  0001 C CNN
-	1    5250 2500
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2500 5150 2500
-Connection ~ 5050 2500
-Wire Wire Line
-	5050 2600 5350 2550
-Wire Wire Line
-	5350 2550 5350 2500
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64DF
-P 5250 2600
-AR Path="/619B64DF" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64DF" Ref="1k14"  Part="1" 
-F 0 "1k14" V 5446 2600 50  0001 C CNN
-F 1 "1k" V 5354 2600 50  0000 C CNN
-F 2 "" H 5250 2600 50  0001 C CNN
-F 3 "~" H 5250 2600 50  0001 C CNN
-	1    5250 2600
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2600 5150 2600
-Connection ~ 5050 2600
-Wire Wire Line
-	5350 2600 5350 2650
-Wire Wire Line
-	5350 2650 5050 2700
-$Comp
-L Device:R_Small 1k?
-U 1 1 619B64E9
-P 5250 2700
-AR Path="/619B64E9" Ref="1k?"  Part="1" 
-AR Path="/619ACF8C/619B64E9" Ref="1k15"  Part="1" 
-F 0 "1k15" V 5446 2700 50  0001 C CNN
-F 1 "1k" V 5354 2700 50  0000 C CNN
-F 2 "" H 5250 2700 50  0001 C CNN
-F 3 "~" H 5250 2700 50  0001 C CNN
-	1    5250 2700
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5050 2700 5150 2700
-Connection ~ 5050 2700
-Wire Wire Line
-	5350 2700 5350 2750
-Wire Wire Line
-	5350 2750 5050 2800
-$Comp
-L power:GND #PWR?
-U 1 1 619B64F3
-P 5050 1800
-AR Path="/619B64F3" Ref="#PWR?"  Part="1" 
-AR Path="/619ACF8C/619B64F3" Ref="#PWR0118"  Part="1" 
-F 0 "#PWR0118" H 5050 1550 50  0001 C CNN
-F 1 "GND" H 5055 1627 50  0000 C CNN
-F 2 "" H 5050 1800 50  0001 C CNN
-F 3 "" H 5050 1800 50  0001 C CNN
-	1    5050 1800
-	-1   0    0    1   
-$EndComp
-Connection ~ 5050 1800
-$Comp
-L power:+3.3V #PWR?
-U 1 1 619B64FA
-P 5050 2800
-AR Path="/619B64FA" Ref="#PWR?"  Part="1" 
-AR Path="/619ACF8C/619B64FA" Ref="#PWR0119"  Part="1" 
-F 0 "#PWR0119" H 5050 2650 50  0001 C CNN
-F 1 "+3.3V" H 5065 2973 50  0000 C CNN
-F 2 "" H 5050 2800 50  0001 C CNN
-F 3 "" H 5050 2800 50  0001 C CNN
-	1    5050 2800
-	-1   0    0    1   
-$EndComp
-Connection ~ 5050 2800
-Connection ~ 3100 2400
-Connection ~ 3100 2300
-Connection ~ 3100 2200
-Connection ~ 3100 2100
-Connection ~ 3100 2000
-Connection ~ 3100 1900
-$Comp
-L Switch:SW_Rotary6 ScreenChg_RotarySwitch?
-U 1 1 619B6507
-P 2700 2500
-AR Path="/619B6507" Ref="ScreenChg_RotarySwitch?"  Part="1" 
-AR Path="/619ACF8C/619B6507" Ref="ScreenChg_RotarySwitch1"  Part="1" 
-F 0 "ScreenChg_RotarySwitch1" H 2600 3281 50  0000 C CNN
-F 1 "SW_Rotary6" H 2600 3190 50  0000 C CNN
-F 2 "" H 2500 3200 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 2500 3200 50  0001 C CNN
-	1    2700 2500
-	1    0    0    -1  
-$EndComp
-Text HLabel 2100 2500 0    50   Input ~ 0
+Text HLabel 1375 1825 0    50   Input ~ 0
 ROT_SCR
-Text HLabel 4050 2400 0    50   Input ~ 0
-ROT_UNI
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AECC
+P 2275 1425
+AR Path="/61B7AECC" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AECC" Ref="1k10"  Part="1" 
+F 0 "1k10" V 2471 1425 50  0001 C CNN
+F 1 "1k" V 2379 1425 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1425 50  0001 C CNN
+F 3 "~" H 2275 1425 50  0001 C CNN
+	1    2275 1425
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1475 2075 1525
+Wire Wire Line
+	2375 1425 2375 1475
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AED4
+P 2275 1525
+AR Path="/61B7AED4" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AED4" Ref="1k11"  Part="1" 
+F 0 "1k11" V 2471 1525 50  0001 C CNN
+F 1 "1k" V 2379 1525 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1525 50  0001 C CNN
+F 3 "~" H 2275 1525 50  0001 C CNN
+	1    2275 1525
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1525 2375 1575
+Wire Wire Line
+	2375 1575 2075 1625
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AEDC
+P 2275 1625
+AR Path="/61B7AEDC" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AEDC" Ref="1k12"  Part="1" 
+F 0 "1k12" V 2471 1625 50  0001 C CNN
+F 1 "1k" V 2379 1625 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1625 50  0001 C CNN
+F 3 "~" H 2275 1625 50  0001 C CNN
+	1    2275 1625
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1625 2375 1675
+Wire Wire Line
+	2375 1675 2075 1725
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AEE4
+P 2275 1725
+AR Path="/61B7AEE4" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AEE4" Ref="1k13"  Part="1" 
+F 0 "1k13" V 2471 1725 50  0001 C CNN
+F 1 "1k" V 2379 1725 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1725 50  0001 C CNN
+F 3 "~" H 2275 1725 50  0001 C CNN
+	1    2275 1725
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1725 2375 1775
+Wire Wire Line
+	2375 1775 2075 1825
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AEEC
+P 2275 1825
+AR Path="/61B7AEEC" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AEEC" Ref="1k14"  Part="1" 
+F 0 "1k14" V 2471 1825 50  0001 C CNN
+F 1 "1k" V 2379 1825 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1825 50  0001 C CNN
+F 3 "~" H 2275 1825 50  0001 C CNN
+	1    2275 1825
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1825 2375 1875
+Wire Wire Line
+	2075 1925 2375 1875
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AEF4
+P 2275 1925
+AR Path="/61B7AEF4" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AEF4" Ref="1k15"  Part="1" 
+F 0 "1k15" V 2471 1925 50  0001 C CNN
+F 1 "1k" V 2379 1925 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 1925 50  0001 C CNN
+F 3 "~" H 2275 1925 50  0001 C CNN
+	1    2275 1925
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2075 2225 2375 2175
+Wire Wire Line
+	2375 2175 2375 2125
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AF04
+P 2275 2225
+AR Path="/61B7AF04" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AF04" Ref="1k18"  Part="1" 
+F 0 "1k18" V 2471 2225 50  0001 C CNN
+F 1 "1k" V 2379 2225 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 2225 50  0001 C CNN
+F 3 "~" H 2275 2225 50  0001 C CNN
+	1    2275 2225
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 2225 2375 2275
+Wire Wire Line
+	2375 2275 2075 2325
+Wire Wire Line
+	2075 1425 2175 1425
+Wire Wire Line
+	2175 1525 2075 1525
+Wire Wire Line
+	2175 1625 2075 1625
+Wire Wire Line
+	2175 1725 2075 1725
+Wire Wire Line
+	2175 1825 2075 1825
+Wire Wire Line
+	2175 1925 2075 1925
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B82604
+P 2275 2025
+AR Path="/61B82604" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B82604" Ref="1k16"  Part="1" 
+F 0 "1k16" V 2471 2025 50  0001 C CNN
+F 1 "1k" V 2379 2025 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 2025 50  0001 C CNN
+F 3 "~" H 2275 2025 50  0001 C CNN
+	1    2275 2025
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 2075 2375 2025
+Wire Wire Line
+	2075 2025 2175 2025
+Wire Wire Line
+	2175 2225 2075 2225
+Connection ~ 2075 2225
+Connection ~ 2075 1925
+Connection ~ 2075 1825
+Connection ~ 2075 1725
+Connection ~ 2075 1625
+Connection ~ 2075 1525
+$Comp
+L Alpha-SR2512F:SR2512F-0110-19R0B-E9-N-W-159 ScreenCHG1
+U 1 1 61B76D13
+P 1275 1825
+F 0 "ScreenCHG1" H 1725 2490 50  0000 C CNN
+F 1 "SR2512F-0110-19R0B-E9-N-W-159" H 1725 2399 50  0000 C CNN
+F 2 "PGR-06_Additional:Alpha_Taiwan-SR2512F-0110-19R0B-E9-N-W-159-MFG" H 1275 2625 50  0001 L CNN
+F 3 "http://www.taiwanalpha.com/downloads?target=products&id=226" H 1275 2725 50  0001 L CNN
+F 4 "No" H 1275 2825 50  0001 L CNN "automotive"
+F 5 "Switch" H 1275 2925 50  0001 L CNN "category"
+F 6 "0.3A" H 1275 3025 50  0001 L CNN "contact current rating"
+F 7 "50mΩ" H 1275 3125 50  0001 L CNN "contact resistance"
+F 8 "Electromechanical" H 1275 3225 50  0001 L CNN "device class L1"
+F 9 "Switches" H 1275 3325 50  0001 L CNN "device class L2"
+F 10 "Rotary Switches" H 1275 3425 50  0001 L CNN "device class L3"
+F 11 "10000Cycles" H 1275 3525 50  0001 L CNN "electromechanical life"
+F 12 "https://cdn.sparkfun.com/datasheets/Components/Switches/SP14040026%20SPEC.pdf" H 1275 3625 50  0001 L CNN "footprint url"
+F 13 "34.1mm" H 1275 3725 50  0001 L CNN "height"
+F 14 "Yes" H 1275 3825 50  0001 L CNN "lead free"
+F 15 "43ac97a8fa9c0b2e" H 1275 3925 50  0001 L CNN "library id"
+F 16 "Alpha (Taiwan)" H 1275 4025 50  0001 L CNN "manufacturer"
+F 17 "Through Hole" H 1275 4125 50  0001 L CNN "mount"
+F 18 "105-SR2512F-110NS" H 1275 4225 50  0001 L CNN "mouser part number"
+F 19 "1000gf" H 1275 4325 50  0001 L CNN "operating force"
+F 20 "ROT_SW_31MM_25MM_11_PTH" H 1275 4425 50  0001 L CNN "package"
+F 21 "Yes" H 1275 4525 50  0001 L CNN "rohs"
+F 22 "0.4mm" H 1275 4625 50  0001 L CNN "standoff height"
+F 23 "SP10T" H 1275 4725 50  0001 L CNN "throw configuration"
+F 24 "125V" H 1275 4825 50  0001 L CNN "voltage rating AC"
+	1    1275 1825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2375 2075 2075 2075
+Connection ~ 2075 2125
+Wire Wire Line
+	2075 2075 2075 2125
+Wire Wire Line
+	2175 2125 2075 2125
+$Comp
+L Device:R_Small 1k?
+U 1 1 61B7AEFC
+P 2275 2125
+AR Path="/61B7AEFC" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61B7AEFC" Ref="1k17"  Part="1" 
+F 0 "1k17" V 2471 2125 50  0001 C CNN
+F 1 "1k" V 2379 2125 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2275 2125 50  0001 C CNN
+F 3 "~" H 2275 2125 50  0001 C CNN
+	1    2275 2125
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2375 1925 2375 1975
+Wire Wire Line
+	2375 1975 2075 1975
+Wire Wire Line
+	2075 1975 2075 2025
+Connection ~ 2075 2025
+$Comp
+L power:+3.3V #PWR0116
+U 1 1 61B983D8
+P 2075 2325
+F 0 "#PWR0116" H 2075 2175 50  0001 C CNN
+F 1 "+3.3V" H 2090 2498 50  0000 C CNN
+F 2 "" H 2075 2325 50  0001 C CNN
+F 3 "" H 2075 2325 50  0001 C CNN
+	1    2075 2325
+	-1   0    0    1   
+$EndComp
+Connection ~ 2075 2325
+$Comp
+L power:GND #PWR0117
+U 1 1 61B9938E
+P 2075 1425
+F 0 "#PWR0117" H 2075 1175 50  0001 C CNN
+F 1 "GND" H 2080 1252 50  0000 C CNN
+F 2 "" H 2075 1425 50  0001 C CNN
+F 3 "" H 2075 1425 50  0001 C CNN
+	1    2075 1425
+	-1   0    0    1   
+$EndComp
+Connection ~ 2075 1425
+Text HLabel 1325 3425 0    50   Input ~ 0
+ROT_SCR
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C09
+P 2225 3025
+AR Path="/61BB2C09" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C09" Ref="1k1"  Part="1" 
+F 0 "1k1" V 2421 3025 50  0001 C CNN
+F 1 "1k" V 2329 3025 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3025 50  0001 C CNN
+F 3 "~" H 2225 3025 50  0001 C CNN
+	1    2225 3025
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3075 2025 3125
+Wire Wire Line
+	2325 3025 2325 3075
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C11
+P 2225 3125
+AR Path="/61BB2C11" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C11" Ref="1k2"  Part="1" 
+F 0 "1k2" V 2421 3125 50  0001 C CNN
+F 1 "1k" V 2329 3125 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3125 50  0001 C CNN
+F 3 "~" H 2225 3125 50  0001 C CNN
+	1    2225 3125
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3125 2325 3175
+Wire Wire Line
+	2325 3175 2025 3225
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C19
+P 2225 3225
+AR Path="/61BB2C19" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C19" Ref="1k3"  Part="1" 
+F 0 "1k3" V 2421 3225 50  0001 C CNN
+F 1 "1k" V 2329 3225 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3225 50  0001 C CNN
+F 3 "~" H 2225 3225 50  0001 C CNN
+	1    2225 3225
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3225 2325 3275
+Wire Wire Line
+	2325 3275 2025 3325
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C21
+P 2225 3325
+AR Path="/61BB2C21" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C21" Ref="1k4"  Part="1" 
+F 0 "1k4" V 2421 3325 50  0001 C CNN
+F 1 "1k" V 2329 3325 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3325 50  0001 C CNN
+F 3 "~" H 2225 3325 50  0001 C CNN
+	1    2225 3325
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3325 2325 3375
+Wire Wire Line
+	2325 3375 2025 3425
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C29
+P 2225 3425
+AR Path="/61BB2C29" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C29" Ref="1k5"  Part="1" 
+F 0 "1k5" V 2421 3425 50  0001 C CNN
+F 1 "1k" V 2329 3425 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3425 50  0001 C CNN
+F 3 "~" H 2225 3425 50  0001 C CNN
+	1    2225 3425
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3425 2325 3475
+Wire Wire Line
+	2025 3525 2325 3475
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C31
+P 2225 3525
+AR Path="/61BB2C31" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C31" Ref="1k6"  Part="1" 
+F 0 "1k6" V 2421 3525 50  0001 C CNN
+F 1 "1k" V 2329 3525 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3525 50  0001 C CNN
+F 3 "~" H 2225 3525 50  0001 C CNN
+	1    2225 3525
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2025 3825 2325 3775
+Wire Wire Line
+	2325 3775 2325 3725
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C39
+P 2225 3825
+AR Path="/61BB2C39" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C39" Ref="1k9"  Part="1" 
+F 0 "1k9" V 2421 3825 50  0001 C CNN
+F 1 "1k" V 2329 3825 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3825 50  0001 C CNN
+F 3 "~" H 2225 3825 50  0001 C CNN
+	1    2225 3825
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3825 2325 3875
+Wire Wire Line
+	2325 3875 2025 3925
+Wire Wire Line
+	2025 3025 2125 3025
+Wire Wire Line
+	2125 3125 2025 3125
+Wire Wire Line
+	2125 3225 2025 3225
+Wire Wire Line
+	2125 3325 2025 3325
+Wire Wire Line
+	2125 3425 2025 3425
+Wire Wire Line
+	2125 3525 2025 3525
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C47
+P 2225 3625
+AR Path="/61BB2C47" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C47" Ref="1k7"  Part="1" 
+F 0 "1k7" V 2421 3625 50  0001 C CNN
+F 1 "1k" V 2329 3625 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3625 50  0001 C CNN
+F 3 "~" H 2225 3625 50  0001 C CNN
+	1    2225 3625
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3675 2325 3625
+Wire Wire Line
+	2025 3625 2125 3625
+Wire Wire Line
+	2125 3825 2025 3825
+Connection ~ 2025 3825
+Connection ~ 2025 3525
+Connection ~ 2025 3425
+Connection ~ 2025 3325
+Connection ~ 2025 3225
+Connection ~ 2025 3125
+$Comp
+L Alpha-SR2512F:SR2512F-0110-19R0B-E9-N-W-159 UniCHG1
+U 1 1 61BB2C6B
+P 1225 3425
+F 0 "UniCHG1" H 1675 4090 50  0000 C CNN
+F 1 "SR2512F-0110-19R0B-E9-N-W-159" H 1675 3999 50  0000 C CNN
+F 2 "PGR-06_Additional:Alpha_Taiwan-SR2512F-0110-19R0B-E9-N-W-159-MFG" H 1225 4225 50  0001 L CNN
+F 3 "http://www.taiwanalpha.com/downloads?target=products&id=226" H 1225 4325 50  0001 L CNN
+F 4 "No" H 1225 4425 50  0001 L CNN "automotive"
+F 5 "Switch" H 1225 4525 50  0001 L CNN "category"
+F 6 "0.3A" H 1225 4625 50  0001 L CNN "contact current rating"
+F 7 "50mΩ" H 1225 4725 50  0001 L CNN "contact resistance"
+F 8 "Electromechanical" H 1225 4825 50  0001 L CNN "device class L1"
+F 9 "Switches" H 1225 4925 50  0001 L CNN "device class L2"
+F 10 "Rotary Switches" H 1225 5025 50  0001 L CNN "device class L3"
+F 11 "10000Cycles" H 1225 5125 50  0001 L CNN "electromechanical life"
+F 12 "https://cdn.sparkfun.com/datasheets/Components/Switches/SP14040026%20SPEC.pdf" H 1225 5225 50  0001 L CNN "footprint url"
+F 13 "34.1mm" H 1225 5325 50  0001 L CNN "height"
+F 14 "Yes" H 1225 5425 50  0001 L CNN "lead free"
+F 15 "43ac97a8fa9c0b2e" H 1225 5525 50  0001 L CNN "library id"
+F 16 "Alpha (Taiwan)" H 1225 5625 50  0001 L CNN "manufacturer"
+F 17 "Through Hole" H 1225 5725 50  0001 L CNN "mount"
+F 18 "105-SR2512F-110NS" H 1225 5825 50  0001 L CNN "mouser part number"
+F 19 "1000gf" H 1225 5925 50  0001 L CNN "operating force"
+F 20 "ROT_SW_31MM_25MM_11_PTH" H 1225 6025 50  0001 L CNN "package"
+F 21 "Yes" H 1225 6125 50  0001 L CNN "rohs"
+F 22 "0.4mm" H 1225 6225 50  0001 L CNN "standoff height"
+F 23 "SP10T" H 1225 6325 50  0001 L CNN "throw configuration"
+F 24 "125V" H 1225 6425 50  0001 L CNN "voltage rating AC"
+	1    1225 3425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2325 3675 2025 3675
+Connection ~ 2025 3725
+Wire Wire Line
+	2025 3675 2025 3725
+Wire Wire Line
+	2125 3725 2025 3725
+$Comp
+L Device:R_Small 1k?
+U 1 1 61BB2C75
+P 2225 3725
+AR Path="/61BB2C75" Ref="1k?"  Part="1" 
+AR Path="/619ACF8C/61BB2C75" Ref="1k8"  Part="1" 
+F 0 "1k8" V 2421 3725 50  0001 C CNN
+F 1 "1k" V 2329 3725 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2225 3725 50  0001 C CNN
+F 3 "~" H 2225 3725 50  0001 C CNN
+	1    2225 3725
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2325 3525 2325 3575
+Wire Wire Line
+	2325 3575 2025 3575
+Wire Wire Line
+	2025 3575 2025 3625
+Connection ~ 2025 3625
+$Comp
+L power:+3.3V #PWR0118
+U 1 1 61BB2C7F
+P 2025 3925
+F 0 "#PWR0118" H 2025 3775 50  0001 C CNN
+F 1 "+3.3V" H 2040 4098 50  0000 C CNN
+F 2 "" H 2025 3925 50  0001 C CNN
+F 3 "" H 2025 3925 50  0001 C CNN
+	1    2025 3925
+	-1   0    0    1   
+$EndComp
+Connection ~ 2025 3925
+$Comp
+L power:GND #PWR0119
+U 1 1 61BB2C86
+P 2025 3025
+F 0 "#PWR0119" H 2025 2775 50  0001 C CNN
+F 1 "GND" H 2030 2852 50  0000 C CNN
+F 2 "" H 2025 3025 50  0001 C CNN
+F 3 "" H 2025 3025 50  0001 C CNN
+	1    2025 3025
+	-1   0    0    1   
+$EndComp
+Connection ~ 2025 3025
 $EndSCHEMATC
