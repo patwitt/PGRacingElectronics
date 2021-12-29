@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 4
+Sheet 2 3
 Title ""
 Date ""
 Rev ""
@@ -529,22 +529,13 @@ F 4 "C72041" H 1775 5625 50  0001 C CNN "LCSC Part #"
 	1    1775 5625
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 3500 5475
 NoConn ~ 3500 5375
 NoConn ~ 3500 5275
 NoConn ~ 3500 5175
 NoConn ~ 3500 4875
-NoConn ~ 3500 4775
-NoConn ~ 3500 4675
-NoConn ~ 3500 4575
-NoConn ~ 3500 4475
-NoConn ~ 3500 4375
-NoConn ~ 3500 4275
 NoConn ~ 3500 4175
 NoConn ~ 3500 3975
 NoConn ~ 4900 4575
-NoConn ~ 4900 4375
-NoConn ~ 4900 3975
 NoConn ~ 4900 3475
 NoConn ~ 4900 3375
 NoConn ~ 4900 3275
@@ -552,7 +543,6 @@ NoConn ~ 4900 3175
 NoConn ~ 4900 2975
 NoConn ~ 4900 2875
 NoConn ~ 4900 2775
-NoConn ~ 4900 2575
 Text GLabel 3500 3775 0    50   Input ~ 0
 HSE_OUT
 Text GLabel 3500 3675 0    50   Input ~ 0
@@ -718,28 +708,43 @@ Text HLabel 2050 2000 3    50   Input ~ 0
 GND
 Text GLabel 4900 2675 2    50   Input ~ 0
 LED_STATUS
-Text GLabel 4900 3775 2    50   Input ~ 0
-SWDIO
-Text GLabel 4900 3875 2    50   Input ~ 0
-SWCLK
 Text GLabel 4900 4475 2    50   Input ~ 0
 SWO
 Text HLabel 4900 3575 2    50   Input ~ 0
 CAN1_RX
-Text HLabel 4900 3675 2    50   Input ~ 0
-CAN1_TX
 Text HLabel 4900 5375 2    50   Input ~ 0
 CAN2_RX
 Text HLabel 4900 5475 2    50   Input ~ 0
 CAN2_TX
-Text HLabel 4900 4775 2    50   Input ~ 0
-BTN_DRS
-Text HLabel 4900 4875 2    50   Input ~ 0
-BTN_CLCH
-Text HLabel 4900 4975 2    50   Input ~ 0
+Text HLabel 3500 4675 0    50   Input ~ 0
 BTN_PTT
-Text HLabel 4900 5075 2    50   Input ~ 0
+Text HLabel 3500 4575 0    50   Input ~ 0
 BTN_SCR
+Text HLabel 3500 4775 0    50   Input ~ 0
+BTN_UNI2
+Text HLabel 3500 4975 0    50   Input ~ 0
+LED_DATA
+NoConn ~ 3500 5075
+NoConn ~ 4900 5275
+Text HLabel 4900 4175 2    50   Input ~ 0
+BTN_CLCH
+Text HLabel 4900 4275 2    50   Input ~ 0
+BTN_UNI1
+Text HLabel 4900 4375 2    50   Input ~ 0
+BTN_DRS
+Text HLabel 4900 4775 2    50   Input ~ 0
+I2C_SCL
+Text HLabel 4900 4875 2    50   Input ~ 0
+I2C_SDA
+Text HLabel 4900 4675 2    50   Input ~ 0
+I2C_RESET
+Text HLabel 4900 3675 2    50   Input ~ 0
+CAN1_TX
+Text GLabel 4900 3875 2    50   Input ~ 0
+SWCLK
+Text GLabel 4900 3775 2    50   Input ~ 0
+SWDIO
+NoConn ~ 4900 3975
 $Comp
 L MCU_ST_STM32F4:STM32F405RGTx U6
 U 1 1 61927F05
@@ -752,18 +757,22 @@ F 4 "C15742" H 4200 4075 50  0001 C CNN "LCSC Part #"
 	1    4200 4075
 	1    0    0    -1  
 $EndComp
-Text HLabel 4900 4675 2    50   Input ~ 0
-BTN_UNI1
-Text HLabel 4900 5175 2    50   Input ~ 0
-BTN_UNI2
-Text HLabel 3500 5575 0    50   Input ~ 0
-ROT_SCR
-Text HLabel 3500 5675 0    50   Input ~ 0
+Text HLabel 4900 2475 2    50   Input ~ 0
 ROT_UNI
-Text HLabel 3500 4975 0    50   Input ~ 0
-LED_DATA
-NoConn ~ 3500 5075
-NoConn ~ 4900 5275
-NoConn ~ 4900 4175
-NoConn ~ 4900 4275
+Text HLabel 4900 2575 2    50   Input ~ 0
+ROT_SCR
+NoConn ~ 3500 5475
+NoConn ~ 4900 4975
+NoConn ~ 4900 5075
+NoConn ~ 4900 5175
+NoConn ~ 3500 5575
+NoConn ~ 3500 5675
+NoConn ~ 3500 4275
+NoConn ~ 3500 4375
+NoConn ~ 3500 4475
+NoConn ~ 4900 3075
+Text HLabel 4200 2250 1    50   Input ~ 0
+VDD
+Text HLabel 4200 5900 3    50   Input ~ 0
+VSS
 $EndSCHEMATC

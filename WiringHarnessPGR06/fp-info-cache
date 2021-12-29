@@ -1,4 +1,4 @@
-19229203516120066
+19220999515932015
 16SVPG330MX
 CAP_16SVPG330MX
 
@@ -59730,41 +59730,6 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
-PGR-06_Additional
-7447707331
-7447707331-1
-Inductor
-0
-2
-2
-PGR-06_Additional
-Alpha_Taiwan-SR2512F-0110-19R0B-E9-N-W-159-MFG
-
-
-0
-11
-11
-PGR-06_Additional
-NHD-C0220BiZ-FS(RGB)-FBW-3VM
-
-
-0
-12
-12
-PGR-06_Additional
-OSCCC500X320X110-4N
-
-
-0
-4
-4
-PGR-06_Additional
-SODFL5326X110N
-
-
-0
-2
-2
 Package_BGA
 Analog_BGA-28_4.0x6.25mm_Layout4x7_P0.8mm_Ball0.45mm_Pad0.4
 Analog BGA-28 4.0mm x 6.25mm package, pitch 0.4mm pad, based on https://www.analog.com/media/en/technical-documentation/data-sheets/8063fa.pdf
