@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name PGR-06_Wheel_Additional)(type Legacy)(uri ${KIPRJMOD}/PGR-06_Wheel_Additional.lib)(options "")(descr ""))
+)

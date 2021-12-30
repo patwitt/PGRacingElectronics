@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP X49SD8MSD2SC
+D 8MHz +/-20ppm 20pF 60 Ohm(Max) HC-49S DIP Crystal Resonators RoHS
+K
+F https://datasheet.lcsc.com/szlcsc/Yangxing-Tech-X49SD8MSD2SC_C21263.pdf
+$ENDCMP
+#
+#End Doc Library

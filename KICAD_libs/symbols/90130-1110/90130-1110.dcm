@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 90130-1110
+D Header 2.54mm,dual row,vert,shrouded,10w Molex C-GRID III Series, Series Number 90130, 2.54mm Pitch 10 Way 2 Row Straight PCB Header, Solder Termination, 3A
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/SFDatasheet-1/sf-00037025.pdf
+$ENDCMP
+#
+#End Doc Library
