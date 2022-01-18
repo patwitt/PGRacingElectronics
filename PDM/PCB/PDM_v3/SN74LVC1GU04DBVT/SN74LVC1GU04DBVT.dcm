@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP SN74LVC1GU04DBVT
-D 74LVC Single Unbuffered Inverter SOT23 Texas Instruments SN74LVC1GU04DBVT CMOS Inverter, 1.65  5.5 V SOT-23, 5-Pin
-K
-F http://www.ti.com/lit/ds/symlink/sn74lvc1gu04.pdf
-$ENDCMP
-#
-#End Doc Library
