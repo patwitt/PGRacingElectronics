@@ -6,7 +6,7 @@
           {
             "Type": "Box",
             "Color": {
-              "Red": 0,
+              "Red": 255,
               "Green": 0,
               "Blue": 0
             },
@@ -24,23 +24,6 @@
             "Moveable": false
           },
           {
-            "Type": "ScalableImage",
-            "Filename": "PGRacingTeamLogo.png",
-            "Alpha": 255,
-            "ScalingAlgorithm": "Nearest-neighbor",
-            "Name": "scalableImage1",
-            "X": 100,
-            "Y": -45,
-            "Width": 580,
-            "Height": 580,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
             "Type": "Button",
             "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
             "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
@@ -49,6 +32,36 @@
             "Name": "button1",
             "X": 315,
             "Y": 215,
+            "Width": 170,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "Alpha": 255,
+            "TextId": "SingleUseId6",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0",
+            "Style": "Style4",
+            "Name": "buttonWithLabel1",
+            "X": 387,
+            "Y": 96,
             "Width": 170,
             "Height": 60,
             "Visible": true,
@@ -259,6 +272,10 @@
       },
       {
         "TextEntryId": "SingleUseId5",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId6",
         "IsResource": false
       }
     ],

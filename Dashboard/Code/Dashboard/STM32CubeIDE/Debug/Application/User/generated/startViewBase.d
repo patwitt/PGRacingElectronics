@@ -33,12 +33,14 @@ Application/User/generated/startViewBase.o: \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
- ../../TouchGFX/generated/images/include/BitmapDatabase.hpp
+ ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
+ ../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp
 
 ../../TouchGFX/generated/gui_generated/include/gui_generated/start_screen/startViewBase.hpp:
 
@@ -106,14 +108,18 @@ Application/User/generated/startViewBase.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
-
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
-
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
 
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
+
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:
+
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:
+
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
 
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
+
+../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp:

@@ -7,7 +7,6 @@ HAL.hpp:611:18:virtual bool touchgfx::HAL::sampleKey(uint8_t&)	16	static
 HAL.hpp:658:18:virtual void touchgfx::HAL::setFrameBufferStartAddresses(void*, void*, void*)	24	static
 HAL.hpp:801:30:virtual touchgfx::FlashDataReader* touchgfx::HAL::getFlashDataReader() const	16	static
 HAL.hpp:950:18:virtual void touchgfx::HAL::taskDelay(uint16_t)	16	static
-HAL.hpp:977:22:virtual uint16_t touchgfx::HAL::getTFTCurrentLine()	16	static
 HAL.hpp:988:21:virtual touchgfx::DMAType touchgfx::HAL::getDMAType()	16	static
 HAL.hpp:1098:18:virtual void touchgfx::HAL::performDisplayOrientationChange()	16	static
 TouchGFXGeneratedHAL.hpp:103:18:virtual void TouchGFXGeneratedHAL::flushFrameBuffer()	16	static

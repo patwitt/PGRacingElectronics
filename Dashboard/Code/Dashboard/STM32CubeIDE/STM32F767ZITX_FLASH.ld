@@ -48,7 +48,7 @@ MEMORY
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 512K
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 2016K
   QUADSPI (r) : ORIGIN = 0x90400000, LENGTH = 16M
-  EXT_RAM 		(xrw)	: ORIGIN = 0xC0000000,	LENGTH = 16M
+  EXT_RAM 		(xrw)	: ORIGIN = 0xC0000000,	LENGTH = 2M
 }
 
 /* Sections */
@@ -192,7 +192,7 @@ SECTIONS
   	*(ExtFlashSection ExtFlashSection.*)
   	*(.gnu.linkonce.r.*)
   	. = ALIGN(0x4);
-  } > QUADSPI
+  } > FLASH
   
   TouchGFX_Framebuffer :
   {

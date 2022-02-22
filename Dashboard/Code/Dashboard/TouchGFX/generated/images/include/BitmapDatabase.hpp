@@ -8,7 +8,6 @@
 
 const uint16_t BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID = 0;
 const uint16_t BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID = 1;
-const uint16_t BITMAP_PGRACINGTEAMLOGO_ID = 2;
 
 namespace BitmapDatabase
 {

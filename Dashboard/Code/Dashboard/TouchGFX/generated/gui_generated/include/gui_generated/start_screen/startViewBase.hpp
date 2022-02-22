@@ -8,8 +8,8 @@
 #include <mvp/View.hpp>
 #include <gui/start_screen/startPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/ScalableImage.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <touchgfx/widgets/ButtonWithLabel.hpp>
 
 class startViewBase : public touchgfx::View<startPresenter>
 {
@@ -28,8 +28,8 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::ScalableImage scalableImage1;
     touchgfx::Button button1;
+    touchgfx::ButtonWithLabel buttonWithLabel1;
 
 private:
 

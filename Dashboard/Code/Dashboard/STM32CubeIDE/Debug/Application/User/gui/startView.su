@@ -27,6 +27,8 @@ Widget.hpp:36:7:touchgfx::Widget::~Widget()	16	static
 Widget.hpp:36:7:virtual touchgfx::Widget::~Widget()	16	static
 AbstractButton.hpp:32:7:touchgfx::AbstractButton::~AbstractButton()	16	static
 AbstractButton.hpp:32:7:virtual touchgfx::AbstractButton::~AbstractButton()	16	static
+TypedText.hpp:65:13:touchgfx::TypedText::~TypedText()	16	static
+TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	16	static
 View.hpp:36:7:touchgfx::View<startPresenter>::~View()	16	static
 View.hpp:36:7:virtual touchgfx::View<startPresenter>::~View()	16	static
 startViewBase.hpp:18:13:startViewBase::~startViewBase()	16	static
@@ -40,9 +42,7 @@ Container.hpp:40:7:touchgfx::Container::~Container()	16	static
 Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
 Box.hpp:29:7:touchgfx::Box::~Box()	16	static
 Box.hpp:29:7:virtual touchgfx::Box::~Box()	16	static
-Image.hpp:38:7:touchgfx::Image::~Image()	16	static
-Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
-ScalableImage.hpp:35:7:touchgfx::ScalableImage::~ScalableImage()	16	static
-ScalableImage.hpp:35:7:virtual touchgfx::ScalableImage::~ScalableImage()	16	static
 Button.hpp:31:7:touchgfx::Button::~Button()	16	static
 Button.hpp:31:7:virtual touchgfx::Button::~Button()	16	static
+ButtonWithLabel.hpp:38:7:touchgfx::ButtonWithLabel::~ButtonWithLabel()	16	static
+ButtonWithLabel.hpp:38:7:virtual touchgfx::ButtonWithLabel::~ButtonWithLabel()	16	static

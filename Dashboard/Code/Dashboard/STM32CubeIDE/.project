@@ -48,11 +48,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/STM32F7xx_HAL_Driver/stm32f7xx_hal_can.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_can.c</locationURI>
-		</link>
-		<link>
 			<name>Drivers/STM32F7xx_HAL_Driver/stm32f7xx_hal_cortex.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c</locationURI>
@@ -231,11 +226,6 @@
 			<name>Middlewares/FreeRTOS/timers.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/FreeRTOS/Source/timers.c</locationURI>
-		</link>
-		<link>
-			<name>Application/User/Core/can.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/can.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/crc.c</name>
@@ -466,11 +456,6 @@
 			<name>Application/User/generated/BitmapDatabase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/BitmapDatabase.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_PGRacingTeamLogo.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_PGRacingTeamLogo.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_Blue_Buttons_Round_Edge_small.cpp</name>
