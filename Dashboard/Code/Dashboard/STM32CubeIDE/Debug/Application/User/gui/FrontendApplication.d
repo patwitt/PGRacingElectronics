@@ -1,5 +1,5 @@
 Application/User/gui/FrontendApplication.o: \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/TouchGFX/gui/src/common/FrontendApplication.cpp \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/gui/src/common/FrontendApplication.cpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \

@@ -1,5 +1,5 @@
 Application/User/generated/Texts.o: \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/TouchGFX/generated/texts/src/Texts.cpp \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/generated/texts/src/Texts.cpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TextProvider.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp \

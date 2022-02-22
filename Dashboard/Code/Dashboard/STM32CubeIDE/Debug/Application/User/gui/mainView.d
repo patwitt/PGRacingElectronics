@@ -1,5 +1,5 @@
 Application/User/gui/mainView.o: \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/TouchGFX/gui/src/main_screen/mainView.cpp \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/gui/src/main_screen/mainView.cpp \
  ../../TouchGFX/gui/include/gui/main_screen/mainView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \

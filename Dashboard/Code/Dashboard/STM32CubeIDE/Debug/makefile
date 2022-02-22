@@ -9,6 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Middlewares/FreeRTOS/subdir.mk
 -include Drivers/STM32F7xx_HAL_Driver/subdir.mk
 -include Drivers/CMSIS/subdir.mk
 -include Application/User/gui/subdir.mk
@@ -81,8 +82,8 @@ all: main-build
 main-build: code.elf secondary-outputs
 
 # Tool invocations
-code.elf: $(OBJS) $(USER_OBJS) F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\code\STM32CubeIDE\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\code\STM32CubeIDE\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code.map" -Wl,--gc-sections -static -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+code.elf: $(OBJS) $(USER_OBJS) F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\Code\Dashboard\STM32CubeIDE\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\Code\Dashboard\STM32CubeIDE\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code.map" -Wl,--gc-sections -static -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

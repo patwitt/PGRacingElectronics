@@ -18,9 +18,13 @@ startViewBase::startViewBase()
     scalableImage1.setPosition(100, -45, 580, 580);
     scalableImage1.setScalingAlgorithm(touchgfx::ScalableImage::NEAREST_NEIGHBOR);
 
+    button1.setXY(315, 215);
+    button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+
     add(__background);
     add(box1);
     add(scalableImage1);
+    add(button1);
 }
 
 void startViewBase::setupScreen()

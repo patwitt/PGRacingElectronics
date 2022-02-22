@@ -1,5 +1,5 @@
 Application/User/generated/FrontendApplicationBase.o: \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
@@ -41,6 +41,8 @@ Application/User/generated/FrontendApplicationBase.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  ../../TouchGFX/gui/include/gui/main_screen/mainView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp \
  ../../TouchGFX/gui/include/gui/main_screen/mainPresenter.hpp \
@@ -58,9 +60,8 @@ Application/User/generated/FrontendApplicationBase.o: \
  ../../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp
+ ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp
 
 ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 
@@ -144,6 +145,10 @@ Application/User/generated/FrontendApplicationBase.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
 ../../TouchGFX/gui/include/gui/main_screen/mainView.hpp:
 
 ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp:
@@ -178,8 +183,6 @@ Application/User/generated/FrontendApplicationBase.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp:
+../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
-
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp:

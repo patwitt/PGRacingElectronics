@@ -40,6 +40,8 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  gui/include/gui/main_screen/mainView.hpp \
  generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp \
  gui/include/gui/main_screen/mainPresenter.hpp \
@@ -57,9 +59,8 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  ../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp
+ ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp
 
 generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 
@@ -143,6 +144,10 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
 gui/include/gui/main_screen/mainView.hpp:
 
 generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp:
@@ -177,8 +182,6 @@ generated/texts/include/texts/TextKeysAndLanguages.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp:
+../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp:

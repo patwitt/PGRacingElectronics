@@ -39,4 +39,5 @@ Application/User/generated \
 Application/User/gui \
 Drivers/CMSIS \
 Drivers/STM32F7xx_HAL_Driver \
+Middlewares/FreeRTOS \
 

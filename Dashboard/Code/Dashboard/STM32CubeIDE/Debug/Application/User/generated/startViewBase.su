@@ -17,6 +17,7 @@ Drawable.hpp:354:18:virtual void touchgfx::Drawable::handleGestureEvent(const to
 Drawable.hpp:365:10:void touchgfx::Drawable::setWidthHeight(int16_t, int16_t)	16	static
 Drawable.hpp:442:18:virtual void touchgfx::Drawable::handleDragEvent(const touchgfx::DragEvent&)	16	static
 Drawable.hpp:452:18:virtual void touchgfx::Drawable::handleTickEvent()	16	static
+Drawable.hpp:476:10:void touchgfx::Drawable::setTouchable(bool)	16	static
 Drawable.hpp:488:10:bool touchgfx::Drawable::isVisible() const	16	static
 Drawable.hpp:500:10:bool touchgfx::Drawable::isTouchable() const	16	static
 Drawable.hpp:539:18:virtual void touchgfx::Drawable::moveTo(int16_t, int16_t)	16	static
@@ -36,12 +37,16 @@ Widget.hpp:36:7:touchgfx::Widget::~Widget()	16	static
 Widget.hpp:36:7:virtual touchgfx::Widget::~Widget()	16	static
 Box.hpp:33:5:touchgfx::Box::Box()	16	static
 Box.hpp:63:10:void touchgfx::Box::setColor(touchgfx::colortype)	16	static
+AbstractButton.hpp:36:5:touchgfx::AbstractButton::AbstractButton()	16	static
+AbstractButton.hpp:32:7:touchgfx::AbstractButton::~AbstractButton()	16	static
+AbstractButton.hpp:32:7:virtual touchgfx::AbstractButton::~AbstractButton()	16	static
+Button.hpp:34:5:touchgfx::Button::Button()	16	static
 View.hpp:36:7:touchgfx::View<startPresenter>::~View()	16	static
 View.hpp:36:7:virtual touchgfx::View<startPresenter>::~View()	16	static
-startViewBase.hpp:17:13:startViewBase::~startViewBase()	16	static
-startViewBase.hpp:17:13:virtual startViewBase::~startViewBase()	16	static
-startViewBase.cpp:8:1:startViewBase::startViewBase()	56	static
-startViewBase.cpp:26:6:virtual void startViewBase::setupScreen()	16	static
+startViewBase.hpp:18:13:startViewBase::~startViewBase()	16	static
+startViewBase.hpp:18:13:virtual startViewBase::~startViewBase()	16	static
+startViewBase.cpp:8:1:startViewBase::startViewBase()	64	static
+startViewBase.cpp:30:6:virtual void startViewBase::setupScreen()	16	static
 View.hpp:39:5:touchgfx::View<T>::View() [with T = startPresenter]	16	static
 Container.hpp:40:7:touchgfx::Container::~Container()	16	static
 Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
@@ -51,3 +56,5 @@ Image.hpp:38:7:touchgfx::Image::~Image()	16	static
 Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
 ScalableImage.hpp:35:7:touchgfx::ScalableImage::~ScalableImage()	16	static
 ScalableImage.hpp:35:7:virtual touchgfx::ScalableImage::~ScalableImage()	16	static
+Button.hpp:31:7:touchgfx::Button::~Button()	16	static
+Button.hpp:31:7:virtual touchgfx::Button::~Button()	16	static

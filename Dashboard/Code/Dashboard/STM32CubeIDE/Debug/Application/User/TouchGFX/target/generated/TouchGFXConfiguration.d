@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/TouchGFX/target/generated/TouchGFXConfiguration.cpp \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/target/generated/TouchGFXConfiguration.cpp \
  ../../TouchGFX/generated/texts/include/texts/TypedTextDatabase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp \
@@ -46,14 +46,15 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  ../../TouchGFX/gui/include/gui/main_screen/mainView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp \
  ../../TouchGFX/gui/include/gui/main_screen/mainPresenter.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/BlitOp.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
@@ -63,9 +64,8 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/OSWrappers.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/NoDMA.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp \
+ ../../TouchGFX/target/generated/STM32DMA.hpp \
  ../../TouchGFX/target/TouchGFXHAL.hpp \
  ../../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp \
  ../../TouchGFX/target/STM32TouchController.hpp \
@@ -92,6 +92,7 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc_ex.h \
+ ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma2d.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash_ex.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_sdram.h \
@@ -103,6 +104,8 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_qspi.h \
+ ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim.h \
+ ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h
 
@@ -198,6 +201,10 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
 ../../TouchGFX/gui/include/gui/main_screen/mainView.hpp:
 
 ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/mainViewBase.hpp:
@@ -210,9 +217,7 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD32bpp.hpp:
-
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
+../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD24bpp.hpp:
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp:
 
@@ -232,11 +237,9 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD32DebugPrinter.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD24DebugPrinter.hpp:
 
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/OSWrappers.hpp:
-
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/NoDMA.hpp:
+../../TouchGFX/target/generated/STM32DMA.hpp:
 
 ../../TouchGFX/target/TouchGFXHAL.hpp:
 
@@ -290,6 +293,8 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc_ex.h:
 
+../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma2d.h:
+
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash.h:
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash_ex.h:
@@ -311,6 +316,10 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h:
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_qspi.h:
+
+../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim.h:
+
+../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 

@@ -1,4 +1,3 @@
-Types.hpp:78:5:touchgfx::colortype::colortype()	16	static
 Types.hpp:127:5:touchgfx::Rect::Rect()	16	static
 TypedText.hpp:166:17:static void touchgfx::TypedText::registerTexts(const touchgfx::Texts*)	16	static
 FontManager.hpp:43:13:touchgfx::FontProvider::~FontProvider()	16	static
@@ -41,13 +40,6 @@ Partition.hpp:42:7:touchgfx::Partition<touchgfx::meta::TypeList<mainPresenter, t
 Partition.hpp:42:7:touchgfx::Partition<touchgfx::meta::TypeList<mainView, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >, 1>::Partition()	16	static
 Partition.hpp:42:7:touchgfx::Partition<touchgfx::meta::TypeList<touchgfx::NoTransition, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >, 1>::Partition()	16	static
 FrontendHeap.hpp:67:5:FrontendHeap::FrontendHeap()	32	static
-DMA.hpp:61:13:touchgfx::DMA_Queue::~DMA_Queue()	16	static
-DMA.hpp:61:13:virtual touchgfx::DMA_Queue::~DMA_Queue()	16	static
-DMA.hpp:144:18:virtual void touchgfx::DMA_Interface::initialize()	16	static
-DMA.hpp:212:21:virtual touchgfx::DMAType touchgfx::DMA_Interface::getDMAType()	16	static
-DMA.hpp:218:13:touchgfx::DMA_Interface::~DMA_Interface()	16	static
-DMA.hpp:218:13:virtual touchgfx::DMA_Interface::~DMA_Interface()	16	static
-DMA.hpp:228:5:touchgfx::DMA_Interface::DMA_Interface(touchgfx::DMA_Queue&)	16	static
 Gestures.hpp:36:9:touchgfx::Gestures::DragState::DragState()	16	static
 Gestures.hpp:60:5:touchgfx::Gestures::Gestures()	16	static
 TouchController.hpp:30:13:touchgfx::TouchController::~TouchController()	16	static
@@ -55,24 +47,14 @@ TouchController.hpp:30:13:virtual touchgfx::TouchController::~TouchController()	
 HAL.hpp:55:5:touchgfx::HAL::HAL(touchgfx::DMA_Interface&, touchgfx::LCD&, touchgfx::TouchController&, uint16_t, uint16_t)	24	static
 HAL.hpp:103:13:touchgfx::HAL::~HAL()	16	static
 HAL.hpp:103:13:virtual touchgfx::HAL::~HAL()	16	static
-HAL.hpp:579:18:virtual void touchgfx::HAL::backPorchExited()	16	static
-BlitOp.hpp:46:8:touchgfx::BlitOp::BlitOp()	16	static
-NoDMA.hpp:36:5:touchgfx::NoDMA::NoDMA()	16	static
-NoDMA.hpp:46:28:virtual touchgfx::BlitOperations touchgfx::NoDMA::getBlitCaps()	16	static
-NoDMA.hpp:56:18:virtual void touchgfx::NoDMA::setupDataCopy(const touchgfx::BlitOp&)	16	static
-NoDMA.hpp:66:18:virtual void touchgfx::NoDMA::setupDataFill(const touchgfx::BlitOp&)	16	static
-NoDMA.hpp:72:18:virtual void touchgfx::NoDMA::signalDMAInterrupt()	16	static
-NoDMA.hpp:80:18:virtual void touchgfx::NoDMA::flush()	16	static
 TouchGFXGeneratedHAL.hpp:43:5:TouchGFXGeneratedHAL::TouchGFXGeneratedHAL(touchgfx::DMA_Interface&, touchgfx::LCD&, touchgfx::TouchController&, uint16_t, uint16_t)	32	static
 TouchGFXGeneratedHAL.hpp:27:7:TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
 TouchGFXGeneratedHAL.hpp:27:7:virtual TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
 TouchGFXHAL.hpp:46:5:TouchGFXHAL::TouchGFXHAL(touchgfx::DMA_Interface&, touchgfx::LCD&, touchgfx::TouchController&, uint16_t, uint16_t)	32	static
 TouchController.hpp:26:7:constexpr touchgfx::TouchController::TouchController()	16	static
 STM32TouchController.hpp:36:5:STM32TouchController::STM32TouchController()	16	static
-TouchGFXConfiguration.cpp:37:6:void touchgfx_init()	32	static
-TouchGFXConfiguration.cpp:57:6:void touchgfx_taskEntry()	8	static
-NoDMA.hpp:33:7:touchgfx::NoDMA::~NoDMA()	16	static
-NoDMA.hpp:33:7:virtual touchgfx::NoDMA::~NoDMA()	16	static
+TouchGFXConfiguration.cpp:36:6:void touchgfx_init()	32	static
+TouchGFXConfiguration.cpp:56:6:void touchgfx_taskEntry()	8	static
 FrontendHeap.hpp:6:7:FrontendHeap::~FrontendHeap()	16	static
 FrontendHeap.hpp:6:7:virtual FrontendHeap::~FrontendHeap()	16	static
 Partition.hpp:42:7:touchgfx::Partition<touchgfx::meta::TypeList<touchgfx::NoTransition, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >, 1>::~Partition()	16	static
@@ -83,15 +65,13 @@ Partition.hpp:42:7:touchgfx::Partition<touchgfx::meta::TypeList<mainPresenter, t
 Partition.hpp:42:7:virtual touchgfx::Partition<touchgfx::meta::TypeList<mainPresenter, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >, 1>::~Partition()	16	static
 TouchGFXHAL.hpp:30:7:TouchGFXHAL::~TouchGFXHAL()	16	static
 TouchGFXHAL.hpp:30:7:virtual TouchGFXHAL::~TouchGFXHAL()	16	static
-LCD32bpp.hpp:40:7:touchgfx::LCD32bpp::~LCD32bpp()	16	static
-LCD32bpp.hpp:40:7:virtual touchgfx::LCD32bpp::~LCD32bpp()	16	static
+LCD24bpp.hpp:37:7:touchgfx::LCD24bpp::~LCD24bpp()	16	static
+LCD24bpp.hpp:37:7:virtual touchgfx::LCD24bpp::~LCD24bpp()	16	static
 STM32TouchController.hpp:32:7:STM32TouchController::~STM32TouchController()	16	static
 STM32TouchController.hpp:32:7:virtual STM32TouchController::~STM32TouchController()	16	static
-TouchGFXConfiguration.cpp:68:1:void __static_initialization_and_destruction_0(int, int)	24	static
+TouchGFXConfiguration.cpp:65:1:void __static_initialization_and_destruction_0(int, int)	24	static
 Callback.hpp:424:8:touchgfx::Callback<FrontendApplicationBase>::~Callback()	16	static
 Callback.hpp:424:8:virtual touchgfx::Callback<FrontendApplicationBase>::~Callback()	16	static
-DMA.hpp:87:7:touchgfx::LockFreeDMA_Queue::~LockFreeDMA_Queue()	16	static
-DMA.hpp:87:7:virtual touchgfx::LockFreeDMA_Queue::~LockFreeDMA_Queue()	16	static
 ApplicationFontProvider.hpp:29:7:ApplicationFontProvider::~ApplicationFontProvider()	16	static
 ApplicationFontProvider.hpp:29:7:virtual ApplicationFontProvider::~ApplicationFontProvider()	16	static
 Partition.hpp:58:22:uint16_t touchgfx::Partition<ListOfTypes, NUMBER_OF_ELEMENTS>::capacity() const [with ListOfTypes = touchgfx::meta::TypeList<touchgfx::NoTransition, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >; short unsigned int NUMBER_OF_ELEMENTS = 1]	16	static
@@ -108,5 +88,5 @@ Partition.hpp:69:19:void* touchgfx::Partition<ListOfTypes, NUMBER_OF_ELEMENTS>::
 Partition.hpp:74:25:const void* touchgfx::Partition<ListOfTypes, NUMBER_OF_ELEMENTS>::element(uint16_t) const [with ListOfTypes = touchgfx::meta::TypeList<mainPresenter, touchgfx::meta::TypeList<touchgfx::meta::Nil, touchgfx::meta::Nil> >; short unsigned int NUMBER_OF_ELEMENTS = 1]	16	static
 Callback.hpp:449:18:void touchgfx::Callback<dest_type, void, void, void>::execute() [with dest_type = FrontendApplicationBase]	16	static
 Callback.hpp:459:18:bool touchgfx::Callback<dest_type, void, void, void>::isValid() const [with dest_type = FrontendApplicationBase]	16	static
-TouchGFXConfiguration.cpp:68:1:cpp)	8	static
-TouchGFXConfiguration.cpp:68:1:cpp)	8	static
+TouchGFXConfiguration.cpp:65:1:cpp)	8	static
+TouchGFXConfiguration.cpp:65:1:cpp)	8	static

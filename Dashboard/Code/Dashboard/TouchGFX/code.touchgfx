@@ -39,6 +39,24 @@
             "Clickable": false,
             "Fadeable": false,
             "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
+            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
+            "Alpha": 255,
+            "Style": "Style4",
+            "Name": "button1",
+            "X": 315,
+            "Y": 215,
+            "Width": 170,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
           }
         ],
         "Interactions": [],
@@ -249,18 +267,19 @@
       "Width": 800,
       "Height": 480
     },
-    "SelectedColorDepth": 32,
-    "StartupScreenName": "main",
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "start",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "AvailableColorDepths": [
-      32
+      24
     ],
     "AvailableLCDs": {
       "16": "LCD16bpp",
-      "32": "LCD32bpp"
+      "32": "LCD32bpp",
+      "24": "LCD24bpp"
     },
     "AvailableSections": [
       "ExtFlashSection",
@@ -274,8 +293,8 @@
     ],
     "PhysicalButtons": [],
     "FrameworkFeatures": {
-      "LCD32bpp": {
-        "Id": "LCD32bpp",
+      "LCD24bpp": {
+        "Id": "LCD24bpp",
         "IsEnabled": true
       }
     },

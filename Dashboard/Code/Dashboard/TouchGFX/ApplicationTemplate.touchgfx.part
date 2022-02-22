@@ -3,10 +3,10 @@
   "Application": {
     "Name": "code",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
-    "AvailableColorDepths": [ 32 ],
+    "AvailableColorDepths": [ 24 ],
     "AvailableLCDs":
     {
-      "32": "LCD32bpp"
+      "24": "LCD24bpp"
     },
     "AvailableResolutions" : [
       {
