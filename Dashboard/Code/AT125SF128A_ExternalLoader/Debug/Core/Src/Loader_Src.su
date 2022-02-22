@@ -1,0 +1,7 @@
+Loader_Src.c:17:1:Init	24	static,ignoring_inline_asm
+Loader_Src.c:72:5:Write	40	static,ignoring_inline_asm
+Loader_Src.c:99:1:SectorErase	32	static,ignoring_inline_asm
+Loader_Src.c:128:5:MassErase	24	static,ignoring_inline_asm
+Loader_Src.c:159:1:CheckSum	40	static
+Loader_Src.c:233:1:Verify	64	static,ignoring_inline_asm
+Loader_Src.c:261:5:Read	40	static,ignoring_inline_asm
