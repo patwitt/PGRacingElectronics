@@ -335,8 +335,8 @@ uint8_t FLASH_QSPI_Write(uint8_t *pData, uint32_t WriteAddr, uint32_t Size) {
 	uint32_t end_addr, current_size, current_addr;
 
 	/* Calculation of the size between the write address and the end of the page */
-	current_size = AT25SF128A_SECTOR_SIZE
-			- (WriteAddr % AT25SF128A_SECTOR_SIZE);
+	current_size = AT25SF128A_PAGE_SIZE
+			- (WriteAddr % AT25SF128A_PAGE_SIZE);
 
 	/* Check if the size of the data is less than the remaining place in the page */
 	if (current_size > Size) {
