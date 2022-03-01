@@ -192,7 +192,7 @@ SECTIONS
   	*(ExtFlashSection ExtFlashSection.*)
   	*(.gnu.linkonce.r.*)
   	. = ALIGN(0x4);
-  } > FLASH
+  } > QUADSPI
   
   TouchGFX_Framebuffer :
   {

@@ -53,7 +53,8 @@ Application/User/Core/main.o: \
  ../../Core/Inc/crc.h ../../Core/Inc/main.h ../../Core/Inc/dma2d.h \
  ../../Core/Inc/i2c.h ../../Core/Inc/ltdc.h ../../Core/Inc/quadspi.h \
  ../../Core/Inc/tim.h ../../Core/Inc/usart.h ../../Core/Inc/gpio.h \
- ../../Core/Inc/fmc.h ../../TouchGFX/App/app_touchgfx.h
+ ../../Core/Inc/fmc.h ../../TouchGFX/App/app_touchgfx.h \
+ ../../Core/Inc/at25sf128a.h
 
 ../../Core/Inc/main.h:
 
@@ -176,3 +177,5 @@ Application/User/Core/main.o: \
 ../../Core/Inc/fmc.h:
 
 ../../TouchGFX/App/app_touchgfx.h:
+
+../../Core/Inc/at25sf128a.h:

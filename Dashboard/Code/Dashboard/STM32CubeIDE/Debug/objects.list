@@ -1,3 +1,4 @@
+"./Application/User/Core/at25sf128a.o"
 "./Application/User/Core/crc.o"
 "./Application/User/Core/dma2d.o"
 "./Application/User/Core/fmc.o"
@@ -44,6 +45,7 @@
 "./Application/User/generated/UnmappedDataFont.o"
 "./Application/User/generated/image_Blue_Buttons_Round_Edge_small.o"
 "./Application/User/generated/image_Blue_Buttons_Round_Edge_small_pressed.o"
+"./Application/User/generated/image_Zrzut_ekranu_2021-10-27_202950.o"
 "./Application/User/generated/mainViewBase.o"
 "./Application/User/generated/startViewBase.o"
 "./Application/User/gui/FrontendApplication.o"

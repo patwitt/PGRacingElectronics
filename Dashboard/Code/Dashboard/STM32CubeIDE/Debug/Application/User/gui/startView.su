@@ -31,8 +31,8 @@ TypedText.hpp:65:13:touchgfx::TypedText::~TypedText()	16	static
 TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	16	static
 View.hpp:36:7:touchgfx::View<startPresenter>::~View()	16	static
 View.hpp:36:7:virtual touchgfx::View<startPresenter>::~View()	16	static
-startViewBase.hpp:18:13:startViewBase::~startViewBase()	16	static
-startViewBase.hpp:18:13:virtual startViewBase::~startViewBase()	16	static
+startViewBase.hpp:19:13:startViewBase::~startViewBase()	16	static
+startViewBase.hpp:19:13:virtual startViewBase::~startViewBase()	16	static
 startView.hpp:11:13:startView::~startView()	16	static
 startView.hpp:11:13:virtual startView::~startView()	16	static
 startView.cpp:3:1:startView::startView()	16	static
@@ -46,3 +46,7 @@ Button.hpp:31:7:touchgfx::Button::~Button()	16	static
 Button.hpp:31:7:virtual touchgfx::Button::~Button()	16	static
 ButtonWithLabel.hpp:38:7:touchgfx::ButtonWithLabel::~ButtonWithLabel()	16	static
 ButtonWithLabel.hpp:38:7:virtual touchgfx::ButtonWithLabel::~ButtonWithLabel()	16	static
+Image.hpp:38:7:touchgfx::Image::~Image()	16	static
+Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
+ScalableImage.hpp:35:7:touchgfx::ScalableImage::~ScalableImage()	16	static
+ScalableImage.hpp:35:7:virtual touchgfx::ScalableImage::~ScalableImage()	16	static

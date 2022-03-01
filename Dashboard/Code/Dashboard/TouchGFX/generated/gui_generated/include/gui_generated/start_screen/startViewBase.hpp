@@ -10,6 +10,7 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/widgets/ScalableImage.hpp>
 
 class startViewBase : public touchgfx::View<startPresenter>
 {
@@ -30,6 +31,7 @@ protected:
     touchgfx::Box box1;
     touchgfx::Button button1;
     touchgfx::ButtonWithLabel buttonWithLabel1;
+    touchgfx::ScalableImage scalableImage1;
 
 private:
 
