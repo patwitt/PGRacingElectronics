@@ -1,0 +1,8 @@
+main.c:79:5:main	16	static
+main.c:133:6:SystemClock_Config	88	static
+main.c:169:6:JumpToAddress	32	static,ignoring_inline_asm
+main.c:185:6:JumpToApplication	8	static
+main.c:189:9:EraseUserApplication	40	static
+main.c:209:9:WriteUserApplication	32	static
+main.c:227:6:SendBackup	16	static
+main.c:241:6:Error_Handler	4	static,ignoring_inline_asm
