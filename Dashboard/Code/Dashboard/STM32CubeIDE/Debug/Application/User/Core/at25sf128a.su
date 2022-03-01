@@ -1,0 +1,11 @@
+at25sf128a.c:18:9:FLASH_QSPI_Init	8	static
+at25sf128a.c:66:9:FLASH_QSPI_EraseChip	64	static
+at25sf128a.c:98:9:FLASH_QSPI_EraseSector	72	static
+at25sf128a.c:140:9:FLASH_QSPI_EraseBlock	72	static
+at25sf128a.c:175:9:FLASH_QSPI_ResetChip	72	static,ignoring_inline_asm
+at25sf128a.c:218:9:FLASH_QSPI_AutoPollingMemReady	88	static
+at25sf128a.c:249:16:FLASH_QSPI_WriteEnable	88	static
+at25sf128a.c:288:9:FLASH_QSPI_Configuration	72	static
+at25sf128a.c:349:9:FLASH_QSPI_Write	96	static
+at25sf128a.c:416:9:FLASH_QSPI_Read	80	static
+at25sf128a.c:460:9:FLASH_QSPI_EnableMemoryMappedMode	72	static
