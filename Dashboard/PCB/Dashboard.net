@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\PCB\Dashboard.sch)
-    (date "03.03.2022 11:44:06")
+    (date "03.03.2022 11:59:05")
     (tool "Eeschema (5.1.8)-1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -364,7 +364,7 @@
       (tstamp 619B6E9F))
     (comp (ref U3)
       (value MP2359DJ-LF-Z)
-      (footprint Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm)
+      (footprint SOT-583:SOTFL50P160X60-8N)
       (libsource (lib Regulator_Controller) (part MP2359DJ-LF-Z) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 61AA58CC))
@@ -433,7 +433,7 @@
       (tstamp 6256E189))
     (comp (ref U6)
       (value MP2332H)
-      (footprint SOT-583:SOTFL50P160X60-8N)
+      (footprint Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm)
       (libsource (lib Regulator_Controller) (part MP2332H) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 619D5838))
