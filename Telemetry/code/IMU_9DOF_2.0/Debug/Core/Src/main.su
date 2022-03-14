@@ -1,0 +1,5 @@
+main.c:73:6:imu_9dof_convert	16	static
+main.c:83:6:imu_9dof_get_data	16	static
+main.c:95:5:main	80	static
+main.c:142:6:SystemClock_Config	112	static
+main.c:194:6:Error_Handler	8	static,ignoring_inline_asm
