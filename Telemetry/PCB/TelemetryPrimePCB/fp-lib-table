@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name MP2359DT-LF-P)(type KiCad)(uri "X:/Kicad Projects/PGRacingElectronics/KICAD_libs/footprints/MP2359DT-LF-P.pretty")(options "")(descr ""))
+  (lib (name footprints)(type KiCad)(uri "X:/Kicad Projects/PGRacingElectronics/KICAD_libs/footprints")(options "")(descr ""))
+  (lib (name MCP2562-E_P)(type Legacy)(uri ${KIPRJMOD}/KICAD_libs/footprints/MCP/MCP2562-E_P.mod)(options "")(descr ""))
+)

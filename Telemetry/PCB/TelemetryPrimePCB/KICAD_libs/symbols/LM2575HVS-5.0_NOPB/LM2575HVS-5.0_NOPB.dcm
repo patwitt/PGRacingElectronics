@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM2575HVS-5.0_NOPB
+D LM2575HVS-5.0/NOPB, Switching Regulator,, Buck Controller 1A, 5 V, 58 kHz, 6-Pin TO-263
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036590.pdf
+$ENDCMP
+#
+#End Doc Library

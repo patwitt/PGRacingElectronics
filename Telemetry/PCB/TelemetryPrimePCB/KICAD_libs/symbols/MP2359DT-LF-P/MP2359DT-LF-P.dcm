@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MP2359DT-LF-P
+D MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6
+K
+F https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf
+$ENDCMP
+#
+#End Doc Library
