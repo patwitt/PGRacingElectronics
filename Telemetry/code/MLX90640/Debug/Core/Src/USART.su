@@ -1,0 +1,2 @@
+USART.c:18:6:uart_init	16	static
+USART.c:41:6:MYDMA_Config	24	static
