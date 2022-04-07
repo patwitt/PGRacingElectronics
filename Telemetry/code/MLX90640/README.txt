@@ -1,0 +1,9 @@
+I2C
+
+SCL -> PB8
+SDA -> PB9
+
+UART
+
+RX -> PA3
+TX -> PA2
