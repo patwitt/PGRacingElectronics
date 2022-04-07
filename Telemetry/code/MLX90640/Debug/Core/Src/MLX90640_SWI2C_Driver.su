@@ -1,0 +1,13 @@
+MLX90640_SWI2C_Driver.c:7:6:MLX90640_I2CInit	8	static
+MLX90640_SWI2C_Driver.c:12:5:MLX90640_I2CRead	1720	static
+MLX90640_SWI2C_Driver.c:73:6:MLX90640_I2CFreqSet	16	static
+MLX90640_SWI2C_Driver.c:78:5:MLX90640_I2CWrite	32	static
+MLX90640_SWI2C_Driver.c:122:5:I2CSendByte	32	static
+MLX90640_SWI2C_Driver.c:156:6:I2CReadBytes	32	static
+MLX90640_SWI2C_Driver.c:196:6:Wait	24	static
+MLX90640_SWI2C_Driver.c:207:6:I2CStart	8	static
+MLX90640_SWI2C_Driver.c:222:6:I2CStop	8	static
+MLX90640_SWI2C_Driver.c:235:6:I2CRepeatedStart	8	static
+MLX90640_SWI2C_Driver.c:251:6:I2CSendACK	8	static
+MLX90640_SWI2C_Driver.c:266:6:I2CSendNack	8	static
+MLX90640_SWI2C_Driver.c:280:5:I2CReceiveAck	16	static
