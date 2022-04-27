@@ -1312,7 +1312,7 @@ U 1 1 6278F43B
 P 8900 3050
 F 0 "PS2" H 9400 3315 50  0000 C CNN
 F 1 "MP2359DT-LF-P" H 9400 3224 50  0000 C CNN
-F 2 "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm_ThermalVias" H 9750 3150 50  0001 L CNN
+F 2 "SamacSys_Parts:SOT95P280X145-6N" H 9750 3150 50  0001 L CNN
 F 3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" H 9750 3050 50  0001 L CNN
 F 4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" H 9750 2950 50  0001 L CNN "Description"
 F 5 "1.45" H 9750 2850 50  0001 L CNN "Height"
@@ -1555,7 +1555,7 @@ U 1 1 627F0ED5
 P 8400 4450
 F 0 "PS1" H 8900 4715 50  0000 C CNN
 F 1 "MP2359DT-LF-P" H 8900 4624 50  0000 C CNN
-F 2 "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm_ThermalVias" H 9250 4550 50  0001 L CNN
+F 2 "SamacSys_Parts:SOT95P280X145-6N" H 9250 4550 50  0001 L CNN
 F 3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" H 9250 4450 50  0001 L CNN
 F 4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" H 9250 4350 50  0001 L CNN "Description"
 F 5 "1.45" H 9250 4250 50  0001 L CNN "Height"
@@ -2087,9 +2087,9 @@ GND_MIC&ANC
 Text Notes 2550 6450 0    50   ~ 0
 PUSH TO TALK //SPRAWDZIC W PROTO\n
 Text GLabel -1100 9700 3    50   Input ~ 0
-GND
+GND_MIC&ANC
 Text GLabel 1950 9300 3    50   Input ~ 0
-GND
+GND_MIC&ANC
 NoConn ~ 5050 7400
 NoConn ~ 3700 5750
 Text GLabel 3750 7050 2    50   Input ~ 0
@@ -2292,17 +2292,6 @@ F 3 "" H 6700 7100 50  0001 C CNN
 $EndComp
 Connection ~ 6700 7100
 NoConn ~ 3700 5650
-$Comp
-L power:GND #PWR0161
-U 1 1 628795A2
-P 5050 7300
-F 0 "#PWR0161" H 5050 7050 50  0001 C CNN
-F 1 "GND" V 5055 7172 50  0000 R CNN
-F 2 "" H 5050 7300 50  0001 C CNN
-F 3 "" H 5050 7300 50  0001 C CNN
-	1    5050 7300
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	6050 7100 6700 7100
 Wire Wire Line
@@ -2316,4 +2305,6 @@ Text GLabel 6050 7200 2    50   Input ~ 0
 I2C2_SCL
 Text GLabel 6050 7300 2    50   Input ~ 0
 12C2_SDA
+Text GLabel 5050 7300 0    50   Input ~ 0
+GND_MIC&ANC
 $EndSCHEMATC
