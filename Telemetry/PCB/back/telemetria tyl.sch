@@ -1835,7 +1835,7 @@ Text GLabel 1950 9300 3    50   Input ~ 0
 GND_MIC&ANC
 NoConn ~ 5050 7400
 NoConn ~ 3700 5750
-Text GLabel 3750 7050 2    50   Input ~ 0
+Text GLabel 4050 7050 2    50   Input ~ 0
 GND_MIC&ANC
 Text GLabel 2950 7150 0    50   Input ~ 0
 GND_SPK
@@ -1845,23 +1845,6 @@ Text GLabel 4400 6000 0    50   Input ~ 0
 TX_DATA
 Text GLabel 4400 5900 0    50   Input ~ 0
 SPK+
-$Comp
-L BC846BW:BC846BW BJT1
-U 1 1 62596133
-P 2950 7050
-F 0 "BJT1" H 3350 7315 50  0000 C CNN
-F 1 "BC846BW,115" H 3350 7224 50  0000 C CNN
-F 2 "SamacSys_Parts:SOT65P210X110-3N" H 3600 7150 50  0001 L CNN
-F 3 "http://www.nxp.com/documents/data_sheet/BC846_SER.pdf" H 3600 7050 50  0001 L CNN
-F 4 "Bipolar Transistors - BJT TRANS GP TAPE-7" H 3600 6950 50  0001 L CNN "Description"
-F 5 "1.1" H 3600 6850 50  0001 L CNN "Height"
-F 6 "771-BC846BW-T/R" H 3600 6750 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/BC846BW115?qs=me8TqzrmIYXeHaJTKQ9DIQ%3D%3D" H 3600 6650 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Nexperia" H 3600 6550 50  0001 L CNN "Manufacturer_Name"
-F 9 "BC846BW,115" H 3600 6450 50  0001 L CNN "Manufacturer_Part_Number"
-	1    2950 7050
-	1    0    0    -1  
-$EndComp
 Text GLabel 4400 5800 0    50   Input ~ 0
 GND_MIC&ANC
 NoConn ~ 5300 5600
@@ -2452,6 +2435,45 @@ Wire Wire Line
 	8400 6400 8050 6400
 Text GLabel 1300 2850 0    50   Input ~ 0
 PTT
-Text GLabel 2950 7050 0    50   Input ~ 0
+$Comp
+L Device:R R22
+U 1 1 629D953B
+P 3900 7050
+F 0 "R22" V 3693 7050 50  0000 C CNN
+F 1 "1k" V 3784 7050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3830 7050 50  0001 C CNN
+F 3 "~" H 3900 7050 50  0001 C CNN
+	1    3900 7050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R21
+U 1 1 629DA4E2
+P 2800 7050
+F 0 "R21" V 2593 7050 50  0000 C CNN
+F 1 "4.7k" V 2684 7050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2730 7050 50  0001 C CNN
+F 3 "~" H 2800 7050 50  0001 C CNN
+	1    2800 7050
+	0    1    1    0   
+$EndComp
+Text GLabel 2650 7050 0    50   Input ~ 0
 PTT
+$Comp
+L BC846BW:BC846BW BJT1
+U 1 1 62596133
+P 2950 7050
+F 0 "BJT1" H 3350 7315 50  0000 C CNN
+F 1 "BC846BW,115" H 3350 7224 50  0000 C CNN
+F 2 "SamacSys_Parts:SOT65P210X110-3N" H 3600 7150 50  0001 L CNN
+F 3 "http://www.nxp.com/documents/data_sheet/BC846_SER.pdf" H 3600 7050 50  0001 L CNN
+F 4 "Bipolar Transistors - BJT TRANS GP TAPE-7" H 3600 6950 50  0001 L CNN "Description"
+F 5 "1.1" H 3600 6850 50  0001 L CNN "Height"
+F 6 "771-BC846BW-T/R" H 3600 6750 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/BC846BW115?qs=me8TqzrmIYXeHaJTKQ9DIQ%3D%3D" H 3600 6650 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Nexperia" H 3600 6550 50  0001 L CNN "Manufacturer_Name"
+F 9 "BC846BW,115" H 3600 6450 50  0001 L CNN "Manufacturer_Part_Number"
+	1    2950 7050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
