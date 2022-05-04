@@ -40,7 +40,7 @@ L Device:R R4
 U 1 1 623419BA
 P 7200 2100
 F 0 "R4" H 7270 2146 50  0000 L CNN
-F 1 "R" H 7270 2055 50  0000 L CNN
+F 1 "120" H 7270 2055 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7130 2100 50  0001 C CNN
 F 3 "~" H 7200 2100 50  0001 C CNN
 	1    7200 2100
@@ -79,59 +79,19 @@ Wire Wire Line
 	5300 2550 5300 2350
 Wire Wire Line
 	5300 2350 5550 2350
-$Comp
-L Device:Jumper JP2
-U 1 1 6234744E
-P 7200 1450
-F 0 "JP2" V 7246 1362 50  0000 R CNN
-F 1 "Jumper" V 7155 1362 50  0000 R CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 7200 1450 50  0001 C CNN
-F 3 "~" H 7200 1450 50  0001 C CNN
-	1    7200 1450
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Jumper:Jumper_3_Bridged12 JP1
-U 1 1 62348715
-P 6050 1300
-F 0 "JP1" H 6050 1504 50  0000 C CNN
-F 1 "Jumper_3_Bridged12" H 6050 1413 50  0000 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 1300 50  0001 C CNN
-F 3 "~" H 6050 1300 50  0001 C CNN
-	1    6050 1300
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6050 1750 6050 1450
 $Comp
-L power:+3.3V #PWR0102
-U 1 1 6234E1D3
-P 5500 1300
-F 0 "#PWR0102" H 5500 1150 50  0001 C CNN
-F 1 "+3.3V" H 5515 1473 50  0000 C CNN
-F 2 "" H 5500 1300 50  0001 C CNN
-F 3 "" H 5500 1300 50  0001 C CNN
-	1    5500 1300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5500 1300 5800 1300
-Connection ~ 5800 1300
-Wire Wire Line
-	5800 1300 5850 1300
-$Comp
 L power:+5V #PWR0103
 U 1 1 6234F920
-P 6500 1300
-F 0 "#PWR0103" H 6500 1150 50  0001 C CNN
-F 1 "+5V" H 6515 1473 50  0000 C CNN
-F 2 "" H 6500 1300 50  0001 C CNN
-F 3 "" H 6500 1300 50  0001 C CNN
-	1    6500 1300
+P 6050 1450
+F 0 "#PWR0103" H 6050 1300 50  0001 C CNN
+F 1 "+5V" H 6065 1623 50  0000 C CNN
+F 2 "" H 6050 1450 50  0001 C CNN
+F 3 "" H 6050 1450 50  0001 C CNN
+	1    6050 1450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6300 1300 6500 1300
 Wire Wire Line
 	6550 2050 6950 2050
 Wire Wire Line
@@ -140,8 +100,6 @@ Wire Wire Line
 	6950 1150 7200 1150
 Wire Wire Line
 	6550 2250 7200 2250
-Wire Wire Line
-	7200 1950 7200 1750
 Text GLabel 5550 2050 0    50   Input ~ 0
 CAN1_RX
 Text GLabel 5550 1950 0    50   Input ~ 0
@@ -1596,440 +1554,434 @@ $EndComp
 $Comp
 L 5749268-1:5749268-1 Mini_DIN_IN1
 U 1 1 62488993
-P 2800 5650
-F 0 "Mini_DIN_IN1" H 3250 5915 50  0000 C CNN
-F 1 "5749268-1" H 3250 5824 50  0000 C CNN
-F 2 "SamacSys_Parts:57492681" H 3550 5750 50  0001 L CNN
-F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F5749268%7FO%7Fpdf%7FEnglish%7FENG_CD_5749268_O.pdf%7F5749268-1.pdf" H 3550 5650 50  0001 L CNN
-F 4 "Circular DIN Connectors 8 P R/A W/O HOLDDOWN" H 3550 5550 50  0001 L CNN "Description"
-F 5 "13" H 3550 5450 50  0001 L CNN "Height"
-F 6 "571-5749268-1" H 3550 5350 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5749268-1?qs=BU%252BKxOECzi7rjBKKXjFTsQ%3D%3D" H 3550 5250 50  0001 L CNN "Mouser Price/Stock"
-F 8 "TE Connectivity" H 3550 5150 50  0001 L CNN "Manufacturer_Name"
-F 9 "5749268-1" H 3550 5050 50  0001 L CNN "Manufacturer_Part_Number"
-	1    2800 5650
+P 14350 3550
+F 0 "Mini_DIN_IN1" H 14800 3815 50  0000 C CNN
+F 1 "5749268-1" H 14800 3724 50  0000 C CNN
+F 2 "SamacSys_Parts:57492681" H 15100 3650 50  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F5749268%7FO%7Fpdf%7FEnglish%7FENG_CD_5749268_O.pdf%7F5749268-1.pdf" H 15100 3550 50  0001 L CNN
+F 4 "Circular DIN Connectors 8 P R/A W/O HOLDDOWN" H 15100 3450 50  0001 L CNN "Description"
+F 5 "13" H 15100 3350 50  0001 L CNN "Height"
+F 6 "571-5749268-1" H 15100 3250 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5749268-1?qs=BU%252BKxOECzi7rjBKKXjFTsQ%3D%3D" H 15100 3150 50  0001 L CNN "Mouser Price/Stock"
+F 8 "TE Connectivity" H 15100 3050 50  0001 L CNN "Manufacturer_Name"
+F 9 "5749268-1" H 15100 2950 50  0001 L CNN "Manufacturer_Part_Number"
+	1    14350 3550
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C22
 U 1 1 6248C467
-P -2000 8550
-F 0 "C22" V -2252 8550 50  0000 C CNN
-F 1 "C" V -2161 8550 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H -1962 8400 50  0001 C CNN
-F 3 "~" H -2000 8550 50  0001 C CNN
-	1    -2000 8550
+P 13100 5250
+F 0 "C22" V 12848 5250 50  0000 C CNN
+F 1 "C" V 12939 5250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13138 5100 50  0001 C CNN
+F 3 "~" H 13100 5250 50  0001 C CNN
+	1    13100 5250
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C10
 U 1 1 6248E948
-P -1100 9550
-F 0 "C10" H -985 9596 50  0000 L CNN
-F 1 "C" H -985 9505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H -1062 9400 50  0001 C CNN
-F 3 "~" H -1100 9550 50  0001 C CNN
-	1    -1100 9550
+P 14000 6250
+F 0 "C10" H 14115 6296 50  0000 L CNN
+F 1 "C" H 14115 6205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 14038 6100 50  0001 C CNN
+F 3 "~" H 14000 6250 50  0001 C CNN
+	1    14000 6250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R14
 U 1 1 62490B6C
-P -800 9100
-F 0 "R14" V -1007 9100 50  0000 C CNN
-F 1 "R" V -916 9100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V -870 9100 50  0001 C CNN
-F 3 "~" H -800 9100 50  0001 C CNN
-	1    -800 9100
+P 14300 5800
+F 0 "R14" V 14093 5800 50  0000 C CNN
+F 1 "R" V 14184 5800 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 14230 5800 50  0001 C CNN
+F 3 "~" H 14300 5800 50  0001 C CNN
+	1    14300 5800
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R10
 U 1 1 62491EBD
-P -1100 9250
-F 0 "R10" H -1030 9296 50  0000 L CNN
-F 1 "R" H -1030 9205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V -1170 9250 50  0001 C CNN
-F 3 "~" H -1100 9250 50  0001 C CNN
-	1    -1100 9250
+P 14000 5950
+F 0 "R10" H 14070 5996 50  0000 L CNN
+F 1 "R" H 14070 5905 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 13930 5950 50  0001 C CNN
+F 3 "~" H 14000 5950 50  0001 C CNN
+	1    14000 5950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R9
 U 1 1 624961A7
-P -1450 9350
-F 0 "R9" H -1380 9396 50  0000 L CNN
-F 1 "1M" H -1380 9305 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V -1520 9350 50  0001 C CNN
-F 3 "~" H -1450 9350 50  0001 C CNN
-	1    -1450 9350
+P 13650 6050
+F 0 "R9" H 13720 6096 50  0000 L CNN
+F 1 "1M" H 13720 6005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 13580 6050 50  0001 C CNN
+F 3 "~" H 13650 6050 50  0001 C CNN
+	1    13650 6050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-1100 9700 -1450 9700
+	14000 6400 13650 6400
 Wire Wire Line
-	-1450 9200 -1450 8550
+	13650 5900 13650 5250
 Wire Wire Line
-	-1100 8550 -1450 8550
+	14000 5250 13650 5250
 Wire Wire Line
-	-1100 9100 -950 9100
+	14000 5800 14150 5800
 $Comp
 L Device:R R16
 U 1 1 6249A413
-P 1550 8700
-F 0 "R16" V 1343 8700 50  0000 C CNN
-F 1 "R" V 1434 8700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 1480 8700 50  0001 C CNN
-F 3 "~" H 1550 8700 50  0001 C CNN
-	1    1550 8700
+P 16650 5400
+F 0 "R16" V 16443 5400 50  0000 C CNN
+F 1 "R" V 16534 5400 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 16580 5400 50  0001 C CNN
+F 3 "~" H 16650 5400 50  0001 C CNN
+	1    16650 5400
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R15
 U 1 1 6249B630
-P 1550 8550
-F 0 "R15" V 1343 8550 50  0000 C CNN
-F 1 "R" V 1434 8550 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 1480 8550 50  0001 C CNN
-F 3 "~" H 1550 8550 50  0001 C CNN
-	1    1550 8550
+P 16650 5250
+F 0 "R15" V 16443 5250 50  0000 C CNN
+F 1 "R" V 16534 5250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 16580 5250 50  0001 C CNN
+F 3 "~" H 16650 5250 50  0001 C CNN
+	1    16650 5250
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R17
 U 1 1 6249CB4C
-P 2350 8050
-F 0 "R17" V 2143 8050 50  0000 C CNN
-F 1 "R" V 2234 8050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2280 8050 50  0001 C CNN
-F 3 "~" H 2350 8050 50  0001 C CNN
-	1    2350 8050
+P 17450 4750
+F 0 "R17" V 17243 4750 50  0000 C CNN
+F 1 "R" V 17334 4750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 17380 4750 50  0001 C CNN
+F 3 "~" H 17450 4750 50  0001 C CNN
+	1    17450 4750
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C11
 U 1 1 6249D8DE
-P 1800 9150
-F 0 "C11" H 1915 9196 50  0000 L CNN
-F 1 "C" H 1915 9105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 1838 9000 50  0001 C CNN
-F 3 "~" H 1800 9150 50  0001 C CNN
-	1    1800 9150
+P 16900 5850
+F 0 "C11" H 17015 5896 50  0000 L CNN
+F 1 "C" H 17015 5805 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 16938 5700 50  0001 C CNN
+F 3 "~" H 16900 5850 50  0001 C CNN
+	1    16900 5850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C21
 U 1 1 6249E704
-P 2050 9150
-F 0 "C21" H 2165 9196 50  0000 L CNN
-F 1 "C" H 2165 9105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 2088 9000 50  0001 C CNN
-F 3 "~" H 2050 9150 50  0001 C CNN
-	1    2050 9150
+P 17150 5850
+F 0 "C21" H 17265 5896 50  0000 L CNN
+F 1 "C" H 17265 5805 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 17188 5700 50  0001 C CNN
+F 3 "~" H 17150 5850 50  0001 C CNN
+	1    17150 5850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1800 9300 2050 9300
+	16900 6000 17150 6000
 Wire Wire Line
-	2050 9000 1950 9000
+	17150 5700 17050 5700
 Wire Wire Line
-	1950 9000 1950 8700
+	17050 5700 17050 5400
 Wire Wire Line
-	1950 8700 2200 8700
-Connection ~ 1950 9000
+	17050 5400 17300 5400
+Connection ~ 17050 5700
 Wire Wire Line
-	1950 9000 1800 9000
+	17050 5700 16900 5700
 Wire Wire Line
-	1950 8700 1700 8700
-Connection ~ 1950 8700
+	17050 5400 16800 5400
+Connection ~ 17050 5400
 Wire Wire Line
-	2200 8550 2200 8050
+	17300 5250 17300 4750
 Wire Wire Line
-	2300 8550 2200 8550
+	17400 5250 17300 5250
 $Comp
 L MAX5478EUD+T:MAX5478EUD+T 2channel_pot1
 U 1 1 624A1B19
-P 5050 7100
-F 0 "2channel_pot1" H 5550 7365 50  0000 C CNN
-F 1 "MAX5478EUD+T" H 5550 7274 50  0000 C CNN
-F 2 "SamacSys_Parts:SOP65P640X110-14N" H 5900 7200 50  0001 L CNN
-F 3 "https://datasheets.maximintegrated.com/en/ds/MAX5477-MAX5479.pdf" H 5900 7100 50  0001 L CNN
-F 4 "Digital Potentiometer ICs Dual, 256-Tap, Nonvolatile, I C-Interface, Digital Potentiometers" H 5900 7000 50  0001 L CNN "Description"
-F 5 "1.1" H 5900 6900 50  0001 L CNN "Height"
-F 6 "700-MAX5478EUDT" H 5900 6800 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Maxim-Integrated/MAX5478EUD%2bT?qs=CDqwynd4ZNqwvqp2waNIWA%3D%3D" H 5900 6700 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Maxim Integrated" H 5900 6600 50  0001 L CNN "Manufacturer_Name"
-F 9 "MAX5478EUD+T" H 5900 6500 50  0001 L CNN "Manufacturer_Part_Number"
-	1    5050 7100
+P 20150 3800
+F 0 "2channel_pot1" H 20650 4065 50  0000 C CNN
+F 1 "MAX5478EUD+T" H 20650 3974 50  0000 C CNN
+F 2 "SamacSys_Parts:SOP65P640X110-14N" H 21000 3900 50  0001 L CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/MAX5477-MAX5479.pdf" H 21000 3800 50  0001 L CNN
+F 4 "Digital Potentiometer ICs Dual, 256-Tap, Nonvolatile, I C-Interface, Digital Potentiometers" H 21000 3700 50  0001 L CNN "Description"
+F 5 "1.1" H 21000 3600 50  0001 L CNN "Height"
+F 6 "700-MAX5478EUDT" H 21000 3500 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Maxim-Integrated/MAX5478EUD%2bT?qs=CDqwynd4ZNqwvqp2waNIWA%3D%3D" H 21000 3400 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Maxim Integrated" H 21000 3300 50  0001 L CNN "Manufacturer_Name"
+F 9 "MAX5478EUD+T" H 21000 3200 50  0001 L CNN "Manufacturer_Part_Number"
+	1    20150 3800
 	1    0    0    -1  
 $EndComp
-NoConn ~ 3700 6050
-NoConn ~ 3700 5950
-NoConn ~ 3700 5850
-NoConn ~ 5300 5900
-NoConn ~ 5300 5800
-NoConn ~ 5300 5700
-Text GLabel 5000 8700 0    50   Input ~ 0
+NoConn ~ 15250 3950
+NoConn ~ 15250 3850
+NoConn ~ 15250 3750
+NoConn ~ 16850 3800
+NoConn ~ 16850 3700
+NoConn ~ 16850 3600
+Text GLabel 20100 5400 0    50   Input ~ 0
 V_MIC
-Text GLabel 2800 5650 0    50   Input ~ 0
+Text GLabel 14350 3550 0    50   Input ~ 0
 V_MIC
-Text GLabel 2800 5750 0    50   Input ~ 0
+Text GLabel 13200 3650 0    50   Input ~ 0
 V_ANC
-Text GLabel -2150 8550 0    50   Input ~ 0
+Text GLabel 12950 5250 0    50   Input ~ 0
 V_ANC
 $Comp
 L Device:R R18
 U 1 1 624A94E7
-P 5150 8700
-F 0 "R18" V 4943 8700 50  0000 C CNN
-F 1 "R" V 5034 8700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5080 8700 50  0001 C CNN
-F 3 "~" H 5150 8700 50  0001 C CNN
-	1    5150 8700
+P 20250 5400
+F 0 "R18" V 20043 5400 50  0000 C CNN
+F 1 "R" V 20134 5400 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 20180 5400 50  0001 C CNN
+F 3 "~" H 20250 5400 50  0001 C CNN
+	1    20250 5400
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R19
 U 1 1 624AA9B8
-P 5000 8000
-F 0 "R19" V 4793 8000 50  0000 C CNN
-F 1 "R?" V 4884 8000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4930 8000 50  0001 C CNN
-F 3 "~" H 5000 8000 50  0001 C CNN
-	1    5000 8000
+P 20100 4700
+F 0 "R19" V 19893 4700 50  0000 C CNN
+F 1 "R?" V 19984 4700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 20030 4700 50  0001 C CNN
+F 3 "~" H 20100 4700 50  0001 C CNN
+	1    20100 4700
 	0    1    1    0   
 $EndComp
-Text GLabel 7700 8700 2    50   Output ~ 0
+Text GLabel 22800 5400 2    50   Output ~ 0
 V_OUT
 $Comp
 L power:GND #PWR0159
 U 1 1 624AF5DF
-P 6700 7700
-F 0 "#PWR0159" H 6700 7450 50  0001 C CNN
-F 1 "GND" V 6705 7572 50  0000 R CNN
-F 2 "" H 6700 7700 50  0001 C CNN
-F 3 "" H 6700 7700 50  0001 C CNN
-	1    6700 7700
+P 21800 4400
+F 0 "#PWR0159" H 21800 4150 50  0001 C CNN
+F 1 "GND" V 21805 4272 50  0000 R CNN
+F 2 "" H 21800 4400 50  0001 C CNN
+F 3 "" H 21800 4400 50  0001 C CNN
+	1    21800 4400
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4700 7100 5050 7100
+	19800 3800 20150 3800
 Wire Wire Line
-	5050 7200 4850 7200
-NoConn ~ 5050 7700
-NoConn ~ 5050 7600
-NoConn ~ 5050 7500
-Text GLabel 2800 5950 0    50   Input ~ 0
+	20150 3900 19950 3900
+NoConn ~ 20150 4400
+NoConn ~ 20150 4300
+NoConn ~ 20150 4200
+Text GLabel 14350 3850 0    50   Input ~ 0
 GND_SPK
-Text GLabel 2800 6050 0    50   Input ~ 0
+Text GLabel 14350 3950 0    50   Input ~ 0
 SPK+
-Text GLabel 2800 6150 0    50   Input ~ 0
+Text GLabel 14350 4050 0    50   Input ~ 0
 TX_DATA
-Text GLabel 2800 5850 0    50   Input ~ 0
+Text GLabel 14350 3750 0    50   Input ~ 0
 GND_MIC&ANC
-Text Notes 2550 6450 0    50   ~ 0
-PUSH TO TALK //SPRAWDZIC W PROTO\n
-Text GLabel -1100 9700 3    50   Input ~ 0
+Text Notes 18350 3250 0    50   ~ 0
+PUSH TO TALK \n
+Text GLabel 14000 6400 3    50   Input ~ 0
 GND_MIC&ANC
-Text GLabel 1950 9300 3    50   Input ~ 0
+Text GLabel 17050 6000 3    50   Input ~ 0
 GND_MIC&ANC
-NoConn ~ 5050 7400
-NoConn ~ 3700 5750
-Text GLabel 4050 7050 2    50   Input ~ 0
+NoConn ~ 20150 4100
+NoConn ~ 15250 3650
+Text GLabel 19150 3750 2    50   Input ~ 0
 GND_MIC&ANC
-Text GLabel 2950 7150 0    50   Input ~ 0
+Text GLabel 18050 3850 0    50   Input ~ 0
 GND_SPK
-Text GLabel 4400 5600 0    50   Output ~ 0
+Text GLabel 15950 3500 0    50   Output ~ 0
 V_OUT
-Text GLabel 4400 6000 0    50   Input ~ 0
+Text GLabel 15950 3900 0    50   Input ~ 0
 TX_DATA
-Text GLabel 4400 5900 0    50   Input ~ 0
+Text GLabel 15950 3800 0    50   Input ~ 0
 SPK+
-Text GLabel 4400 5800 0    50   Input ~ 0
+Text GLabel 15950 3700 0    50   Input ~ 0
 GND_MIC&ANC
-NoConn ~ 5300 5600
+NoConn ~ 16850 3500
 $Comp
 L LM741CN_NOPB:LM741CN_NOPB IC2
 U 1 1 625A8DA2
-P -1100 8750
-F 0 "IC2" H 50  8185 50  0000 C CNN
-F 1 "LM741CN_NOPB" H 50  8276 50  0000 C CNN
-F 2 "DIP794W53P254L959H508Q8N" H 1050 8850 50  0001 L CNN
-F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 1050 8750 50  0001 L CNN
-F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 1050 8650 50  0001 L CNN "Description"
-F 5 "5.08" H 1050 8550 50  0001 L CNN "Height"
-F 6 "Texas Instruments" H 1050 8450 50  0001 L CNN "Manufacturer_Name"
-F 7 "LM741CN/NOPB" H 1050 8350 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "926-LM741CN/NOPB" H 1050 8250 50  0001 L CNN "Mouser Part Number"
-F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 1050 8150 50  0001 L CNN "Mouser Price/Stock"
-F 10 "LM741CN/NOPB" H 1050 8050 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 1050 7950 50  0001 L CNN "Arrow Price/Stock"
-	1    -1100 8750
+P 14000 5450
+F 0 "IC2" H 15150 4885 50  0000 C CNN
+F 1 "LM741CN_NOPB" H 15150 4976 50  0000 C CNN
+F 2 "DIP794W53P254L959H508Q8N" H 16150 5550 50  0001 L CNN
+F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 16150 5450 50  0001 L CNN
+F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 16150 5350 50  0001 L CNN "Description"
+F 5 "5.08" H 16150 5250 50  0001 L CNN "Height"
+F 6 "Texas Instruments" H 16150 5150 50  0001 L CNN "Manufacturer_Name"
+F 7 "LM741CN/NOPB" H 16150 5050 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "926-LM741CN/NOPB" H 16150 4950 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 16150 4850 50  0001 L CNN "Mouser Price/Stock"
+F 10 "LM741CN/NOPB" H 16150 4750 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 16150 4650 50  0001 L CNN "Arrow Price/Stock"
+	1    14000 5450
 	1    0    0    1   
 $EndComp
 $Comp
 L LM741CN_NOPB:LM741CN_NOPB IC3
 U 1 1 625A9FC1
-P 2300 8450
-F 0 "IC3" H 3450 8715 50  0000 C CNN
-F 1 "LM741CN_NOPB" H 3450 8624 50  0000 C CNN
-F 2 "DIP794W53P254L959H508Q8N" H 4450 8550 50  0001 L CNN
-F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 4450 8450 50  0001 L CNN
-F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 4450 8350 50  0001 L CNN "Description"
-F 5 "5.08" H 4450 8250 50  0001 L CNN "Height"
-F 6 "Texas Instruments" H 4450 8150 50  0001 L CNN "Manufacturer_Name"
-F 7 "LM741CN/NOPB" H 4450 8050 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "926-LM741CN/NOPB" H 4450 7950 50  0001 L CNN "Mouser Part Number"
-F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 4450 7850 50  0001 L CNN "Mouser Price/Stock"
-F 10 "LM741CN/NOPB" H 4450 7750 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 4450 7650 50  0001 L CNN "Arrow Price/Stock"
-	1    2300 8450
+P 17400 5150
+F 0 "IC3" H 18550 5415 50  0000 C CNN
+F 1 "LM741CN_NOPB" H 18550 5324 50  0000 C CNN
+F 2 "DIP794W53P254L959H508Q8N" H 19550 5250 50  0001 L CNN
+F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 19550 5150 50  0001 L CNN
+F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 19550 5050 50  0001 L CNN "Description"
+F 5 "5.08" H 19550 4950 50  0001 L CNN "Height"
+F 6 "Texas Instruments" H 19550 4850 50  0001 L CNN "Manufacturer_Name"
+F 7 "LM741CN/NOPB" H 19550 4750 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "926-LM741CN/NOPB" H 19550 4650 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 19550 4550 50  0001 L CNN "Mouser Price/Stock"
+F 10 "LM741CN/NOPB" H 19550 4450 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 19550 4350 50  0001 L CNN "Arrow Price/Stock"
+	1    17400 5150
 	1    0    0    -1  
 $EndComp
-Connection ~ -1450 8550
+Connection ~ 13650 5250
 Wire Wire Line
-	-1450 8550 -1850 8550
+	13650 5250 13250 5250
 Wire Wire Line
-	-1450 9700 -1450 9500
+	13650 6400 13650 6200
 Wire Wire Line
-	-650 9100 1250 9100
+	14450 5800 16350 5800
 Wire Wire Line
-	1250 9100 1250 8550
+	16350 5800 16350 5250
 Wire Wire Line
-	1250 8550 1200 8550
+	16350 5250 16300 5250
 Wire Wire Line
-	1250 8550 1400 8550
-Connection ~ 1250 8550
+	16350 5250 16500 5250
+Connection ~ 16350 5250
 Wire Wire Line
-	1400 8550 1400 8700
+	16500 5250 16500 5400
 Wire Wire Line
-	2200 8700 2200 8650
+	17300 5400 17300 5350
 Wire Wire Line
-	2200 8650 2300 8650
+	17300 5350 17400 5350
 Wire Wire Line
-	4650 8050 4650 8650
+	19750 4750 19750 5350
 Wire Wire Line
-	4650 8650 4600 8650
+	19750 5350 19700 5350
 Wire Wire Line
-	2500 8050 4650 8050
+	17600 4750 19750 4750
 Wire Wire Line
-	4650 8650 4700 8650
-Connection ~ 4650 8650
+	19750 5350 19800 5350
+Connection ~ 19750 5350
 $Comp
 L LM741CN_NOPB:LM741CN_NOPB IC1
 U 1 1 625F8333
-P 5300 8500
-F 0 "IC1" H 6450 8765 50  0000 C CNN
-F 1 "LM741CN_NOPB" H 6450 8674 50  0000 C CNN
-F 2 "DIP794W53P254L959H508Q8N" H 7450 8600 50  0001 L CNN
-F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 7450 8500 50  0001 L CNN
-F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 7450 8400 50  0001 L CNN "Description"
-F 5 "5.08" H 7450 8300 50  0001 L CNN "Height"
-F 6 "Texas Instruments" H 7450 8200 50  0001 L CNN "Manufacturer_Name"
-F 7 "LM741CN/NOPB" H 7450 8100 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "926-LM741CN/NOPB" H 7450 8000 50  0001 L CNN "Mouser Part Number"
-F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 7450 7900 50  0001 L CNN "Mouser Price/Stock"
-F 10 "LM741CN/NOPB" H 7450 7800 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 7450 7700 50  0001 L CNN "Arrow Price/Stock"
-	1    5300 8500
+P 20400 5200
+F 0 "IC1" H 21550 5465 50  0000 C CNN
+F 1 "LM741CN_NOPB" H 21550 5374 50  0000 C CNN
+F 2 "DIP794W53P254L959H508Q8N" H 22550 5300 50  0001 L CNN
+F 3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" H 22550 5200 50  0001 L CNN
+F 4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" H 22550 5100 50  0001 L CNN "Description"
+F 5 "5.08" H 22550 5000 50  0001 L CNN "Height"
+F 6 "Texas Instruments" H 22550 4900 50  0001 L CNN "Manufacturer_Name"
+F 7 "LM741CN/NOPB" H 22550 4800 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "926-LM741CN/NOPB" H 22550 4700 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" H 22550 4600 50  0001 L CNN "Mouser Price/Stock"
+F 10 "LM741CN/NOPB" H 22550 4500 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" H 22550 4400 50  0001 L CNN "Arrow Price/Stock"
+	1    20400 5200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4850 8600 5300 8600
+	19950 5300 20400 5300
 Wire Wire Line
-	4850 8000 4850 8600
+	19950 4700 19950 5300
 Wire Wire Line
-	7700 8700 7650 8700
+	22800 5400 22750 5400
 Wire Wire Line
-	7650 8700 7650 8000
+	22750 5400 22750 4700
 Wire Wire Line
-	7650 8000 5150 8000
-Connection ~ 7650 8700
+	22750 4700 20250 4700
+Connection ~ 22750 5400
 Wire Wire Line
-	7650 8700 7600 8700
+	22750 5400 22700 5400
 Wire Wire Line
-	2200 8550 1700 8550
-Connection ~ 2200 8550
-Connection ~ 1400 8550
-Text Notes 4700 5200 0    50   ~ 0
+	17300 5250 16800 5250
+Connection ~ 17300 5250
+Connection ~ 16500 5250
+Text Notes 16250 3100 0    50   ~ 0
 DIN_OUT\n
-Text Notes 3100 5250 0    50   ~ 0
+Text Notes 14650 3150 0    50   ~ 0
 DIN_IN\n
 Wire Wire Line
-	4850 8000 4850 7200
-Connection ~ 4850 8000
+	19950 4700 19950 3900
+Connection ~ 19950 4700
 Wire Wire Line
-	4700 7100 4700 8650
+	19800 3800 19800 5350
 Wire Wire Line
-	6050 7400 6050 7500
+	21150 4300 21150 4400
+Connection ~ 21150 4400
 Wire Wire Line
-	6050 7500 6050 7600
-Connection ~ 6050 7500
+	14000 5800 14000 5500
 Wire Wire Line
-	6050 7600 6050 7700
-Connection ~ 6050 7600
-Connection ~ 6050 7700
+	14000 5500 13950 5500
 Wire Wire Line
-	-1100 9100 -1100 8800
+	13950 5500 13950 5350
 Wire Wire Line
-	-1100 8800 -1150 8800
-Wire Wire Line
-	-1150 8800 -1150 8650
-Wire Wire Line
-	-1150 8650 -1100 8650
-Connection ~ -1100 9100
-NoConn ~ -1100 8750
-NoConn ~ -1100 8450
-NoConn ~ 1200 8450
-NoConn ~ 1200 8650
-NoConn ~ 2300 8750
-NoConn ~ 2300 8450
-NoConn ~ 4600 8750
-NoConn ~ 4600 8550
-NoConn ~ 5300 8800
-NoConn ~ 5300 8500
-NoConn ~ 7600 8800
-NoConn ~ 7600 8600
+	13950 5350 14000 5350
+Connection ~ 14000 5800
+NoConn ~ 14000 5450
+NoConn ~ 14000 5150
+NoConn ~ 16300 5150
+NoConn ~ 16300 5350
+NoConn ~ 17400 5450
+NoConn ~ 17400 5150
+NoConn ~ 19700 5450
+NoConn ~ 19700 5250
+NoConn ~ 20400 5500
+NoConn ~ 20400 5200
+NoConn ~ 22700 5500
+NoConn ~ 22700 5300
 $Comp
 L Device:C C9
 U 1 1 62823DA9
-P 6700 7300
-F 0 "C9" H 6900 7250 50  0000 C CNN
-F 1 "0.1uF" H 6900 7350 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6738 7150 50  0001 C CNN
-F 3 "~" H 6700 7300 50  0001 C CNN
-	1    6700 7300
+P 21800 4000
+F 0 "C9" H 22000 3950 50  0000 C CNN
+F 1 "0.1uF" H 22000 4050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 21838 3850 50  0001 C CNN
+F 3 "~" H 21800 4000 50  0001 C CNN
+	1    21800 4000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6700 7100 6700 7150
+	21800 3800 21800 3850
 $Comp
 L power:+3.3V #PWR0160
 U 1 1 6285CC39
-P 6700 7100
-F 0 "#PWR0160" H 6700 6950 50  0001 C CNN
-F 1 "+3.3V" V 6715 7228 50  0000 L CNN
-F 2 "" H 6700 7100 50  0001 C CNN
-F 3 "" H 6700 7100 50  0001 C CNN
-	1    6700 7100
+P 21800 3800
+F 0 "#PWR0160" H 21800 3650 50  0001 C CNN
+F 1 "+3.3V" V 21815 3928 50  0000 L CNN
+F 2 "" H 21800 3800 50  0001 C CNN
+F 3 "" H 21800 3800 50  0001 C CNN
+	1    21800 3800
 	0    1    1    0   
 $EndComp
-Connection ~ 6700 7100
-NoConn ~ 3700 5650
+Connection ~ 21800 3800
+NoConn ~ 15250 3550
 Wire Wire Line
-	6050 7100 6700 7100
+	21150 3800 21800 3800
 Wire Wire Line
-	6050 7700 6700 7700
-Connection ~ 6700 7700
+	21150 4400 21800 4400
+Connection ~ 21800 4400
 Wire Wire Line
-	6700 7450 6700 7700
-Text GLabel 4400 5700 0    50   Input ~ 0
+	21800 4150 21800 4400
+Text GLabel 15950 3600 0    50   Input ~ 0
 GND_SPK
-Text GLabel 6050 7200 2    50   Input ~ 0
+Text GLabel 21150 3900 2    50   Input ~ 0
 I2C2_SCL
-Text GLabel 6050 7300 2    50   Input ~ 0
+Text GLabel 21150 4000 2    50   Input ~ 0
 12C2_SDA
-Text GLabel 5050 7300 0    50   Input ~ 0
+Text GLabel 20150 4000 0    50   Input ~ 0
 GND_MIC&ANC
 $Comp
 L MCU_ST_STM32F4:STM32F405RGTx U1
@@ -2282,73 +2234,73 @@ F 3 "" H 9950 5150 50  0001 C CNN
 $EndComp
 Text GLabel 1150 7250 2    50   Input ~ 0
 BREAK_PRESSURE_0
-Text GLabel 9150 6600 0    50   Input ~ 0
+Text GLabel 4500 6750 0    50   Input ~ 0
 BREAK_PRESSURE_0
 $Comp
 L power:+5V #PWR0162
 U 1 1 626D2787
-P 10600 6200
-F 0 "#PWR0162" H 10600 6050 50  0001 C CNN
-F 1 "+5V" H 10615 6373 50  0000 C CNN
-F 2 "" H 10600 6200 50  0001 C CNN
-F 3 "" H 10600 6200 50  0001 C CNN
-	1    10600 6200
+P 5950 6350
+F 0 "#PWR0162" H 5950 6200 50  0001 C CNN
+F 1 "+5V" H 5965 6523 50  0000 C CNN
+F 2 "" H 5950 6350 50  0001 C CNN
+F 3 "" H 5950 6350 50  0001 C CNN
+	1    5950 6350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0163
 U 1 1 626E0B8C
-P 10600 6500
-F 0 "#PWR0163" H 10600 6250 50  0001 C CNN
-F 1 "GND" V 10605 6372 50  0000 R CNN
-F 2 "" H 10600 6500 50  0001 C CNN
-F 3 "" H 10600 6500 50  0001 C CNN
-	1    10600 6500
+P 5950 6650
+F 0 "#PWR0163" H 5950 6400 50  0001 C CNN
+F 1 "GND" V 5955 6522 50  0000 R CNN
+F 2 "" H 5950 6650 50  0001 C CNN
+F 3 "" H 5950 6650 50  0001 C CNN
+	1    5950 6650
 	1    0    0    -1  
 $EndComp
 $Comp
 L NCX2200GW_125:NCX2200GW,125 IC4
 U 1 1 626EF6F4
-P 9150 6400
-F 0 "IC4" H 9650 6665 50  0000 C CNN
-F 1 "NCX2200GW,125" H 9650 6574 50  0000 C CNN
-F 2 "SamacSys_Parts:NCX2200GW" H 10000 6500 50  0001 L CNN
-F 3 "http://www.nxp.com/docs/en/data-sheet/NCX2200.pdf" H 10000 6400 50  0001 L CNN
-F 4 "Analog Comparators Low Voltage Comparator" H 10000 6300 50  0001 L CNN "Description"
-F 5 "1.1" H 10000 6200 50  0001 L CNN "Height"
-F 6 "771-NCX2200GW125" H 10000 6100 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/NCX2200GW125?qs=j56XEm5BXrQpPSyPxfTy%2Fg%3D%3D" H 10000 6000 50  0001 L CNN "Mouser Price/Stock"
-F 8 "NXP" H 10000 5900 50  0001 L CNN "Manufacturer_Name"
-F 9 "NCX2200GW,125" H 10000 5800 50  0001 L CNN "Manufacturer_Part_Number"
-	1    9150 6400
+P 4500 6550
+F 0 "IC4" H 5000 6815 50  0000 C CNN
+F 1 "NCX2200GW,125" H 5000 6724 50  0000 C CNN
+F 2 "SamacSys_Parts:NCX2200GW" H 5350 6650 50  0001 L CNN
+F 3 "http://www.nxp.com/docs/en/data-sheet/NCX2200.pdf" H 5350 6550 50  0001 L CNN
+F 4 "Analog Comparators Low Voltage Comparator" H 5350 6450 50  0001 L CNN "Description"
+F 5 "1.1" H 5350 6350 50  0001 L CNN "Height"
+F 6 "771-NCX2200GW125" H 5350 6250 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/NCX2200GW125?qs=j56XEm5BXrQpPSyPxfTy%2Fg%3D%3D" H 5350 6150 50  0001 L CNN "Mouser Price/Stock"
+F 8 "NXP" H 5350 6050 50  0001 L CNN "Manufacturer_Name"
+F 9 "NCX2200GW,125" H 5350 5950 50  0001 L CNN "Manufacturer_Part_Number"
+	1    4500 6550
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0164
 U 1 1 626F60E4
-P 9150 6500
-F 0 "#PWR0164" H 9150 6250 50  0001 C CNN
-F 1 "GND" V 9155 6372 50  0000 R CNN
-F 2 "" H 9150 6500 50  0001 C CNN
-F 3 "" H 9150 6500 50  0001 C CNN
-	1    9150 6500
+P 4500 6650
+F 0 "#PWR0164" H 4500 6400 50  0001 C CNN
+F 1 "GND" V 4505 6522 50  0000 R CNN
+F 2 "" H 4500 6650 50  0001 C CNN
+F 3 "" H 4500 6650 50  0001 C CNN
+	1    4500 6650
 	0    1    1    0   
 $EndComp
 $Comp
 L power:+5V #PWR0165
 U 1 1 626F757C
-P 10150 6500
-F 0 "#PWR0165" H 10150 6350 50  0001 C CNN
-F 1 "+5V" H 10165 6673 50  0000 C CNN
-F 2 "" H 10150 6500 50  0001 C CNN
-F 3 "" H 10150 6500 50  0001 C CNN
-	1    10150 6500
+P 5500 6650
+F 0 "#PWR0165" H 5500 6500 50  0001 C CNN
+F 1 "+5V" H 5515 6823 50  0000 C CNN
+F 2 "" H 5500 6650 50  0001 C CNN
+F 3 "" H 5500 6650 50  0001 C CNN
+	1    5500 6650
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	10450 6350 10150 6350
+	5800 6500 5500 6500
 Wire Wire Line
-	10150 6350 10150 6400
+	5500 6500 5500 6550
 Text GLabel 1150 7350 2    50   Input ~ 0
 BREAK_PRESSURE_ADC
 Text GLabel 2700 1350 2    50   Input ~ 0
@@ -2356,62 +2308,45 @@ LED_STATUS
 $Comp
 L 5750071-1:5750071-1 Mini_DIN_OUT1
 U 1 1 6248A332
-P 4400 5600
-F 0 "Mini_DIN_OUT1" H 4850 5865 50  0000 C CNN
-F 1 "5750071-1" H 4850 5774 50  0000 C CNN
-F 2 "SamacSys_Parts:57500711" H 5150 5700 50  0001 L CNN
-F 3 "https://componentsearchengine.com/Datasheets/1/5750071-1.pdf" H 5150 5600 50  0001 L CNN
-F 4 "Connector pcb r/a 6 way Mini-DIN" H 5150 5500 50  0001 L CNN "Description"
-F 5 "13.13" H 5150 5400 50  0001 L CNN "Height"
-F 6 "571-5750071-1" H 5150 5300 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5750071-1?qs=BU%252BKxOECzi4EvgxaR0Z7ag%3D%3D" H 5150 5200 50  0001 L CNN "Mouser Price/Stock"
-F 8 "TE Connectivity" H 5150 5100 50  0001 L CNN "Manufacturer_Name"
-F 9 "5750071-1" H 5150 5000 50  0001 L CNN "Manufacturer_Part_Number"
-	1    4400 5600
+P 15950 3500
+F 0 "Mini_DIN_OUT1" H 16400 3765 50  0000 C CNN
+F 1 "5750071-1" H 16400 3674 50  0000 C CNN
+F 2 "SamacSys_Parts:57500711" H 16700 3600 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/5750071-1.pdf" H 16700 3500 50  0001 L CNN
+F 4 "Connector pcb r/a 6 way Mini-DIN" H 16700 3400 50  0001 L CNN "Description"
+F 5 "13.13" H 16700 3300 50  0001 L CNN "Height"
+F 6 "571-5750071-1" H 16700 3200 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5750071-1?qs=BU%252BKxOECzi4EvgxaR0Z7ag%3D%3D" H 16700 3100 50  0001 L CNN "Mouser Price/Stock"
+F 8 "TE Connectivity" H 16700 3000 50  0001 L CNN "Manufacturer_Name"
+F 9 "5750071-1" H 16700 2900 50  0001 L CNN "Manufacturer_Part_Number"
+	1    15950 3500
 	1    0    0    -1  
-$EndComp
-$Comp
-L PMF250XNEX:PMF250XNEX Q1
-U 1 1 627AEC69
-P 8050 6400
-F 0 "Q1" H 8480 6454 50  0000 L CNN
-F 1 "PMF250XNEX" H 8480 6545 50  0000 L CNN
-F 2 "SamacSys_Parts:PMF250XNEX" H 8500 6350 50  0001 L CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PMF250XNE.pdf" H 8500 6250 50  0001 L CNN
-F 4 "MOSFET PMF250XNE/SOT323/SC-70" H 8500 6150 50  0001 L CNN "Description"
-F 5 "1.1" H 8500 6050 50  0001 L CNN "Height"
-F 6 "771-PMF250XNEX" H 8500 5950 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMF250XNEX?qs=gH1BdSMZm8Un6H8hz1cFsw%3D%3D" H 8500 5850 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Nexperia" H 8500 5750 50  0001 L CNN "Manufacturer_Name"
-F 9 "PMF250XNEX" H 8500 5650 50  0001 L CNN "Manufacturer_Part_Number"
-	1    8050 6400
-	-1   0    0    1   
 $EndComp
 Text GLabel 1150 7450 2    50   Input ~ 0
 LED_GND
 $Comp
 L power:GND #PWR0166
 U 1 1 6280EE1A
-P 7750 6200
-F 0 "#PWR0166" H 7750 5950 50  0001 C CNN
-F 1 "GND" V 7755 6072 50  0000 R CNN
-F 2 "" H 7750 6200 50  0001 C CNN
-F 3 "" H 7750 6200 50  0001 C CNN
-	1    7750 6200
+P 3100 6350
+F 0 "#PWR0166" H 3100 6100 50  0001 C CNN
+F 1 "GND" V 3105 6222 50  0000 R CNN
+F 2 "" H 3100 6350 50  0001 C CNN
+F 3 "" H 3100 6350 50  0001 C CNN
+	1    3100 6350
 	-1   0    0    1   
 $EndComp
-Text GLabel 7750 6800 3    50   Input ~ 0
+Text GLabel 3100 6950 3    50   Input ~ 0
 LED_GND
 NoConn ~ 3900 4450
 $Comp
 L Device:R_POT RV1
 U 1 1 6281D5FD
-P 10600 6350
-F 0 "RV1" H 10530 6304 50  0000 R CNN
-F 1 "R_POT" H 10530 6395 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Alps_RK09L_Single_Vertical" H 10600 6350 50  0001 C CNN
-F 3 "~" H 10600 6350 50  0001 C CNN
-	1    10600 6350
+P 5950 6500
+F 0 "RV1" H 5880 6454 50  0000 R CNN
+F 1 "R_POT" H 5880 6545 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Alps_RK09L_Single_Vertical" H 5950 6500 50  0001 C CNN
+F 3 "~" H 5950 6500 50  0001 C CNN
+	1    5950 6500
 	-1   0    0    1   
 $EndComp
 Text GLabel 2700 1550 2    50   Input ~ 0
@@ -2421,59 +2356,140 @@ BREAK_PRESSURE_0
 $Comp
 L Device:R R20
 U 1 1 6289611E
-P 8550 6400
-F 0 "R20" V 8343 6400 50  0000 C CNN
-F 1 "3.3k" V 8434 6400 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8480 6400 50  0001 C CNN
-F 3 "~" H 8550 6400 50  0001 C CNN
-	1    8550 6400
+P 3900 6550
+F 0 "R20" V 3693 6550 50  0000 C CNN
+F 1 "3.3k" V 3784 6550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3830 6550 50  0001 C CNN
+F 3 "~" H 3900 6550 50  0001 C CNN
+	1    3900 6550
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	9150 6400 8700 6400
+	4500 6550 4050 6550
 Wire Wire Line
-	8400 6400 8050 6400
+	3750 6550 3400 6550
 Text GLabel 1300 2850 0    50   Input ~ 0
 PTT
 $Comp
 L Device:R R22
 U 1 1 629D953B
-P 3900 7050
-F 0 "R22" V 3693 7050 50  0000 C CNN
-F 1 "1k" V 3784 7050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3830 7050 50  0001 C CNN
-F 3 "~" H 3900 7050 50  0001 C CNN
-	1    3900 7050
+P 19000 3750
+F 0 "R22" V 18793 3750 50  0000 C CNN
+F 1 "1k" V 18884 3750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 18930 3750 50  0001 C CNN
+F 3 "~" H 19000 3750 50  0001 C CNN
+	1    19000 3750
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R21
 U 1 1 629DA4E2
-P 2800 7050
-F 0 "R21" V 2593 7050 50  0000 C CNN
-F 1 "4.7k" V 2684 7050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2730 7050 50  0001 C CNN
-F 3 "~" H 2800 7050 50  0001 C CNN
-	1    2800 7050
+P 17900 3750
+F 0 "R21" V 17693 3750 50  0000 C CNN
+F 1 "4.7k" V 17784 3750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 17830 3750 50  0001 C CNN
+F 3 "~" H 17900 3750 50  0001 C CNN
+	1    17900 3750
 	0    1    1    0   
 $EndComp
-Text GLabel 2650 7050 0    50   Input ~ 0
+Text GLabel 17750 3750 0    50   Input ~ 0
 PTT
 $Comp
 L BC846BW:BC846BW BJT1
 U 1 1 62596133
-P 2950 7050
-F 0 "BJT1" H 3350 7315 50  0000 C CNN
-F 1 "BC846BW,115" H 3350 7224 50  0000 C CNN
-F 2 "SamacSys_Parts:SOT65P210X110-3N" H 3600 7150 50  0001 L CNN
-F 3 "http://www.nxp.com/documents/data_sheet/BC846_SER.pdf" H 3600 7050 50  0001 L CNN
-F 4 "Bipolar Transistors - BJT TRANS GP TAPE-7" H 3600 6950 50  0001 L CNN "Description"
-F 5 "1.1" H 3600 6850 50  0001 L CNN "Height"
-F 6 "771-BC846BW-T/R" H 3600 6750 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/BC846BW115?qs=me8TqzrmIYXeHaJTKQ9DIQ%3D%3D" H 3600 6650 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Nexperia" H 3600 6550 50  0001 L CNN "Manufacturer_Name"
-F 9 "BC846BW,115" H 3600 6450 50  0001 L CNN "Manufacturer_Part_Number"
-	1    2950 7050
+P 18050 3750
+F 0 "BJT1" H 18450 4015 50  0000 C CNN
+F 1 "BC846BW,115" H 18450 3924 50  0000 C CNN
+F 2 "SamacSys_Parts:SOT65P210X110-3N" H 18700 3850 50  0001 L CNN
+F 3 "http://www.nxp.com/documents/data_sheet/BC846_SER.pdf" H 18700 3750 50  0001 L CNN
+F 4 "Bipolar Transistors - BJT TRANS GP TAPE-7" H 18700 3650 50  0001 L CNN "Description"
+F 5 "1.1" H 18700 3550 50  0001 L CNN "Height"
+F 6 "771-BC846BW-T/R" H 18700 3450 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/BC846BW115?qs=me8TqzrmIYXeHaJTKQ9DIQ%3D%3D" H 18700 3350 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Nexperia" H 18700 3250 50  0001 L CNN "Manufacturer_Name"
+F 9 "BC846BW,115" H 18700 3150 50  0001 L CNN "Manufacturer_Part_Number"
+	1    18050 3750
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	21150 4100 21150 4200
+Connection ~ 21150 4200
+Wire Wire Line
+	21150 4200 21150 4300
+Connection ~ 21150 4300
+$Comp
+L power:+3.3V #PWR0167
+U 1 1 6280C38D
+P 13200 2950
+F 0 "#PWR0167" H 13200 2800 50  0001 C CNN
+F 1 "+3.3V" H 13215 3123 50  0000 C CNN
+F 2 "" H 13200 2950 50  0001 C CNN
+F 3 "" H 13200 2950 50  0001 C CNN
+	1    13200 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R23
+U 1 1 6280DEA9
+P 13200 3100
+F 0 "R23" V 12993 3100 50  0000 C CNN
+F 1 "R" V 13084 3100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 13130 3100 50  0001 C CNN
+F 3 "~" H 13200 3100 50  0001 C CNN
+	1    13200 3100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C23
+U 1 1 6281109E
+P 13050 3250
+F 0 "C23" H 13165 3296 50  0000 L CNN
+F 1 "?" H 13165 3205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13088 3100 50  0001 C CNN
+F 3 "~" H 13050 3250 50  0001 C CNN
+	1    13050 3250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C C24
+U 1 1 6282AD6E
+P 13050 3450
+F 0 "C24" H 13165 3496 50  0000 L CNN
+F 1 "10uF" H 13165 3405 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13088 3300 50  0001 C CNN
+F 3 "~" H 13050 3450 50  0001 C CNN
+	1    13050 3450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13200 3650 14350 3650
+Text GLabel 12900 3250 0    50   Input ~ 0
+GND_MIC&ANC
+Text GLabel 12900 3450 0    50   Input ~ 0
+GND_MIC&ANC
+Wire Wire Line
+	13200 3250 13200 3450
+Connection ~ 13200 3250
+Wire Wire Line
+	13200 3650 13200 3450
+Connection ~ 13200 3450
+$Comp
+L PMV280ENEAR:PMV280ENEAR Q1
+U 1 1 6291101D
+P 3400 6550
+F 0 "Q1" H 3829 6604 50  0000 L CNN
+F 1 "PMV280ENEAR" H 3829 6695 50  0000 L CNN
+F 2 "SamacSys_Parts:PMV280ENEAR" H 3850 6500 50  0001 L CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PMV280ENEA.pdf" H 3850 6400 50  0001 L CNN
+F 4 "PMV280ENEAR 3 N-Channel MOSFET, 1 A, 100 V, 3-Pin SOT-23 Nexperia" H 3850 6300 50  0001 L CNN "Description"
+F 5 "1.1" H 3850 6200 50  0001 L CNN "Height"
+F 6 "771-PMV280ENEAR" H 3850 6100 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMV280ENEAR?qs=%252BEew9%252B0nqrBFzYrVZ6LkLA%3D%3D" H 3850 6000 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Nexperia" H 3850 5900 50  0001 L CNN "Manufacturer_Name"
+F 9 "PMV280ENEAR" H 3850 5800 50  0001 L CNN "Manufacturer_Part_Number"
+	1    3400 6550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7200 1150 7200 1950
 $EndSCHEMATC

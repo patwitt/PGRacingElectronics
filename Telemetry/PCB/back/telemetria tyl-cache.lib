@@ -305,28 +305,6 @@ X ~ 2 0 -150 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_Jumper
-#
-DEF Device_Jumper JP 0 30 Y N 1 F N
-F0 "JP" 0 150 50 H V C CNN
-F1 "Device_Jumper" 0 -80 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SolderJumper*
- Jumper*
- TestPoint*2Pads*
- TestPoint*Bridge*
-$ENDFPLIST
-DRAW
-A 0 -26 125 1426 373 0 1 0 N -98 50 99 50
-C -100 0 35 0 1 0 N
-C 100 0 35 0 1 0 N
-X 1 1 -300 0 165 R 50 50 0 1 P
-X 2 2 300 0 165 L 50 50 0 1 P
-ENDDRAW
-ENDDEF
-#
 # Device_L
 #
 DEF Device_L L 0 40 N N 1 F N
@@ -468,30 +446,6 @@ X SPLIT 5 500 0 100 L 50 50 1 1 P
 X CANL 6 500 -100 100 L 50 50 1 1 B
 X CANH 7 500 100 100 L 50 50 1 1 B
 X STBY 8 -500 -200 100 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# Jumper_Jumper_3_Bridged12
-#
-DEF Jumper_Jumper_3_Bridged12 JP 0 0 Y N 1 F N
-F0 "JP" -100 -100 50 H V C CNN
-F1 "Jumper_Jumper_3_Bridged12" 0 110 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Jumper*
- TestPoint*3Pads*
- TestPoint*Bridge*
-$ENDFPLIST
-DRAW
-A -65 -50 89 1282 518 0 1 0 N -120 20 -10 20
-C -130 0 20 0 0 0 N
-C 0 0 20 0 0 0 N
-C 130 0 20 0 0 0 N
-P 2 0 1 0 0 -50 0 -20 N
-X A 1 -250 0 100 R 50 50 1 1 P
-X C 2 0 -150 100 U 50 50 1 1 I
-X B 3 250 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -673,19 +627,19 @@ X VCC 5 1000 -100 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# PMF250XNEX_PMF250XNEX
+# PMV280ENEAR_PMV280ENEAR
 #
-DEF PMF250XNEX_PMF250XNEX Q 0 30 Y Y 1 F N
+DEF PMV280ENEAR_PMV280ENEAR Q 0 30 Y Y 1 F N
 F0 "Q" 450 150 50 H V L CNN
-F1 "PMF250XNEX_PMF250XNEX" 450 50 50 H V L CNN
-F2 "SOT65P210X110-3N" 450 -50 50 H I L CNN
-F3 "https://assets.nexperia.com/documents/data-sheet/PMF250XNE.pdf" 450 -150 50 H I L CNN
-F4 "MOSFET PMF250XNE/SOT323/SC-70" 450 -250 50 H I L CNN "Description"
+F1 "PMV280ENEAR_PMV280ENEAR" 450 50 50 H V L CNN
+F2 "SOT95P230X110-3N" 450 -50 50 H I L CNN
+F3 "https://assets.nexperia.com/documents/data-sheet/PMV280ENEA.pdf" 450 -150 50 H I L CNN
+F4 "PMV280ENEAR 3 N-Channel MOSFET, 1 A, 100 V, 3-Pin SOT-23 Nexperia" 450 -250 50 H I L CNN "Description"
 F5 "1.1" 450 -350 50 H I L CNN "Height"
-F6 "771-PMF250XNEX" 450 -450 50 H I L CNN "Mouser Part Number"
-F7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMF250XNEX?qs=gH1BdSMZm8Un6H8hz1cFsw%3D%3D" 450 -550 50 H I L CNN "Mouser Price/Stock"
+F6 "771-PMV280ENEAR" 450 -450 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMV280ENEAR?qs=%252BEew9%252B0nqrBFzYrVZ6LkLA%3D%3D" 450 -550 50 H I L CNN "Mouser Price/Stock"
 F8 "Nexperia" 450 -650 50 H I L CNN "Manufacturer_Name"
-F9 "PMF250XNEX" 450 -750 50 H I L CNN "Manufacturer_Part_Number"
+F9 "PMV280ENEAR" 450 -750 50 H I L CNN "Manufacturer_Part_Number"
 DRAW
 C 250 100 150 0 1 10 N
 P 2 0 1 6 230 -20 230 20 N
