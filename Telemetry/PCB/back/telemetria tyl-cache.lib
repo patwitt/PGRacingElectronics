@@ -1,6 +1,81 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# 5749268-1_5749268-1
+#
+DEF 5749268-1_5749268-1 J 0 30 Y Y 1 F N
+F0 "J" 750 300 50 H V L CNN
+F1 "5749268-1_5749268-1" 750 200 50 H V L CNN
+F2 "57492681" 750 100 50 H I L CNN
+F3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F5749268%7FO%7Fpdf%7FEnglish%7FENG_CD_5749268_O.pdf%7F5749268-1.pdf" 750 0 50 H I L CNN
+F4 "Circular DIN Connectors 8 P R/A W/O HOLDDOWN" 750 -100 50 H I L CNN "Description"
+F5 "13" 750 -200 50 H I L CNN "Height"
+F6 "571-5749268-1" 750 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5749268-1?qs=BU%252BKxOECzi7rjBKKXjFTsQ%3D%3D" 750 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "TE Connectivity" 750 -500 50 H I L CNN "Manufacturer_Name"
+F9 "5749268-1" 750 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 700 100 700 -600 200 -600 200 100 N
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 0 -100 200 R 50 50 0 0 P
+X 3 3 0 -200 200 R 50 50 0 0 P
+X 4 4 0 -300 200 R 50 50 0 0 P
+X 5 5 0 -400 200 R 50 50 0 0 P
+X 6 6 0 -500 200 R 50 50 0 0 P
+X 7 7 900 0 200 L 50 50 0 0 P
+X 8 8 900 -100 200 L 50 50 0 0 P
+X MH1 MH1 900 -200 200 L 50 50 0 0 P
+X MH2 MH2 900 -300 200 L 50 50 0 0 P
+X MH3 MH3 900 -400 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# 5750071-1_5750071-1
+#
+DEF 5750071-1_5750071-1 J 0 30 Y Y 1 F N
+F0 "J" 750 300 50 H V L CNN
+F1 "5750071-1_5750071-1" 750 200 50 H V L CNN
+F2 "57500711" 750 100 50 H I L CNN
+F3 "https://componentsearchengine.com/Datasheets/1/5750071-1.pdf" 750 0 50 H I L CNN
+F4 "Connector pcb r/a 6 way Mini-DIN" 750 -100 50 H I L CNN "Description"
+F5 "13.13" 750 -200 50 H I L CNN "Height"
+F6 "571-5750071-1" 750 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5750071-1?qs=BU%252BKxOECzi4EvgxaR0Z7ag%3D%3D" 750 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "TE Connectivity" 750 -500 50 H I L CNN "Manufacturer_Name"
+F9 "5750071-1" 750 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 700 100 700 -500 200 -500 200 100 N
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 0 -100 200 R 50 50 0 0 P
+X 3 3 0 -200 200 R 50 50 0 0 P
+X 4 4 0 -300 200 R 50 50 0 0 P
+X 5 5 0 -400 200 R 50 50 0 0 P
+X 6 6 900 0 200 L 50 50 0 0 P
+X MH1 MH1 900 -100 200 L 50 50 0 0 P
+X MH2 MH2 900 -200 200 L 50 50 0 0 P
+X MH3 MH3 900 -300 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# BC846BW_BC846BW
+#
+DEF BC846BW_BC846BW IC 0 30 Y Y 1 F N
+F0 "IC" 650 300 50 H V L CNN
+F1 "BC846BW_BC846BW" 650 200 50 H V L CNN
+F2 "SOT65P210X110-3N" 650 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-25/DSA-492599.pdf" 650 0 50 H I L CNN
+F4 "BC846BW, NPN Bipolar Transistor,  0.1 A 65 V HFE:200 100 MHz Small Signal, 3-Pin UMT" 650 -100 50 H I L CNN "Description"
+F5 "1.1" 650 -200 50 H I L CNN "Height"
+F6 "Nexperia" 650 -300 50 H I L CNN "Manufacturer_Name"
+F7 "BC846BW" 650 -400 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 600 100 600 -200 200 -200 200 100 N
+X B 1 0 0 200 R 50 50 0 0 P
+X E 2 0 -100 200 R 50 50 0 0 P
+X C 3 800 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
 # Connector_Conn_01x26_Male
 #
 DEF Connector_Conn_01x26_Male J 0 40 Y N 1 F N
@@ -230,28 +305,6 @@ X ~ 2 0 -150 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_Jumper
-#
-DEF Device_Jumper JP 0 30 Y N 1 F N
-F0 "JP" 0 150 50 H V C CNN
-F1 "Device_Jumper" 0 -80 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SolderJumper*
- Jumper*
- TestPoint*2Pads*
- TestPoint*Bridge*
-$ENDFPLIST
-DRAW
-A 0 -26 125 1426 373 0 1 0 N -98 50 99 50
-C -100 0 35 0 1 0 N
-C 100 0 35 0 1 0 N
-X 1 1 -300 0 165 R 50 50 0 1 P
-X 2 2 300 0 165 L 50 50 0 1 P
-ENDDRAW
-ENDDEF
-#
 # Device_L
 #
 DEF Device_L L 0 40 N N 1 F N
@@ -312,6 +365,26 @@ DRAW
 S -40 -100 40 100 0 1 10 N
 X ~ 1 0 150 50 D 50 50 1 1 P
 X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_R_POT
+#
+DEF Device_R_POT RV 0 40 Y N 1 F N
+F0 "RV" -175 0 50 V V C CNN
+F1 "Device_R_POT" -100 0 50 V V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Potentiometer*
+$ENDFPLIST
+DRAW
+S 40 100 -40 -100 0 1 10 N
+P 2 0 1 0 100 0 60 0 N
+P 4 0 1 0 45 0 90 20 90 -20 45 0 F
+X 1 1 0 150 50 D 50 50 1 1 P
+X 2 2 150 0 50 L 50 50 1 1 P
+X 3 3 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -376,27 +449,63 @@ X STBY 8 -500 -200 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# Jumper_Jumper_3_Bridged12
+# LM741CN_NOPB_LM741CN_NOPB
 #
-DEF Jumper_Jumper_3_Bridged12 JP 0 0 Y N 1 F N
-F0 "JP" -100 -100 50 H V C CNN
-F1 "Jumper_Jumper_3_Bridged12" 0 110 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Jumper*
- TestPoint*3Pads*
- TestPoint*Bridge*
-$ENDFPLIST
+DEF LM741CN_NOPB_LM741CN_NOPB IC 0 30 Y Y 1 F N
+F0 "IC" 2150 300 50 H V L CNN
+F1 "LM741CN_NOPB_LM741CN_NOPB" 2150 200 50 H V L CNN
+F2 "DIP794W53P254L959H508Q8N" 2150 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" 2150 0 50 H I L CNN
+F4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" 2150 -100 50 H I L CNN "Description"
+F5 "5.08" 2150 -200 50 H I L CNN "Height"
+F6 "Texas Instruments" 2150 -300 50 H I L CNN "Manufacturer_Name"
+F7 "LM741CN/NOPB" 2150 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "926-LM741CN/NOPB" 2150 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" 2150 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "LM741CN/NOPB" 2150 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" 2150 -800 50 H I L CNN "Arrow Price/Stock"
 DRAW
-A -65 -50 89 1282 518 0 1 0 N -120 20 -10 20
-C -130 0 20 0 0 0 N
-C 0 0 20 0 0 0 N
-C 130 0 20 0 0 0 N
-P 2 0 1 0 0 -50 0 -20 N
-X A 1 -250 0 100 R 50 50 1 1 P
-X C 2 0 -150 100 U 50 50 1 1 I
-X B 3 250 0 100 L 50 50 1 1 P
+P 5 0 1 6 200 100 2100 100 2100 -400 200 -400 200 100 N
+X OFFSET_NULL_1 1 0 0 200 R 50 50 0 0 P
+X INVERTING_INPUT 2 0 -100 200 R 50 50 0 0 P
+X NON_INVERTING_INPUT 3 0 -200 200 R 50 50 0 0 P
+X V- 4 0 -300 200 R 50 50 0 0 P
+X OFFSET_NULL_2 5 2300 -300 200 L 50 50 0 0 P
+X OUTPUT 6 2300 -200 200 L 50 50 0 0 P
+X V+ 7 2300 -100 200 L 50 50 0 0 P
+X NC 8 2300 0 200 L 50 50 0 0 N
+ENDDRAW
+ENDDEF
+#
+# MAX5478EUD+T_MAX5478EUD+T
+#
+DEF MAX5478EUD+T_MAX5478EUD+T IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "MAX5478EUD+T_MAX5478EUD+T" 850 200 50 H V L CNN
+F2 "SOP65P640X110-14N" 850 100 50 H I L CNN
+F3 "https://datasheets.maximintegrated.com/en/ds/MAX5477-MAX5479.pdf" 850 0 50 H I L CNN
+F4 "Digital Potentiometer ICs Dual, 256-Tap, Nonvolatile, I C-Interface, Digital Potentiometers" 850 -100 50 H I L CNN "Description"
+F5 "1.1" 850 -200 50 H I L CNN "Height"
+F6 "700-MAX5478EUDT" 850 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Maxim-Integrated/MAX5478EUD%2bT?qs=CDqwynd4ZNqwvqp2waNIWA%3D%3D" 850 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Maxim Integrated" 850 -500 50 H I L CNN "Manufacturer_Name"
+F9 "MAX5478EUD+T" 850 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -700 200 -700 200 100 N
+X HA 1 0 0 200 R 50 50 0 0 P
+X A1 10 1000 -400 200 L 50 50 0 0 P
+X A0 11 1000 -300 200 L 50 50 0 0 P
+X SDA 12 1000 -200 200 L 50 50 0 0 P
+X SCL 13 1000 -100 200 L 50 50 0 0 P
+X VDD 14 1000 0 200 L 50 50 0 0 P
+X WA 2 0 -100 200 R 50 50 0 0 P
+X LA 3 0 -200 200 R 50 50 0 0 P
+X HB 4 0 -300 200 R 50 50 0 0 P
+X WB 5 0 -400 200 R 50 50 0 0 P
+X LB 6 0 -500 200 R 50 50 0 0 P
+X WP 7 0 -600 200 R 50 50 0 0 P
+X GND 8 1000 -600 200 L 50 50 0 0 P
+X A2 9 1000 -500 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
@@ -479,30 +588,6 @@ X PC1 9 -700 -200 100 R 50 50 1 1 B
 ENDDRAW
 ENDDEF
 #
-# MP2359DT-LF-P_MP2359DT-LF-P
-#
-DEF MP2359DT-LF-P_MP2359DT-LF-P PS 0 30 Y Y 1 F N
-F0 "PS" 850 300 50 H V L CNN
-F1 "MP2359DT-LF-P_MP2359DT-LF-P" 850 200 50 H V L CNN
-F2 "SOT95P280X145-6N" 850 100 50 H I L CNN
-F3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" 850 0 50 H I L CNN
-F4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" 850 -100 50 H I L CNN "Description"
-F5 "1.45" 850 -200 50 H I L CNN "Height"
-F6 "Monolithic Power Systems (MPS)" 850 -300 50 H I L CNN "Manufacturer_Name"
-F7 "MP2359DT-LF-P" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "946-MP2359DTLFP" 850 -500 50 H I L CNN "Mouser Part Number"
-F9 "https://www.mouser.co.uk/ProductDetail/Monolithic-Power-Systems-MPS/MP2359DT-LF-P?qs=rC7bBWoQAAlUuezWIXLG%2Fg%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
-DRAW
-P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
-X BST 1 0 0 200 R 50 50 0 0 B
-X GND 2 0 -100 200 R 50 50 0 0 W
-X FB 3 0 -200 200 R 50 50 0 0 O
-X EN 4 1000 -200 200 L 50 50 0 0 I
-X IN 5 1000 -100 200 L 50 50 0 0 W
-X SW 6 1000 0 200 L 50 50 0 0 O
-ENDDRAW
-ENDDEF
-#
 # Mechanical_MountingHole_Pad
 #
 DEF Mechanical_MountingHole_Pad H 0 40 N N 1 F N
@@ -516,6 +601,60 @@ $ENDFPLIST
 DRAW
 C 0 50 50 0 1 50 N
 X 1 1 0 -100 100 U 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# NCX2200GW_125_NCX2200GW,125
+#
+DEF NCX2200GW_125_NCX2200GW,125 IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "NCX2200GW_125_NCX2200GW,125" 850 200 50 H V L CNN
+F2 "SOT65P212X110-5N" 850 100 50 H I L CNN
+F3 "http://www.nxp.com/docs/en/data-sheet/NCX2200.pdf" 850 0 50 H I L CNN
+F4 "Analog Comparators Low Voltage Comparator" 850 -100 50 H I L CNN "Description"
+F5 "1.1" 850 -200 50 H I L CNN "Height"
+F6 "771-NCX2200GW125" 850 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/NCX2200GW125?qs=j56XEm5BXrQpPSyPxfTy%2Fg%3D%3D" 850 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "NXP" 850 -500 50 H I L CNN "Manufacturer_Name"
+F9 "NCX2200GW,125" 850 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X OUT 1 0 0 200 R 50 50 0 0 P
+X VEE 2 0 -100 200 R 50 50 0 0 P
+X IN+ 3 0 -200 200 R 50 50 0 0 P
+X IN- 4 1000 0 200 L 50 50 0 0 P
+X VCC 5 1000 -100 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# PMV280ENEAR_PMV280ENEAR
+#
+DEF PMV280ENEAR_PMV280ENEAR Q 0 30 Y Y 1 F N
+F0 "Q" 450 150 50 H V L CNN
+F1 "PMV280ENEAR_PMV280ENEAR" 450 50 50 H V L CNN
+F2 "SOT95P230X110-3N" 450 -50 50 H I L CNN
+F3 "https://assets.nexperia.com/documents/data-sheet/PMV280ENEA.pdf" 450 -150 50 H I L CNN
+F4 "PMV280ENEAR 3 N-Channel MOSFET, 1 A, 100 V, 3-Pin SOT-23 Nexperia" 450 -250 50 H I L CNN "Description"
+F5 "1.1" 450 -350 50 H I L CNN "Height"
+F6 "771-PMV280ENEAR" 450 -450 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMV280ENEAR?qs=%252BEew9%252B0nqrBFzYrVZ6LkLA%3D%3D" 450 -550 50 H I L CNN "Mouser Price/Stock"
+F8 "Nexperia" 450 -650 50 H I L CNN "Manufacturer_Name"
+F9 "PMV280ENEAR" 450 -750 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+C 250 100 150 0 1 10 N
+P 2 0 1 6 230 -20 230 20 N
+P 2 0 1 6 230 0 300 0 N
+P 2 0 1 6 230 80 230 120 N
+P 2 0 1 6 230 220 230 180 N
+P 2 0 1 6 300 100 230 100 N
+P 2 0 1 6 300 100 300 -100 N
+P 2 0 1 6 300 200 230 200 N
+P 2 0 1 6 300 200 300 300 N
+P 3 0 1 6 100 0 200 0 200 200 N
+P 4 0 1 10 230 100 270 120 270 80 230 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 300 -200 100 U 50 50 0 0 P
+X ~ 3 300 400 100 D 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
@@ -590,6 +729,30 @@ F3 "" 0 0 50 H I C CNN
 DRAW
 P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
 X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P
+#
+DEF telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P PS 0 30 Y Y 1 F N
+F0 "PS" 850 300 50 H V L CNN
+F1 "telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P" 850 200 50 H V L CNN
+F2 "SOT95P280X145-6N" 850 100 50 H I L CNN
+F3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" 850 0 50 H I L CNN
+F4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" 850 -100 50 H I L CNN "Description"
+F5 "1.45" 850 -200 50 H I L CNN "Height"
+F6 "Monolithic Power Systems (MPS)" 850 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MP2359DT-LF-P" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "946-MP2359DTLFP" 850 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Monolithic-Power-Systems-MPS/MP2359DT-LF-P?qs=rC7bBWoQAAlUuezWIXLG%2Fg%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X BST 1 0 0 200 R 50 50 0 0 B
+X GND 2 0 -100 200 R 50 50 0 0 W
+X FB 3 0 -200 200 R 50 50 0 0 O
+X EN 4 1000 -200 200 L 50 50 0 0 I
+X IN 5 1000 -100 200 L 50 50 0 0 W
+X SW 6 1000 0 200 L 50 50 0 0 O
 ENDDRAW
 ENDDEF
 #

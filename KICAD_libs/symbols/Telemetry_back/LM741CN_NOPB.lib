@@ -1,0 +1,31 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model LM741CN_NOPB
+#/2275/823004/2.49/8/3/Integrated Circuit
+DEF LM741CN_NOPB IC 0 30 Y Y 1 F N
+F0 "IC" 2150 300 50 H V L CNN
+F1 "LM741CN_NOPB" 2150 200 50 H V L CNN
+F2 "DIP794W53P254L959H508Q8N" 2150 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" 2150 0 50 H I L CNN
+F4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" 2150 -100 50 H I L CNN "Description"
+F5 "5.08" 2150 -200 50 H I L CNN "Height"
+F6 "Texas Instruments" 2150 -300 50 H I L CNN "Manufacturer_Name"
+F7 "LM741CN/NOPB" 2150 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "926-LM741CN/NOPB" 2150 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM741CN-NOPB?qs=QbsRYf82W3Gt6%252BDX6%252BuAjw%3D%3D" 2150 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "LM741CN/NOPB" 2150 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac" 2150 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X OFFSET_NULL_1 1 0 0 200 R 50 50 0 0 P
+X INVERTING_INPUT 2 0 -100 200 R 50 50 0 0 P
+X NON_INVERTING_INPUT 3 0 -200 200 R 50 50 0 0 P
+X V- 4 0 -300 200 R 50 50 0 0 P
+X NC 8 2300 0 200 L 50 50 0 0 N
+X V+ 7 2300 -100 200 L 50 50 0 0 P
+X OUTPUT 6 2300 -200 200 L 50 50 0 0 P
+X OFFSET_NULL_2 5 2300 -300 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 2100 100 2100 -400 200 -400 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library
