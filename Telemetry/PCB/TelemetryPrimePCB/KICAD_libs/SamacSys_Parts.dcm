@@ -1,0 +1,15 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP 2-6437285-6
+D SUPER SEAL 34POS CAP ASSY H AU
+K
+F https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F5-1447223-0%7FA1%7Fpdf%7FJapanese%7FJPN_CD_5-1447223-0_A1.pdf%7F2-6437285-6
+$ENDCMP
+#
+#End Doc Library

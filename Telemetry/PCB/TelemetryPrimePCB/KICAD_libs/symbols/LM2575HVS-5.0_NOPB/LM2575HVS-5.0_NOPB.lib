@@ -1,0 +1,29 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model LM2575HVS-5.0_NOPB
+#/155273/665215/2.49/6/3/Integrated Circuit
+DEF LM2575HVS-5.0_NOPB IC 0 30 Y Y 1 F N
+F0 "IC" 1150 300 50 H V L CNN
+F1 "LM2575HVS-5.0_NOPB" 1150 200 50 H V L CNN
+F2 "TO170P1435X465-6N" 1150 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036590.pdf" 1150 0 50 H I L CNN
+F4 "LM2575HVS-5.0/NOPB, Switching Regulator,, Buck Controller 1A, 5 V, 58 kHz, 6-Pin TO-263" 1150 -100 50 H I L CNN "Description"
+F5 "4.65" 1150 -200 50 H I L CNN "Height"
+F6 "Texas Instruments" 1150 -300 50 H I L CNN "Manufacturer_Name"
+F7 "LM2575HVS-5.0/NOPB" 1150 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "926-LM2575HVS5.0NOPB" 1150 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM2575HVS-50-NOPB?qs=X1J7HmVL2ZGWqJEBuQcQEg%3D%3D" 1150 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "LM2575HVS-5.0/NOPB" 1150 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/lm2575hvs-5.0nopb/texas-instruments?region=nac" 1150 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X VIN 1 0 0 200 R 50 50 0 0 I
+X OUTPUT 2 0 -100 200 R 50 50 0 0 O
+X GROUND 3 0 -200 200 R 50 50 0 0 P
+X FEEDBACK 4 0 -300 200 R 50 50 0 0 P
+X ~ON~/OFF 5 0 -400 200 R 50 50 0 0 P
+X GND 6 1300 0 200 L 50 50 0 0 W
+P 5 0 1 6 200 100 1100 100 1100 -500 200 -500 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

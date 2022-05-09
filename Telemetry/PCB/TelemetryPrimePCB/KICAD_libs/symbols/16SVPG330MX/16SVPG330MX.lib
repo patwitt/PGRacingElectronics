@@ -1,0 +1,30 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# 16SVPG330MX
+#
+DEF 16SVPG330MX C 0 40 N N 1 L N
+F0 "C" -100 150 50 H V L BNN
+F1 "16SVPG330MX" -100 -200 50 H V L BNN
+F2 "CAP_16SVPG330MX" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "Panasonic" 0 0 50 H I L BNN "MANUFACTURER"
+F5 "6.9mm" 0 0 50 H I L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F6 "28-Jun-19" 0 0 50 H I L BNN "PARTREV"
+F7 "Manufacturer Recommendations" 0 0 50 H I L BNN "STANDARD"
+DRAW
+A 233 0 174 1450 2150 0 0 10 N 90 100 90 -100
+P 2 0 0 10 20 100 20 0 N
+S -46 -60 -11 -55 0 0 0 F
+S -31 -75 -26 -40 0 0 0 F
+P 2 0 0 10 20 0 20 -100 N
+P 2 0 0 6 0 0 20 0 N
+P 2 0 0 6 100 0 60 0 N
+X ~ 1 -100 0 100 R 40 40 0 0 P 
+X ~ 2 200 0 100 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library

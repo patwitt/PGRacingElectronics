@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 90130-1216
+D Molex C-GRID III 90130, 2.54mm Pitch, 16 Way, 2 Row, Straight PCB Header, Through Hole
+K
+F https://www.molex.com/molex/products/datasheet.jsp?part=active/0901301216_PCB_HEADERS.xml&channel=Products&Lang=en-US
+$ENDCMP
+#
+#End Doc Library

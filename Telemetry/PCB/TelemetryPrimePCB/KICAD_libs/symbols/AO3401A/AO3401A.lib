@@ -1,0 +1,35 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# AO3401A
+#
+DEF AO3401A Q 0 30 Y Y 1 F N
+F0 "Q" 450 150 50 H V L CNN
+F1 "AO3401A" 450 50 50 H V L CNN
+F2 "SOT95P280X125-3N" 450 -50 50 H I L CNN
+F3 "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf" 450 -150 50 H I L CNN
+F4 "30V P-Channel MOSFET" 450 -250 50 H I L CNN "Description"
+F5 "1.25" 450 -350 50 H I L CNN "Height"
+F6 "Alpha & Omega Semiconductors" 450 -450 50 H I L CNN "Manufacturer_Name"
+F7 "AO3401A" 450 -550 50 H I L CNN "Manufacturer_Part_Number"
+F8 "AO3401A" 450 -850 50 H I L CNN "Arrow Part Number"
+F9 "https://www.arrow.com/en/products/ao3401a/alpha-and-omega-semiconductor?region=nac" 450 -950 50 H I L CNN "Arrow Price/Stock"
+DRAW
+C 250 100 150 0 1 10 N
+P 2 0 1 6 230 -20 230 20 N
+P 2 0 1 6 230 0 300 0 N
+P 2 0 1 6 230 80 230 120 N
+P 2 0 1 6 230 220 230 180 N
+P 2 0 1 6 300 100 230 100 N
+P 2 0 1 6 300 100 300 -100 N
+P 2 0 1 6 300 200 230 200 N
+P 2 0 1 6 300 200 300 300 N
+P 3 0 1 6 100 0 200 0 200 200 N
+P 4 0 1 10 300 100 260 120 260 80 300 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 300 -200 100 U 50 50 0 0 P
+X ~ 3 300 400 100 D 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+#End Library

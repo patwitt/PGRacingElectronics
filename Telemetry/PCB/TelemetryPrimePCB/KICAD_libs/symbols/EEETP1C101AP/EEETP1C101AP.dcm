@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP EEETP1C101AP
+D Panasonic 100F 16V dc Aluminium Electrolytic Capacitor, Surface Mount 8 (Dia.) x 10.2mm +125C 8mm 3.1mm
+K
+F http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1196.pdf
+$ENDCMP
+#
+#End Doc Library

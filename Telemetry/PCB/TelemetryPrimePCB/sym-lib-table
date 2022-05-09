@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name TelemetryPrimePCB-rescue)(type Legacy)(uri ${KIPRJMOD}/TelemetryPrimePCB-rescue.lib)(options "")(descr ""))
+)
