@@ -1,0 +1,5 @@
+GearSensor.c:60:21:InRange	24	static
+GearSensor.c:92:6:GearSensor_Init	16	static
+GearSensor.c:98:12:GearSensor_GetStateBySensorAdc	24	static
+GearSensor.c:124:6:GearSensor_Process	16	static
+GearSensor.c:174:6:GearSensor_DMAProcess	16	static

@@ -1,0 +1,4 @@
+CANManager.c:31:6:CANManager_Init	16	static
+CANManager.c:36:6:CAN_ReceiveMsg	8	static
+CANManager.c:54:6:CAN_TransmitMsg	16	static
+CANManager.c:59:19:CAN_Init	16	static

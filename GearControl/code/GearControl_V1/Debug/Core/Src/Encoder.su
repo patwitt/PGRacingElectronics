@@ -1,0 +1,4 @@
+Encoder.c:37:15:Encoder_AvgSamples	24	static
+Encoder.c:55:15:Encoder_Read	24	static
+Encoder.c:93:9:Encoder_Init	16	static
+Encoder.c:119:6:Encoder_Process	16	static

@@ -1,0 +1,3 @@
+Button.c:14:6:ButtonDebounce	16	static
+Button.c:32:6:ButtonResetDebounce	4	static
+Button.c:38:6:ButtonProcess	8	static

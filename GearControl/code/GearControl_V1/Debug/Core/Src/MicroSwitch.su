@@ -1,0 +1,6 @@
+MicroSwitch.c:37:13:MicroSwitch_Clear	16	static
+MicroSwitch.c:49:13:MicroSwitch_DebounceLow	4	static
+MicroSwitch.c:73:6:MicroSwitch_Init	24	static
+MicroSwitch.c:92:6:MicroSwitch_PollAgain	4	static
+MicroSwitch.c:97:6:MicroSwitch_PollStatus	8	static
+MicroSwitch.c:156:6:MicroSwitch_Process	16	static
