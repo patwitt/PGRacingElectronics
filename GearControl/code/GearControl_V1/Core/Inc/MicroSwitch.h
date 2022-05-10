@@ -12,7 +12,7 @@
 #define DEBOUNCE_20MS (10U)
 #define DEBOUNCE_50MS (25U)
 #define BUTTON_PRESSED_ADC_THRESHOLD (3800U)
-#define BUTTON_OFF_ADC_TRESHOLD (1000U)
+#define BUTTON_OFF_ADC_TRESHOLD (900U)
 #define BUTTON_CNT    (2U)
 
 typedef enum
@@ -31,4 +31,5 @@ void MicroSwitch_Process(void);
 void MicroSwitch_Start(void);
 void MicroSwitch_Stop(void);
 boolean MicroSwitch_GetStatus(void);
+void OnOffSwitch_Process(void);
 #endif /* INC_MICROSWITCH_H_ */

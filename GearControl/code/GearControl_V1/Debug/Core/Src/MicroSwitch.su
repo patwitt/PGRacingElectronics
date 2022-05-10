@@ -3,4 +3,5 @@ MicroSwitch.c:49:13:MicroSwitch_DebounceLow	4	static
 MicroSwitch.c:73:6:MicroSwitch_Init	24	static
 MicroSwitch.c:92:6:MicroSwitch_PollAgain	4	static
 MicroSwitch.c:97:6:MicroSwitch_PollStatus	8	static
+MicroSwitch.c:123:6:OnOffSwitch_Process	8	static
 MicroSwitch.c:156:6:MicroSwitch_Process	16	static
