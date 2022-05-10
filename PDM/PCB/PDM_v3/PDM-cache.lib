@@ -98,6 +98,29 @@ X Pin_1 1 200 0 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# Connector_Conn_01x03_Male
+#
+DEF Connector_Conn_01x03_Male J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "Connector_Conn_01x03_Male" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+S 34 -95 0 -105 1 1 6 F
+S 34 5 0 -5 1 1 6 F
+S 34 105 0 95 1 1 6 F
+P 2 1 1 6 50 -100 34 -100 N
+P 2 1 1 6 50 0 34 0 N
+P 2 1 1 6 50 100 34 100 N
+X Pin_1 1 200 100 150 L 50 50 1 1 P
+X Pin_2 2 200 0 150 L 50 50 1 1 P
+X Pin_3 3 200 -100 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector_Conn_01x09_Male
 #
 DEF Connector_Conn_01x09_Male J 0 40 Y N 1 F N
@@ -136,41 +159,6 @@ X Pin_6 6 200 -100 150 L 50 50 1 1 P
 X Pin_7 7 200 -200 150 L 50 50 1 1 P
 X Pin_8 8 200 -300 150 L 50 50 1 1 P
 X Pin_9 9 200 -400 150 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Connector_Generic_Conn_02x05_Odd_Even
-#
-DEF Connector_Generic_Conn_02x05_Odd_Even J 0 40 Y N 1 F N
-F0 "J" 50 300 50 H V C CNN
-F1 "Connector_Generic_Conn_02x05_Odd_Even" 50 -300 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_2x??_*
-$ENDFPLIST
-DRAW
-S -50 -195 0 -205 1 1 6 N
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 105 0 95 1 1 6 N
-S -50 205 0 195 1 1 6 N
-S -50 250 150 -250 1 1 10 f
-S 150 -195 100 -205 1 1 6 N
-S 150 -95 100 -105 1 1 6 N
-S 150 5 100 -5 1 1 6 N
-S 150 105 100 95 1 1 6 N
-S 150 205 100 195 1 1 6 N
-X Pin_1 1 -200 200 150 R 50 50 1 1 P
-X Pin_10 10 300 -200 150 L 50 50 1 1 P
-X Pin_2 2 300 200 150 L 50 50 1 1 P
-X Pin_3 3 -200 100 150 R 50 50 1 1 P
-X Pin_4 4 300 100 150 L 50 50 1 1 P
-X Pin_5 5 -200 0 150 R 50 50 1 1 P
-X Pin_6 6 300 0 150 L 50 50 1 1 P
-X Pin_7 7 -200 -100 150 R 50 50 1 1 P
-X Pin_8 8 300 -100 150 L 50 50 1 1 P
-X Pin_9 9 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -462,19 +450,21 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# EEETP1C101AP_EEETP1C101AP
+# EEE-FK1C182SQ_EEE-FK1C182SQ
 #
-DEF EEETP1C101AP_EEETP1C101AP C 0 30 Y Y 1 F N
+DEF EEE-FK1C182SQ_EEE-FK1C182SQ C 0 30 Y Y 1 F N
 F0 "C" 350 250 50 H V L CNN
-F1 "EEETP1C101AP_EEETP1C101AP" 350 150 50 H V L CNN
-F2 "EEE0JA471UAP" 350 50 50 H I L CNN
-F3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1196.pdf" 350 -50 50 H I L CNN
-F4 "Panasonic 100F 16V dc Aluminium Electrolytic Capacitor, Surface Mount 8 (Dia.) x 10.2mm +125C 8mm 3.1mm" 350 -150 50 H I L CNN "Description"
-F5 "10" 350 -250 50 H I L CNN "Height"
+F1 "EEE-FK1C182SQ_EEE-FK1C182SQ" 350 150 50 H V L CNN
+F2 "EEEFK0J332AQ" 350 50 50 H I L CNN
+F3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" 350 -50 50 H I L CNN
+F4 "Aluminum Electrolytic Capacitors - SMD 16VDC 1800uF 20% 12.5x13.5mm AEC-Q200" 350 -150 50 H I L CNN "Description"
+F5 "15" 350 -250 50 H I L CNN "Height"
 F6 "Panasonic" 350 -350 50 H I L CNN "Manufacturer_Name"
-F7 "EEETP1C101AP" 350 -450 50 H I L CNN "Manufacturer_Part_Number"
-F8 "EEETP1C101AP" 350 -750 50 H I L CNN "Arrow Part Number"
-F9 "https://www.arrow.com/en/products/eee-tp1c101ap/panasonic" 350 -850 50 H I L CNN "Arrow Price/Stock"
+F7 "EEE-FK1C182SQ" 350 -450 50 H I L CNN "Manufacturer_Part_Number"
+F8 "667-EEE-FK1C182SQ" 350 -550 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Panasonic/EEE-FK1C182SQ?qs=BZBei1rCqCDZ%2F9wPPM5YoA%3D%3D" 350 -650 50 H I L CNN "Mouser Price/Stock"
+F10 "EEE-FK1C182SQ" 350 -750 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/eee-fk1c182sq/panasonic" 350 -850 50 H I L CNN "Arrow Price/Stock"
 DRAW
 P 2 0 1 6 100 0 200 0 N
 P 2 0 1 6 160 70 160 30 N

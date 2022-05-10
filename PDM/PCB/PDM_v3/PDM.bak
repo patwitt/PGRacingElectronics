@@ -971,30 +971,25 @@ Connection ~ 7650 2500
 $Comp
 L Connector:Conn_01x01_Male J15
 U 1 1 61AA1863
-P 8325 3225
-F 0 "J15" H 8297 3157 50  0000 R CNN
-F 1 "SERVO_GEAR" H 8297 3248 50  0000 R CNN
-F 2 "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad" H 8325 3225 50  0001 C CNN
-F 3 "~" H 8325 3225 50  0001 C CNN
-	1    8325 3225
+P 8675 3225
+F 0 "J15" H 8647 3157 50  0000 R CNN
+F 1 "SERVO_GEAR" H 8647 3248 50  0000 R CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad" H 8675 3225 50  0001 C CNN
+F 3 "~" H 8675 3225 50  0001 C CNN
+	1    8675 3225
 	-1   0    0    1   
 $EndComp
 $Comp
 L Connector:Conn_01x01_Male J17
 U 1 1 61AA1C4E
-P 8325 4050
-F 0 "J17" H 8297 3982 50  0000 R CNN
-F 1 "SERVO_CLUTCH" H 8297 4073 50  0000 R CNN
-F 2 "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad" H 8325 4050 50  0001 C CNN
-F 3 "~" H 8325 4050 50  0001 C CNN
-	1    8325 4050
+P 8650 4050
+F 0 "J17" H 8622 3982 50  0000 R CNN
+F 1 "SERVO_CLUTCH" H 8622 4073 50  0000 R CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad" H 8650 4050 50  0001 C CNN
+F 3 "~" H 8650 4050 50  0001 C CNN
+	1    8650 4050
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	8025 3225 8100 3225
-Connection ~ 8100 3225
-Wire Wire Line
-	8100 3225 8125 3225
 $Sheet
 S 4825 6450 525  725 
 U 619973E8
@@ -1189,11 +1184,7 @@ Wire Wire Line
 Text GLabel 7475 3225 0    50   Input ~ 0
 12V_SERVO_OUT
 Wire Wire Line
-	7725 4050 7625 4050
-Wire Wire Line
 	7625 4050 7625 3225
-Wire Wire Line
-	7625 3225 7725 3225
 Text GLabel 8625 6850 0    50   Input ~ 0
 12V_SERVO_OUT
 Text GLabel 8625 6950 0    50   Input ~ 0
@@ -1436,48 +1427,24 @@ Wire Wire Line
 $Comp
 L power:GND #PWR063
 U 1 1 6193D55B
-P 8100 3725
-F 0 "#PWR063" H 8100 3475 50  0001 C CNN
-F 1 "GND" H 8105 3552 50  0000 C CNN
-F 2 "" H 8100 3725 50  0001 C CNN
-F 3 "" H 8100 3725 50  0001 C CNN
-	1    8100 3725
+P 7950 3725
+F 0 "#PWR063" H 7950 3475 50  0001 C CNN
+F 1 "GND" H 7955 3552 50  0000 C CNN
+F 2 "" H 7950 3725 50  0001 C CNN
+F 3 "" H 7950 3725 50  0001 C CNN
+	1    7950 3725
 	1    0    0    -1  
 $EndComp
-Connection ~ 8075 4050
-Wire Wire Line
-	8075 4050 8125 4050
-Wire Wire Line
-	8025 4050 8075 4050
 $Comp
 L power:GND #PWR062
 U 1 1 6193FE29
-P 8075 4550
-F 0 "#PWR062" H 8075 4300 50  0001 C CNN
-F 1 "GND" H 8080 4377 50  0000 C CNN
-F 2 "" H 8075 4550 50  0001 C CNN
-F 3 "" H 8075 4550 50  0001 C CNN
-	1    8075 4550
+P 7950 4550
+F 0 "#PWR062" H 7950 4300 50  0001 C CNN
+F 1 "GND" H 7955 4377 50  0000 C CNN
+F 2 "" H 7950 4550 50  0001 C CNN
+F 3 "" H 7950 4550 50  0001 C CNN
+	1    7950 4550
 	1    0    0    -1  
-$EndComp
-$Comp
-L EEETP1C101AP:EEETP1C101AP C30
-U 1 1 6193FE23
-P 8075 4050
-F 0 "C30" V 8375 4275 50  0000 C CNN
-F 1 "100uF" V 8300 4300 50  0000 C CNN
-F 2 "EEETP1C101AP:EEE0JA471UAP" H 8425 4100 50  0001 L CNN
-F 3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1196.pdf" H 8425 4000 50  0001 L CNN
-F 4 "Panasonic 100F 16V dc Aluminium Electrolytic Capacitor, Surface Mount 8 (Dia.) x 10.2mm +125C 8mm 3.1mm" H 8425 3900 50  0001 L CNN "Description"
-F 5 "10" H 8425 3800 50  0001 L CNN "Height"
-F 6 "Panasonic" H 8425 3700 50  0001 L CNN "Manufacturer_Name"
-F 7 "EEETP1C101AP" H 8425 3600 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 8425 3500 50  0001 L CNN "Mouser Part Number"
-F 9 "" H 8425 3400 50  0001 L CNN "Mouser Price/Stock"
-F 10 "EEETP1C101AP" H 8425 3300 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/eee-tp1c101ap/panasonic" H 8425 3200 50  0001 L CNN "Arrow Price/Stock"
-	1    8075 4050
-	0    1    1    0   
 $EndComp
 $Comp
 L Connector:Conn_01x01_Male J11
@@ -1694,42 +1661,23 @@ IN_MAIN_SYS
 $Comp
 L Device:Fuse SERVO2
 U 1 1 61AA13A7
-P 7875 4050
-F 0 "SERVO2" V 7678 4050 50  0000 C CNN
-F 1 "15" V 7769 4050 50  0000 C CNN
-F 2 "Fuse:Fuse_1206_3216Metric" V 7805 4050 50  0001 C CNN
-F 3 "~" H 7875 4050 50  0001 C CNN
-	1    7875 4050
+P 8200 4050
+F 0 "SERVO2" V 8003 4050 50  0000 C CNN
+F 1 "15" V 8094 4050 50  0000 C CNN
+F 2 "Fuse:Fuse_1206_3216Metric" V 8130 4050 50  0001 C CNN
+F 3 "~" H 8200 4050 50  0001 C CNN
+	1    8200 4050
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:Fuse SERVO1
 U 1 1 61AA1007
-P 7875 3225
-F 0 "SERVO1" V 7678 3225 50  0000 C CNN
-F 1 "15" V 7769 3225 50  0000 C CNN
-F 2 "Fuse:Fuse_1206_3216Metric" V 7805 3225 50  0001 C CNN
-F 3 "~" H 7875 3225 50  0001 C CNN
-	1    7875 3225
-	0    1    1    0   
-$EndComp
-$Comp
-L EEETP1C101AP:EEETP1C101AP C31
-U 1 1 61ADEF9B
-P 8100 3225
-F 0 "C31" V 8400 3450 50  0000 C CNN
-F 1 "100uF" V 8325 3475 50  0000 C CNN
-F 2 "EEETP1C101AP:EEE0JA471UAP" H 8450 3275 50  0001 L CNN
-F 3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1196.pdf" H 8450 3175 50  0001 L CNN
-F 4 "Panasonic 100F 16V dc Aluminium Electrolytic Capacitor, Surface Mount 8 (Dia.) x 10.2mm +125C 8mm 3.1mm" H 8450 3075 50  0001 L CNN "Description"
-F 5 "10" H 8450 2975 50  0001 L CNN "Height"
-F 6 "Panasonic" H 8450 2875 50  0001 L CNN "Manufacturer_Name"
-F 7 "EEETP1C101AP" H 8450 2775 50  0001 L CNN "Manufacturer_Part_Number"
-F 8 "" H 8450 2675 50  0001 L CNN "Mouser Part Number"
-F 9 "" H 8450 2575 50  0001 L CNN "Mouser Price/Stock"
-F 10 "EEETP1C101AP" H 8450 2475 50  0001 L CNN "Arrow Part Number"
-F 11 "https://www.arrow.com/en/products/eee-tp1c101ap/panasonic" H 8450 2375 50  0001 L CNN "Arrow Price/Stock"
-	1    8100 3225
+P 8225 3225
+F 0 "SERVO1" V 8028 3225 50  0000 C CNN
+F 1 "15" V 8119 3225 50  0000 C CNN
+F 2 "Fuse:Fuse_1206_3216Metric" V 8155 3225 50  0001 C CNN
+F 3 "~" H 8225 3225 50  0001 C CNN
+	1    8225 3225
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -1883,7 +1831,7 @@ F 3 "~" H 2225 8200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 2125 8000 0    50   Input ~ 0
-12V_BAT
+12V_BATT
 Wire Wire Line
 	2125 8000 2225 8000
 Text GLabel 3850 8350 2    50   Input ~ 0
@@ -2044,7 +1992,7 @@ Wire Notes Line width 20
 Text Notes 7925 9850 0    50   ~ 0
 14V MAX -> 3.3V MAX
 Text GLabel 13050 875  0    50   Input ~ 0
-12V_BAT
+12V_BATT
 $Comp
 L TMP236A4DBZT:TMP236A4DBZT IC9
 U 1 1 61DC3978
@@ -2369,7 +2317,7 @@ Wire Wire Line
 	2225 9350 2225 9500
 Wire Wire Line
 	2150 9500 2225 9500
-Text GLabel 3650 9250 2    50   Input ~ 0
+Text GLabel 3650 10325 2    50   Input ~ 0
 IN_FUEL
 Text Notes 2525 9775 0    50   ~ 0
 Control Fuel Pump MOS
@@ -2487,7 +2435,7 @@ Wire Wire Line
 	2225 10425 2225 10575
 Wire Wire Line
 	2150 10575 2225 10575
-Text GLabel 3650 10325 2    50   Input ~ 0
+Text GLabel 3650 9250 2    50   Input ~ 0
 IN_FAN
 Text Notes 2525 10850 0    50   ~ 0
 Control Fans MOS
@@ -2581,4 +2529,112 @@ Text GLabel 2125 10075 0    50   Input ~ 0
 12V_MAIN_IN
 Text GLabel 3850 10425 2    50   Input ~ 0
 12V_MAIN_IN
+$Comp
+L EEE-FK1C182SQ:EEE-FK1C182SQ C31
+U 1 1 61F15847
+P 7950 3225
+F 0 "C31" V 8154 3355 50  0000 L CNN
+F 1 "EEE-FK1C182SQ" V 8245 3355 50  0000 L CNN
+F 2 "EEE-FK1C182SQ:EEEFK0J332AQ" H 8300 3275 50  0001 L CNN
+F 3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 8300 3175 50  0001 L CNN
+F 4 "Aluminum Electrolytic Capacitors - SMD 16VDC 1800uF 20% 12.5x13.5mm AEC-Q200" H 8300 3075 50  0001 L CNN "Description"
+F 5 "15" H 8300 2975 50  0001 L CNN "Height"
+F 6 "Panasonic" H 8300 2875 50  0001 L CNN "Manufacturer_Name"
+F 7 "EEE-FK1C182SQ" H 8300 2775 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "667-EEE-FK1C182SQ" H 8300 2675 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Panasonic/EEE-FK1C182SQ?qs=BZBei1rCqCDZ%2F9wPPM5YoA%3D%3D" H 8300 2575 50  0001 L CNN "Mouser Price/Stock"
+F 10 "EEE-FK1C182SQ" H 8300 2475 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/eee-fk1c182sq/panasonic" H 8300 2375 50  0001 L CNN "Arrow Price/Stock"
+	1    7950 3225
+	0    1    1    0   
+$EndComp
+$Comp
+L EEE-FK1C182SQ:EEE-FK1C182SQ C30
+U 1 1 61F16639
+P 7950 4050
+F 0 "C30" V 8154 4180 50  0000 L CNN
+F 1 "EEE-FK1C182SQ" V 8245 4180 50  0000 L CNN
+F 2 "EEE-FK1C182SQ:EEEFK0J332AQ" H 8300 4100 50  0001 L CNN
+F 3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 8300 4000 50  0001 L CNN
+F 4 "Aluminum Electrolytic Capacitors - SMD 16VDC 1800uF 20% 12.5x13.5mm AEC-Q200" H 8300 3900 50  0001 L CNN "Description"
+F 5 "15" H 8300 3800 50  0001 L CNN "Height"
+F 6 "Panasonic" H 8300 3700 50  0001 L CNN "Manufacturer_Name"
+F 7 "EEE-FK1C182SQ" H 8300 3600 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "667-EEE-FK1C182SQ" H 8300 3500 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Panasonic/EEE-FK1C182SQ?qs=BZBei1rCqCDZ%2F9wPPM5YoA%3D%3D" H 8300 3400 50  0001 L CNN "Mouser Price/Stock"
+F 10 "EEE-FK1C182SQ" H 8300 3300 50  0001 L CNN "Arrow Part Number"
+F 11 "https://www.arrow.com/en/products/eee-fk1c182sq/panasonic" H 8300 3200 50  0001 L CNN "Arrow Price/Stock"
+	1    7950 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8350 4050 8450 4050
+Wire Wire Line
+	8375 3225 8475 3225
+Wire Wire Line
+	7625 3225 7950 3225
+Connection ~ 7950 3225
+Wire Wire Line
+	7950 3225 8075 3225
+Wire Wire Line
+	7625 4050 7950 4050
+Connection ~ 7950 4050
+Wire Wire Line
+	7950 4050 8050 4050
+$Comp
+L Connector:Conn_01x03_Male J?
+U 1 1 61F8AC8A
+P 12050 3175
+F 0 "J?" H 12158 3456 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 12158 3365 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 12050 3175 50  0001 C CNN
+F 3 "~" H 12050 3175 50  0001 C CNN
+	1    12050 3175
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61FAAFEC
+P 12550 3050
+F 0 "#PWR?" H 12550 2900 50  0001 C CNN
+F 1 "+5V" H 12565 3223 50  0000 C CNN
+F 2 "" H 12550 3050 50  0001 C CNN
+F 3 "" H 12550 3050 50  0001 C CNN
+	1    12550 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12250 3075 12550 3075
+Wire Wire Line
+	12550 3075 12550 3050
+$Comp
+L power:+3.3V #PWR?
+U 1 1 61FE17FF
+P 12775 3050
+F 0 "#PWR?" H 12775 2900 50  0001 C CNN
+F 1 "+3.3V" H 12790 3223 50  0000 C CNN
+F 2 "" H 12775 3050 50  0001 C CNN
+F 3 "" H 12775 3050 50  0001 C CNN
+	1    12775 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12775 3050 12775 3175
+Wire Wire Line
+	12775 3175 12250 3175
+$Comp
+L power:GND #PWR?
+U 1 1 61FF928B
+P 12350 3300
+F 0 "#PWR?" H 12350 3050 50  0001 C CNN
+F 1 "GND" H 12355 3127 50  0000 C CNN
+F 2 "" H 12350 3300 50  0001 C CNN
+F 3 "" H 12350 3300 50  0001 C CNN
+	1    12350 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12350 3300 12350 3275
+Wire Wire Line
+	12350 3275 12250 3275
 $EndSCHEMATC

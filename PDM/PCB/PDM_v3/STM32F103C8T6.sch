@@ -402,52 +402,6 @@ Wire Wire Line
 	6800 3500 6800 3575
 Text Notes 6100 4650 0    50   ~ 0
 Cload = 2 * (CL - Cstray)
-$Comp
-L Connector_Generic:Conn_02x05_Odd_Even J14
-U 1 1 61927E5C
-P 6625 5475
-F 0 "J14" H 6675 5775 50  0000 C CNN
-F 1 "SWD" H 6675 5150 50  0000 C CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD" H 6625 5475 50  0001 C CNN
-F 3 "~" H 6625 5475 50  0001 C CNN
-	1    6625 5475
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR044
-U 1 1 61927E6A
-P 6350 5750
-F 0 "#PWR044" H 6350 5500 50  0001 C CNN
-F 1 "GND" H 6350 5600 50  0000 C CNN
-F 2 "" H 6350 5750 50  0001 C CNN
-F 3 "" H 6350 5750 50  0001 C CNN
-	1    6350 5750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6425 5375 6350 5375
-Wire Wire Line
-	6350 5375 6350 5475
-Wire Wire Line
-	6425 5475 6350 5475
-Connection ~ 6350 5475
-Wire Wire Line
-	6350 5475 6350 5675
-Wire Wire Line
-	6425 5675 6350 5675
-Connection ~ 6350 5675
-Wire Wire Line
-	6350 5675 6350 5750
-NoConn ~ 6425 5575
-Text GLabel 6925 5275 2    50   Input ~ 0
-SWDIO
-Text GLabel 6925 5375 2    50   Input ~ 0
-SWCLK
-Text GLabel 6925 5475 2    50   Input ~ 0
-SWO
-NoConn ~ 6925 5575
-Text GLabel 6925 5675 2    50   Input ~ 0
-NRST
 Wire Wire Line
 	4450 6400 4450 6300
 $Comp
@@ -523,10 +477,6 @@ Text GLabel 2325 1800 1    50   Input ~ 0
 5V_ST_LINK
 Wire Wire Line
 	2325 1800 2325 1900
-Wire Wire Line
-	6175 5275 6425 5275
-Text GLabel 6175 5275 0    50   Input ~ 0
-5V_ST_LINK
 Text GLabel 2550 3050 0    50   Input ~ 0
 NRST
 Text GLabel 2550 3250 0    50   Input ~ 0
@@ -664,4 +614,46 @@ Text HLabel 2550 5550 0    50   Input ~ 0
 PB14
 Text HLabel 2550 5650 0    50   Input ~ 0
 PB15
+$Comp
+L 90130-1106:90130-1106 J12
+U 1 1 61F4B184
+P 6075 5475
+F 0 "J12" H 6475 5740 50  0000 C CNN
+F 1 "90130-1106" H 6475 5649 50  0000 C CNN
+F 2 "SHDR6W65P254_2X3_996X975X1110P" H 6725 5575 50  0001 L CNN
+F 3 "" H 6725 5475 50  0001 L CNN
+F 4 "Headers & Wire Housings 2.54MM CGRIDIII HDR 6P V DR SHRD TIN" H 6725 5375 50  0001 L CNN "Description"
+F 5 "11.1" H 6725 5275 50  0001 L CNN "Height"
+F 6 "Molex" H 6725 5175 50  0001 L CNN "Manufacturer_Name"
+F 7 "90130-1106" H 6725 5075 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "538-90130-1106" H 6725 4975 50  0001 L CNN "Mouser Part Number"
+F 9 "https://www.mouser.co.uk/ProductDetail/Molex/90130-1106/?qs=kEwmkoUtv7SJTmEdS0xkTg%3D%3D" H 6725 4875 50  0001 L CNN "Mouser Price/Stock"
+F 10 "" H 6725 4775 50  0001 L CNN "Arrow Part Number"
+F 11 "" H 6725 4675 50  0001 L CNN "Arrow Price/Stock"
+	1    6075 5475
+	1    0    0    -1  
+$EndComp
+Text GLabel 6075 5575 0    50   Input ~ 0
+5V_ST_LINK
+$Comp
+L power:GND #PWR037
+U 1 1 61F4EF21
+P 6075 5275
+F 0 "#PWR037" H 6075 5025 50  0001 C CNN
+F 1 "GND" H 6075 5125 50  0000 C CNN
+F 2 "" H 6075 5275 50  0001 C CNN
+F 3 "" H 6075 5275 50  0001 C CNN
+	1    6075 5275
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6075 5475 6075 5275
+Text GLabel 6075 5675 0    50   Input ~ 0
+SWDIO
+Text GLabel 6875 5475 2    50   Input ~ 0
+NRST
+Text GLabel 6875 5575 2    50   Input ~ 0
+SWO
+Text GLabel 6875 5675 2    50   Input ~ 0
+SWCLK
 $EndSCHEMATC
