@@ -17,19 +17,6 @@ C_SRCS += \
 ../Core/Src/sysmem.c \
 ../Core/Src/system_stm32f7xx.c 
 
-OBJS += \
-./Core/Src/Dev_Inf.o \
-./Core/Src/Loader_Src.o \
-./Core/Src/at25sf128a.o \
-./Core/Src/gpio.o \
-./Core/Src/main.o \
-./Core/Src/quadspi.o \
-./Core/Src/stm32f7xx_hal_msp.o \
-./Core/Src/stm32f7xx_it.o \
-./Core/Src/syscalls.o \
-./Core/Src/sysmem.o \
-./Core/Src/system_stm32f7xx.o 
-
 C_DEPS += \
 ./Core/Src/Dev_Inf.d \
 ./Core/Src/Loader_Src.d \
@@ -42,6 +29,19 @@ C_DEPS += \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
 ./Core/Src/system_stm32f7xx.d 
+
+OBJS += \
+./Core/Src/Dev_Inf.o \
+./Core/Src/Loader_Src.o \
+./Core/Src/at25sf128a.o \
+./Core/Src/gpio.o \
+./Core/Src/main.o \
+./Core/Src/quadspi.o \
+./Core/Src/stm32f7xx_hal_msp.o \
+./Core/Src/stm32f7xx_it.o \
+./Core/Src/syscalls.o \
+./Core/Src/sysmem.o \
+./Core/Src/system_stm32f7xx.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
