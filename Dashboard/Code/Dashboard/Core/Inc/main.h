@@ -60,6 +60,10 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SIGNAL_LED_Pin GPIO_PIN_2
 #define SIGNAL_LED_GPIO_Port GPIOE
+#define ESP_RESET_Pin GPIO_PIN_10
+#define ESP_RESET_GPIO_Port GPIOC
+#define ESP_PD_Pin GPIO_PIN_11
+#define ESP_PD_GPIO_Port GPIOC
 #define ESP_TX_Pin GPIO_PIN_12
 #define ESP_TX_GPIO_Port GPIOC
 #define ESP_RX_Pin GPIO_PIN_2

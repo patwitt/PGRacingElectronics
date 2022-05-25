@@ -21,6 +21,7 @@ Application/User/Core/main.o: \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma_ex.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_cortex.h \
+ ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc_ex.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma2d.h \
@@ -50,11 +51,12 @@ Application/User/Core/main.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../../Core/Inc/crc.h ../../Core/Inc/main.h ../../Core/Inc/dma2d.h \
- ../../Core/Inc/i2c.h ../../Core/Inc/ltdc.h ../../Core/Inc/quadspi.h \
- ../../Core/Inc/tim.h ../../Core/Inc/usart.h ../../Core/Inc/gpio.h \
- ../../Core/Inc/fmc.h ../../TouchGFX/App/app_touchgfx.h \
- ../../Core/Inc/at25sf128a.h
+ ../../Core/Inc/can.h ../../Core/Inc/main.h ../../Core/Inc/crc.h \
+ ../../Core/Inc/dma2d.h ../../Core/Inc/i2c.h ../../Core/Inc/ltdc.h \
+ ../../Core/Inc/quadspi.h ../../Core/Inc/tim.h ../../Core/Inc/usart.h \
+ ../../Core/Inc/gpio.h ../../Core/Inc/fmc.h \
+ ../../TouchGFX/App/app_touchgfx.h ../../Core/Inc/at25sf128a.h \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h
 
 ../../Core/Inc/main.h:
 
@@ -97,6 +99,8 @@ Application/User/Core/main.o: \
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma_ex.h:
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_cortex.h:
+
+../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:
 
 ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_crc.h:
 
@@ -156,9 +160,11 @@ Application/User/Core/main.o: \
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 
-../../Core/Inc/crc.h:
+../../Core/Inc/can.h:
 
 ../../Core/Inc/main.h:
+
+../../Core/Inc/crc.h:
 
 ../../Core/Inc/dma2d.h:
 
@@ -179,3 +185,5 @@ Application/User/Core/main.o: \
 ../../TouchGFX/App/app_touchgfx.h:
 
 ../../Core/Inc/at25sf128a.h:
+
+F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h:

@@ -16,18 +16,6 @@ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Middlewares/Third_Party/FreeRTOS/Source/tasks.c \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Middlewares/Third_Party/FreeRTOS/Source/timers.c 
 
-C_DEPS += \
-./Middlewares/FreeRTOS/cmsis_os2.d \
-./Middlewares/FreeRTOS/croutine.d \
-./Middlewares/FreeRTOS/event_groups.d \
-./Middlewares/FreeRTOS/heap_4.d \
-./Middlewares/FreeRTOS/list.d \
-./Middlewares/FreeRTOS/port.d \
-./Middlewares/FreeRTOS/queue.d \
-./Middlewares/FreeRTOS/stream_buffer.d \
-./Middlewares/FreeRTOS/tasks.d \
-./Middlewares/FreeRTOS/timers.d 
-
 OBJS += \
 ./Middlewares/FreeRTOS/cmsis_os2.o \
 ./Middlewares/FreeRTOS/croutine.o \
@@ -39,6 +27,18 @@ OBJS += \
 ./Middlewares/FreeRTOS/stream_buffer.o \
 ./Middlewares/FreeRTOS/tasks.o \
 ./Middlewares/FreeRTOS/timers.o 
+
+C_DEPS += \
+./Middlewares/FreeRTOS/cmsis_os2.d \
+./Middlewares/FreeRTOS/croutine.d \
+./Middlewares/FreeRTOS/event_groups.d \
+./Middlewares/FreeRTOS/heap_4.d \
+./Middlewares/FreeRTOS/list.d \
+./Middlewares/FreeRTOS/port.d \
+./Middlewares/FreeRTOS/queue.d \
+./Middlewares/FreeRTOS/stream_buffer.d \
+./Middlewares/FreeRTOS/tasks.d \
+./Middlewares/FreeRTOS/timers.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

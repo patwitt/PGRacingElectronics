@@ -24,8 +24,8 @@ startViewBase::startViewBase()
     buttonWithLabel1.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     buttonWithLabel1.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
 
-    scalableImage1.setBitmap(touchgfx::Bitmap(BITMAP_ZRZUT_EKRANU_2021_10_27_202950_ID));
-    scalableImage1.setPosition(26, 176, 628, 281);
+    scalableImage1.setBitmap(touchgfx::Bitmap(BITMAP_SPLASH_LANA_MINIFIED_ID));
+    scalableImage1.setPosition(0, 0, 800, 480);
     scalableImage1.setScalingAlgorithm(touchgfx::ScalableImage::NEAREST_NEIGHBOR);
 
     add(__background);
