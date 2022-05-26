@@ -150,8 +150,30 @@ int main(void)
 
 
 */
+  uint8_t Buffer[25] = {0};
+  uint8_t Space[] = " - ";
+  uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
+  uint8_t EndMSG[] = "Done! \r\n\r\n";
+  HAL_UART_Transmit(&huart3, StartMSG, sizeof(StartMSG), 10000);
+      for(int i=1; i<128; i++)
+      {
+          int ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
+          if (ret != HAL_OK) /* No ACK Received At That Address */
+          {
+              HAL_UART_Transmit(&huart3, Space, sizeof(Space), 10000);
+          }
+          else if(ret == HAL_OK)
+          {
+              sprintf(Buffer, "0x%X", i);
+              HAL_UART_Transmit(&huart3, Buffer, sizeof(Buffer), 10000);
+          }
+      }
+      HAL_UART_Transmit(&huart3, EndMSG, sizeof(EndMSG), 10000);
+
+
   struct imu_9dof imu_9dof_data;
   struct imu_9dof_calc imu_9dof_calculated;
+  MPU9250_Init();
   char testdata[255] ;
 FRESULT fres = 0;
 
@@ -159,13 +181,17 @@ FRESULT fres = 0;
 
   if (f_mount(&temp_fatfs, "", 1) == FR_OK)
   {
+	  HAL_UART_Transmit(&huart3, "SDCard mounted\r\n", strlen("SDCard mounted\r\n"), HAL_MAX_DELAY);
 	  char path[] = "GYRO.TXT\0";
 	 fres = f_open(&fil, path, FA_WRITE | FA_CREATE_ALWAYS);
 
 	  char test_data[] = "number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n";
 	  fres =  f_write(&fil, test_data, sizeof(test_data), &test_byte);
 	  fres =   f_close(&fil);
-	  //HAL_UART_Transmit(&huart3, "sIEMA\r\n", 7, HAL_MAX_DELAY);
+
+  }else
+  {
+	  HAL_UART_Transmit(&huart3, "SDCard mount failed\r\n", strlen("SDCard mount failed\r\n"), HAL_MAX_DELAY);
   }
   //HAL_UART_Transmit(&huart3, "no filesystem\r\n", 6, HAL_MAX_DELAY);
   int number = 1;
@@ -182,12 +208,14 @@ FRESULT fres = 0;
 	  char path[] = "GYRO.TXT\0";
 	sprintf(testdata,"%d,,", number);
 	  f_open(&fil, path, FA_WRITE | FA_OPEN_APPEND);
+
 	imu_9dof_get_data(&imu_9dof_data, &imu_9dof_calculated);
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(testdata, "%f,", imu_9dof_calculated.gyro_data_calc[i]);
 		  f_write(&fil, testdata, strlen(testdata), &test_byte);
 		printf("%f ", imu_9dof_calculated.gyro_data_calc[i]);
+
 	}
 	for (int i = 0; i < 3; i++)
 	{

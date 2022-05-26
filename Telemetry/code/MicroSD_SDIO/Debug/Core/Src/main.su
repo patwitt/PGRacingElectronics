@@ -1,0 +1,6 @@
+../Core/Src/main.c:66:5:__io_putchar	16	static
+../Core/Src/main.c:85:6:imu_9dof_convert	16	static
+../Core/Src/main.c:95:6:imu_9dof_get_data	16	static
+../Core/Src/main.c:107:5:main	8808	static
+../Core/Src/main.c:248:6:SystemClock_Config	232	static
+../Core/Src/main.c:307:6:Error_Handler	4	static,ignoring_inline_asm
