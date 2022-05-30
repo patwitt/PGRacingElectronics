@@ -1,0 +1,99 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# CP1-12V-CP1-12V
+#
+DEF CP1-12V-CP1-12V K 0 30 Y Y 1 F N
+F0 "K" 850 700 50 H V L CNN
+F1 "CP1-12V-CP1-12V" 850 600 50 H V L CNN
+F2 "CP1FORMC_1" 850 500 50 H I L CNN
+F3 "" 850 400 50 H I L CNN
+F4 "PANASONIC ELECTRIC WORKS - CP1-12V - RELAY, AUTOMOTIVE, SPDT, 14VDC, 20A" 850 300 50 H I L CNN "Description"
+F5 "769-CP1-12V" 850 100 50 H I L CNN "Mouser Part Number"
+F6 "https://www.mouser.co.uk/ProductDetail/Panasonic-Industrial-Devices/CP1-12V?qs=mTeSeKeuVA7dPPafy7M16g%3D%3D" 850 0 50 H I L CNN "Mouser Price/Stock"
+F7 "Panasonic" 850 -100 50 H I L CNN "Manufacturer_Name"
+F8 "CP1-12V" 850 -200 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 500 800 500 800 -300 200 -300 200 500 N
+X COIL_1 1 400 700 200 D 50 50 0 0 P
+X COM 2 0 0 200 R 50 50 0 0 P
+X NC 3 500 -500 200 U 50 50 0 0 N
+X NO 4 1000 0 200 L 50 50 0 0 P
+X COIL_2 5 500 700 200 D 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# DF2B36FU,H3F-DF2B36FU_H3F
+#
+DEF DF2B36FU,H3F-DF2B36FU_H3F D 0 30 Y Y 1 F N
+F0 "D" 500 350 50 H V L BNN
+F1 "DF2B36FU,H3F-DF2B36FU_H3F" 500 250 50 H V L BNN
+F2 "1SS357TPH3F" 500 150 50 H I L BNN
+F3 "http://toshiba.semicon-storage.com/info/docget.jsp?did=36248&prodName=DF2B36FU" 500 50 50 H I L BNN
+F4 "ESD Suppressors / TVS Diodes ESD protection diode Bi-directional type" 500 -50 50 H I L BNN "Description"
+F5 "1" 500 -150 50 H I L BNN "Height"
+F6 "757-DF2B36FUH3F" 500 -250 50 H I L BNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Toshiba/DF2B36FUH3F?qs=PDgMCp4xDJY7HvoH3U6rfA%3D%3D" 500 -350 50 H I L BNN "Mouser Price/Stock"
+F8 "Toshiba" 500 -450 50 H I L BNN "Manufacturer_Name"
+F9 "DF2B36FU,H3F" 500 -550 50 H I L BNN "Manufacturer_Part_Number"
+DRAW
+P 2 0 1 6 360 100 400 80 N
+P 2 0 1 6 400 -80 400 80 N
+P 2 0 1 6 400 -80 440 -100 N
+P 4 0 1 6 400 0 200 -100 200 100 400 0 N
+P 4 0 1 6 400 0 600 -100 600 100 400 0 N
+X ~ 1 0 0 200 R 50 50 0 0 P
+X ~ 2 800 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# LM393AD-LM393AD
+#
+DEF LM393AD-LM393AD IC 0 30 Y Y 1 F N
+F0 "IC" 1150 300 50 H V L CNN
+F1 "LM393AD-LM393AD" 1150 200 50 H V L CNN
+F2 "SOIC127P600X175-8N" 1150 100 50 H I L CNN
+F3 "http://www.ti.com/lit/ds/symlink/lm393a.pdf" 1150 0 50 H I L CNN
+F4 "LM393ADG4, Dual Comparator Open Collector 1.3s 2-kanalers 3, 5, 9, 12, 15, 18, 24, 28V 8-Pin SOIC" 1150 -100 50 H I L CNN "Description"
+F5 "1.75" 1150 -200 50 H I L CNN "Height"
+F6 "595-LM393AD" 1150 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM393AD?qs=LfG3tU9ud8Dw2sg2xFhQ4Q%3D%3D" 1150 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Texas Instruments" 1150 -500 50 H I L CNN "Manufacturer_Name"
+F9 "LM393AD" 1150 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 1100 100 1100 -400 200 -400 200 100 N
+X 1OUT 1 0 0 200 R 50 50 0 0 P
+X 1IN- 2 0 -100 200 R 50 50 0 0 P
+X 1IN+ 3 0 -200 200 R 50 50 0 0 P
+X GND 4 0 -300 200 R 50 50 0 0 P
+X 2IN+ 5 1300 -300 200 L 50 50 0 0 P
+X 2IN- 6 1300 -200 200 L 50 50 0 0 P
+X 2OUT 7 1300 -100 200 L 50 50 0 0 P
+X VCC 8 1300 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# SN74AHC1G02DBVR-SN74AHC1G02DBVR
+#
+DEF SN74AHC1G02DBVR-SN74AHC1G02DBVR IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "SN74AHC1G02DBVR-SN74AHC1G02DBVR" 850 200 50 H V L CNN
+F2 "SOT95P280X145-5N" 850 100 50 H I L CNN
+F3 "http://www.ti.com/lit/gpn/sn74ahc1g02" 850 0 50 H I L CNN
+F4 "Single 2-Input Positive-NOR Gate" 850 -100 50 H I L CNN "Description"
+F5 "1.45" 850 -200 50 H I L CNN "Height"
+F6 "595-SN74AHC1G02DBVR" 850 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/SN74AHC1G02DBVR?qs=VuX40u8tcuDWJaATLLYZCQ%3D%3D" 850 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Texas Instruments" 850 -500 50 H I L CNN "Manufacturer_Name"
+F9 "SN74AHC1G02DBVR" 850 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X A 1 0 0 200 R 50 50 0 0 P
+X B 2 0 -100 200 R 50 50 0 0 P
+X GND 3 0 -200 200 R 50 50 0 0 P
+X Y 4 1000 0 200 L 50 50 0 0 P
+X VCC 5 1000 -100 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+#End Library
