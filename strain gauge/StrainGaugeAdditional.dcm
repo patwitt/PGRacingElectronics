@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ADS131M06IPBSR
+D Analog to Digital Converters - ADC 24-bit, 32-kSPS, 6-channel, simultaneous-sampling, delta-sigma ADC 32-TQFP -40 to 125
+F https://www.ti.com/lit/ds/symlink/ads131m06.pdf
+$ENDCMP
+#
+#End Doc Library
