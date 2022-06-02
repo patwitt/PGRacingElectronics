@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name telemetria-tyl-rescue)(type Legacy)(uri "${KIPRJMOD}/telemetria tyl-rescue.lib")(options "")(descr ""))
-)
