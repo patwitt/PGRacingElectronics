@@ -31,7 +31,7 @@ F 9 "LM393AD" H 3200 2100 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0101
+L BSPD-rescue:+5V-power #PWR0101
 U 1 1 627C4EC3
 P 3450 1950
 F 0 "#PWR0101" H 3450 1800 50  0001 C CNN
@@ -42,7 +42,7 @@ F 3 "" H 3450 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C1
+L BSPD-rescue:C-Device C1
 U 1 1 627C5CEE
 P 3200 2150
 F 0 "C1" H 3315 2196 50  0000 L CNN
@@ -53,7 +53,7 @@ F 3 "~" H 3200 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0102
+L BSPD-rescue:GND-power #PWR0102
 U 1 1 627C7445
 P 3200 2300
 F 0 "#PWR0102" H 3200 2050 50  0001 C CNN
@@ -68,7 +68,7 @@ Wire Wire Line
 Wire Wire Line
 	3450 2700 3350 2700
 $Comp
-L power:GND #PWR0103
+L BSPD-rescue:GND-power #PWR0103
 U 1 1 627CBBBA
 P 2050 3000
 F 0 "#PWR0103" H 2050 2750 50  0001 C CNN
@@ -81,7 +81,7 @@ $EndComp
 Text GLabel 700  2800 0    50   Input ~ 0
 Brake
 $Comp
-L Device:R R3
+L BSPD-rescue:R-Device R3
 U 1 1 627D12D3
 P 1000 2800
 F 0 "R3" V 793 2800 50  0000 C CNN
@@ -92,7 +92,7 @@ F 3 "~" H 1000 2800 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R1
+L BSPD-rescue:R-Device R1
 U 1 1 627D1AAC
 P 850 3150
 F 0 "R1" H 780 3104 50  0000 R CNN
@@ -108,7 +108,7 @@ Wire Wire Line
 	850  2800 850  3000
 Connection ~ 850  2800
 $Comp
-L power:GND #PWR0104
+L BSPD-rescue:GND-power #PWR0104
 U 1 1 627D36C3
 P 850 3300
 F 0 "#PWR0104" H 850 3050 50  0001 C CNN
@@ -119,18 +119,18 @@ F 3 "" H 850 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0105
+L BSPD-rescue:+5V-power #PWR0105
 U 1 1 627DD6EA
-P 1300 2100
-F 0 "#PWR0105" H 1300 1950 50  0001 C CNN
-F 1 "+5V" H 1315 2273 50  0000 C CNN
-F 2 "" H 1300 2100 50  0001 C CNN
-F 3 "" H 1300 2100 50  0001 C CNN
-	1    1300 2100
+P 1600 1950
+F 0 "#PWR0105" H 1600 1800 50  0001 C CNN
+F 1 "+5V" H 1615 2123 50  0000 C CNN
+F 2 "" H 1600 1950 50  0001 C CNN
+F 3 "" H 1600 1950 50  0001 C CNN
+	1    1600 1950
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R6
+L BSPD-rescue:R-Device R6
 U 1 1 627E1F5B
 P 1450 3150
 F 0 "R6" H 1380 3104 50  0000 R CNN
@@ -141,7 +141,7 @@ F 3 "~" H 1450 3150 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0106
+L BSPD-rescue:GND-power #PWR0106
 U 1 1 627E3DC2
 P 1450 3300
 F 0 "#PWR0106" H 1450 3050 50  0001 C CNN
@@ -179,7 +179,7 @@ F 9 "SN74AHC1G02DBVR" H 2250 6100 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0107
+L BSPD-rescue:GND-power #PWR0107
 U 1 1 6280C4AA
 P 1400 6900
 F 0 "#PWR0107" H 1400 6650 50  0001 C CNN
@@ -190,7 +190,7 @@ F 3 "" H 1400 6900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0108
+L BSPD-rescue:+5V-power #PWR0108
 U 1 1 6280CA45
 P 3200 6450
 F 0 "#PWR0108" H 3200 6300 50  0001 C CNN
@@ -222,7 +222,7 @@ $EndComp
 Text GLabel 5900 2050 0    50   Input ~ 0
 TRIG
 $Comp
-L Device:C C7
+L BSPD-rescue:C-Device C7
 U 1 1 62814735
 P 6250 2500
 F 0 "C7" H 6365 2546 50  0000 L CNN
@@ -233,7 +233,7 @@ F 3 "~" H 6250 2500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R16
+L BSPD-rescue:R-Device R16
 U 1 1 628157C6
 P 6400 2050
 F 0 "R16" V 6607 2050 50  0000 C CNN
@@ -249,7 +249,7 @@ Wire Wire Line
 	6250 2050 5900 2050
 Connection ~ 6250 2050
 $Comp
-L power:GND #PWR0109
+L BSPD-rescue:GND-power #PWR0109
 U 1 1 6281820D
 P 6250 2650
 F 0 "#PWR0109" H 6250 2400 50  0001 C CNN
@@ -264,7 +264,7 @@ Wire Wire Line
 Wire Wire Line
 	3200 6800 3200 6450
 $Comp
-L power:GND #PWR0110
+L BSPD-rescue:GND-power #PWR0110
 U 1 1 62821F99
 P 7100 2250
 F 0 "#PWR0110" H 7100 2000 50  0001 C CNN
@@ -275,7 +275,7 @@ F 3 "" H 7100 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0111
+L BSPD-rescue:+5V-power #PWR0111
 U 1 1 6282273C
 P 6650 1200
 F 0 "#PWR0111" H 6650 1050 50  0001 C CNN
@@ -286,7 +286,7 @@ F 3 "" H 6650 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R17
+L BSPD-rescue:R-Device R17
 U 1 1 628236E0
 P 6650 1350
 F 0 "R17" H 6720 1396 50  0000 L CNN
@@ -297,7 +297,7 @@ F 3 "~" H 6650 1350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R18
+L BSPD-rescue:R-Device R18
 U 1 1 6282421F
 P 6650 2500
 F 0 "R18" H 6720 2546 50  0000 L CNN
@@ -308,7 +308,7 @@ F 3 "~" H 6650 2500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0112
+L BSPD-rescue:GND-power #PWR0112
 U 1 1 6282487B
 P 6650 2650
 F 0 "#PWR0112" H 6650 2400 50  0001 C CNN
@@ -323,7 +323,7 @@ Wire Wire Line
 Wire Wire Line
 	6650 2150 6650 2350
 $Comp
-L power:+5V #PWR0113
+L BSPD-rescue:+5V-power #PWR0113
 U 1 1 627E71D3
 P 3900 1950
 F 0 "#PWR0113" H 3900 1800 50  0001 C CNN
@@ -334,7 +334,7 @@ F 3 "" H 3900 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R11
+L BSPD-rescue:R-Device R11
 U 1 1 627E75E0
 P 3900 2250
 F 0 "R11" H 3830 2204 50  0000 R CNN
@@ -345,7 +345,7 @@ F 3 "~" H 3900 2250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R12
+L BSPD-rescue:R-Device R12
 U 1 1 627E7AF0
 P 3900 3150
 F 0 "R12" H 3830 3104 50  0000 R CNN
@@ -356,7 +356,7 @@ F 3 "~" H 3900 3150 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0114
+L BSPD-rescue:GND-power #PWR0114
 U 1 1 627E8867
 P 3900 3300
 F 0 "#PWR0114" H 3900 3050 50  0001 C CNN
@@ -383,7 +383,7 @@ Wire Wire Line
 	3200 1950 3450 1950
 Connection ~ 3450 1950
 $Comp
-L power:+5V #PWR0115
+L BSPD-rescue:+5V-power #PWR0115
 U 1 1 627EF46E
 P 3650 1950
 F 0 "#PWR0115" H 3650 1800 50  0001 C CNN
@@ -394,7 +394,7 @@ F 3 "" H 3650 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R9
+L BSPD-rescue:R-Device R9
 U 1 1 627EF6F4
 P 3650 2250
 F 0 "R9" H 3580 2204 50  0000 R CNN
@@ -422,9 +422,6 @@ Wire Wire Line
 Connection ~ 3900 2900
 Wire Wire Line
 	3900 2900 3900 2400
-Wire Wire Line
-	1450 2250 1450 2900
-Connection ~ 1450 2900
 $Comp
 L BSPD-rescue:LM393AD-LM393AD IC3
 U 1 1 6280F5FA
@@ -443,7 +440,7 @@ F 9 "LM393AD" H 3200 4200 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0116
+L BSPD-rescue:+5V-power #PWR0116
 U 1 1 6280F600
 P 3450 4050
 F 0 "#PWR0116" H 3450 3900 50  0001 C CNN
@@ -454,7 +451,7 @@ F 3 "" H 3450 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C2
+L BSPD-rescue:C-Device C2
 U 1 1 6280F606
 P 3200 4250
 F 0 "C2" H 3315 4296 50  0000 L CNN
@@ -465,7 +462,7 @@ F 3 "~" H 3200 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0117
+L BSPD-rescue:GND-power #PWR0117
 U 1 1 6280F60C
 P 3200 4400
 F 0 "#PWR0117" H 3200 4150 50  0001 C CNN
@@ -480,7 +477,7 @@ Wire Wire Line
 Wire Wire Line
 	3450 4800 3350 4800
 $Comp
-L power:GND #PWR0118
+L BSPD-rescue:GND-power #PWR0118
 U 1 1 6280F614
 P 2050 5100
 F 0 "#PWR0118" H 2050 4850 50  0001 C CNN
@@ -491,7 +488,7 @@ F 3 "" H 2050 5100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R4
+L BSPD-rescue:R-Device R4
 U 1 1 6280F61B
 P 1000 4900
 F 0 "R4" V 793 4900 50  0000 C CNN
@@ -502,7 +499,7 @@ F 3 "~" H 1000 4900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R2
+L BSPD-rescue:R-Device R2
 U 1 1 6280F621
 P 850 5250
 F 0 "R2" H 780 5204 50  0000 R CNN
@@ -518,7 +515,7 @@ Wire Wire Line
 	850  4900 850  5100
 Connection ~ 850  4900
 $Comp
-L power:GND #PWR0119
+L BSPD-rescue:GND-power #PWR0119
 U 1 1 6280F62A
 P 850 5400
 F 0 "#PWR0119" H 850 5150 50  0001 C CNN
@@ -529,18 +526,18 @@ F 3 "" H 850 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0120
+L BSPD-rescue:+5V-power #PWR0120
 U 1 1 6280F630
-P 1300 4200
-F 0 "#PWR0120" H 1300 4050 50  0001 C CNN
-F 1 "+5V" H 1315 4373 50  0000 C CNN
-F 2 "" H 1300 4200 50  0001 C CNN
-F 3 "" H 1300 4200 50  0001 C CNN
-	1    1300 4200
+P 1600 4200
+F 0 "#PWR0120" H 1600 4050 50  0001 C CNN
+F 1 "+5V" H 1615 4373 50  0000 C CNN
+F 2 "" H 1600 4200 50  0001 C CNN
+F 3 "" H 1600 4200 50  0001 C CNN
+	1    1600 4200
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R8
+L BSPD-rescue:R-Device R8
 U 1 1 6280F636
 P 1450 5250
 F 0 "R8" H 1380 5204 50  0000 R CNN
@@ -551,7 +548,7 @@ F 3 "~" H 1450 5250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0121
+L BSPD-rescue:GND-power #PWR0121
 U 1 1 6280F63C
 P 1450 5400
 F 0 "#PWR0121" H 1450 5150 50  0001 C CNN
@@ -568,7 +565,7 @@ COMP2
 Wire Wire Line
 	1450 5000 2050 5000
 $Comp
-L power:+5V #PWR0122
+L BSPD-rescue:+5V-power #PWR0122
 U 1 1 6280F64C
 P 3900 4050
 F 0 "#PWR0122" H 3900 3900 50  0001 C CNN
@@ -579,7 +576,7 @@ F 3 "" H 3900 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R13
+L BSPD-rescue:R-Device R13
 U 1 1 6280F652
 P 3900 4350
 F 0 "R13" H 3830 4304 50  0000 R CNN
@@ -590,7 +587,7 @@ F 3 "~" H 3900 4350 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R14
+L BSPD-rescue:R-Device R14
 U 1 1 6280F658
 P 3900 5250
 F 0 "R14" H 3830 5204 50  0000 R CNN
@@ -601,7 +598,7 @@ F 3 "~" H 3900 5250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0123
+L BSPD-rescue:GND-power #PWR0123
 U 1 1 6280F65E
 P 3900 5400
 F 0 "#PWR0123" H 3900 5150 50  0001 C CNN
@@ -628,7 +625,7 @@ Wire Wire Line
 	3200 4050 3450 4050
 Connection ~ 3450 4050
 $Comp
-L power:+5V #PWR0124
+L BSPD-rescue:+5V-power #PWR0124
 U 1 1 6280F67C
 P 3650 4050
 F 0 "#PWR0124" H 3650 3900 50  0001 C CNN
@@ -639,7 +636,7 @@ F 3 "" H 3650 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R10
+L BSPD-rescue:R-Device R10
 U 1 1 6280F682
 P 3650 4350
 F 0 "R10" H 3580 4304 50  0000 R CNN
@@ -667,9 +664,6 @@ Wire Wire Line
 Connection ~ 3900 5000
 Wire Wire Line
 	3900 5000 3900 4500
-Wire Wire Line
-	1450 4350 1450 5000
-Connection ~ 1450 5000
 Text GLabel 700  4900 0    50   Input ~ 0
 Throttle
 Wire Wire Line
@@ -677,7 +671,7 @@ Wire Wire Line
 Wire Wire Line
 	1900 2700 2050 2700
 $Comp
-L power:+5V #PWR0125
+L BSPD-rescue:+5V-power #PWR0125
 U 1 1 62817942
 P 8400 1200
 F 0 "#PWR0125" H 8400 1050 50  0001 C CNN
@@ -688,7 +682,7 @@ F 3 "" H 8400 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C9
+L BSPD-rescue:C-Device C9
 U 1 1 62817948
 P 8150 1400
 F 0 "C9" H 8265 1446 50  0000 L CNN
@@ -699,7 +693,7 @@ F 3 "~" H 8150 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0126
+L BSPD-rescue:GND-power #PWR0126
 U 1 1 6281794E
 P 8150 1550
 F 0 "#PWR0126" H 8150 1300 50  0001 C CNN
@@ -722,7 +716,7 @@ Wire Wire Line
 	6650 2150 6650 1500
 Connection ~ 6650 2150
 $Comp
-L power:+5V #PWR0127
+L BSPD-rescue:+5V-power #PWR0127
 U 1 1 6281C517
 P 8600 1200
 F 0 "#PWR0127" H 8600 1050 50  0001 C CNN
@@ -733,7 +727,7 @@ F 3 "" H 8600 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0128
+L BSPD-rescue:+5V-power #PWR0128
 U 1 1 6281C77E
 P 6900 1200
 F 0 "#PWR0128" H 6900 1050 50  0001 C CNN
@@ -744,7 +738,7 @@ F 3 "" H 6900 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R19
+L BSPD-rescue:R-Device R19
 U 1 1 6281CC75
 P 6900 1350
 F 0 "R19" H 6970 1396 50  0000 L CNN
@@ -759,7 +753,7 @@ Wire Wire Line
 Wire Wire Line
 	6900 1950 7100 1950
 $Comp
-L Device:R R21
+L BSPD-rescue:R-Device R21
 U 1 1 6281E016
 P 8600 1350
 F 0 "R21" H 8670 1396 50  0000 L CNN
@@ -774,7 +768,7 @@ Wire Wire Line
 Wire Wire Line
 	8600 2050 8400 2050
 $Comp
-L Device:R R15
+L BSPD-rescue:R-Device R15
 U 1 1 6281F842
 P 6100 1950
 F 0 "R15" H 6170 1996 50  0000 L CNN
@@ -795,7 +789,7 @@ Text GLabel 9300 2050 2    50   Input ~ 0
 OUT2
 Connection ~ 8600 2050
 $Comp
-L power:+5V #PWR0129
+L BSPD-rescue:+5V-power #PWR0129
 U 1 1 62827805
 P 8800 1200
 F 0 "#PWR0129" H 8800 1050 50  0001 C CNN
@@ -806,7 +800,7 @@ F 3 "" H 8800 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R22
+L BSPD-rescue:R-Device R22
 U 1 1 62827A81
 P 8800 1350
 F 0 "R22" H 8870 1396 50  0000 L CNN
@@ -817,7 +811,7 @@ F 3 "~" H 8800 1350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R23
+L BSPD-rescue:R-Device R23
 U 1 1 62827E0B
 P 8800 2500
 F 0 "R23" H 8870 2546 50  0000 L CNN
@@ -828,7 +822,7 @@ F 3 "~" H 8800 2500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0130
+L BSPD-rescue:GND-power #PWR0130
 U 1 1 628285C4
 P 8800 2650
 F 0 "#PWR0130" H 8800 2400 50  0001 C CNN
@@ -848,7 +842,7 @@ Wire Wire Line
 Text GLabel 6050 3650 0    50   Input ~ 0
 OUT1
 $Comp
-L Device:R R24
+L BSPD-rescue:R-Device R24
 U 1 1 6282CC2F
 P 9150 2050
 F 0 "R24" H 9220 2096 50  0000 L CNN
@@ -861,7 +855,7 @@ $EndComp
 Wire Wire Line
 	8600 2050 9000 2050
 $Comp
-L Transistor_FET:Si2319CDS Q1
+L BSPD-rescue:Si2319CDS-Transistor_FET Q1
 U 1 1 62831DF7
 P 6600 3650
 F 0 "Q1" H 6804 3604 50  0000 L CNN
@@ -874,7 +868,7 @@ $EndComp
 Wire Wire Line
 	6050 3650 6400 3650
 $Comp
-L power:+5V #PWR0131
+L BSPD-rescue:+5V-power #PWR0131
 U 1 1 6283596D
 P 6700 3450
 F 0 "#PWR0131" H 6700 3300 50  0001 C CNN
@@ -885,7 +879,7 @@ F 3 "" H 6700 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C8
+L BSPD-rescue:C-Device C8
 U 1 1 62839BD7
 P 7450 3500
 F 0 "C8" H 7565 3546 50  0000 L CNN
@@ -896,7 +890,7 @@ F 3 "~" H 7450 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R20
+L BSPD-rescue:R-Device R20
 U 1 1 62839FF6
 P 7450 4100
 F 0 "R20" H 7520 4146 50  0000 L CNN
@@ -914,7 +908,7 @@ Wire Wire Line
 	7450 3850 7450 3650
 Connection ~ 7450 3850
 $Comp
-L power:+5V #PWR0132
+L BSPD-rescue:+5V-power #PWR0132
 U 1 1 6283D38A
 P 7450 3350
 F 0 "#PWR0132" H 7450 3200 50  0001 C CNN
@@ -925,7 +919,7 @@ F 3 "" H 7450 3350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0133
+L BSPD-rescue:GND-power #PWR0133
 U 1 1 6283D7A5
 P 7450 4250
 F 0 "#PWR0133" H 7450 4000 50  0001 C CNN
@@ -936,7 +930,7 @@ F 3 "" H 7450 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0134
+L BSPD-rescue:+5V-power #PWR0134
 U 1 1 62843A89
 P 9500 3300
 F 0 "#PWR0134" H 9500 3150 50  0001 C CNN
@@ -947,7 +941,7 @@ F 3 "" H 9500 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C10
+L BSPD-rescue:C-Device C10
 U 1 1 628434B9
 P 9500 3450
 F 0 "C10" H 9615 3496 50  0000 L CNN
@@ -958,7 +952,7 @@ F 3 "~" H 9500 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0135
+L BSPD-rescue:GND-power #PWR0135
 U 1 1 6284307F
 P 9100 4200
 F 0 "#PWR0135" H 9100 3950 50  0001 C CNN
@@ -969,7 +963,7 @@ F 3 "" H 9100 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Transistor_FET:BSS138 Q3
+L BSPD-rescue:BSS138-Transistor_FET Q3
 U 1 1 6282F6B8
 P 9200 3850
 F 0 "Q3" H 9405 3896 50  0000 L CNN
@@ -980,7 +974,7 @@ F 3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 9200 3850 50  0001 L 
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R25
+L BSPD-rescue:R-Device R25
 U 1 1 6285716A
 P 9500 4050
 F 0 "R25" H 9570 4096 50  0000 L CNN
@@ -991,7 +985,7 @@ F 3 "~" H 9500 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0136
+L BSPD-rescue:GND-power #PWR0136
 U 1 1 6285775A
 P 9500 4200
 F 0 "#PWR0136" H 9500 3950 50  0001 C CNN
@@ -1024,7 +1018,7 @@ Connection ~ 8450 3650
 Text GLabel 7050 5650 0    50   Input ~ 0
 OUT2
 $Comp
-L Transistor_FET:BSS138 Q2
+L BSPD-rescue:BSS138-Transistor_FET Q2
 U 1 1 62830107
 P 7250 5650
 F 0 "Q2" H 7454 5696 50  0000 L CNN
@@ -1035,7 +1029,7 @@ F 3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 7250 5650 50  0001 L 
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0137
+L BSPD-rescue:GND-power #PWR0137
 U 1 1 62869CAB
 P 7350 6000
 F 0 "#PWR0137" H 7350 5750 50  0001 C CNN
@@ -1052,24 +1046,20 @@ Bolide_in
 Text GLabel 9100 5900 2    50   Input ~ 0
 Bolide_out
 Wire Wire Line
-	8400 5400 7350 5400
-Wire Wire Line
 	7350 5400 7350 5450
 $Comp
-L power:+12V #PWR0138
+L BSPD-rescue:+12V-power #PWR0138
 U 1 1 62879152
-P 8250 4950
-F 0 "#PWR0138" H 8250 4800 50  0001 C CNN
-F 1 "+12V" H 8265 5123 50  0000 C CNN
-F 2 "" H 8250 4950 50  0001 C CNN
-F 3 "" H 8250 4950 50  0001 C CNN
-	1    8250 4950
+P 8400 4950
+F 0 "#PWR0138" H 8400 4800 50  0001 C CNN
+F 1 "+12V" H 8415 5123 50  0000 C CNN
+F 2 "" H 8400 4950 50  0001 C CNN
+F 3 "" H 8400 4950 50  0001 C CNN
+	1    8400 4950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8250 4950 8250 5300
-Wire Wire Line
-	8250 5300 8400 5300
+	8400 4950 8400 5100
 $Comp
 L BSPD-rescue:DF2B36FU,H3F-DF2B36FU_H3F D1
 U 1 1 6283FA19
@@ -1088,7 +1078,7 @@ F 9 "DF2B36FU,H3F" H 1650 2250 50  0001 L BNN "Manufacturer_Part_Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0139
+L BSPD-rescue:GND-power #PWR0139
 U 1 1 6285408D
 P 1150 3600
 F 0 "#PWR0139" H 1150 3350 50  0001 C CNN
@@ -1122,7 +1112,7 @@ F 9 "DF2B36FU,H3F" H 1650 4350 50  0001 L BNN "Manufacturer_Part_Number"
 $EndComp
 Connection ~ 1150 4900
 $Comp
-L power:GND #PWR0140
+L BSPD-rescue:GND-power #PWR0140
 U 1 1 6286555B
 P 1150 5700
 F 0 "#PWR0140" H 1150 5450 50  0001 C CNN
@@ -1150,7 +1140,7 @@ F 9 "CP1-12V" H 9950 4700 50  0001 L CNN "Manufacturer_Part_Number"
 	0    -1   1    0   
 $EndComp
 $Comp
-L Regulator_Linear:LM1117-5.0 U1
+L BSPD-rescue:LM1117-5.0-Regulator_Linear U1
 U 1 1 6286FAEE
 P 4850 6650
 F 0 "U1" H 4850 6892 50  0000 C CNN
@@ -1161,7 +1151,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/lm1117.pdf" H 4850 6650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+12V #PWR0141
+L BSPD-rescue:+12V-power #PWR0141
 U 1 1 62873B87
 P 4200 6550
 F 0 "#PWR0141" H 4200 6400 50  0001 C CNN
@@ -1174,7 +1164,7 @@ $EndComp
 Wire Wire Line
 	4200 6650 4450 6650
 $Comp
-L Device:C C3
+L BSPD-rescue:C-Device C3
 U 1 1 6287753B
 P 4200 6800
 F 0 "C3" H 4315 6846 50  0000 C CNN
@@ -1185,7 +1175,7 @@ F 3 "~" H 4200 6800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C4
+L BSPD-rescue:C-Device C4
 U 1 1 62878EC3
 P 4450 6800
 F 0 "C4" H 4565 6846 50  0000 L CNN
@@ -1199,7 +1189,7 @@ Connection ~ 4450 6650
 Wire Wire Line
 	4450 6650 4550 6650
 $Comp
-L Device:C C5
+L BSPD-rescue:C-Device C5
 U 1 1 62879443
 P 5250 6800
 F 0 "C5" H 5365 6846 50  0000 C CNN
@@ -1210,7 +1200,7 @@ F 3 "~" H 5250 6800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C6
+L BSPD-rescue:C-Device C6
 U 1 1 62879EBA
 P 5500 6800
 F 0 "C6" H 5615 6846 50  0000 L CNN
@@ -1247,7 +1237,7 @@ Wire Wire Line
 	5500 7100 5500 6950
 Connection ~ 5250 7100
 $Comp
-L power:GND #PWR0142
+L BSPD-rescue:GND-power #PWR0142
 U 1 1 628899D4
 P 4850 7100
 F 0 "#PWR0142" H 4850 6850 50  0001 C CNN
@@ -1258,7 +1248,7 @@ F 3 "" H 4850 7100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0143
+L BSPD-rescue:+5V-power #PWR0143
 U 1 1 6288DD5C
 P 5500 6550
 F 0 "#PWR0143" H 5500 6400 50  0001 C CNN
@@ -1275,7 +1265,7 @@ Wire Wire Line
 	4200 6550 4200 6650
 Connection ~ 4200 6650
 $Comp
-L Connector_Generic:Conn_02x03_Odd_Even J1
+L BSPD-rescue:Conn_02x03_Odd_Even-Connector_Generic J1
 U 1 1 628E2F88
 P 5450 5350
 F 0 "J1" H 5500 5667 50  0000 C CNN
@@ -1290,7 +1280,7 @@ Throttle
 Text GLabel 5750 5250 2    50   Input ~ 0
 Brake
 $Comp
-L power:+12V #PWR0144
+L BSPD-rescue:+12V-power #PWR0144
 U 1 1 628EB232
 P 5250 5250
 F 0 "#PWR0144" H 5250 5100 50  0001 C CNN
@@ -1305,47 +1295,121 @@ Bolide_in
 Text GLabel 5250 5350 0    50   Input ~ 0
 Bolide_out
 $Comp
-L Device:R_POT RV1
+L BSPD-rescue:R_POT-Device RV1
 U 1 1 62914B8B
-P 1300 2250
-F 0 "RV1" H 1231 2296 50  0000 R CNN
-F 1 "R_POT" H 1231 2205 50  0000 R CNN
-F 2 "Potentiometer_THT:64XK" H 1300 2250 50  0001 C CNN
-F 3 "~" H 1300 2250 50  0001 C CNN
-	1    1300 2250
+P 1450 2250
+F 0 "RV1" H 1381 2296 50  0000 R CNN
+F 1 "R_POT" H 1381 2205 50  0000 R CNN
+F 2 "Potentiometer_THT:64XK" H 1450 2250 50  0001 C CNN
+F 3 "~" H 1450 2250 50  0001 C CNN
+	1    1450 2250
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_POT RV2
+L BSPD-rescue:R_POT-Device RV2
 U 1 1 62915624
-P 1300 4350
-F 0 "RV2" H 1231 4396 50  0000 R CNN
-F 1 "R_POT" H 1231 4305 50  0000 R CNN
-F 2 "Potentiometer_THT:64XK" H 1300 4350 50  0001 C CNN
-F 3 "~" H 1300 4350 50  0001 C CNN
-	1    1300 4350
+P 1450 4350
+F 0 "RV2" H 1381 4396 50  0000 R CNN
+F 1 "R_POT" H 1381 4305 50  0000 R CNN
+F 2 "Potentiometer_THT:64XK" H 1450 4350 50  0001 C CNN
+F 3 "~" H 1450 4350 50  0001 C CNN
+	1    1450 4350
 	1    0    0    -1  
+$EndComp
+NoConn ~ 5750 5450
+Wire Wire Line
+	8400 5100 8400 5300
+Wire Wire Line
+	8000 5100 8400 5100
+Connection ~ 8400 5100
+Wire Wire Line
+	7350 5400 8000 5400
+$Comp
+L BSPD-rescue:1N4148W-Diode D3
+U 1 1 6298C73E
+P 8000 5250
+F 0 "D3" V 7954 5330 50  0000 L CNN
+F 1 "1N4148W" V 8045 5330 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 8000 5075 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 8000 5250 50  0001 C CNN
+	1    8000 5250
+	0    1    1    0   
+$EndComp
+Connection ~ 8000 5400
+Wire Wire Line
+	8000 5400 8400 5400
+Wire Wire Line
+	1600 2250 1600 1950
+Wire Wire Line
+	1600 4200 1600 4350
+Wire Wire Line
+	1450 2400 1450 2900
+Connection ~ 1450 2900
+Wire Wire Line
+	1450 4500 1450 5000
+Connection ~ 1450 5000
+$Comp
+L BSPD-rescue:MountingHole_Pad-Mechanical H1
+U 1 1 6297DEBA
+P 4800 1700
+F 0 "H1" V 5037 1703 50  0000 C CNN
+F 1 "MountingHole_Pad" V 4946 1703 50  0000 C CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 4800 1700 50  0001 C CNN
+F 3 "~" H 4800 1700 50  0001 C CNN
+	1    4800 1700
+	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0145
-U 1 1 62B7E36C
-P 1300 2400
-F 0 "#PWR0145" H 1300 2150 50  0001 C CNN
-F 1 "GND" H 1305 2227 50  0000 C CNN
-F 2 "" H 1300 2400 50  0001 C CNN
-F 3 "" H 1300 2400 50  0001 C CNN
-	1    1300 2400
-	1    0    0    -1  
+L BSPD-rescue:MountingHole_Pad-Mechanical H2
+U 1 1 6297E547
+P 4800 1850
+F 0 "H2" V 5037 1853 50  0000 C CNN
+F 1 "MountingHole_Pad" V 4946 1853 50  0000 C CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 4800 1850 50  0001 C CNN
+F 3 "~" H 4800 1850 50  0001 C CNN
+	1    4800 1850
+	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0146
-U 1 1 62B83804
-P 1300 4500
-F 0 "#PWR0146" H 1300 4250 50  0001 C CNN
-F 1 "GND" H 1305 4327 50  0000 C CNN
-F 2 "" H 1300 4500 50  0001 C CNN
-F 3 "" H 1300 4500 50  0001 C CNN
-	1    1300 4500
-	1    0    0    -1  
+L BSPD-rescue:MountingHole_Pad-Mechanical H3
+U 1 1 6297E76D
+P 4800 2000
+F 0 "H3" V 5037 2003 50  0000 C CNN
+F 1 "MountingHole_Pad" V 4946 2003 50  0000 C CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 4800 2000 50  0001 C CNN
+F 3 "~" H 4800 2000 50  0001 C CNN
+	1    4800 2000
+	0    -1   -1   0   
 $EndComp
+$Comp
+L BSPD-rescue:MountingHole_Pad-Mechanical H4
+U 1 1 6297E930
+P 4800 2150
+F 0 "H4" V 5037 2153 50  0000 C CNN
+F 1 "MountingHole_Pad" V 4946 2153 50  0000 C CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad_Via" H 4800 2150 50  0001 C CNN
+F 3 "~" H 4800 2150 50  0001 C CNN
+	1    4800 2150
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4900 1700 4900 1850
+Wire Wire Line
+	4900 1850 4900 2000
+Connection ~ 4900 1850
+Wire Wire Line
+	4900 2150 4900 2000
+Connection ~ 4900 2000
+$Comp
+L BSPD-rescue:GND-power #PWR0145
+U 1 1 6298B92A
+P 4900 2150
+F 0 "#PWR0145" H 4900 1900 50  0001 C CNN
+F 1 "GND" H 4905 1977 50  0000 C CNN
+F 2 "" H 4900 2150 50  0001 C CNN
+F 3 "" H 4900 2150 50  0001 C CNN
+	1    4900 2150
+	0    -1   -1   0   
+$EndComp
+Connection ~ 4900 2150
 $EndSCHEMATC
