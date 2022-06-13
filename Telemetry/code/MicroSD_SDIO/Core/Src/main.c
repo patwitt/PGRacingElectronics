@@ -32,16 +32,32 @@
 #include <string.h>
 #include <stdarg.h>
 #include "MPU9250.h"
+#include "basicFunctions.h"
+#include "MLX90640_API.h"
+#include "MLX90640_I2C_Driver.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+#define  FPS2HZ   0x02
+#define  FPS4HZ   0x03
+#define  FPS8HZ   0x04
+#define  FPS16HZ  0x05
+#define  FPS32HZ  0x06
 
+#define  MLX90640_ADDR 0x33
+#define	 RefreshRate 0x04
+#define  TA_SHIFT 8 //Default shift for MLX90640 in open air
+
+static uint16_t eeMLX90640[832];
+
+uint16_t frame[834];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define FILE_DEFAULT_WRITE FA_WRITE | FA_OPEN_APPEND
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,10 +79,61 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int __io_putchar(int ch)
+typedef struct MLX{
+	FIL mlxFile;
+	I2C_HandleTypeDef i2c;
+	int dataReady;
+	paramsMLX90640 mlx90640;
+	float data[768];
+	float ambientTemp;
+	float vdd;
+	float emissivity;
+
+}MLX;
+MLX mlx;
+int mlxInit()
 {
-    HAL_UART_Transmit(&huart3, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
-    return 1;
+		static uint16_t eeMLX90640[832];
+		HAL_Delay(200);
+		MLX90640_SetRefreshRate(MLX90640_ADDR, RefreshRate);
+	  	MLX90640_SetChessMode(MLX90640_ADDR);
+	  	mlx.emissivity = 0.95;
+	    int status = MLX90640_DumpEE(MLX90640_ADDR, eeMLX90640);
+	    if (status != 0) return status;
+	    status = MLX90640_ExtractParameters(eeMLX90640, &mlx.mlx90640);
+	    if (status != 0) return status;
+
+	    return 0;
+
+}
+int mlxGetData(){
+	int status = MLX90640_GetFrameData(MLX90640_ADDR, frame);
+	if (status < 0)
+	{
+		printf("Error!\n");
+		return status;
+	}
+
+	mlx.vdd = MLX90640_GetVdd(frame, &mlx.mlx90640);
+	mlx.ambientTemp = MLX90640_GetTa(frame, &mlx.mlx90640) - TA_SHIFT;
+
+	MLX90640_CalculateTo(frame, &mlx.mlx90640, mlx.emissivity , mlx.ambientTemp, mlx.data);
+	status = MLX90640_GetFrameData(MLX90640_ADDR, frame);
+			if(status < 0)
+			{
+				printf("Error!\n");
+			}
+	MLX90640_CalculateTo(frame, &mlx.mlx90640, mlx.emissivity , mlx.ambientTemp, mlx.data);
+	return 0;
+}
+void mlxPrintData()
+{
+	for(int i = 0; i < 768; i++){
+		if(i%32 == 0 && i != 0){
+			printf("\r\n");
+		}
+		printf("%2.2f ",mlx.data[i]);
+	}
 }
 
 struct imu_9dof
@@ -97,6 +164,72 @@ void imu_9dof_get_data(struct imu_9dof * imu_9dof_data, struct imu_9dof_calc * i
     MPU9250_GetData(imu_9dof_data->acc_data, imu_9dof_data->mag_data, imu_9dof_data->gyro_data);
     imu_9dof_convert(imu_9dof_data, imu_9dof_calculated);
 }
+int createHeader(FIL * file,char * path)
+{
+	FRESULT fres;
+	int bytesWritten = 0;
+	fres = f_write(file,"timestamp,",strlen("timestamp,"),&bytesWritten);
+	if(fres != FR_OK){
+		printf("Error while creating %s header",path);
+		return -1;
+	}
+	if(strcmp(path,"GYRO.csv") == 0){
+		fres = f_write(file, "number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n", strlen("timestamp,number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n"), &bytesWritten);
+		if(fres != FR_OK)
+		{
+			printf("Error while creating %s header\n",path);
+			return -1;
+		}
+	}else if(strcmp(path,"MLX.csv") == 0){
+		char headerData[25];
+
+		for(int i=0;i<784;i++){
+			sprintf(headerData,"float_%d,", i);
+			fres =  f_write(file, headerData, strlen(headerData), &bytesWritten);
+			if(fres != FR_OK){
+				printf("Error while creating %s header\n",path);
+				return -1;
+			}
+		}
+
+	}else
+	{
+		return -2;
+	}
+	fres =  f_write(file, "\n", strlen("\n"), &bytesWritten);
+	return 1;
+
+}
+
+void openFile(FIL * file, char * path, BYTE mode)
+{
+	FILINFO fInfo;
+	FRESULT fres = f_stat(path, &fInfo);
+	if(fres == FR_OK)
+	{
+		fres = f_open(file, path, mode);
+		if(fres == FR_OK)
+		{
+			printf("Opening file: %s succeeded\n", path);
+		}
+	}else if(fres == FR_NO_FILE)
+	{
+		fres = f_open(file, path, mode);
+		if(fres == FR_OK)
+		{
+			createHeader(file,path);
+			printf("No file: %s, created new\n", path);
+		}
+	}
+	f_sync(file);
+
+
+}
+void mountFailHandler()
+{
+	printf("SDCard mount failed\n");
+}
+
 
 /* USER CODE END 0 */
 
@@ -134,64 +267,33 @@ int main(void)
   MX_SDMMC1_SD_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  int res = mlxInit();
+  if(res != 0)
+  {
+    printf("Error while initializing mlx!\n");
+  }
+  FATFS fileSystem;
+  FIL gyroFIL;
+  FIL MLXFIL;
 
-  FATFS temp_fatfs;
-  FIL fil;;
-  UINT test_byte;
-
-  /*HAL_SD_CardInfoTypeDef SDCardInfo1;
-
-  HAL_SD_Get_CardInfo(&hsd2, &SDCardInfo1);
-
-
-  printf('SD capacity: %d\n',SDCardInfo1.BlockNbr);
-  //HAL_UART_Transmit(&huart3, "no filesystem\r\n", 6, HAL_MAX_DELAY);
-      //UG_ConsolePutString(''uSD: HAL_SD_Get_CardInfo != SD_OK!\n'');
-
-
-*/
-  uint8_t Buffer[25] = {0};
-  uint8_t Space[] = " - ";
-  uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
-  uint8_t EndMSG[] = "Done! \r\n\r\n";
-  HAL_UART_Transmit(&huart3, StartMSG, sizeof(StartMSG), 10000);
-      for(int i=1; i<128; i++)
-      {
-          int ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
-          if (ret != HAL_OK) /* No ACK Received At That Address */
-          {
-              HAL_UART_Transmit(&huart3, Space, sizeof(Space), 10000);
-          }
-          else if(ret == HAL_OK)
-          {
-              sprintf(Buffer, "0x%X", i);
-              HAL_UART_Transmit(&huart3, Buffer, sizeof(Buffer), 10000);
-          }
-      }
-      HAL_UART_Transmit(&huart3, EndMSG, sizeof(EndMSG), 10000);
-
-
+  UINT writedBytes;
   struct imu_9dof imu_9dof_data;
   struct imu_9dof_calc imu_9dof_calculated;
   MPU9250_Init();
-  char testdata[255] ;
-FRESULT fres = 0;
+  char testdata[255];
+  FRESULT fres = 0;
 
   HAL_Delay(1000);
 
-  if (f_mount(&temp_fatfs, "", 1) == FR_OK)
+  if (f_mount(&fileSystem, "", 1) == FR_OK)
   {
-	  HAL_UART_Transmit(&huart3, "SDCard mounted\r\n", strlen("SDCard mounted\r\n"), HAL_MAX_DELAY);
-	  char path[] = "GYRO.TXT\0";
-	 fres = f_open(&fil, path, FA_WRITE | FA_CREATE_ALWAYS);
-
-	  char test_data[] = "number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n";
-	  fres =  f_write(&fil, test_data, sizeof(test_data), &test_byte);
-	  fres =   f_close(&fil);
+	  printf("SDCard mounting success!\n");
+	  openFile(&MLXFIL, "MLX.csv", FILE_DEFAULT_WRITE);
+	  openFile(&gyroFIL, "GYRO.csv", FILE_DEFAULT_WRITE);
 
   }else
   {
-	  HAL_UART_Transmit(&huart3, "SDCard mount failed\r\n", strlen("SDCard mount failed\r\n"), HAL_MAX_DELAY);
+	  mountFailHandler();
   }
   //HAL_UART_Transmit(&huart3, "no filesystem\r\n", 6, HAL_MAX_DELAY);
   int number = 1;
@@ -205,36 +307,44 @@ FRESULT fres = 0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  char path[] = "GYRO.TXT\0";
-	sprintf(testdata,"%d,,", number);
-	  f_open(&fil, path, FA_WRITE | FA_OPEN_APPEND);
+	  char path[] = "GYRO.csv\0";
+	  char path2[] = "MLX.csv\0";
+
+	  sprintf(testdata, "%d,", HAL_GetTick());
+	f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
+	f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
 
 	imu_9dof_get_data(&imu_9dof_data, &imu_9dof_calculated);
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(testdata, "%f,", imu_9dof_calculated.gyro_data_calc[i]);
-		  f_write(&fil, testdata, strlen(testdata), &test_byte);
+		  f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
 		printf("%f ", imu_9dof_calculated.gyro_data_calc[i]);
 
 	}
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(testdata, "%f,", imu_9dof_calculated.gyro_data_calc[i]);
-		  f_write(&fil, testdata, strlen(testdata), &test_byte);
+		  f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
 		printf("%f ", imu_9dof_calculated.acc_data_calc[i]);
 	}
 	sprintf(testdata, "\r\n ");
 	number++;
-	f_write(&fil, testdata, strlen(testdata), &test_byte);
+	f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
 	printf("\r\n");
+	mlxGetData();
+	printf("start = %d \r\n", HAL_GetTick());
+	for(int i=0;i<784;i++)
+		  {
+			  sprintf(testdata,"%2.2f,", mlx.data[i]);
+			  fres =  f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
+		  }
+	printf("end = %d \r\n", HAL_GetTick());
 
-
-
-
-
-
-	  f_close(&fil);
-
+	sprintf(testdata, "\r\n ");
+		f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
+		f_sync(&gyroFIL);
+	  f_sync(&MLXFIL);
 	  HAL_Delay(1000);
 
   }

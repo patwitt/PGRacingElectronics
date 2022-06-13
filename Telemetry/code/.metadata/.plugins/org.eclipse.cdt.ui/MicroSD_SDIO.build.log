@@ -1,10 +1,90 @@
-21:23:54 **** Incremental Build of configuration Debug for project MicroSD_SDIO ****
+18:17:06 **** Incremental Build of configuration Debug for project MicroSD_SDIO ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'createHeader':
+../Core/Src/main.c:171:56: warning: pointer targets in passing argument 4 of 'f_write' differ in signedness [-Wpointer-sign]
+  171 |  fres = f_write(file,"timestamp,",strlen("timestamp,"),&bytesWritten);
+      |                                                        ^~~~~~~~~~~~~
+      |                                                        |
+      |                                                        int *
+In file included from ../FATFS/App/fatfs.h:26,
+                 from ../Core/Src/main.c:23:
+../Middlewares/Third_Party/FatFs/src/ff.h:245:61: note: expected 'UINT *' {aka 'unsigned int *'} but argument is of type 'int *'
+  245 | FRESULT f_write (FIL* fp, const void* buff, UINT btw, UINT* bw); /* Write data to the file */
+      |                                                       ~~~~~~^~
+../Core/Src/main.c:177:148: warning: pointer targets in passing argument 4 of 'f_write' differ in signedness [-Wpointer-sign]
+  177 |   fres = f_write(file, "number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n", strlen("timestamp,number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n"), &bytesWritten);
+      |                                                                                                                                                    ^~~~~~~~~~~~~
+      |                                                                                                                                                    |
+      |                                                                                                                                                    int *
+In file included from ../FATFS/App/fatfs.h:26,
+                 from ../Core/Src/main.c:23:
+../Middlewares/Third_Party/FatFs/src/ff.h:245:61: note: expected 'UINT *' {aka 'unsigned int *'} but argument is of type 'int *'
+  245 | FRESULT f_write (FIL* fp, const void* buff, UINT btw, UINT* bw); /* Write data to the file */
+      |                                                       ~~~~~~^~
+../Core/Src/main.c:188:58: warning: pointer targets in passing argument 4 of 'f_write' differ in signedness [-Wpointer-sign]
+  188 |    fres =  f_write(file, headerData, strlen(headerData), &bytesWritten);
+      |                                                          ^~~~~~~~~~~~~
+      |                                                          |
+      |                                                          int *
+In file included from ../FATFS/App/fatfs.h:26,
+                 from ../Core/Src/main.c:23:
+../Middlewares/Third_Party/FatFs/src/ff.h:245:61: note: expected 'UINT *' {aka 'unsigned int *'} but argument is of type 'int *'
+  245 | FRESULT f_write (FIL* fp, const void* buff, UINT btw, UINT* bw); /* Write data to the file */
+      |                                                       ~~~~~~^~
+../Core/Src/main.c:199:44: warning: pointer targets in passing argument 4 of 'f_write' differ in signedness [-Wpointer-sign]
+  199 |  fres =  f_write(file, "\n", strlen("\n"), &bytesWritten);
+      |                                            ^~~~~~~~~~~~~
+      |                                            |
+      |                                            int *
+In file included from ../FATFS/App/fatfs.h:26,
+                 from ../Core/Src/main.c:23:
+../Middlewares/Third_Party/FatFs/src/ff.h:245:61: note: expected 'UINT *' {aka 'unsigned int *'} but argument is of type 'int *'
+  245 | FRESULT f_write (FIL* fp, const void* buff, UINT btw, UINT* bw); /* Write data to the file */
+      |                                                       ~~~~~~^~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:313:24: warning: format '%d' expects argument of type 'int', but argument 3 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  313 |    sprintf(testdata, "%d,", HAL_GetTick());
+      |                       ~^    ~~~~~~~~~~~~~
+      |                        |    |
+      |                        int  uint32_t {aka long unsigned int}
+      |                       %ld
+../Core/Src/main.c:336:19: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  336 |  printf("start = %d \r\n", HAL_GetTick());
+      |                  ~^        ~~~~~~~~~~~~~
+      |                   |        |
+      |                   int      uint32_t {aka long unsigned int}
+      |                  %ld
+../Core/Src/main.c:342:17: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  342 |  printf("end = %d \r\n", HAL_GetTick());
+      |                ~^        ~~~~~~~~~~~~~
+      |                 |        |
+      |                 int      uint32_t {aka long unsigned int}
+      |                %ld
+../Core/Src/main.c:311:9: warning: unused variable 'path2' [-Wunused-variable]
+  311 |    char path2[] = "MLX.csv\0";
+      |         ^~~~~
+../Core/Src/main.c:310:9: warning: unused variable 'path' [-Wunused-variable]
+  310 |    char path[] = "GYRO.csv\0";
+      |         ^~~~
+../Core/Src/main.c:284:11: warning: variable 'fres' set but not used [-Wunused-but-set-variable]
+  284 |   FRESULT fres = 0;
+      |           ^~~~
+At top level:
+../Core/Src/main.c:53:17: warning: 'eeMLX90640' defined but not used [-Wunused-variable]
+   53 | static uint16_t eeMLX90640[832];
+      |                 ^~~~~~~~~~
+arm-none-eabi-gcc -o "MicroSD_SDIO.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MicroSD_SDIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MicroSD_SDIO.elf
+ 
 arm-none-eabi-size   MicroSD_SDIO.elf 
+arm-none-eabi-objdump -h -S  MicroSD_SDIO.elf  > "MicroSD_SDIO.list"
    text	   data	    bss	    dec	    hex	filename
-  61696	    488	   2216	  64400	   fb90	MicroSD_SDIO.elf
+  82992	    488	  17592	 101072	  18ad0	MicroSD_SDIO.elf
 Finished building: default.size.stdout
  
+Finished building: MicroSD_SDIO.list
+ 
 
-21:23:54 Build Finished. 0 errors, 0 warnings. (took 242ms)
+18:17:07 Build Finished. 0 errors, 11 warnings. (took 987ms)
 

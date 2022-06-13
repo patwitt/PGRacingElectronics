@@ -50,3 +50,69 @@ org.eclipse.core.runtime.AssertionFailedException: assertion failed:
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+!SESSION 2022-05-26 23:01:06.496 -----------------------------------------------
+eclipse.buildId=Version 1.9.0
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2022-05-26 23:01:13.947
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-05-26 23:01:16.462
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-05-26 23:01:16.533
+!MESSAGE Log4j initialized with config file C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-05-26 23:01:21.017
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.remote.console 4 0 2022-05-27 18:01:02.505
+!MESSAGE Error opening \\.\COM5 (2)
+!STACK 0
+java.io.IOException: Error opening \\.\COM5 (2)
+	at org.eclipse.cdt.serial.SerialPort.open0(Native Method)
+	at org.eclipse.cdt.serial.SerialPort.open(SerialPort.java:316)
+	at org.eclipse.remote.serial.core.SerialPortCommandShell.<init>(SerialPortCommandShell.java:31)
+	at org.eclipse.remote.serial.core.SerialPortConnection.getCommandShell(SerialPortConnection.java:90)
+	at org.eclipse.remote.internal.console.TerminalConsoleConnector$1.run(TerminalConsoleConnector.java:137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2022-05-27 18:09:28.357
+!MESSAGE Composite status
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb.ui 4 0 2022-05-27 18:09:28.357
+!MESSAGE Service is not available.
+!SUBENTRY 1 org.eclipse.cdt.dsf 4 10005 2022-05-27 18:09:28.357
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.gdb.internal.ui.actions.GdbDisconnectCommand$1@690cbf01): Status ERROR: org.eclipse.cdt.dsf.gdb.ui code=0 Service is not available.' resulted in a rejected execution exception.
+!SESSION 2022-06-06 22:22:45.715 -----------------------------------------------
+eclipse.buildId=Version 1.9.0
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-06-06 22:22:53.579
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-06-06 22:22:53.670
+!MESSAGE Log4j initialized with config file C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-06-06 22:22:59.888
+!MESSAGE Started RMI Server, listening on port 41338
+!SESSION 2022-06-09 16:52:46.360 -----------------------------------------------
+eclipse.buildId=Version 1.9.0
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-06-09 16:53:02.723
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-06-09 16:53:02.786
+!MESSAGE Log4j initialized with config file C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-06-09 16:53:08.728
+!MESSAGE Started RMI Server, listening on port 41338

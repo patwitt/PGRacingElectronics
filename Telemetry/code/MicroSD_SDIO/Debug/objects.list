@@ -1,4 +1,7 @@
+"./Core/Src/MLX90640_API.o"
+"./Core/Src/MLX90640_I2C_Driver.o"
 "./Core/Src/MPU9250.o"
+"./Core/Src/basicFunctions.o"
 "./Core/Src/dma.o"
 "./Core/Src/gpio.o"
 "./Core/Src/i2c.o"
