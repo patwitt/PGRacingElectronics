@@ -109,7 +109,9 @@ void MX_FMC_Init(void)
 	HAL_SDRAM_SendCommand(&hsdram1, &command, HAL_MAX_DELAY);
 	//Krok 6: Ustawienie licznika odswiezania
 	//15.62us*freq -20
-	HAL_SDRAM_ProgramRefreshRate(&hsdram1, 760);
+	HAL_SDRAM_ProgramRefreshRate(&hsdram1, 1660);
+	//HAL_SDRAM_ProgramRefreshRate(&hsdram1, 760);
+
   /* USER CODE END FMC_Init 2 */
 }
 

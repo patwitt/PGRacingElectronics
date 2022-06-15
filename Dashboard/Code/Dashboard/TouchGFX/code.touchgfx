@@ -6,135 +6,16 @@
           {
             "Type": "Box",
             "Color": {
-              "Red": 255,
-              "Green": 0,
-              "Blue": 0
-            },
-            "Alpha": 255,
-            "Name": "box1",
-            "X": 0,
-            "Y": 0,
-            "Width": 800,
-            "Height": 480,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
-            "Type": "Button",
-            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Alpha": 255,
-            "Style": "Style4",
-            "Name": "button1",
-            "X": 315,
-            "Y": 215,
-            "Width": 170,
-            "Height": 60,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Pressed": "__designer\\Blue_Buttons_Round_Edge_small_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Round_Edge_small.png",
-            "Alpha": 255,
-            "TextId": "SingleUseId6",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0",
-            "Style": "Style4",
-            "Name": "buttonWithLabel1",
-            "X": 387,
-            "Y": 96,
-            "Width": 170,
-            "Height": 60,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
-            "Type": "ScalableImage",
-            "Filename": "splash_lana_minified.png",
-            "Alpha": 255,
-            "ScalingAlgorithm": "Nearest-neighbor",
-            "Name": "scalableImage1",
-            "X": 0,
-            "Y": 0,
-            "Width": 800,
-            "Height": 480,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          }
-        ],
-        "Interactions": [],
-        "Name": "start",
-        "OverrideDefaultBufferSize": false,
-        "CanvasBufferSize": 0
-      },
-      {
-        "Components": [
-          {
-            "Type": "Box",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Alpha": 255,
-            "Name": "box1",
-            "X": 0,
-            "Y": 0,
-            "Width": 800,
-            "Height": 480,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
-            "Type": "BoxWithBorder",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "BorderColor": {
               "Red": 0,
               "Green": 0,
               "Blue": 0
             },
-            "BorderSize": 5,
             "Alpha": 255,
-            "Name": "boxWithBorder1",
-            "X": 292,
+            "Name": "box1",
+            "X": 0,
             "Y": 0,
-            "Width": 216,
-            "Height": 299,
+            "Width": 805,
+            "Height": 480,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -147,18 +28,50 @@
             "TextId": "SingleUseId1",
             "TextRotation": "0",
             "Color": {
-              "Red": 0,
-              "Green": 0,
-              "Blue": 0
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
             },
             "Alpha": 255,
             "AutoSize": true,
             "LineSpacing": 0,
-            "Name": "GEAR",
-            "X": 309,
-            "Y": -99,
-            "Width": 216,
-            "Height": 480,
+            "Wildcard1": {
+              "TextId": "SingleUseId14",
+              "UseBuffer": true,
+              "BufferSize": 2
+            },
+            "Name": "gearArea",
+            "X": 331,
+            "Y": 60,
+            "Width": 146,
+            "Height": 363,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Line",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "FileNameImage": "",
+            "Alpha": 255,
+            "StartX": 0,
+            "StartY": 0,
+            "EndX": 150,
+            "EndY": 0,
+            "LineWidth": 4,
+            "LineEndingStyle": "Round",
+            "Name": "line1",
+            "X": 329,
+            "Y": 140,
+            "Width": 152,
+            "Height": 20,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -172,17 +85,22 @@
             "TextRotation": "0",
             "Color": {
               "Red": 0,
-              "Green": 0,
-              "Blue": 0
+              "Green": 102,
+              "Blue": 255
             },
             "Alpha": 255,
-            "AutoSize": true,
+            "AutoSize": false,
             "LineSpacing": 0,
-            "Name": "textArea1",
-            "X": 0,
-            "Y": 0,
-            "Width": 323,
-            "Height": 240,
+            "Wildcard1": {
+              "TextId": "SingleUseId13",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "rpmArea",
+            "X": 298,
+            "Y": 71,
+            "Width": 212,
+            "Height": 69,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -195,18 +113,23 @@
             "TextId": "SingleUseId3",
             "TextRotation": "0",
             "Color": {
-              "Red": 0,
-              "Green": 0,
-              "Blue": 0
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
             },
             "Alpha": 255,
-            "AutoSize": true,
+            "AutoSize": false,
             "LineSpacing": 0,
-            "Name": "textArea1_1",
-            "X": 508,
-            "Y": 0,
-            "Width": 323,
-            "Height": 240,
+            "Wildcard1": {
+              "TextId": "SingleUseId9",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "battArea",
+            "X": 14,
+            "Y": 82,
+            "Width": 259,
+            "Height": 49,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -219,18 +142,113 @@
             "TextId": "SingleUseId4",
             "TextRotation": "0",
             "Color": {
-              "Red": 0,
-              "Green": 0,
-              "Blue": 0
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
             },
             "Alpha": 255,
-            "AutoSize": true,
+            "AutoSize": false,
             "LineSpacing": 0,
-            "Name": "textArea2",
-            "X": 224,
-            "Y": 207,
-            "Width": 42,
-            "Height": 24,
+            "Wildcard1": {
+              "TextId": "SingleUseId12",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "tcsArea",
+            "X": 652,
+            "Y": 82,
+            "Width": 138,
+            "Height": 49,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "tempBox",
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1",
+            "X": 11,
+            "Y": 248,
+            "Width": 220,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "tempBox",
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_1",
+            "X": 11,
+            "Y": 329,
+            "Width": 220,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "tempBox",
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_2",
+            "X": 570,
+            "Y": 248,
+            "Width": 220,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "tempBox",
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_3",
+            "X": 570,
+            "Y": 329,
+            "Width": 220,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "alertBar",
+            "Type": "CustomContainerInstance",
+            "Name": "alertBar1",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "CustomContainerDefinitionName": "alertBar",
+            "Type": "CustomContainerInstance",
+            "Name": "alertBar2",
+            "X": 0,
+            "Y": 420,
+            "Width": 800,
+            "Height": 60,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -240,21 +258,26 @@
           },
           {
             "Type": "TextArea",
-            "TextId": "SingleUseId5",
+            "TextId": "SingleUseId8",
             "TextRotation": "0",
             "Color": {
-              "Red": 0,
-              "Green": 0,
-              "Blue": 0
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
             },
             "Alpha": 255,
-            "AutoSize": true,
+            "AutoSize": false,
             "LineSpacing": 0,
-            "Name": "textArea3",
-            "X": 224,
-            "Y": 183,
-            "Width": 41,
-            "Height": 24,
+            "Wildcard1": {
+              "TextId": "SingleUseId11",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "cltArea",
+            "X": 14,
+            "Y": 150,
+            "Width": 238,
+            "Height": 49,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -264,12 +287,147 @@
           }
         ],
         "Interactions": [],
-        "Name": "main",
+        "Name": "Screen1",
         "OverrideDefaultBufferSize": false,
-        "CanvasBufferSize": 0
+        "CanvasBufferSize": 12000
       }
     ],
-    "CustomContainerDefinitions": [],
+    "CustomContainerDefinitions": [
+      {
+        "Components": [],
+        "Interactions": [],
+        "Name": "RoundBorderBox",
+        "X": 0,
+        "Y": 0,
+        "Width": 250,
+        "Height": 250
+      },
+      {
+        "Components": [
+          {
+            "Type": "Line",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "FileNameImage": "",
+            "Alpha": 255,
+            "StartX": 0,
+            "StartY": 0,
+            "EndX": 0,
+            "EndY": 220,
+            "LineWidth": 1,
+            "LineEndingStyle": "Round",
+            "Name": "line1",
+            "X": 0,
+            "Y": 0,
+            "Width": 100,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId6",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": false,
+            "LineSpacing": 2,
+            "Name": "textArea1",
+            "X": 0,
+            "Y": 0,
+            "Width": 220,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [],
+        "Name": "tempBox",
+        "X": 0,
+        "Y": 0,
+        "Width": 220,
+        "Height": 60
+      },
+      {
+        "Components": [
+          {
+            "Type": "BoxWithBorder",
+            "Color": {
+              "Red": 255,
+              "Green": 0,
+              "Blue": 0
+            },
+            "BorderColor": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "BorderSize": 5,
+            "Alpha": 255,
+            "Name": "bgBox",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId7",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": false,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "UseBuffer": false,
+              "BufferSize": 0
+            },
+            "Name": "frontText",
+            "X": 263,
+            "Y": 0,
+            "Width": 302,
+            "Height": 60,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [],
+        "Name": "alertBar",
+        "X": 0,
+        "Y": 0,
+        "Width": 800,
+        "Height": 60
+      }
+    ],
     "TextEntries": [
       {
         "TextEntryId": "SingleUseId1",
@@ -288,31 +446,65 @@
         "IsResource": false
       },
       {
-        "TextEntryId": "SingleUseId5",
+        "TextEntryId": "SingleUseId6",
         "IsResource": false
       },
       {
-        "TextEntryId": "SingleUseId6",
+        "TextEntryId": "SingleUseId7",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "ResourceId1",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId8",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId9",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId11",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId12",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId13",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId14",
         "IsResource": false
       }
     ],
-    "Name": "MyApplication",
+    "Name": "BolideScreen",
     "Resolution": {
       "Width": 800,
       "Height": 480
     },
     "SelectedColorDepth": 24,
-    "StartupScreenName": "start",
+    "StartupScreenName": "Screen1",
     "SelectedStartupLanguage": "GB",
     "Skin": "Blue",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
+    "ApplicationTemplateName": "Simulator",
+    "ApplicationTemplateVersion": "2.0.0",
+    "ApplicationTemplateDescription": "Simulator Application Template",
     "AvailableColorDepths": [
       24
     ],
     "AvailableLCDs": {
+      "1": "LCD1bpp",
+      "2": "LCD2bpp",
+      "4": "LCD4bpp",
+      "8": "LCD8bpp_ARGB2222",
       "16": "LCD16bpp",
-      "32": "LCD32bpp",
       "24": "LCD24bpp"
     },
     "AvailableSections": [
@@ -337,6 +529,8 @@
     "PostGenerateTargetCommand": "touchgfx update_project --project-file=../code.ioc --platform=m7",
     "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
     "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommand": "",
+    "FlashTargetCommand": "",
     "LandscapeSkinX": 0,
     "LandscapeSkinY": 0,
     "PortraitSkinX": 0,
@@ -344,5 +538,6 @@
     "DisplayOrientation": "Landscape",
     "Family": "STM32F7"
   },
-  "Version": "4.17.0"
+  "Version": "4.17.0",
+  "CreatedBy": "4.17.0"
 }

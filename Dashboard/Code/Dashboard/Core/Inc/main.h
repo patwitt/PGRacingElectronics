@@ -64,10 +64,6 @@ void Error_Handler(void);
 #define ESP_RESET_GPIO_Port GPIOC
 #define ESP_PD_Pin GPIO_PIN_11
 #define ESP_PD_GPIO_Port GPIOC
-#define ESP_TX_Pin GPIO_PIN_12
-#define ESP_TX_GPIO_Port GPIOC
-#define ESP_RX_Pin GPIO_PIN_2
-#define ESP_RX_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

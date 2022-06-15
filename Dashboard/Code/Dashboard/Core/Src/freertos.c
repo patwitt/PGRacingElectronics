@@ -50,12 +50,18 @@
 /* USER CODE END Variables */
 /* Definitions for hardwareTASK */
 osThreadId_t hardwareTASKHandle;
-const osThreadAttr_t hardwareTASK_attributes = { .name = "hardwareTASK",
-		.stack_size = 512 * 4, .priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t hardwareTASK_attributes = {
+  .name = "hardwareTASK",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for touchGFXTask */
 osThreadId_t touchGFXTaskHandle;
-const osThreadAttr_t touchGFXTask_attributes = { .name = "touchGFXTask",
-		.stack_size = 8192 * 4, .priority = (osPriority_t) osPriorityNormal, };
+const osThreadAttr_t touchGFXTask_attributes = {
+  .name = "touchGFXTask",
+  .stack_size = 32768 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -68,47 +74,45 @@ void StartTouchGFXTask(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* creation of hardwareTASK */
-	hardwareTASKHandle = osThreadNew(StartHardwareTask, NULL,
-			&hardwareTASK_attributes);
+  /* Create the thread(s) */
+  /* creation of hardwareTASK */
+  hardwareTASKHandle = osThreadNew(StartHardwareTask, NULL, &hardwareTASK_attributes);
 
-	/* creation of touchGFXTask */
-	touchGFXTaskHandle = osThreadNew(StartTouchGFXTask, NULL,
-			&touchGFXTask_attributes);
+  /* creation of touchGFXTask */
+  touchGFXTaskHandle = osThreadNew(StartTouchGFXTask, NULL, &touchGFXTask_attributes);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
-	/* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-	/* USER CODE END RTOS_EVENTS */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -119,14 +123,15 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_StartHardwareTask */
-void StartHardwareTask(void *argument) {
-	/* USER CODE BEGIN StartHardwareTask */
+void StartHardwareTask(void *argument)
+{
+  /* USER CODE BEGIN StartHardwareTask */
 
 	/* Infinite loop */
 	for (;;) {
 		osDelay(1);
 	}
-	/* USER CODE END StartHardwareTask */
+  /* USER CODE END StartHardwareTask */
 }
 
 /* USER CODE BEGIN Header_StartTouchGFXTask */
@@ -136,14 +141,15 @@ void StartHardwareTask(void *argument) {
  * @retval None
  */
 /* USER CODE END Header_StartTouchGFXTask */
-void StartTouchGFXTask(void *argument) {
-	/* USER CODE BEGIN StartTouchGFXTask */
+void StartTouchGFXTask(void *argument)
+{
+  /* USER CODE BEGIN StartTouchGFXTask */
 	MX_TouchGFX_Process();
 	/* Infinite loop */
 	for (;;) {
 		osDelay(1);
 	}
-	/* USER CODE END StartTouchGFXTask */
+  /* USER CODE END StartTouchGFXTask */
 }
 
 /* Private application code --------------------------------------------------*/
