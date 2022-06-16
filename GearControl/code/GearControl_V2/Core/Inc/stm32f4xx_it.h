@@ -56,9 +56,10 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
-void OTG_FS_IRQHandler(void);
+void DMA2_Stream2_IRQHandler(void);
+void DMA2_Stream4_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-
+ErrorFlagsEnum IRQ_Init(void);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus
@@ -66,5 +67,3 @@ void OTG_FS_IRQHandler(void);
 #endif
 
 #endif /* __STM32F4xx_IT_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

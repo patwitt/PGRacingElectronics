@@ -1,0 +1,8 @@
+../Core/Src/DBW.c:120:16:DBW_Init	16	static
+../Core/Src/DBW.c:162:19:DBW_Handler_Init	16	static
+../Core/Src/DBW.c:198:19:DBW_Handler_Run	4	static
+../Core/Src/DBW.c:222:6:DBW_Disable	8	static
+../Core/Src/DBW.c:233:6:DBW_Process	8	static
+../Core/Src/DBW.c:259:8:DBW_GetCurrentTPSRaw	4	static
+../Core/Src/DBW.c:265:13:DBW_GetCurrentTPSDeg	4	static
+../Core/Src/DBW.c:270:13:DBW_PlausibilityCheck	24	static

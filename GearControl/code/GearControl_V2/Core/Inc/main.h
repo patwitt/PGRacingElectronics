@@ -47,19 +47,64 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define FALSE (0U)
+#define TRUE (1U)
+#define     __IO    volatile
+typedef uint32_t uint32;
+typedef uint8_t uint8;
+typedef uint16_t uint16;
+typedef uint8_t boolean;
 /* USER CODE END EM */
+
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+typedef enum {
+	ERROR_OK,
+	ERROR_NOK,
+	ERROR_NULL,
+	ERROR_OOR,
+	ERROR_HAL,
+	ERROR_DBW_TPS_INIT,
+	ERROR_DBW_APPS_INIT,
+	ERROR_DBW_TPS_PLAUSIBILITY,
+	ERROR_DBW_APPS_PLAUSIBILITY,
+	ERROR_COUNT
+} ErrorFlagsEnum;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED_STATUS_Pin GPIO_PIN_2
+#define LED_STATUS_GPIO_Port GPIOA
+#define TPS_1_Pin GPIO_PIN_5
+#define TPS_1_GPIO_Port GPIOA
+#define TPS_2_Pin GPIO_PIN_7
+#define TPS_2_GPIO_Port GPIOA
+#define APPS_1_Pin GPIO_PIN_5
+#define APPS_1_GPIO_Port GPIOC
+#define APPS_2_Pin GPIO_PIN_1
+#define APPS_2_GPIO_Port GPIOB
+#define GEAR_CUT_Pin GPIO_PIN_14
+#define GEAR_CUT_GPIO_Port GPIOB
+#define PWM_CLUTCH_Pin GPIO_PIN_6
+#define PWM_CLUTCH_GPIO_Port GPIOC
+#define PWM_GEAR_Pin GPIO_PIN_8
+#define PWM_GEAR_GPIO_Port GPIOC
+#define OE_Pin GPIO_PIN_9
+#define OE_GPIO_Port GPIOC
+#define PWM_H_IN2_Pin GPIO_PIN_8
+#define PWM_H_IN2_GPIO_Port GPIOA
+#define INH2_Pin GPIO_PIN_9
+#define INH2_GPIO_Port GPIOA
+#define INH1_Pin GPIO_PIN_10
+#define INH1_GPIO_Port GPIOA
+#define PWM_H_IN1_Pin GPIO_PIN_11
+#define PWM_H_IN1_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
-
+#define RUN_DEBUG
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
@@ -67,5 +112,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

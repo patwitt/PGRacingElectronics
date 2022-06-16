@@ -23,6 +23,8 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Adc.h"
+#include "Scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,6 +45,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
+static __IO AdcDataChannel* adc1Channels = NULL;
+static __IO AdcDataChannel* adc2Channels = NULL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -52,12 +56,29 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef RUN_DEBUG
+uint16_t debugAdc2[ADC_2_CHANNELS_COUNT];
+uint16_t debugAdc1[ADC_1_CHANNELS_COUNT];
+#endif
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+extern DMA_HandleTypeDef hdma_adc1;
+extern DMA_HandleTypeDef hdma_adc2;
 /* USER CODE BEGIN EV */
+ErrorFlagsEnum IRQ_Init(void)
+{
+	ErrorFlagsEnum err = ERROR_OK;
+
+	adc1Channels = ADC_getAdcStruct(ADC_1_HANDLE);
+	adc2Channels = ADC_getAdcStruct(ADC_2_HANDLE);
+
+	if ((adc1Channels == NULL) || (adc2Channels == NULL)) {
+		err = ERROR_NULL;
+	}
+
+	return err;
+}
 
 /* USER CODE END EV */
 
@@ -186,7 +207,7 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  SchedulerCallback();
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -198,20 +219,44 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles USB On The Go FS global interrupt.
+  * @brief This function handles DMA2 stream2 global interrupt.
   */
-void OTG_FS_IRQHandler(void)
+void DMA2_Stream2_IRQHandler(void)
 {
-  /* USER CODE BEGIN OTG_FS_IRQn 0 */
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 0 */
 
-  /* USER CODE END OTG_FS_IRQn 0 */
-  HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
-  /* USER CODE BEGIN OTG_FS_IRQn 1 */
+  /* USER CODE END DMA2_Stream2_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_adc2);
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
 
-  /* USER CODE END OTG_FS_IRQn 1 */
+  adc2Channels[ADC_CHANNEL_TPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_1].avgBuff, adc2Channels[ADC_CHANNEL_TPS_1].rawVal);
+  adc2Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].rawVal);
+  adc2Channels[ADC_CHANNEL_APPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_1].avgBuff, adc2Channels[ADC_CHANNEL_APPS_1].rawVal);
+  adc2Channels[ADC_CHANNEL_APPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_2].avgBuff, adc2Channels[ADC_CHANNEL_APPS_2].rawVal);
+
+#ifdef RUN_DEBUG
+  debugAdc2[ADC_CHANNEL_TPS_1] = adc2Channels[ADC_CHANNEL_TPS_1].avg;
+  debugAdc2[ADC_CHANNEL_TPS_2] = adc2Channels[ADC_CHANNEL_TPS_2].avg;
+  debugAdc2[ADC_CHANNEL_APPS_1] = adc2Channels[ADC_CHANNEL_APPS_1].avg;
+  debugAdc2[ADC_CHANNEL_APPS_2] = adc2Channels[ADC_CHANNEL_APPS_2].avg;
+#endif
+  /* USER CODE END DMA2_Stream2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA2 stream4 global interrupt.
+  */
+void DMA2_Stream4_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream4_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream4_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_adc1);
+  /* USER CODE BEGIN DMA2_Stream4_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream4_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
