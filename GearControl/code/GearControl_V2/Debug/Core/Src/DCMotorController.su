@@ -1,0 +1,6 @@
+../Core/Src/DCMotorController.c:30:13:DCMotorController_ResetPwm	4	static
+../Core/Src/DCMotorController.c:35:15:DCMotorController_ConvertTargetToPwm	24	static
+../Core/Src/DCMotorController.c:43:11:DCMotorController_Init	16	static
+../Core/Src/DCMotorController.c:69:6:DCMotorController_Update	24	static
+../Core/Src/DCMotorController.c:90:6:DCMotorController_Disable	8	static
+../Core/Src/DCMotorController.c:99:6:DCMotorController_Enable	8	static

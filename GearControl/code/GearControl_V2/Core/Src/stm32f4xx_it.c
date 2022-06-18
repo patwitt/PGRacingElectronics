@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "Adc.h"
 #include "Scheduler.h"
+#include "DefineConfig.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,9 +67,9 @@ uint16_t debugAdc1[ADC_1_CHANNELS_COUNT];
 extern DMA_HandleTypeDef hdma_adc1;
 extern DMA_HandleTypeDef hdma_adc2;
 /* USER CODE BEGIN EV */
-ErrorFlagsEnum IRQ_Init(void)
+ErrorEnum IRQ_Init(void)
 {
-	ErrorFlagsEnum err = ERROR_OK;
+	ErrorEnum err = ERROR_OK;
 
 	adc1Channels = ADC_getAdcStruct(ADC_1_HANDLE);
 	adc2Channels = ADC_getAdcStruct(ADC_2_HANDLE);
@@ -229,10 +230,19 @@ void DMA2_Stream2_IRQHandler(void)
   HAL_DMA_IRQHandler(&hdma_adc2);
   /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
 
-  adc2Channels[ADC_CHANNEL_TPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_1].avgBuff, adc2Channels[ADC_CHANNEL_TPS_1].rawVal);
-  adc2Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].rawVal);
-  adc2Channels[ADC_CHANNEL_APPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_1].avgBuff, adc2Channels[ADC_CHANNEL_APPS_1].rawVal);
-  adc2Channels[ADC_CHANNEL_APPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_2].avgBuff, adc2Channels[ADC_CHANNEL_APPS_2].rawVal);
+  adc2Channels[ADC_CHANNEL_TPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_1].avgBuff, adc2Channels[ADC_CHANNEL_TPS_1].raw);
+  adc2Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].raw);
+  adc2Channels[ADC_CHANNEL_APPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_1].avgBuff, adc2Channels[ADC_CHANNEL_APPS_1].raw);
+  adc2Channels[ADC_CHANNEL_APPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_2].avgBuff, adc2Channels[ADC_CHANNEL_APPS_2].raw);
+
+#ifdef SHOW_MIN_MAX
+  if (HAL_GetTick() > 100U) {
+	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_TPS_1]);
+	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_TPS_2]);
+	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_APPS_1]);
+	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_APPS_2]);
+  }
+#endif
 
 #ifdef RUN_DEBUG
   debugAdc2[ADC_CHANNEL_TPS_1] = adc2Channels[ADC_CHANNEL_TPS_1].avg;

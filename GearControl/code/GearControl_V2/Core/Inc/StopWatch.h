@@ -1,7 +1,8 @@
 #ifndef HAL_STOPWATCH_H
 #define HAL_STOPWATCH_H
 
-#include "main.h"
+#include "Types.h"
+#include "stm32f4xx_hal.h"
 
 /**
  * Structure for tracking time between events within a frame.

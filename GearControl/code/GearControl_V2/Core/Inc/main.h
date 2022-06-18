@@ -47,13 +47,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-#define FALSE (0U)
-#define TRUE (1U)
-#define     __IO    volatile
-typedef uint32_t uint32;
-typedef uint8_t uint8;
-typedef uint16_t uint16;
-typedef uint8_t boolean;
+
 /* USER CODE END EM */
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
@@ -62,18 +56,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-typedef enum {
-	ERROR_OK,
-	ERROR_NOK,
-	ERROR_NULL,
-	ERROR_OOR,
-	ERROR_HAL,
-	ERROR_DBW_TPS_INIT,
-	ERROR_DBW_APPS_INIT,
-	ERROR_DBW_TPS_PLAUSIBILITY,
-	ERROR_DBW_APPS_PLAUSIBILITY,
-	ERROR_COUNT
-} ErrorFlagsEnum;
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

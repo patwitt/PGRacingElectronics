@@ -8,6 +8,8 @@
 #ifndef INC_GEARSENSOR_H_
 #define INC_GEARSENSOR_H_
 
+#include "Types.h"
+
 #define N_SAMPLES (4U)
 #define SAMPLES_3 (3U)
 #define SAMPLES_2 (2U)

@@ -33,6 +33,7 @@
 #include "stm32f4xx_it.h"
 #include "CANManager.h"
 #include "StopWatch.h"
+#include "SwTimer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,8 +110,9 @@ void PeriodicProcess1msHandler(void)
 #endif
 }
 
-void PeriodicProcess4msHandler(void)
+void PeriodicProcess10msHandler(void)
 {
+	SwTimerExecute();
 #if 0
 	/* Gear Control process */
 	GearControl_Process();
@@ -126,7 +128,7 @@ void PeriodicProcess100msHandler(void)
 }
 
 static SchedulerType schedule[N_PROCESS] = {{.handler = PeriodicProcess1msHandler, .period = 1U},
-								               {.handler = PeriodicProcess4msHandler, .period = 4U},
+								               {.handler = PeriodicProcess10msHandler, .period = 10U},
 											   {.handler = PeriodicProcess100msHandler, .period = 100U}};
 /* USER CODE END 0 */
 
@@ -158,11 +160,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_ADC1_Init();
   MX_CAN1_Init();
   MX_TIM1_Init();
   MX_DMA_Init();
   MX_TIM3_Init();
-  MX_ADC1_Init();
   MX_ADC2_Init();
   MX_TIM2_Init();
   MX_IWDG_Init();
@@ -383,7 +385,7 @@ static void MX_ADC2_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -725,6 +727,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(OE_GPIO_Port, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */

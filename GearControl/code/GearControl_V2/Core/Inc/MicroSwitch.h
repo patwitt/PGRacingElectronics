@@ -8,6 +8,8 @@
 #ifndef INC_MICROSWITCH_H_
 #define INC_MICROSWITCH_H_
 
+#include "Types.h"
+
 #define DEBOUNCE_10MS (5U)
 #define DEBOUNCE_20MS (10U)
 #define DEBOUNCE_50MS (25U)

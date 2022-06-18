@@ -8,7 +8,7 @@
 #ifndef INC_SCHEDULER_H_
 #define INC_SCHEDULER_H_
 
-#include "main.h"
+#include "Types.h"
 
 #define N_PROCESS (3U)
 

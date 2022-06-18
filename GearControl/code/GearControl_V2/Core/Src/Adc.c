@@ -8,7 +8,7 @@
 #include "Adc.h"
 #include "main.h"
 #include "GearControl.h"
-#include "stm32f4xx_hal_adc.h"
+#include "DefineConfig.h"
 
 /* ---------------------------- */
 /*          Local data          */
@@ -25,6 +25,19 @@ static __IO uint16 *const adcDmaBuffers[ADC_HANDLE_COUNT] = {&adc1DmaBuff[0U], &
 static AdcDataChannel adc1Data[ADC_1_CHANNELS_COUNT];
 static AdcDataChannel adc2Data[ADC_2_CHANNELS_COUNT];
 static AdcDataChannel *const adcData[ADC_HANDLE_COUNT] = {&adc1Data[0U], &adc2Data[0U]};
+
+#ifdef SHOW_MIN_MAX
+void ADC_updateMinMax(__IO AdcDataChannel* adcChannel) {
+	if (adcChannel != NULL) {
+		if (adcChannel->avg < adcChannel->min) {
+			adcChannel->min = adcChannel->avg;
+		}
+		if (adcChannel->avg > adcChannel->max) {
+			adcChannel->max = adcChannel->avg;
+		}
+	}
+}
+#endif
 
 __IO AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
 {
@@ -50,16 +63,21 @@ __IO AdcDataChannel* ADC_getAdcChannelPtr(const AdcHandleEnum adcHandle, const A
 	return adcChannel;
 }
 
-ErrorFlagsEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandle, const uint32 conversions)
+ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandle, const uint32 conversions)
 {
-	ErrorFlagsEnum err = ERROR_OK;
+	ErrorEnum err = ERROR_OK;
 
 	if ((adcHandle < ADC_HANDLE_COUNT) && ((AdcChannelEnum)conversions <= adcChannelsMaxConversions[adcHandle]))
 	{
 		if (HAL_OK == HAL_ADC_Start_DMA(adcHalHandle, (uint32*)adcDmaBuffers[adcHandle], conversions))
 		{
 			for (uint32_t channel = 0U; channel < conversions; ++channel) {
-				adcData[adcHandle][channel].rawVal = &adcDmaBuffers[adcHandle][channel];
+				adcData[adcHandle][channel].raw = &adcDmaBuffers[adcHandle][channel];
+
+#ifdef SHOW_MIN_MAX
+				adcData[adcHandle][channel].max = 0U;
+				adcData[adcHandle][channel].min = 0xFFFFU;
+#endif
 			}
 		} else {
 			err = ERROR_HAL;

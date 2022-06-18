@@ -1,3 +1,4 @@
-../Core/Src/Adc.c:29:22:ADC_getAdcStruct	24	static
-../Core/Src/Adc.c:41:22:ADC_getAdcChannelPtr	24	static
-../Core/Src/Adc.c:53:16:ADC_Init	32	static
+../Core/Src/Adc.c:30:6:ADC_updateMinMax	16	static
+../Core/Src/Adc.c:42:22:ADC_getAdcStruct	24	static
+../Core/Src/Adc.c:54:22:ADC_getAdcChannelPtr	24	static
+../Core/Src/Adc.c:66:11:ADC_Init	40	static

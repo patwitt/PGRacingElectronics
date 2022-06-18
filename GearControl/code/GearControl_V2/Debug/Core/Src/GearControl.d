@@ -1,5 +1,7 @@
 Core/Src/GearControl.o: ../Core/Src/GearControl.c ../Core/Inc/Encoder.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../Core/Inc/Types.h ../Core/Inc/GearControl.h ../Core/Inc/MicroSwitch.h \
+ ../Core/Inc/GearSensor.h ../Core/Inc/stm32f4xx_it.h ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -31,10 +33,13 @@ Core/Src/GearControl.o: ../Core/Src/GearControl.c ../Core/Inc/Encoder.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/GearControl.h ../Core/Inc/MicroSwitch.h \
- ../Core/Inc/GearSensor.h ../Core/Inc/stm32f4xx_it.h ../Core/Inc/main.h \
  ../Core/Inc/CANManager.h
 ../Core/Inc/Encoder.h:
+../Core/Inc/Types.h:
+../Core/Inc/GearControl.h:
+../Core/Inc/MicroSwitch.h:
+../Core/Inc/GearSensor.h:
+../Core/Inc/stm32f4xx_it.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -68,9 +73,4 @@ Core/Src/GearControl.o: ../Core/Src/GearControl.c ../Core/Inc/Encoder.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-../Core/Inc/GearControl.h:
-../Core/Inc/MicroSwitch.h:
-../Core/Inc/GearSensor.h:
-../Core/Inc/stm32f4xx_it.h:
-../Core/Inc/main.h:
 ../Core/Inc/CANManager.h:

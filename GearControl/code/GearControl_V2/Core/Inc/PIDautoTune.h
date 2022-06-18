@@ -5,12 +5,12 @@
  *      Author: Patryk Wittbrodt
  */
 
-#ifndef INC_PID_H_
-#define INC_PID_H_
+#ifndef INC_PID_AUTOTUNE_H_
+#define INC_PID_AUTOTUNE_H_
 
 /*********** Macros ***********/
-
-#include "Types.h"
+#if 0
+#include "main.h"
 
 typedef struct
 {
@@ -23,11 +23,11 @@ typedef struct
 	float tau;
 
 	/* Limits */
-	const float limMin;
-	const float limMax;
+	float limMin;
+	float limMax;
 
 	/* Samping time */
-	const float T;
+	float T;
 
 	/* previous samples */
 	float integrator;
@@ -41,5 +41,5 @@ typedef struct
 
 void PID_Init(PIDController* pid);
 float PID_Update(float setPoint, float measurement);
-
-#endif /* INC_PID_H_ */
+#endif
+#endif /* INC_PID_AUTOTUNE_H_ */

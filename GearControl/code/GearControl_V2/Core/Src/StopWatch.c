@@ -5,9 +5,8 @@
  *      Author: Patryk Wittbrodt
  */
 
-#include "main.h"
+#include "Types.h"
 #include "StopWatch.h"
-#include "stm32f4xx_hal_tim.h"
 
 static TIM_HandleTypeDef* tim = NULL;
 
@@ -28,9 +27,9 @@ void TimerStopWatchStartLap(TimerStopWatchLapType* lap)
    lap->begin = __HAL_TIM_GET_COUNTER(tim);
 }
 
-uint32_t TimerStopWatchCaptureDuration(TimerStopWatchLapType* lap)
+uint32 TimerStopWatchCaptureDuration(TimerStopWatchLapType* lap)
 {
-   uint32_t retVal = 0U;
+   uint32 retVal = 0U;
 
    lap->finish = __HAL_TIM_GET_COUNTER(tim);
    retVal = (lap->finish > lap->begin) ? (lap->finish - lap->begin) : 0U;

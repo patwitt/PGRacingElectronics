@@ -1,4 +1,5 @@
-Core/Src/DBW.o: ../Core/Src/DBW.c ../Core/Inc/GearControl.h \
+Core/Src/DBW.o: ../Core/Src/DBW.c ../Core/Inc/DefineConfig.h \
+ ../Core/Inc/GearControl.h ../Core/Inc/Types.h ../Core/Inc/GearSensor.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -31,8 +32,12 @@ Core/Src/DBW.o: ../Core/Src/DBW.c ../Core/Inc/GearControl.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/GearSensor.h ../Core/Inc/main.h ../Core/Inc/Adc.h
+ ../Core/Inc/Adc.h ../Core/Inc/DefineConfig.h ../Core/Inc/SwTimer.h \
+ ../Core/Inc/DCMotorController.h ../Core/Inc/PID.h
+../Core/Inc/DefineConfig.h:
 ../Core/Inc/GearControl.h:
+../Core/Inc/Types.h:
+../Core/Inc/GearSensor.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -66,6 +71,8 @@ Core/Src/DBW.o: ../Core/Src/DBW.c ../Core/Inc/GearControl.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-../Core/Inc/GearSensor.h:
-../Core/Inc/main.h:
 ../Core/Inc/Adc.h:
+../Core/Inc/DefineConfig.h:
+../Core/Inc/SwTimer.h:
+../Core/Inc/DCMotorController.h:
+../Core/Inc/PID.h:

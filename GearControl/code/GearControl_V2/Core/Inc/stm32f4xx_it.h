@@ -28,7 +28,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Types.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -59,7 +59,7 @@ void SysTick_Handler(void);
 void DMA2_Stream2_IRQHandler(void);
 void DMA2_Stream4_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-ErrorFlagsEnum IRQ_Init(void);
+ErrorEnum IRQ_Init(void);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

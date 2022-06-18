@@ -52,7 +52,7 @@
 #define INIT_ENCODER_ERROR     (0x00000020UL)
 #define INIT_GEARSENS_ERROR    (0x00000040UL)
 #define OVERCURRENT_ERROR      (0x00000080UL)
-#include "main.h"
+#include "Types.h"
 
 /*********** Data structures ***********/
 

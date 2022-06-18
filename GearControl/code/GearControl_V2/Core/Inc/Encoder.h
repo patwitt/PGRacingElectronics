@@ -8,7 +8,7 @@
 #ifndef INC_ENCODER_H_
 #define INC_ENCODER_H_
 
-#include "main.h"
+#include "Types.h"
 
 void Encoder_Process(void);
 boolean Encoder_Init(void);

@@ -91,7 +91,7 @@ static GearStates GearState_Init(void);
 static GearStates GearStateHandler(void);
 
 static boolean GearControl_PrepareCANMessage(void);
-static inline boolean GearState_ValidateRequest(uint8);
+static inline uint8 GearState_ValidateRequest(uint8);
 
 static void GearControl_WdgOff(void);
 static void GearControl_RequestGearChange(__IO uint8*, GearStates*);

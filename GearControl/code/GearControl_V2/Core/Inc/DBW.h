@@ -8,12 +8,31 @@
 #ifndef INC_DBW_H_
 #define INC_DBW_H_
 
-/*********** Macros ***********/
+#if 0
+	static uint32 ticks = 0;
 
-#include "main.h"
+	if (ticks < 300) {
+		if (*etc.PWM_H_minus == 0) {
+			*etc.PWM_H_plus = 1500;
+		}
+		*etc.PWM_H_minus = 0;
+	} else {
+		if (*etc.PWM_H_plus == 0) {
+			*etc.PWM_H_minus = 1500;
+		}
+		*etc.PWM_H_plus = 0;
+	}
 
-/*********** Data structures ***********/
+	++ticks;
+	if (ticks > 600) {
+		ticks = 0U;
+	}
+#endif
+
+#include "Types.h"
 
 void DBW_Process(void);
-ErrorFlagsEnum DBW_Init(void);
+ErrorEnum DBW_Init(void);
+void DBW_Disable(boolean isError);
+void DBW_RequestAppsCalibration(void);
 #endif /* INC_DBW_H_ */

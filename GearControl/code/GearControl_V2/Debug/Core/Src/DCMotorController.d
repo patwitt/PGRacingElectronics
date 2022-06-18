@@ -1,4 +1,6 @@
-Core/Src/BTN7970B.o: ../Core/Src/BTN7970B.c ../Core/Inc/main.h \
+Core/Src/DCMotorController.o: ../Core/Src/DCMotorController.c \
+ ../Core/Inc/DefineConfig.h ../Core/Inc/DCMotorController.h \
+ ../Core/Inc/Types.h ../Core/Inc/Types.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -30,8 +32,11 @@ Core/Src/BTN7970B.o: ../Core/Src/BTN7970B.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/BTN7970B.h ../Core/Inc/main.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+../Core/Inc/DefineConfig.h:
+../Core/Inc/DCMotorController.h:
+../Core/Inc/Types.h:
+../Core/Inc/Types.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -65,5 +70,3 @@ Core/Src/BTN7970B.o: ../Core/Src/BTN7970B.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-../Core/Inc/BTN7970B.h:
-../Core/Inc/main.h:

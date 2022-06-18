@@ -1,4 +1,4 @@
-../Core/Src/StopWatch.c:14:6:StopWatchInit	16	static
-../Core/Src/StopWatch.c:19:6:TimerStopWatchStartFrame	16	static
-../Core/Src/StopWatch.c:26:6:TimerStopWatchStartLap	16	static
-../Core/Src/StopWatch.c:31:10:TimerStopWatchCaptureDuration	24	static
+../Core/Src/StopWatch.c:13:6:StopWatchInit	16	static
+../Core/Src/StopWatch.c:18:6:TimerStopWatchStartFrame	16	static
+../Core/Src/StopWatch.c:25:6:TimerStopWatchStartLap	16	static
+../Core/Src/StopWatch.c:30:8:TimerStopWatchCaptureDuration	24	static

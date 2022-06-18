@@ -8,6 +8,8 @@
 #ifndef INC_CANMANAGER_H_
 #define INC_CANMANAGER_H_
 
+#include "Types.h"
+
 #define CAN_BUTTON_OFF (0xFFU)
 #define CAN_MSGID_DASHBOARD (0x02U)
 #define CAN_FRAME_BYTES (8U)

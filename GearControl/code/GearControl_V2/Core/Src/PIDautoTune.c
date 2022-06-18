@@ -4,11 +4,10 @@
  *  Created on: 06.06.2022
  *      Author: Patryk Wittbrodt
  */
-
+#if 0
 #include "PID.h"
-#include "DefineConfig.h"
 
-static PIDController pid = {.limMax = 1000.0f, .limMin = 0.0f, .T = 0.1f};
+static PIDController pid = {0.0f};
 
 /* ---------------------------- */
 /*          Local data          */
@@ -19,10 +18,10 @@ void PID_Init(PIDController* pid)
 	(void)pid;
 }
 
-float PID_Update(float target, float measurement)
+float PID_Update(float setPoint, float measurement)
 {
 	/* Error signal */
-	float error = target - measurement;
+	float error = setPoint - measurement;
 
 	/* Proportional */
 	float proportional = pid.Kp * error;
@@ -53,8 +52,14 @@ float PID_Update(float target, float measurement)
 	}
 
 	/* Integrator clamp */
-	pid.integrator = CLAMP_MAX(pid.integrator, limMaxInt);
-	pid.integrator = CLAMP_MIN(pid.integrator, limMinInt);
+	if (pid.integrator > limMaxInt)
+	{
+		pid.integrator = limMaxInt;
+	}
+	if (pid.integrator < limMinInt)
+	{
+		pid.integrator = limMinInt;
+	}
 
 	/* Derivative band-limited differentiator */
 	pid.differentiator = (2.0f * pid.Kd * (measurement - pid.prevMeas)
@@ -64,13 +69,18 @@ float PID_Update(float target, float measurement)
 	/* Compute output */
 	pid.out = proportional + pid.integrator + pid.differentiator;
 
-	/* Clamp output */
-	pid.out = CLAMP_MAX(pid.out, pid.limMax);
-	pid.out = CLAMP_MIN(pid.out, pid.limMin);
+	if (pid.out > pid.limMax)
+	{
+		pid.out = pid.limMax;
+	}
+	if (pid.out < pid.limMin)
+	{
+		pid.out = pid.limMin;
+	}
 
-	/* Store error */
 	pid.prevErr = error;
 	pid.prevMeas = measurement;
 
 	return pid.out;
 }
+#endif

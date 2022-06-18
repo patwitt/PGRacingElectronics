@@ -8,7 +8,9 @@
 #ifndef INC_ADC_INTERNAL_H_
 #define INC_ADC_INTERNAL_H_
 
-#include "main.h"
+#include "Types.h"
+#include "stm32f4xx_hal.h"
+#include "DefineConfig.h"
 
 /*********** Macros ***********/
 #define N_SAMPLES (4U)
@@ -18,9 +20,13 @@
 
 typedef struct
 {
-	__IO uint16_t* rawVal;
+	__IO uint16_t* raw;
 	__IO uint16_t avg;
 	__IO uint16_t avgBuff[N_SAMPLES];
+#ifdef SHOW_MIN_MAX
+	uint16_t max;
+	uint16_t min;
+#endif
 } AdcDataChannel;
 
 typedef enum
@@ -64,6 +70,9 @@ static inline uint16 ADC_AvgSamples(__IO uint16_t* adcBuff, __IO uint16* new_sam
 
 __IO AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle);
 __IO AdcDataChannel* ADC_getAdcChannelPtr(const AdcHandleEnum adcHandle, const AdcChannelEnum channel);
-ErrorFlagsEnum ADC_Init(ADC_HandleTypeDef* adcHandle, const AdcHandleEnum handleId, const uint32 conversions);
+ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHandle, const AdcHandleEnum handleId, const uint32 conversions);
 
+#ifdef SHOW_MIN_MAX
+void ADC_updateMinMax(__IO AdcDataChannel* adcChannel);
+#endif
 #endif /* INC_ADC_INTERNAL_H_ */
