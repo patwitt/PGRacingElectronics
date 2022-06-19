@@ -5,7 +5,7 @@
 
 /**
  * @file Types.h
- * @brief Definition of Types compatible with STM32 MCU to use in ATU Software
+ * @brief Definition of Types compatible with STM32 MCU
  */
 
 /**
@@ -52,22 +52,16 @@ typedef bool_t boolean;
 /**
  * Constant to express positive boolean state
  */
-// coverity[misra_c_2012_rule_21_1_violation] - GADSS-RD-5 Definition required by Avionx Coding standard
-// coverity[misra_c_2012_rule_21_2_violation] - GADSS-RD-6 Definition required by Avionx Coding standard
 #define true (1==1)
 
 /**
  * Constant to express negative boolean state
  */
-// coverity[misra_c_2012_rule_21_1_violation] - GADSS-RD-5 Definition required by Avionx Coding standard
-// coverity[misra_c_2012_rule_21_2_violation] - GADSS-RD-6 Definition required by Avionx Coding standard
 #define false (1==0)
 
 /**
  * Null pointer definition
  */
-// coverity[misra_c_2012_rule_21_1_violation] - GADSS-RD-5 Definition required by Avionx Coding standard
-// coverity[misra_c_2012_rule_21_2_violation] - GADSS-RD-6 Definition required by Avionx Coding standard
 #define NULL ((void *)0)
 
 #ifndef VCAST_TEST_BUILD
@@ -98,9 +92,12 @@ typedef enum {
 	ERROR_DBW_TPS_INIT,
 	ERROR_DBW_APPS_INIT,
 	ERROR_DBW_DC_MOTOR_INIT,
+	ERROR_DBW_TPS_CALIBRATION,
+	ERROR_DBW_APPS_CALIBRATION,
 	ERROR_DBW_TPS_PLAUSIBILITY,
 	ERROR_DBW_APPS_PLAUSIBILITY,
 	ERROR_SW_TIMER_MAX_EXCEEDED,
+	ERROR_SERVO_INIT,
 	ERROR_COUNT
 } ErrorEnum;
 

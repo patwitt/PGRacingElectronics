@@ -23,9 +23,10 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Adc.h"
-#include "Scheduler.h"
 #include "DefineConfig.h"
+
+#include "PlatformLow/Inc/Adc.h"
+#include "PlatformLow/Inc/Scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -263,7 +264,8 @@ void DMA2_Stream4_IRQHandler(void)
   /* USER CODE END DMA2_Stream4_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc1);
   /* USER CODE BEGIN DMA2_Stream4_IRQn 1 */
-
+  adc1Channels[ADC_CHANNEL_GEAR_POS].avg = ADC_AvgSamples(adc1Channels[ADC_CHANNEL_GEAR_POS].avgBuff, adc1Channels[ADC_CHANNEL_GEAR_POS].raw);
+  //adc1Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].raw);
   /* USER CODE END DMA2_Stream4_IRQn 1 */
 }
 

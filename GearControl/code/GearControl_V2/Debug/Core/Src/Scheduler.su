@@ -1,7 +1,0 @@
-../Core/Src/Scheduler.c:29:6:SchedulerInit	24	static
-../Core/Src/Scheduler.c:43:13:SchedulerInitStats	16	static
-../Core/Src/Scheduler.c:50:6:SchedulerCallback	16	static
-../Core/Src/Scheduler.c:60:6:SchedulerRun	8	static
-../Core/Src/Scheduler.c:68:13:SchedulerTimeBase	8	static
-../Core/Src/Scheduler.c:78:13:SchedulerExecuteTasks	24	static
-../Core/Src/Scheduler.c:103:13:SchedulerUpdateStats	16	static

@@ -60,8 +60,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SW_GEAR_UP_Pin GPIO_PIN_1
+#define SW_GEAR_UP_GPIO_Port GPIOC
+#define SW_GEAR_DOWN_Pin GPIO_PIN_2
+#define SW_GEAR_DOWN_GPIO_Port GPIOC
+#define GEAR_SENS_Pin GPIO_PIN_1
+#define GEAR_SENS_GPIO_Port GPIOA
 #define LED_STATUS_Pin GPIO_PIN_2
 #define LED_STATUS_GPIO_Port GPIOA
+#define IS_Pin GPIO_PIN_3
+#define IS_GPIO_Port GPIOA
 #define TPS_1_Pin GPIO_PIN_5
 #define TPS_1_GPIO_Port GPIOA
 #define TPS_2_Pin GPIO_PIN_7

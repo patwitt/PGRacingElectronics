@@ -1,5 +1,0 @@
-../Core/Src/GearSensor.c:62:21:InRange	24	static
-../Core/Src/GearSensor.c:94:6:GearSensor_Init	16	static
-../Core/Src/GearSensor.c:100:12:GearSensor_GetStateBySensorAdc	24	static
-../Core/Src/GearSensor.c:126:6:GearSensor_Process	16	static
-../Core/Src/GearSensor.c:176:6:GearSensor_DMAProcess	16	static

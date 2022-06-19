@@ -1,2 +1,0 @@
-../Core/Src/Watchdog.c:15:6:Watchdog_Init	16	static
-../Core/Src/Watchdog.c:20:11:WatchdogFeed	4	static

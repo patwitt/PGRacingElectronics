@@ -18,21 +18,22 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <CAN.h>
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Watchdog.h"
-#include "Scheduler.h"
-#include "Adc.h"
+
+#include "stm32f4xx_it.h"
+/* Application */
 #include "DBW.h"
 #include "GearControl.h"
-#include "Encoder.h"
+/* Middleware */
 #include "MicroSwitch.h"
-#include "GearSensor.h"
-#include "stm32f4xx_it.h"
-#include "CANManager.h"
-#include "StopWatch.h"
+/* Platform Low */
+#include "Adc.h"
+#include "LED.h"
+#include "Scheduler.h"
 #include "SwTimer.h"
 /* USER CODE END Includes */
 
@@ -97,7 +98,7 @@ static void MX_IWDG_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void PeriodicProcess1msHandler(void)
+static void PeriodicProcess1msHandler(void)
 {
 	DBW_Process();
 
@@ -110,7 +111,7 @@ void PeriodicProcess1msHandler(void)
 #endif
 }
 
-void PeriodicProcess10msHandler(void)
+static void PeriodicProcess10msHandler(void)
 {
 	SwTimerExecute();
 #if 0
@@ -122,14 +123,21 @@ void PeriodicProcess10msHandler(void)
 #endif
 }
 
-void PeriodicProcess100msHandler(void)
+static void PeriodicProcess100msHandler(void)
 {
 	//OnOffSwitch_Process();
 }
 
+static void PeriodicProcess500msHandler(void)
+{
+	LED_Process();
+}
+
 static SchedulerType schedule[N_PROCESS] = {{.handler = PeriodicProcess1msHandler, .period = 1U},
-								               {.handler = PeriodicProcess10msHandler, .period = 10U},
-											   {.handler = PeriodicProcess100msHandler, .period = 100U}};
+								            {.handler = PeriodicProcess10msHandler, .period = 10U},
+											{.handler = PeriodicProcess100msHandler, .period = 100U},
+											{.handler = PeriodicProcess500msHandler, .period = 500U}
+};
 /* USER CODE END 0 */
 
 /**
@@ -172,13 +180,9 @@ int main(void)
 
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
-	  //GearControl_FuelCutTrigger(OFF);
 	  /* Init CAN Manager */
-	  //CANManager_Init(&hcan);
-	  /* Start servo PWM signal */
-	  //HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-	  /* Initialize Gear Control module */
-	  //GearControl_Init(&htim1.Instance->CCR3);
+	  //CANManager_Init(&hcan1);
+
 	  /* Initialize ADC */
 	  if (ADC_Init(&hadc1, ADC_1_HANDLE, ADC_1_CHANNELS_COUNT) != ERROR_OK) {
 		  errorFlags.adcInitErr = TRUE;
@@ -198,28 +202,19 @@ int main(void)
 		  errorFlags.dbwInitErr = TRUE;
 	  }
 
-	  /* Enable watchdog - no return */
-	  Watchdog_Init(&hiwdg);
-
-	  /* Timer for scheduler frames time measurement (in uS) */
-	  if (HAL_TIM_Base_Start(&htim2) != HAL_OK) {
-		  errorFlags.schedulerInitErr = TRUE;
-	  }
-
-	  /* Assign scheduler timer to stop watch - no return */
-	  StopWatchInit(&htim2);
-
 	  /* Initialize Gear Sensor module */
 	  //GearSensor_Init(gearsens);
 	  /* Initialize MicroSwitch module */
 	  //MicroSwitch_Init(gearsens);
 
-	  /* Initialize Scheduler - no return */
-	  if (errorFlags.errTotal == 0U) {
-		  SchedulerInit(schedule);
-
-		  /* Run scheduler */
-		  SchedulerRun();
+	  if (errorFlags.errTotal == ERROR_OK) {
+		  /* Initialize Scheduler */
+		  if (SchedulerInit(schedule, &htim2, &hiwdg) == ERROR_OK) {
+			  /* Run scheduler */
+			  SchedulerRun();
+		  } else {
+			  errorFlags.schedulerInitErr = TRUE;
+		  }
 	  }
   }
 
@@ -624,9 +619,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 0;
+  htim3.Init.Prescaler = 1679;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
+  htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
@@ -701,8 +696,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PC1 PC2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
+  /*Configure GPIO pins : SW_GEAR_UP_Pin SW_GEAR_DOWN_Pin */
+  GPIO_InitStruct.Pin = SW_GEAR_UP_Pin|SW_GEAR_DOWN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
