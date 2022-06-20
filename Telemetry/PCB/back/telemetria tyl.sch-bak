@@ -1414,7 +1414,7 @@ Wire Wire Line
 Wire Wire Line
 	7250 4350 7400 4350
 Wire Wire Line
-	7250 4150 7250 4350
+	7200 5300 7200 5500
 Wire Wire Line
 	6800 4150 7250 4150
 $Comp

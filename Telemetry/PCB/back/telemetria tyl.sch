@@ -265,7 +265,7 @@ L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R13
 U 1 1 6242C904
 P 10250 1750
 F 0 "R13" V 10043 1750 50  0000 C CNN
-F 1 "260" V 10134 1750 50  0000 C CNN
+F 1 "360" V 10134 1750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10180 1750 50  0001 C CNN
 F 3 "~" H 10250 1750 50  0001 C CNN
 	1    10250 1750
@@ -276,7 +276,7 @@ L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D
 U 1 1 6242E92F
 P 9000 1450
 F 0 "D1" V 9039 1332 50  0000 R CNN
-F 1 "LED_5V" V 8948 1332 50  0000 R CNN
+F 1 "LED_3.2V" V 8948 1332 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9000 1450 50  0001 C CNN
 F 3 "~" H 9000 1450 50  0001 C CNN
 	1    9000 1450
@@ -287,7 +287,7 @@ L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D
 U 1 1 6242FF8B
 P 9650 1500
 F 0 "D3" V 9689 1382 50  0000 R CNN
-F 1 "LED_5V" V 9598 1382 50  0000 R CNN
+F 1 "LED_3.2V" V 9598 1382 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9650 1500 50  0001 C CNN
 F 3 "~" H 9650 1500 50  0001 C CNN
 	1    9650 1500
@@ -298,7 +298,7 @@ L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D
 U 1 1 6243269D
 P 10250 1450
 F 0 "D5" V 10289 1332 50  0000 R CNN
-F 1 "LED_5V" V 10198 1332 50  0000 R CNN
+F 1 "LED_3.2V" V 10198 1332 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10250 1450 50  0001 C CNN
 F 3 "~" H 10250 1450 50  0001 C CNN
 	1    10250 1450
@@ -1163,7 +1163,7 @@ L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R7
 U 1 1 6278F48C
 P 8800 2650
 F 0 "R7" V 8593 2650 50  0000 C CNN
-F 1 "510" V 8684 2650 50  0000 C CNN
+F 1 "820" V 8684 2650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8730 2650 50  0001 C CNN
 F 3 "~" H 8800 2650 50  0001 C CNN
 	1    8800 2650
@@ -1174,7 +1174,7 @@ L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R8
 U 1 1 6278F492
 P 9100 2650
 F 0 "R8" V 8893 2650 50  0000 C CNN
-F 1 "1k7" V 8984 2650 50  0000 C CNN
+F 1 "2k7" V 8984 2650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9030 2650 50  0001 C CNN
 F 3 "~" H 9100 2650 50  0001 C CNN
 	1    9100 2650
@@ -1414,7 +1414,7 @@ Wire Wire Line
 Wire Wire Line
 	7250 4350 7400 4350
 Wire Wire Line
-	7250 4150 7250 4350
+	7200 5300 7200 5500
 Wire Wire Line
 	6800 4150 7250 4150
 $Comp
@@ -1480,7 +1480,7 @@ L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R12
 U 1 1 6242A82C
 P 9650 1800
 F 0 "R12" V 9443 1800 50  0000 C CNN
-F 1 "260" V 9534 1800 50  0000 C CNN
+F 1 "360" V 9534 1800 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9580 1800 50  0001 C CNN
 F 3 "~" H 9650 1800 50  0001 C CNN
 	1    9650 1800
@@ -2492,4 +2492,6 @@ F 3 "~" H 4100 2750 50  0001 C CNN
 	1    4100 2750
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7250 4150 7250 4350
 $EndSCHEMATC
