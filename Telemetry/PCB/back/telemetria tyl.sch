@@ -36,7 +36,7 @@ RCC_OSC_IN
 Text GLabel 1300 2450 0    50   Input ~ 0
 RCC_OSC_OUT
 $Comp
-L Device:R R4
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R4
 U 1 1 623419BA
 P 7200 2100
 F 0 "R4" H 7270 2146 50  0000 L CNN
@@ -47,7 +47,7 @@ F 3 "~" H 7200 2100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Interface_CAN_LIN:MCP2561-E-SN U2
+L telemetria-tyl-rescue:MCP2561-E-SN-Interface_CAN_LIN-telemetria-tyl-rescue-telemetria-tyl-rescue U2
 U 1 1 62343D25
 P 6050 2150
 F 0 "U2" H 6550 2750 50  0000 C CNN
@@ -58,7 +58,7 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf" H 6050 2150 50 
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0101
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0101
 U 1 1 6234506F
 P 6050 2650
 F 0 "#PWR0101" H 6050 2400 50  0001 C CNN
@@ -82,7 +82,7 @@ Wire Wire Line
 Wire Wire Line
 	6050 1750 6050 1450
 $Comp
-L power:+5V #PWR0103
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0103
 U 1 1 6234F920
 P 6050 1450
 F 0 "#PWR0103" H 6050 1300 50  0001 C CNN
@@ -109,7 +109,7 @@ CAN_H1
 Text GLabel 7200 2250 2    50   Input ~ 0
 CAN_L1
 $Comp
-L power:GND #PWR0104
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0104
 U 1 1 6235A7AB
 P 8650 1750
 F 0 "#PWR0104" H 8650 1500 50  0001 C CNN
@@ -120,7 +120,7 @@ F 3 "" H 8650 1750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H4
+L telemetria-tyl-rescue:MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue H4
 U 1 1 6235B400
 P 8550 1650
 F 0 "H4" V 8787 1653 50  0000 C CNN
@@ -131,7 +131,7 @@ F 3 "~" H 8550 1650 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H3
+L telemetria-tyl-rescue:MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue H3
 U 1 1 6235D03A
 P 8550 1500
 F 0 "H3" V 8787 1503 50  0000 C CNN
@@ -142,7 +142,7 @@ F 3 "~" H 8550 1500 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H2
+L telemetria-tyl-rescue:MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue H2
 U 1 1 6235DD77
 P 8550 1350
 F 0 "H2" V 8550 1150 50  0000 C CNN
@@ -153,7 +153,7 @@ F 3 "~" H 8550 1350 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H1
+L telemetria-tyl-rescue:MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue H1
 U 1 1 6235DD7D
 P 8550 1200
 F 0 "H1" V 8550 1000 50  0000 C CNN
@@ -175,7 +175,7 @@ Connection ~ 8650 1650
 Wire Wire Line
 	8650 1650 8650 1750
 $Comp
-L power:+12V #PWR0105
+L telemetria-tyl-rescue:+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0105
 U 1 1 6235F943
 P 10100 900
 F 0 "#PWR0105" H 10100 750 50  0001 C CNN
@@ -186,7 +186,7 @@ F 3 "" H 10100 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:Ferrite_Bead FB1
+L telemetria-tyl-rescue:Ferrite_Bead-Device-telemetria-tyl-rescue-telemetria-tyl-rescue FB1
 U 1 1 623608A7
 P 10500 900
 F 0 "FB1" V 10226 900 50  0000 C CNN
@@ -201,7 +201,7 @@ Wire Wire Line
 Wire Wire Line
 	10650 900  10700 900 
 $Comp
-L power:+12V #PWR0106
+L telemetria-tyl-rescue:+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0106
 U 1 1 62364F31
 P 10900 900
 F 0 "#PWR0106" H 10900 750 50  0001 C CNN
@@ -212,7 +212,7 @@ F 3 "" H 10900 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C12
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C12
 U 1 1 623657F4
 P 10700 1050
 F 0 "C12" H 10815 1096 50  0000 L CNN
@@ -226,7 +226,7 @@ Connection ~ 10700 900
 Wire Wire Line
 	10700 900  10900 900 
 $Comp
-L power:GND #PWR0107
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0107
 U 1 1 62369BB2
 P 10700 1450
 F 0 "#PWR0107" H 10700 1200 50  0001 C CNN
@@ -239,7 +239,7 @@ $EndComp
 Wire Wire Line
 	10700 1200 10700 1450
 $Comp
-L power:GND #PWR0122
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0122
 U 1 1 62426650
 P 10250 1900
 F 0 "#PWR0122" H 10250 1650 50  0001 C CNN
@@ -250,62 +250,62 @@ F 3 "" H 10250 1900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R11
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R11
 U 1 1 624287A2
 P 9000 1750
 F 0 "R11" V 8793 1750 50  0000 C CNN
-F 1 "R" V 8884 1750 50  0000 C CNN
+F 1 "560" V 8884 1750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8930 1750 50  0001 C CNN
 F 3 "~" H 9000 1750 50  0001 C CNN
 	1    9000 1750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R13
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R13
 U 1 1 6242C904
 P 10250 1750
 F 0 "R13" V 10043 1750 50  0000 C CNN
-F 1 "R" V 10134 1750 50  0000 C CNN
+F 1 "360" V 10134 1750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10180 1750 50  0001 C CNN
 F 3 "~" H 10250 1750 50  0001 C CNN
 	1    10250 1750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D1
+L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D1
 U 1 1 6242E92F
 P 9000 1450
 F 0 "D1" V 9039 1332 50  0000 R CNN
-F 1 "LED_5V" V 8948 1332 50  0000 R CNN
+F 1 "LED_3.2V" V 8948 1332 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9000 1450 50  0001 C CNN
 F 3 "~" H 9000 1450 50  0001 C CNN
 	1    9000 1450
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:LED D3
+L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D3
 U 1 1 6242FF8B
 P 9650 1500
 F 0 "D3" V 9689 1382 50  0000 R CNN
-F 1 "LED_5V" V 9598 1382 50  0000 R CNN
+F 1 "LED_3.2V" V 9598 1382 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9650 1500 50  0001 C CNN
 F 3 "~" H 9650 1500 50  0001 C CNN
 	1    9650 1500
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:LED D5
+L telemetria-tyl-rescue:LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D5
 U 1 1 6243269D
 P 10250 1450
 F 0 "D5" V 10289 1332 50  0000 R CNN
-F 1 "LED_5V" V 10198 1332 50  0000 R CNN
+F 1 "LED_3.2V" V 10198 1332 50  0000 R CNN
 F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10250 1450 50  0001 C CNN
 F 3 "~" H 10250 1450 50  0001 C CNN
 	1    10250 1450
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+5V #PWR0123
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0123
 U 1 1 62434C29
 P 9650 1350
 F 0 "#PWR0123" H 9650 1200 50  0001 C CNN
@@ -316,7 +316,7 @@ F 3 "" H 9650 1350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0124
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0124
 U 1 1 624354EE
 P 10250 1300
 F 0 "#PWR0124" H 10250 1150 50  0001 C CNN
@@ -329,7 +329,7 @@ $EndComp
 Text GLabel 9000 1300 1    50   Input ~ 0
 LED_STATUS
 $Comp
-L Connector:Conn_01x26_Male J1
+L telemetria-tyl-rescue:Conn_01x26_Male-Connector-telemetria-tyl-rescue-telemetria-tyl-rescue J1
 U 1 1 623E23EC
 P 600 6150
 F 0 "J1" H 708 7531 50  0000 C CNN
@@ -340,7 +340,7 @@ F 3 "~" H 600 6150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0125
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0125
 U 1 1 62414F00
 P 1150 5550
 F 0 "#PWR0125" H 1150 5400 50  0001 C CNN
@@ -357,7 +357,7 @@ Wire Wire Line
 Wire Wire Line
 	800  4950 1150 4950
 $Comp
-L power:+12V #PWR0126
+L telemetria-tyl-rescue:+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0126
 U 1 1 623F6FB2
 P 1150 4950
 F 0 "#PWR0126" H 1150 4800 50  0001 C CNN
@@ -368,7 +368,7 @@ F 3 "" H 1150 4950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0127
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0127
 U 1 1 623F0F0E
 P 1150 5050
 F 0 "#PWR0127" H 1150 4800 50  0001 C CNN
@@ -381,7 +381,7 @@ $EndComp
 Wire Wire Line
 	800  5250 1150 5250
 $Comp
-L power:GND #PWR0128
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0128
 U 1 1 62427547
 P 1150 5250
 F 0 "#PWR0128" H 1150 5000 50  0001 C CNN
@@ -392,7 +392,7 @@ F 3 "" H 1150 5250 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+3.3V #PWR0129
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0129
 U 1 1 6242A072
 P 1150 5350
 F 0 "#PWR0129" H 1150 5200 50  0001 C CNN
@@ -403,7 +403,7 @@ F 3 "" H 1150 5350 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0130
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0130
 U 1 1 6242BB18
 P 1150 5450
 F 0 "#PWR0130" H 1150 5200 50  0001 C CNN
@@ -420,7 +420,7 @@ Wire Wire Line
 Wire Wire Line
 	800  5550 1150 5550
 $Comp
-L power:+3.3V #PWR0131
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0131
 U 1 1 6243691F
 P 1150 5650
 F 0 "#PWR0131" H 1150 5500 50  0001 C CNN
@@ -431,7 +431,7 @@ F 3 "" H 1150 5650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0132
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0132
 U 1 1 62436929
 P 1150 5750
 F 0 "#PWR0132" H 1150 5500 50  0001 C CNN
@@ -460,7 +460,7 @@ Wire Wire Line
 Wire Wire Line
 	800  6450 1150 6450
 $Comp
-L power:+3.3V #PWR0133
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0133
 U 1 1 624448DF
 P 1150 5950
 F 0 "#PWR0133" H 1150 5800 50  0001 C CNN
@@ -471,7 +471,7 @@ F 3 "" H 1150 5950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0134
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0134
 U 1 1 624448E5
 P 1150 6050
 F 0 "#PWR0134" H 1150 5800 50  0001 C CNN
@@ -482,7 +482,7 @@ F 3 "" H 1150 6050 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+3.3V #PWR0135
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0135
 U 1 1 62448301
 P 1150 6250
 F 0 "#PWR0135" H 1150 6100 50  0001 C CNN
@@ -493,7 +493,7 @@ F 3 "" H 1150 6250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0136
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0136
 U 1 1 62448307
 P 1150 6350
 F 0 "#PWR0136" H 1150 6100 50  0001 C CNN
@@ -552,18 +552,18 @@ VSS_IN_1
 Text GLabel 4050 950  0    50   Input ~ 0
 TIM2_ETR
 $Comp
-L Device:R 1k1
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R
 U 1 1 624E5091
 P 4600 950
-F 0 "1k1" V 4393 950 50  0000 C CNN
-F 1 "R" V 4484 950 50  0000 C CNN
+F 0 "R" V 4393 950 50  0000 C CNN
+F 1 "1k" V 4484 950 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4530 950 50  0001 C CNN
 F 3 "~" H 4600 950 50  0001 C CNN
 	1    4600 950 
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0137
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0137
 U 1 1 624E6157
 P 4450 1100
 F 0 "#PWR0137" H 4450 850 50  0001 C CNN
@@ -576,11 +576,11 @@ $EndComp
 Wire Wire Line
 	4450 950  4450 1100
 $Comp
-L Device:R 0.33k1
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R?
 U 1 1 624EB38C
 P 4300 950
-F 0 "0.33k1" V 4093 950 50  0000 C CNN
-F 1 "R" V 4184 950 50  0000 C CNN
+F 0 "R?" V 4093 950 50  0000 C CNN
+F 1 "330" V 4184 950 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4230 950 50  0001 C CNN
 F 3 "~" H 4300 950 50  0001 C CNN
 	1    4300 950 
@@ -589,18 +589,18 @@ $EndComp
 Wire Wire Line
 	4150 950  4050 950 
 $Comp
-L Device:R 1k2
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R?
 U 1 1 625018FF
 P 4600 1550
-F 0 "1k2" V 4393 1550 50  0000 C CNN
-F 1 "R" V 4484 1550 50  0000 C CNN
+F 0 "R?" V 4393 1550 50  0000 C CNN
+F 1 "1k" V 4484 1550 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4530 1550 50  0001 C CNN
 F 3 "~" H 4600 1550 50  0001 C CNN
 	1    4600 1550
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0138
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0138
 U 1 1 62501905
 P 4450 1700
 F 0 "#PWR0138" H 4450 1450 50  0001 C CNN
@@ -613,11 +613,11 @@ $EndComp
 Wire Wire Line
 	4450 1550 4450 1700
 $Comp
-L Device:R 0.33k2
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R?
 U 1 1 6250190C
 P 4300 1550
-F 0 "0.33k2" V 4093 1550 50  0000 C CNN
-F 1 "R" V 4184 1550 50  0000 C CNN
+F 0 "R?" V 4093 1550 50  0000 C CNN
+F 1 "330" V 4184 1550 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4230 1550 50  0001 C CNN
 F 3 "~" H 4300 1550 50  0001 C CNN
 	1    4300 1550
@@ -632,7 +632,7 @@ VSS_IN_2
 Connection ~ 4450 950 
 Connection ~ 4450 1550
 $Comp
-L power:GND #PWR0147
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0147
 U 1 1 625CE2BE
 P 950 1200
 F 0 "#PWR0147" H 950 950 50  0001 C CNN
@@ -645,11 +645,11 @@ $EndComp
 Wire Wire Line
 	950  1350 950  1200
 $Comp
-L Device:R 10k1
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R?
 U 1 1 625CE2C5
 P 1100 1350
-F 0 "10k1" V 1307 1350 50  0000 C CNN
-F 1 "R" V 1216 1350 50  0000 C CNN
+F 0 "R?" V 1307 1350 50  0000 C CNN
+F 1 "10k" V 1216 1350 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 1030 1350 50  0001 C CNN
 F 3 "~" H 1100 1350 50  0001 C CNN
 	1    1100 1350
@@ -676,7 +676,7 @@ Wire Wire Line
 Wire Wire Line
 	1050 1650 1050 1750
 $Comp
-L Device:C_Small 2.2uF1
+L telemetria-tyl-rescue:C_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue 2.2uF1
 U 1 1 62601AA1
 P 800 1800
 F 0 "2.2uF1" V 950 1600 50  0000 R CNN
@@ -687,7 +687,7 @@ F 3 "~" H 800 1800 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:C_Small 2.2uF2
+L telemetria-tyl-rescue:C_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue 2.2uF2
 U 1 1 62602EDA
 P 1050 1850
 F 0 "2.2uF2" H 958 1804 50  0000 R CNN
@@ -698,7 +698,7 @@ F 3 "~" H 1050 1850 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0148
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0148
 U 1 1 6261A31C
 P 1050 1950
 F 0 "#PWR0148" H 1050 1700 50  0001 C CNN
@@ -709,7 +709,7 @@ F 3 "" H 1050 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0149
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0149
 U 1 1 62613A52
 P 800 1900
 F 0 "#PWR0149" H 800 1650 50  0001 C CNN
@@ -717,17 +717,6 @@ F 1 "GND" H 805 1727 50  0000 C CNN
 F 2 "" H 800 1900 50  0001 C CNN
 F 3 "" H 800 1900 50  0001 C CNN
 	1    800  1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Crystal_GND24_Small Y1
-U 1 1 626361B0
-P 4100 2750
-F 0 "Y1" H 4050 2950 50  0000 L CNN
-F 1 "Crystal_GND24_Small" H 3750 1900 50  0000 L CNN
-F 2 "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm_HandSoldering" H 4100 2750 50  0001 C CNN
-F 3 "~" H 4100 2750 50  0001 C CNN
-	1    4100 2750
 	1    0    0    -1  
 $EndComp
 Text GLabel 4350 2300 2    50   Input ~ 0
@@ -741,7 +730,7 @@ Wire Wire Line
 Wire Wire Line
 	3800 2750 4000 2750
 $Comp
-L Device:R_Small R1
+L telemetria-tyl-rescue:R_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R1
 U 1 1 6266A7DC
 P 4300 2650
 F 0 "R1" H 4359 2696 50  0000 L CNN
@@ -758,22 +747,11 @@ Wire Wire Line
 Wire Wire Line
 	4300 2750 4200 2750
 $Comp
-L Device:C C1
-U 1 1 6267BC8E
-P 3800 3000
-F 0 "C1" H 3915 3046 50  0000 L CNN
-F 1 "1uF" H 3915 2955 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 3838 2850 50  0001 C CNN
-F 3 "~" H 3800 3000 50  0001 C CNN
-	1    3800 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C2
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C2
 U 1 1 6268B90A
 P 4300 3000
 F 0 "C2" H 4415 3046 50  0000 L CNN
-F 1 "1uF" H 4415 2955 50  0000 L CNN
+F 1 "14pF" H 4415 2955 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4338 2850 50  0001 C CNN
 F 3 "~" H 4300 3000 50  0001 C CNN
 	1    4300 3000
@@ -791,7 +769,7 @@ Wire Wire Line
 Wire Wire Line
 	4100 2650 4100 2600
 $Comp
-L power:GND #PWR0150
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0150
 U 1 1 626C4EC2
 P 4100 3350
 F 0 "#PWR0150" H 4100 3100 50  0001 C CNN
@@ -804,7 +782,7 @@ $EndComp
 Wire Wire Line
 	4100 3150 4100 3350
 $Comp
-L Connector_Generic:Conn_02x05_Odd_Even J2
+L telemetria-tyl-rescue:Conn_02x05_Odd_Even-Connector_Generic-telemetria-tyl-rescue-telemetria-tyl-rescue J2
 U 1 1 626CEB40
 P 4100 4250
 F 0 "J2" H 4150 4667 50  0000 C CNN
@@ -823,7 +801,7 @@ NRST
 Text GLabel 3900 4350 0    50   Input ~ 0
 SWO
 $Comp
-L power:+3.3V #PWR0151
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0151
 U 1 1 626ED0CF
 P 4400 4050
 F 0 "#PWR0151" H 4400 3900 50  0001 C CNN
@@ -834,7 +812,7 @@ F 3 "" H 4400 4050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:+5V #PWR0152
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0152
 U 1 1 626EE7A4
 P 4400 4150
 F 0 "#PWR0152" H 4400 4000 50  0001 C CNN
@@ -845,7 +823,7 @@ F 3 "" H 4400 4150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0153
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0153
 U 1 1 626F0236
 P 4500 4500
 F 0 "#PWR0153" H 4500 4250 50  0001 C CNN
@@ -872,7 +850,7 @@ Wire Wire Line
 	4500 4450 4500 4500
 Connection ~ 4500 4450
 $Comp
-L power:GND #PWR0154
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0154
 U 1 1 6273E790
 P 5500 4550
 F 0 "#PWR0154" H 5500 4300 50  0001 C CNN
@@ -883,7 +861,7 @@ F 3 "" H 5500 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C 1uF1
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue 1uF1
 U 1 1 62747E05
 P 5500 4200
 F 0 "1uF1" H 5250 4150 50  0000 C CNN
@@ -894,7 +872,7 @@ F 3 "~" H 5500 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C 10nF1
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue 10nF1
 U 1 1 62750E38
 P 5800 4200
 F 0 "10nF1" H 6050 4150 50  0000 C CNN
@@ -905,7 +883,7 @@ F 3 "~" H 5800 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:L 39nH1
+L telemetria-tyl-rescue:L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue 39nH1
 U 1 1 6276C0FF
 P 5300 3900
 F 0 "39nH1" V 5490 3900 50  0000 C CNN
@@ -916,7 +894,7 @@ F 3 "~" H 5300 3900 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+3.3V #PWR0155
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0155
 U 1 1 627757F1
 P 5050 3900
 F 0 "#PWR0155" H 5050 3750 50  0001 C CNN
@@ -929,7 +907,7 @@ $EndComp
 Wire Wire Line
 	5050 3900 5150 3900
 $Comp
-L power:+3.3VA #PWR0156
+L telemetria-tyl-rescue:+3.3VA-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0156
 U 1 1 627CA646
 P 5900 3900
 F 0 "#PWR0156" H 5900 3750 50  0001 C CNN
@@ -957,7 +935,7 @@ Wire Wire Line
 	5800 4350 5500 4350
 Connection ~ 5500 4350
 $Comp
-L power:GND #PWR01
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR01
 U 1 1 62651732
 P 1900 4550
 F 0 "#PWR01" H 1900 4300 50  0001 C CNN
@@ -968,7 +946,7 @@ F 3 "" H 1900 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR02
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR02
 U 1 1 6265AF4D
 P 2000 4550
 F 0 "#PWR02" H 2000 4300 50  0001 C CNN
@@ -979,7 +957,7 @@ F 3 "" H 2000 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR03
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR03
 U 1 1 626500CD
 P 2100 4550
 F 0 "#PWR03" H 2100 4300 50  0001 C CNN
@@ -1001,7 +979,7 @@ Wire Wire Line
 	3950 3150 4100 3150
 Connection ~ 3950 3150
 $Comp
-L power:GND #PWR0108
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0108
 U 1 1 6278F426
 P 10750 3500
 F 0 "#PWR0108" H 10750 3250 50  0001 C CNN
@@ -1014,7 +992,7 @@ $EndComp
 Wire Wire Line
 	10550 3500 10750 3500
 $Comp
-L power:GND #PWR0109
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0109
 U 1 1 6278F42D
 P 9700 3500
 F 0 "#PWR0109" H 9700 3250 50  0001 C CNN
@@ -1025,7 +1003,7 @@ F 3 "" H 9700 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L telemetria-tyl-rescue:MP2359DT-LF-P-MP2359DT-LF-P PS2
+L telemetria-tyl-rescue:MP2359DT-LF-P-MP2359DT-LF-P-telemetria-tyl-rescue-telemetria-tyl-rescue-telemetria-tyl-rescue PS2
 U 1 1 6278F43B
 P 8900 3050
 F 0 "PS2" H 9400 3315 50  0000 C CNN
@@ -1044,7 +1022,7 @@ F 11 "" H 9750 2250 50  0001 L CNN "Arrow Price/Stock"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:+3.3V #PWR0110
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0110
 U 1 1 6278F441
 P 10900 3150
 F 0 "#PWR0110" H 10900 3000 50  0001 C CNN
@@ -1059,7 +1037,7 @@ Wire Wire Line
 Wire Wire Line
 	10550 3200 10900 3200
 $Comp
-L Device:C C8
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C8
 U 1 1 6278F449
 P 10900 3350
 F 0 "C8" H 11015 3396 50  0000 L CNN
@@ -1070,7 +1048,7 @@ F 3 "~" H 10900 3350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C7
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C7
 U 1 1 6278F44F
 P 10550 3350
 F 0 "C7" H 10665 3396 50  0000 L CNN
@@ -1083,12 +1061,12 @@ $EndComp
 Wire Wire Line
 	9900 2900 9200 2900
 $Comp
-L Diode:1N4148 D7
+L telemetria-tyl-rescue:1N4148-Diode-telemetria-tyl-rescue-telemetria-tyl-rescue D7
 U 1 1 6278F456
 P 10050 2900
 F 0 "D7" H 10050 3117 50  0000 C CNN
 F 1 "1N4148" H 10050 3026 50  0000 C CNN
-F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10050 2725 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 10050 2725 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 10050 2900 50  0001 C CNN
 	1    10050 2900
 	1    0    0    -1  
@@ -1101,7 +1079,7 @@ Wire Wire Line
 Wire Wire Line
 	10300 3200 10550 3200
 $Comp
-L Device:L L2
+L telemetria-tyl-rescue:L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue L2
 U 1 1 6278F460
 P 10150 3200
 F 0 "L2" V 10340 3200 50  0000 C CNN
@@ -1115,7 +1093,7 @@ Wire Wire Line
 	9700 3200 10000 3200
 Connection ~ 9700 3200
 $Comp
-L Device:D_Schottky D6
+L telemetria-tyl-rescue:D_Schottky-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D6
 U 1 1 6278F468
 P 9700 3350
 F 0 "D6" V 9654 3430 50  0000 L CNN
@@ -1135,7 +1113,7 @@ Wire Wire Line
 Wire Wire Line
 	9200 2900 9200 3050
 $Comp
-L Device:C C4
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C4
 U 1 1 6278F473
 P 9450 3050
 F 0 "C4" V 9198 3050 50  0000 C CNN
@@ -1153,7 +1131,7 @@ Wire Wire Line
 Wire Wire Line
 	7900 3050 7900 3200
 $Comp
-L power:+3.3V #PWR0111
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0111
 U 1 1 6278F47D
 P 9300 2600
 F 0 "#PWR0111" H 9300 2450 50  0001 C CNN
@@ -1164,7 +1142,7 @@ F 3 "" H 9300 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0112
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0112
 U 1 1 6278F483
 P 8550 2650
 F 0 "#PWR0112" H 8550 2400 50  0001 C CNN
@@ -1181,22 +1159,22 @@ Wire Wire Line
 Wire Wire Line
 	8650 2650 8550 2650
 $Comp
-L Device:R R7
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R7
 U 1 1 6278F48C
 P 8800 2650
 F 0 "R7" V 8593 2650 50  0000 C CNN
-F 1 "R" V 8684 2650 50  0000 C CNN
+F 1 "820" V 8684 2650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8730 2650 50  0001 C CNN
 F 3 "~" H 8800 2650 50  0001 C CNN
 	1    8800 2650
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R8
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R8
 U 1 1 6278F492
 P 9100 2650
 F 0 "R8" V 8893 2650 50  0000 C CNN
-F 1 "R" V 8984 2650 50  0000 C CNN
+F 1 "2k7" V 8984 2650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9030 2650 50  0001 C CNN
 F 3 "~" H 9100 2650 50  0001 C CNN
 	1    9100 2650
@@ -1219,7 +1197,7 @@ Wire Wire Line
 Wire Wire Line
 	7300 2750 7750 2750
 $Comp
-L power:GND #PWR0113
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0113
 U 1 1 6278F4A0
 P 8900 2950
 F 0 "#PWR0113" H 8900 2700 50  0001 C CNN
@@ -1233,7 +1211,7 @@ Wire Wire Line
 	7300 2650 7300 2750
 Connection ~ 7300 2750
 $Comp
-L Device:R R3
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R3
 U 1 1 6278F4A8
 P 7300 2900
 F 0 "R3" H 7370 2946 50  0000 L CNN
@@ -1244,7 +1222,7 @@ F 3 "~" H 7300 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0114
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0114
 U 1 1 627F0EC0
 P 10250 4900
 F 0 "#PWR0114" H 10250 4650 50  0001 C CNN
@@ -1257,7 +1235,7 @@ $EndComp
 Wire Wire Line
 	10050 4900 10250 4900
 $Comp
-L power:GND #PWR0115
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0115
 U 1 1 627F0EC7
 P 9200 4900
 F 0 "#PWR0115" H 9200 4650 50  0001 C CNN
@@ -1268,7 +1246,7 @@ F 3 "" H 9200 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L telemetria-tyl-rescue:MP2359DT-LF-P-MP2359DT-LF-P PS1
+L telemetria-tyl-rescue:MP2359DT-LF-P-MP2359DT-LF-P-telemetria-tyl-rescue-telemetria-tyl-rescue-telemetria-tyl-rescue PS1
 U 1 1 627F0ED5
 P 8400 4450
 F 0 "PS1" H 8900 4715 50  0000 C CNN
@@ -1291,7 +1269,7 @@ Wire Wire Line
 Wire Wire Line
 	10050 4600 10400 4600
 $Comp
-L Device:C C6
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C6
 U 1 1 627F0EE3
 P 10400 4750
 F 0 "C6" H 10515 4796 50  0000 L CNN
@@ -1302,7 +1280,7 @@ F 3 "~" H 10400 4750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C5
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C5
 U 1 1 627F0EE9
 P 10050 4750
 F 0 "C5" H 10165 4796 50  0000 L CNN
@@ -1315,12 +1293,12 @@ $EndComp
 Wire Wire Line
 	9400 4300 8700 4300
 $Comp
-L Diode:1N4148 D4
+L telemetria-tyl-rescue:1N4148-Diode-telemetria-tyl-rescue-telemetria-tyl-rescue D4
 U 1 1 627F0EF0
 P 9550 4300
 F 0 "D4" H 9550 4517 50  0000 C CNN
 F 1 "1N4148" H 9550 4426 50  0000 C CNN
-F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9550 4125 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 9550 4125 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 9550 4300 50  0001 C CNN
 	1    9550 4300
 	1    0    0    -1  
@@ -1333,7 +1311,7 @@ Wire Wire Line
 Wire Wire Line
 	9800 4600 10050 4600
 $Comp
-L Device:L L1
+L telemetria-tyl-rescue:L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue L1
 U 1 1 627F0EFA
 P 9650 4600
 F 0 "L1" V 9840 4600 50  0000 C CNN
@@ -1347,7 +1325,7 @@ Wire Wire Line
 	9200 4600 9500 4600
 Connection ~ 9200 4600
 $Comp
-L Device:D_Schottky D2
+L telemetria-tyl-rescue:D_Schottky-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D2
 U 1 1 627F0F02
 P 9200 4750
 F 0 "D2" V 9154 4830 50  0000 L CNN
@@ -1367,7 +1345,7 @@ Wire Wire Line
 Wire Wire Line
 	8700 4300 8700 4450
 $Comp
-L Device:C C3
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C3
 U 1 1 627F0F0D
 P 8950 4450
 F 0 "C3" V 8698 4450 50  0000 C CNN
@@ -1385,7 +1363,7 @@ Wire Wire Line
 Wire Wire Line
 	7400 4450 7400 4600
 $Comp
-L power:GND #PWR0117
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0117
 U 1 1 627F0F1D
 P 8050 4050
 F 0 "#PWR0117" H 8050 3800 50  0001 C CNN
@@ -1402,22 +1380,22 @@ Wire Wire Line
 Wire Wire Line
 	8150 4050 8050 4050
 $Comp
-L Device:R R5
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R5
 U 1 1 627F0F26
 P 8300 4050
 F 0 "R5" V 8093 4050 50  0000 C CNN
-F 1 "R" V 8184 4050 50  0000 C CNN
+F 1 "510" V 8184 4050 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8230 4050 50  0001 C CNN
 F 3 "~" H 8300 4050 50  0001 C CNN
 	1    8300 4050
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R6
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R6
 U 1 1 627F0F2C
 P 8600 4050
 F 0 "R6" V 8393 4050 50  0000 C CNN
-F 1 "R" V 8484 4050 50  0000 C CNN
+F 1 "2k7" V 8484 4050 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8530 4050 50  0001 C CNN
 F 3 "~" H 8600 4050 50  0001 C CNN
 	1    8600 4050
@@ -1436,11 +1414,11 @@ Wire Wire Line
 Wire Wire Line
 	7250 4350 7400 4350
 Wire Wire Line
-	7250 4150 7250 4350
+	7200 5300 7200 5500
 Wire Wire Line
 	6800 4150 7250 4150
 $Comp
-L power:GND #PWR0118
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0118
 U 1 1 627F0F3A
 P 8400 4350
 F 0 "#PWR0118" H 8400 4100 50  0001 C CNN
@@ -1454,7 +1432,7 @@ Wire Wire Line
 	6800 4050 6800 4150
 Connection ~ 6800 4150
 $Comp
-L Device:R R2
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R2
 U 1 1 627F0F42
 P 6800 4300
 F 0 "R2" H 6870 4346 50  0000 L CNN
@@ -1465,7 +1443,7 @@ F 3 "~" H 6800 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0119
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0119
 U 1 1 62811F53
 P 10400 4550
 F 0 "#PWR0119" H 10400 4400 50  0001 C CNN
@@ -1476,7 +1454,7 @@ F 3 "" H 10400 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+12V #PWR0140
+L telemetria-tyl-rescue:+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0140
 U 1 1 6281296E
 P 7300 2650
 F 0 "#PWR0140" H 7300 2500 50  0001 C CNN
@@ -1487,7 +1465,7 @@ F 3 "" H 7300 2650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+12V #PWR0158
+L telemetria-tyl-rescue:+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0158
 U 1 1 62822C10
 P 6800 4050
 F 0 "#PWR0158" H 6800 3900 50  0001 C CNN
@@ -1498,18 +1476,18 @@ F 3 "" H 6800 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R12
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R12
 U 1 1 6242A82C
 P 9650 1800
 F 0 "R12" V 9443 1800 50  0000 C CNN
-F 1 "R" V 9534 1800 50  0000 C CNN
+F 1 "360" V 9534 1800 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9580 1800 50  0001 C CNN
 F 3 "~" H 9650 1800 50  0001 C CNN
 	1    9650 1800
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0121
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0121
 U 1 1 624246A0
 P 9650 1950
 F 0 "#PWR0121" H 9650 1700 50  0001 C CNN
@@ -1520,7 +1498,7 @@ F 3 "" H 9650 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0120
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0120
 U 1 1 624226C2
 P 9000 1900
 F 0 "#PWR0120" H 9000 1650 50  0001 C CNN
@@ -1541,7 +1519,7 @@ Wire Wire Line
 	10750 3500 10900 3500
 Connection ~ 10900 3200
 $Comp
-L power:+5V #PWR0116
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0116
 U 1 1 629909F8
 P 8800 4000
 F 0 "#PWR0116" H 8800 3850 50  0001 C CNN
@@ -1552,7 +1530,7 @@ F 3 "" H 8800 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 5749268-1:5749268-1 Mini_DIN_IN1
+L telemetria-tyl-rescue:5749268-1-5749268-1-telemetria-tyl-rescue-telemetria-tyl-rescue Mini_DIN_IN1
 U 1 1 62488993
 P 14350 3550
 F 0 "Mini_DIN_IN1" H 14800 3815 50  0000 C CNN
@@ -1569,51 +1547,51 @@ F 9 "5749268-1" H 15100 2950 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C22
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C22
 U 1 1 6248C467
 P 13100 5250
 F 0 "C22" V 12848 5250 50  0000 C CNN
-F 1 "C" V 12939 5250 50  0000 C CNN
+F 1 "10n" V 12939 5250 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13138 5100 50  0001 C CNN
 F 3 "~" H 13100 5250 50  0001 C CNN
 	1    13100 5250
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C C10
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C10
 U 1 1 6248E948
 P 14000 6250
 F 0 "C10" H 14115 6296 50  0000 L CNN
-F 1 "C" H 14115 6205 50  0000 L CNN
+F 1 "1u" H 14115 6205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 14038 6100 50  0001 C CNN
 F 3 "~" H 14000 6250 50  0001 C CNN
 	1    14000 6250
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R14
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R14
 U 1 1 62490B6C
 P 14300 5800
 F 0 "R14" V 14093 5800 50  0000 C CNN
-F 1 "R" V 14184 5800 50  0000 C CNN
+F 1 "22k" V 14184 5800 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 14230 5800 50  0001 C CNN
 F 3 "~" H 14300 5800 50  0001 C CNN
 	1    14300 5800
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R10
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R10
 U 1 1 62491EBD
 P 14000 5950
 F 0 "R10" H 14070 5996 50  0000 L CNN
-F 1 "R" H 14070 5905 50  0000 L CNN
+F 1 "1k" H 14070 5905 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 13930 5950 50  0001 C CNN
 F 3 "~" H 14000 5950 50  0001 C CNN
 	1    14000 5950
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R9
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R9
 U 1 1 624961A7
 P 13650 6050
 F 0 "R9" H 13720 6096 50  0000 L CNN
@@ -1632,55 +1610,55 @@ Wire Wire Line
 Wire Wire Line
 	14000 5800 14150 5800
 $Comp
-L Device:R R16
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R16
 U 1 1 6249A413
 P 16650 5400
 F 0 "R16" V 16443 5400 50  0000 C CNN
-F 1 "R" V 16534 5400 50  0000 C CNN
+F 1 "13k" V 16534 5400 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 16580 5400 50  0001 C CNN
 F 3 "~" H 16650 5400 50  0001 C CNN
 	1    16650 5400
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R15
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R15
 U 1 1 6249B630
 P 16650 5250
 F 0 "R15" V 16443 5250 50  0000 C CNN
-F 1 "R" V 16534 5250 50  0000 C CNN
+F 1 "10k" V 16534 5250 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 16580 5250 50  0001 C CNN
 F 3 "~" H 16650 5250 50  0001 C CNN
 	1    16650 5250
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R17
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R17
 U 1 1 6249CB4C
 P 17450 4750
 F 0 "R17" V 17243 4750 50  0000 C CNN
-F 1 "R" V 17334 4750 50  0000 C CNN
+F 1 "10k" V 17334 4750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 17380 4750 50  0001 C CNN
 F 3 "~" H 17450 4750 50  0001 C CNN
 	1    17450 4750
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C C11
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C11
 U 1 1 6249D8DE
 P 16900 5850
 F 0 "C11" H 17015 5896 50  0000 L CNN
-F 1 "C" H 17015 5805 50  0000 L CNN
+F 1 "1n" H 17015 5805 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 16938 5700 50  0001 C CNN
 F 3 "~" H 16900 5850 50  0001 C CNN
 	1    16900 5850
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C21
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C21
 U 1 1 6249E704
 P 17150 5850
 F 0 "C21" H 17265 5896 50  0000 L CNN
-F 1 "C" H 17265 5805 50  0000 L CNN
+F 1 "1n" H 17265 5805 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 17188 5700 50  0001 C CNN
 F 3 "~" H 17150 5850 50  0001 C CNN
 	1    17150 5850
@@ -1705,7 +1683,7 @@ Wire Wire Line
 Wire Wire Line
 	17400 5250 17300 5250
 $Comp
-L MAX5478EUD+T:MAX5478EUD+T 2channel_pot1
+L telemetria-tyl-rescue:MAX5478EUD+T-MAX5478EUD+T-telemetria-tyl-rescue-telemetria-tyl-rescue 2channel_pot1
 U 1 1 624A1B19
 P 20150 3800
 F 0 "2channel_pot1" H 20650 4065 50  0000 C CNN
@@ -1736,31 +1714,20 @@ V_ANC
 Text GLabel 12950 5250 0    50   Input ~ 0
 V_ANC
 $Comp
-L Device:R R18
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R18
 U 1 1 624A94E7
 P 20250 5400
 F 0 "R18" V 20043 5400 50  0000 C CNN
-F 1 "R" V 20134 5400 50  0000 C CNN
+F 1 "3k" V 20134 5400 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 20180 5400 50  0001 C CNN
 F 3 "~" H 20250 5400 50  0001 C CNN
 	1    20250 5400
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:R R19
-U 1 1 624AA9B8
-P 20100 4700
-F 0 "R19" V 19893 4700 50  0000 C CNN
-F 1 "R?" V 19984 4700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 20030 4700 50  0001 C CNN
-F 3 "~" H 20100 4700 50  0001 C CNN
-	1    20100 4700
-	0    1    1    0   
-$EndComp
 Text GLabel 22800 5400 2    50   Output ~ 0
 V_OUT
 $Comp
-L power:GND #PWR0159
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0159
 U 1 1 624AF5DF
 P 21800 4400
 F 0 "#PWR0159" H 21800 4150 50  0001 C CNN
@@ -1807,7 +1774,7 @@ Text GLabel 15950 3700 0    50   Input ~ 0
 GND_MIC&ANC
 NoConn ~ 16850 3500
 $Comp
-L LM741CN_NOPB:LM741CN_NOPB IC2
+L telemetria-tyl-rescue:LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue IC2
 U 1 1 625A8DA2
 P 14000 5450
 F 0 "IC2" H 15150 4885 50  0000 C CNN
@@ -1826,7 +1793,7 @@ F 11 "https://www.arrow.com/en/products/lm741cnnopb/texas-instruments?region=nac
 	1    0    0    1   
 $EndComp
 $Comp
-L LM741CN_NOPB:LM741CN_NOPB IC3
+L telemetria-tyl-rescue:LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue IC3
 U 1 1 625A9FC1
 P 17400 5150
 F 0 "IC3" H 18550 5415 50  0000 C CNN
@@ -1874,7 +1841,7 @@ Wire Wire Line
 	19750 5350 19800 5350
 Connection ~ 19750 5350
 $Comp
-L LM741CN_NOPB:LM741CN_NOPB IC1
+L telemetria-tyl-rescue:LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue IC1
 U 1 1 625F8333
 P 20400 5200
 F 0 "IC1" H 21550 5465 50  0000 C CNN
@@ -1943,7 +1910,7 @@ NoConn ~ 20400 5200
 NoConn ~ 22700 5500
 NoConn ~ 22700 5300
 $Comp
-L Device:C C9
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C9
 U 1 1 62823DA9
 P 21800 4000
 F 0 "C9" H 22000 3950 50  0000 C CNN
@@ -1956,7 +1923,7 @@ $EndComp
 Wire Wire Line
 	21800 3800 21800 3850
 $Comp
-L power:+3.3V #PWR0160
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0160
 U 1 1 6285CC39
 P 21800 3800
 F 0 "#PWR0160" H 21800 3650 50  0001 C CNN
@@ -1984,7 +1951,7 @@ Text GLabel 21150 4000 2    50   Input ~ 0
 Text GLabel 20150 4000 0    50   Input ~ 0
 GND_MIC&ANC
 $Comp
-L MCU_ST_STM32F4:STM32F405RGTx U1
+L telemetria-tyl-rescue:STM32F405RGTx-MCU_ST_STM32F4-telemetria-tyl-rescue-telemetria-tyl-rescue U1
 U 1 1 62338035
 P 2000 2750
 F 0 "U1" H 2000 861 50  0000 C CNN
@@ -1995,7 +1962,7 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0141
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0141
 U 1 1 62594F5B
 P 2200 950
 F 0 "#PWR0141" H 2200 800 50  0001 C CNN
@@ -2006,7 +1973,7 @@ F 3 "" H 2200 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0142
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0142
 U 1 1 625B4DFD
 P 2100 950
 F 0 "#PWR0142" H 2100 800 50  0001 C CNN
@@ -2017,7 +1984,7 @@ F 3 "" H 2100 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0143
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0143
 U 1 1 625BAC3E
 P 2000 950
 F 0 "#PWR0143" H 2000 800 50  0001 C CNN
@@ -2028,7 +1995,7 @@ F 3 "" H 2000 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3VA #PWR0157
+L telemetria-tyl-rescue:+3.3VA-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0157
 U 1 1 627D563E
 P 2300 950
 F 0 "#PWR0157" H 2300 800 50  0001 C CNN
@@ -2040,7 +2007,7 @@ F 3 "" H 2300 950 50  0001 C CNN
 $EndComp
 Connection ~ 1900 950 
 $Comp
-L power:+3.3V #PWR0145
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0145
 U 1 1 625C780A
 P 1900 950
 F 0 "#PWR0145" H 1900 800 50  0001 C CNN
@@ -2051,7 +2018,7 @@ F 3 "" H 1900 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0144
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0144
 U 1 1 625C0AE0
 P 1900 950
 F 0 "#PWR0144" H 1900 800 50  0001 C CNN
@@ -2062,7 +2029,7 @@ F 3 "" H 1900 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0146
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0146
 U 1 1 625C7810
 P 1800 950
 F 0 "#PWR0146" H 1800 800 50  0001 C CNN
@@ -2123,7 +2090,7 @@ Wire Wire Line
 Wire Wire Line
 	6400 5250 6850 5250
 $Comp
-L power:GND #PWR0139
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0139
 U 1 1 625782B6
 P 9950 5700
 F 0 "#PWR0139" H 9950 5450 50  0001 C CNN
@@ -2134,7 +2101,7 @@ F 3 "" H 9950 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C20
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C20
 U 1 1 62572AA3
 P 9550 5400
 F 0 "C20" H 9750 5350 50  0000 C CNN
@@ -2145,7 +2112,7 @@ F 3 "~" H 9550 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C19
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C19
 U 1 1 6256313F
 P 9100 5400
 F 0 "C19" H 9300 5350 50  0000 C CNN
@@ -2156,7 +2123,7 @@ F 3 "~" H 9100 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C18
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C18
 U 1 1 6255E942
 P 8650 5400
 F 0 "C18" H 8850 5350 50  0000 C CNN
@@ -2167,7 +2134,7 @@ F 3 "~" H 8650 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C17
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C17
 U 1 1 62559FEC
 P 8200 5400
 F 0 "C17" H 8400 5350 50  0000 C CNN
@@ -2178,7 +2145,7 @@ F 3 "~" H 8200 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C16
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C16
 U 1 1 6255574B
 P 7750 5400
 F 0 "C16" H 7950 5350 50  0000 C CNN
@@ -2189,7 +2156,7 @@ F 3 "~" H 7750 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C15
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C15
 U 1 1 62550DDB
 P 7300 5400
 F 0 "C15" H 7500 5350 50  0000 C CNN
@@ -2200,7 +2167,7 @@ F 3 "~" H 7300 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C14
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C14
 U 1 1 6254C5CB
 P 6850 5400
 F 0 "C14" H 7050 5350 50  0000 C CNN
@@ -2211,7 +2178,7 @@ F 3 "~" H 6850 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C13
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C13
 U 1 1 6253D80A
 P 6400 5400
 F 0 "C13" H 6600 5350 50  0000 C CNN
@@ -2222,7 +2189,7 @@ F 3 "~" H 6400 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0161
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0161
 U 1 1 628443B6
 P 9950 5150
 F 0 "#PWR0161" H 9950 5000 50  0001 C CNN
@@ -2237,7 +2204,7 @@ BREAK_PRESSURE_0
 Text GLabel 4500 6750 0    50   Input ~ 0
 BREAK_PRESSURE_0
 $Comp
-L power:+5V #PWR0162
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0162
 U 1 1 626D2787
 P 5950 6350
 F 0 "#PWR0162" H 5950 6200 50  0001 C CNN
@@ -2248,7 +2215,7 @@ F 3 "" H 5950 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0163
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0163
 U 1 1 626E0B8C
 P 5950 6650
 F 0 "#PWR0163" H 5950 6400 50  0001 C CNN
@@ -2259,7 +2226,7 @@ F 3 "" H 5950 6650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L NCX2200GW_125:NCX2200GW,125 IC4
+L telemetria-tyl-rescue:NCX2200GW,125-NCX2200GW_125-telemetria-tyl-rescue-telemetria-tyl-rescue IC4
 U 1 1 626EF6F4
 P 4500 6550
 F 0 "IC4" H 5000 6815 50  0000 C CNN
@@ -2276,7 +2243,7 @@ F 9 "NCX2200GW,125" H 5350 5950 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0164
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0164
 U 1 1 626F60E4
 P 4500 6650
 F 0 "#PWR0164" H 4500 6400 50  0001 C CNN
@@ -2287,7 +2254,7 @@ F 3 "" H 4500 6650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:+5V #PWR0165
+L telemetria-tyl-rescue:+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0165
 U 1 1 626F757C
 P 5500 6650
 F 0 "#PWR0165" H 5500 6500 50  0001 C CNN
@@ -2306,7 +2273,7 @@ BREAK_PRESSURE_ADC
 Text GLabel 2700 1350 2    50   Input ~ 0
 LED_STATUS
 $Comp
-L 5750071-1:5750071-1 Mini_DIN_OUT1
+L telemetria-tyl-rescue:5750071-1-5750071-1-telemetria-tyl-rescue-telemetria-tyl-rescue Mini_DIN_OUT1
 U 1 1 6248A332
 P 15950 3500
 F 0 "Mini_DIN_OUT1" H 16400 3765 50  0000 C CNN
@@ -2325,7 +2292,7 @@ $EndComp
 Text GLabel 1150 7450 2    50   Input ~ 0
 LED_GND
 $Comp
-L power:GND #PWR0166
+L telemetria-tyl-rescue:GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0166
 U 1 1 6280EE1A
 P 3100 6350
 F 0 "#PWR0166" H 3100 6100 50  0001 C CNN
@@ -2339,7 +2306,7 @@ Text GLabel 3100 6950 3    50   Input ~ 0
 LED_GND
 NoConn ~ 3900 4450
 $Comp
-L Device:R_POT RV1
+L telemetria-tyl-rescue:R_POT-Device-telemetria-tyl-rescue-telemetria-tyl-rescue RV1
 U 1 1 6281D5FD
 P 5950 6500
 F 0 "RV1" H 5880 6454 50  0000 R CNN
@@ -2354,7 +2321,7 @@ BREAK_PRESSURE_ADC
 Text GLabel 2700 1450 2    50   Input ~ 0
 BREAK_PRESSURE_0
 $Comp
-L Device:R R20
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R20
 U 1 1 6289611E
 P 3900 6550
 F 0 "R20" V 3693 6550 50  0000 C CNN
@@ -2371,7 +2338,7 @@ Wire Wire Line
 Text GLabel 1300 2850 0    50   Input ~ 0
 PTT
 $Comp
-L Device:R R22
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R22
 U 1 1 629D953B
 P 19000 3750
 F 0 "R22" V 18793 3750 50  0000 C CNN
@@ -2382,7 +2349,7 @@ F 3 "~" H 19000 3750 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R21
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R21
 U 1 1 629DA4E2
 P 17900 3750
 F 0 "R21" V 17693 3750 50  0000 C CNN
@@ -2395,7 +2362,7 @@ $EndComp
 Text GLabel 17750 3750 0    50   Input ~ 0
 PTT
 $Comp
-L BC846BW:BC846BW BJT1
+L telemetria-tyl-rescue:BC846BW-BC846BW-telemetria-tyl-rescue-telemetria-tyl-rescue BJT1
 U 1 1 62596133
 P 18050 3750
 F 0 "BJT1" H 18450 4015 50  0000 C CNN
@@ -2418,7 +2385,7 @@ Wire Wire Line
 	21150 4200 21150 4300
 Connection ~ 21150 4300
 $Comp
-L power:+3.3V #PWR0167
+L telemetria-tyl-rescue:+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR0167
 U 1 1 6280C38D
 P 13200 2950
 F 0 "#PWR0167" H 13200 2800 50  0001 C CNN
@@ -2429,33 +2396,33 @@ F 3 "" H 13200 2950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R23
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R23
 U 1 1 6280DEA9
 P 13200 3100
 F 0 "R23" V 12993 3100 50  0000 C CNN
-F 1 "R" V 13084 3100 50  0000 C CNN
+F 1 "4.7k" V 13084 3100 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 13130 3100 50  0001 C CNN
 F 3 "~" H 13200 3100 50  0001 C CNN
 	1    13200 3100
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:C C23
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C23
 U 1 1 6281109E
 P 13050 3250
 F 0 "C23" H 13165 3296 50  0000 L CNN
-F 1 "?" H 13165 3205 50  0000 L CNN
+F 1 "1uF" H 13165 3205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13088 3100 50  0001 C CNN
 F 3 "~" H 13050 3250 50  0001 C CNN
 	1    13050 3250
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:C C24
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C24
 U 1 1 6282AD6E
 P 13050 3450
 F 0 "C24" H 13165 3496 50  0000 L CNN
-F 1 "10uF" H 13165 3405 50  0000 L CNN
+F 1 "1uF" H 13165 3405 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 13088 3300 50  0001 C CNN
 F 3 "~" H 13050 3450 50  0001 C CNN
 	1    13050 3450
@@ -2474,7 +2441,7 @@ Wire Wire Line
 	13200 3650 13200 3450
 Connection ~ 13200 3450
 $Comp
-L PMV280ENEAR:PMV280ENEAR Q1
+L telemetria-tyl-rescue:PMV280ENEAR-PMV280ENEAR-telemetria-tyl-rescue-telemetria-tyl-rescue Q1
 U 1 1 6291101D
 P 3400 6550
 F 0 "Q1" H 3829 6604 50  0000 L CNN
@@ -2492,4 +2459,39 @@ F 9 "PMV280ENEAR" H 3850 5800 50  0001 L CNN "Manufacturer_Part_Number"
 $EndComp
 Wire Wire Line
 	7200 1150 7200 1950
+$Comp
+L telemetria-tyl-rescue:R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R19
+U 1 1 624AA9B8
+P 20100 4700
+F 0 "R19" V 19893 4700 50  0000 C CNN
+F 1 "3k" V 19984 4700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 20030 4700 50  0001 C CNN
+F 3 "~" H 20100 4700 50  0001 C CNN
+	1    20100 4700
+	0    1    1    0   
+$EndComp
+$Comp
+L telemetria-tyl-rescue:C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C1
+U 1 1 6267BC8E
+P 3800 3000
+F 0 "C1" H 3915 3046 50  0000 L CNN
+F 1 "14pF" H 3915 2955 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 3838 2850 50  0001 C CNN
+F 3 "~" H 3800 3000 50  0001 C CNN
+	1    3800 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L telemetria-tyl-rescue:Crystal_GND24_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue Y1
+U 1 1 626361B0
+P 4100 2750
+F 0 "Y1" H 4050 2950 50  0000 L CNN
+F 1 "16Mhz" H 3829 2845 50  0000 L CNN
+F 2 "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm_HandSoldering" H 4100 2750 50  0001 C CNN
+F 3 "~" H 4100 2750 50  0001 C CNN
+	1    4100 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 4150 7250 4350
 $EndSCHEMATC

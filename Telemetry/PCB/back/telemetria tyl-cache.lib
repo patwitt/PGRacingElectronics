@@ -1,11 +1,90 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# 5749268-1_5749268-1
+# telemetria-tyl-rescue_+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF 5749268-1_5749268-1 J 0 30 Y Y 1 F N
+DEF telemetria-tyl-rescue_+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "telemetria-tyl-rescue_+12V-power-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +12V 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "telemetria-tyl-rescue_+3.3V-power-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +3V3 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_+3.3VA-power-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_+3.3VA-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "telemetria-tyl-rescue_+3.3VA-power-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +3.3VA 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "telemetria-tyl-rescue_+5V-power-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +5V 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_1N4148-Diode-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_1N4148-Diode-telemetria-tyl-rescue-telemetria-tyl-rescue D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "telemetria-tyl-rescue_1N4148-Diode-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 -100 50 H V C CNN
+F2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" 0 -175 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ D*DO?35*
+$ENDFPLIST
+DRAW
+P 2 0 1 10 -50 50 -50 -50 N
+P 2 0 1 0 50 0 -50 0 N
+P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_5749268-1-5749268-1-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_5749268-1-5749268-1-telemetria-tyl-rescue-telemetria-tyl-rescue J 0 30 Y Y 1 F N
 F0 "J" 750 300 50 H V L CNN
-F1 "5749268-1_5749268-1" 750 200 50 H V L CNN
+F1 "telemetria-tyl-rescue_5749268-1-5749268-1-telemetria-tyl-rescue-telemetria-tyl-rescue" 750 200 50 H V L CNN
 F2 "57492681" 750 100 50 H I L CNN
 F3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F5749268%7FO%7Fpdf%7FEnglish%7FENG_CD_5749268_O.pdf%7F5749268-1.pdf" 750 0 50 H I L CNN
 F4 "Circular DIN Connectors 8 P R/A W/O HOLDDOWN" 750 -100 50 H I L CNN "Description"
@@ -30,11 +109,11 @@ X MH3 MH3 900 -400 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# 5750071-1_5750071-1
+# telemetria-tyl-rescue_5750071-1-5750071-1-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF 5750071-1_5750071-1 J 0 30 Y Y 1 F N
+DEF telemetria-tyl-rescue_5750071-1-5750071-1-telemetria-tyl-rescue-telemetria-tyl-rescue J 0 30 Y Y 1 F N
 F0 "J" 750 300 50 H V L CNN
-F1 "5750071-1_5750071-1" 750 200 50 H V L CNN
+F1 "telemetria-tyl-rescue_5750071-1-5750071-1-telemetria-tyl-rescue-telemetria-tyl-rescue" 750 200 50 H V L CNN
 F2 "57500711" 750 100 50 H I L CNN
 F3 "https://componentsearchengine.com/Datasheets/1/5750071-1.pdf" 750 0 50 H I L CNN
 F4 "Connector pcb r/a 6 way Mini-DIN" 750 -100 50 H I L CNN "Description"
@@ -57,11 +136,11 @@ X MH3 MH3 900 -300 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# BC846BW_BC846BW
+# telemetria-tyl-rescue_BC846BW-BC846BW-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF BC846BW_BC846BW IC 0 30 Y Y 1 F N
+DEF telemetria-tyl-rescue_BC846BW-BC846BW-telemetria-tyl-rescue-telemetria-tyl-rescue IC 0 30 Y Y 1 F N
 F0 "IC" 650 300 50 H V L CNN
-F1 "BC846BW_BC846BW" 650 200 50 H V L CNN
+F1 "telemetria-tyl-rescue_BC846BW-BC846BW-telemetria-tyl-rescue-telemetria-tyl-rescue" 650 200 50 H V L CNN
 F2 "SOT65P210X110-3N" 650 100 50 H I L CNN
 F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-25/DSA-492599.pdf" 650 0 50 H I L CNN
 F4 "BC846BW, NPN Bipolar Transistor,  0.1 A 65 V HFE:200 100 MHz Small Signal, 3-Pin UMT" 650 -100 50 H I L CNN "Description"
@@ -76,11 +155,47 @@ X C 3 800 0 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Conn_01x26_Male
+# telemetria-tyl-rescue_C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Connector_Conn_01x26_Male J 0 40 Y N 1 F N
+DEF telemetria-tyl-rescue_C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C 0 10 N Y 1 F N
+F0 "C" 25 100 50 H V L CNN
+F1 "telemetria-tyl-rescue_C-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 25 -100 50 H V L CNN
+F2 "" 38 -150 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ C_*
+$ENDFPLIST
+DRAW
+P 2 0 1 20 -80 -30 80 -30 N
+P 2 0 1 20 -80 30 80 30 N
+X ~ 1 0 150 110 D 50 50 1 1 P
+X ~ 2 0 -150 110 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_C_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_C_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue C 0 10 N N 1 F N
+F0 "C" 10 70 50 H V L CNN
+F1 "telemetria-tyl-rescue_C_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 10 -80 50 H V L CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ C_*
+$ENDFPLIST
+DRAW
+P 2 0 1 13 -60 -20 60 -20 N
+P 2 0 1 12 -60 20 60 20 N
+X ~ 1 0 100 80 D 50 50 1 1 P
+X ~ 2 0 -100 80 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_Conn_01x26_Male-Connector-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_Conn_01x26_Male-Connector-telemetria-tyl-rescue-telemetria-tyl-rescue J 0 40 Y N 1 F N
 F0 "J" 0 1300 50 H V C CNN
-F1 "Connector_Conn_01x26_Male" 0 -1400 50 H V C CNN
+F1 "telemetria-tyl-rescue_Conn_01x26_Male-Connector-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 -1400 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -168,11 +283,11 @@ X Pin_9 9 200 400 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic_Conn_02x05_Odd_Even
+# telemetria-tyl-rescue_Conn_02x05_Odd_Even-Connector_Generic-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Connector_Generic_Conn_02x05_Odd_Even J 0 40 Y N 1 F N
+DEF telemetria-tyl-rescue_Conn_02x05_Odd_Even-Connector_Generic-telemetria-tyl-rescue-telemetria-tyl-rescue J 0 40 Y N 1 F N
 F0 "J" 50 300 50 H V C CNN
-F1 "Connector_Generic_Conn_02x05_Odd_Even" 50 -300 50 H V C CNN
+F1 "telemetria-tyl-rescue_Conn_02x05_Odd_Even-Connector_Generic-telemetria-tyl-rescue-telemetria-tyl-rescue" 50 -300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -203,47 +318,11 @@ X Pin_9 9 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_C
+# telemetria-tyl-rescue_Crystal_GND24_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_C C 0 10 N Y 1 F N
-F0 "C" 25 100 50 H V L CNN
-F1 "Device_C" 25 -100 50 H V L CNN
-F2 "" 38 -150 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- C_*
-$ENDFPLIST
-DRAW
-P 2 0 1 20 -80 -30 80 -30 N
-P 2 0 1 20 -80 30 80 30 N
-X ~ 1 0 150 110 D 50 50 1 1 P
-X ~ 2 0 -150 110 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_C_Small
-#
-DEF Device_C_Small C 0 10 N N 1 F N
-F0 "C" 10 70 50 H V L CNN
-F1 "Device_C_Small" 10 -80 50 H V L CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- C_*
-$ENDFPLIST
-DRAW
-P 2 0 1 13 -60 -20 60 -20 N
-P 2 0 1 12 -60 20 60 20 N
-X ~ 1 0 100 80 D 50 50 1 1 P
-X ~ 2 0 -100 80 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_Crystal_GND24_Small
-#
-DEF Device_Crystal_GND24_Small Y 0 40 Y N 1 F N
+DEF telemetria-tyl-rescue_Crystal_GND24_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue Y 0 40 Y N 1 F N
 F0 "Y" 50 175 50 H V L CNN
-F1 "Device_Crystal_GND24_Small" 50 100 50 H V L CNN
+F1 "telemetria-tyl-rescue_Crystal_GND24_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 50 100 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -262,11 +341,11 @@ X 4 4 0 100 25 D 30 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_D_Schottky
+# telemetria-tyl-rescue_D_Schottky-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_D_Schottky D 0 40 N N 1 F N
+DEF telemetria-tyl-rescue_D_Schottky-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Device_D_Schottky" 0 -100 50 H V C CNN
+F1 "telemetria-tyl-rescue_D_Schottky-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -284,11 +363,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_Ferrite_Bead
+# telemetria-tyl-rescue_Ferrite_Bead-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_Ferrite_Bead FB 0 0 N Y 1 F N
+DEF telemetria-tyl-rescue_Ferrite_Bead-Device-telemetria-tyl-rescue-telemetria-tyl-rescue FB 0 0 N Y 1 F N
 F0 "FB" -150 25 50 V V C CNN
-F1 "Device_Ferrite_Bead" 150 0 50 V V C CNN
+F1 "telemetria-tyl-rescue_Ferrite_Bead-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 150 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -305,11 +384,24 @@ X ~ 2 0 -150 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_L
+# telemetria-tyl-rescue_GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_L L 0 40 N N 1 F N
+DEF telemetria-tyl-rescue_GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "telemetria-tyl-rescue_GND-power-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue L 0 40 N N 1 F N
 F0 "L" -50 0 50 V V C CNN
-F1 "Device_L" 75 0 50 V V C CNN
+F1 "telemetria-tyl-rescue_L-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 75 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -328,11 +420,11 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_LED
+# telemetria-tyl-rescue_LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_LED D 0 40 N N 1 F N
+DEF telemetria-tyl-rescue_LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Device_LED" 0 -100 50 H V C CNN
+F1 "telemetria-tyl-rescue_LED-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -351,109 +443,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_R
+# telemetria-tyl-rescue_LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF Device_R R 0 0 N Y 1 F N
-F0 "R" 80 0 50 V V C CNN
-F1 "Device_R" 0 0 50 V V C CNN
-F2 "" -70 0 50 V I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- R_*
-$ENDFPLIST
-DRAW
-S -40 -100 40 100 0 1 10 N
-X ~ 1 0 150 50 D 50 50 1 1 P
-X ~ 2 0 -150 50 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_R_POT
-#
-DEF Device_R_POT RV 0 40 Y N 1 F N
-F0 "RV" -175 0 50 V V C CNN
-F1 "Device_R_POT" -100 0 50 V V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Potentiometer*
-$ENDFPLIST
-DRAW
-S 40 100 -40 -100 0 1 10 N
-P 2 0 1 0 100 0 60 0 N
-P 4 0 1 0 45 0 90 20 90 -20 45 0 F
-X 1 1 0 150 50 D 50 50 1 1 P
-X 2 2 150 0 50 L 50 50 1 1 P
-X 3 3 0 -150 50 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_R_Small
-#
-DEF Device_R_Small R 0 10 N N 1 F N
-F0 "R" 30 20 50 H V L CNN
-F1 "Device_R_Small" 30 -40 50 H V L CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- R_*
-$ENDFPLIST
-DRAW
-S -30 70 30 -70 0 1 8 N
-X ~ 1 0 100 30 D 50 50 1 1 P
-X ~ 2 0 -100 30 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Diode_1N4148
-#
-DEF Diode_1N4148 D 0 40 N N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "Diode_1N4148" 0 -100 50 H V C CNN
-F2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" 0 -175 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-ALIAS 1N4448 1N4149 1N4151 1N914 BA243 BA244 BA282 BA283 BAV17 BAV18 BAV19 BAV20 BAV21 BAW75 BAW76 BAY93
-$FPLIST
- D*DO?35*
-$ENDFPLIST
-DRAW
-P 2 0 1 10 -50 50 -50 -50 N
-P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
-X K 1 -150 0 100 R 50 50 1 1 P
-X A 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Interface_CAN_LIN_MCP2561-E-SN
-#
-DEF Interface_CAN_LIN_MCP2561-E-SN U 0 40 Y Y 1 F N
-F0 "U" -400 350 50 H V L CNN
-F1 "Interface_CAN_LIN_MCP2561-E-SN" 100 350 50 H V L CNN
-F2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" 0 -500 50 H I C CIN
-F3 "" 0 0 50 H I C CNN
-ALIAS MCP2561-H-SN
-$FPLIST
- SOIC*3.9x4.9mm*P1.27mm*
-$ENDFPLIST
-DRAW
-S -400 300 400 -300 0 1 10 f
-X TXD 1 -500 200 100 R 50 50 1 1 I
-X VSS 2 0 -400 100 U 50 50 1 1 W
-X VDD 3 0 400 100 D 50 50 1 1 W
-X RXD 4 -500 100 100 R 50 50 1 1 O
-X SPLIT 5 500 0 100 L 50 50 1 1 P
-X CANL 6 500 -100 100 L 50 50 1 1 B
-X CANH 7 500 100 100 L 50 50 1 1 B
-X STBY 8 -500 -200 100 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# LM741CN_NOPB_LM741CN_NOPB
-#
-DEF LM741CN_NOPB_LM741CN_NOPB IC 0 30 Y Y 1 F N
+DEF telemetria-tyl-rescue_LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue IC 0 30 Y Y 1 F N
 F0 "IC" 2150 300 50 H V L CNN
-F1 "LM741CN_NOPB_LM741CN_NOPB" 2150 200 50 H V L CNN
+F1 "telemetria-tyl-rescue_LM741CN_NOPB-LM741CN_NOPB-telemetria-tyl-rescue-telemetria-tyl-rescue" 2150 200 50 H V L CNN
 F2 "DIP794W53P254L959H508Q8N" 2150 100 50 H I L CNN
 F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU2/DSASFU100036484.pdf" 2150 0 50 H I L CNN
 F4 "LM741 Operational Amplifier 1MHz DIP8 Texas Instruments LM741CN/NOPB Op Amp, 1MHz, 8-Pin MDIP" 2150 -100 50 H I L CNN "Description"
@@ -477,11 +471,11 @@ X NC 8 2300 0 200 L 50 50 0 0 N
 ENDDRAW
 ENDDEF
 #
-# MAX5478EUD+T_MAX5478EUD+T
+# telemetria-tyl-rescue_MAX5478EUD+T-MAX5478EUD+T-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF MAX5478EUD+T_MAX5478EUD+T IC 0 30 Y Y 1 F N
+DEF telemetria-tyl-rescue_MAX5478EUD+T-MAX5478EUD+T-telemetria-tyl-rescue-telemetria-tyl-rescue IC 0 30 Y Y 1 F N
 F0 "IC" 850 300 50 H V L CNN
-F1 "MAX5478EUD+T_MAX5478EUD+T" 850 200 50 H V L CNN
+F1 "telemetria-tyl-rescue_MAX5478EUD+T-MAX5478EUD+T-telemetria-tyl-rescue-telemetria-tyl-rescue" 850 200 50 H V L CNN
 F2 "SOP65P640X110-14N" 850 100 50 H I L CNN
 F3 "https://datasheets.maximintegrated.com/en/ds/MAX5477-MAX5479.pdf" 850 0 50 H I L CNN
 F4 "Digital Potentiometer ICs Dual, 256-Tap, Nonvolatile, I C-Interface, Digital Potentiometers" 850 -100 50 H I L CNN "Description"
@@ -509,11 +503,182 @@ X A2 9 1000 -500 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #
-# MCU_ST_STM32F4_STM32F405RGTx
+# telemetria-tyl-rescue_MCP2561-E-SN-Interface_CAN_LIN-telemetria-tyl-rescue-telemetria-tyl-rescue
 #
-DEF MCU_ST_STM32F4_STM32F405RGTx U 0 20 Y Y 1 F N
+DEF telemetria-tyl-rescue_MCP2561-E-SN-Interface_CAN_LIN-telemetria-tyl-rescue-telemetria-tyl-rescue U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V L CNN
+F1 "telemetria-tyl-rescue_MCP2561-E-SN-Interface_CAN_LIN-telemetria-tyl-rescue-telemetria-tyl-rescue" 100 350 50 H V L CNN
+F2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" 0 -500 50 H I C CIN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SOIC*3.9x4.9mm*P1.27mm*
+$ENDFPLIST
+DRAW
+S -400 300 400 -300 0 1 10 f
+X TXD 1 -500 200 100 R 50 50 1 1 I
+X VSS 2 0 -400 100 U 50 50 1 1 W
+X VDD 3 0 400 100 D 50 50 1 1 W
+X RXD 4 -500 100 100 R 50 50 1 1 O
+X SPLIT 5 500 0 100 L 50 50 1 1 P
+X CANL 6 500 -100 100 L 50 50 1 1 B
+X CANH 7 500 100 100 L 50 50 1 1 B
+X STBY 8 -500 -200 100 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P-telemetria-tyl-rescue-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P-telemetria-tyl-rescue-telemetria-tyl-rescue-telemetria-tyl-rescue PS 0 30 Y Y 1 F N
+F0 "PS" 850 300 50 H V L CNN
+F1 "telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P-telemetria-tyl-rescue-telemetria-tyl-rescue-telemetria-tyl-rescue" 850 200 50 H V L CNN
+F2 "SOT95P280X145-6N" 850 100 50 H I L CNN
+F3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" 850 0 50 H I L CNN
+F4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" 850 -100 50 H I L CNN "Description"
+F5 "1.45" 850 -200 50 H I L CNN "Height"
+F6 "Monolithic Power Systems (MPS)" 850 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MP2359DT-LF-P" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "946-MP2359DTLFP" 850 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Monolithic-Power-Systems-MPS/MP2359DT-LF-P?qs=rC7bBWoQAAlUuezWIXLG%2Fg%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X BST 1 0 0 200 R 50 50 0 0 B
+X GND 2 0 -100 200 R 50 50 0 0 W
+X FB 3 0 -200 200 R 50 50 0 0 O
+X EN 4 1000 -200 200 L 50 50 0 0 I
+X IN 5 1000 -100 200 L 50 50 0 0 W
+X SW 6 1000 0 200 L 50 50 0 0 O
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue H 0 40 N N 1 F N
+F0 "H" 0 250 50 H V C CNN
+F1 "telemetria-tyl-rescue_MountingHole_Pad-Mechanical-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 175 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ MountingHole*Pad*
+$ENDFPLIST
+DRAW
+C 0 50 50 0 1 50 N
+X 1 1 0 -100 100 U 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_NCX2200GW,125-NCX2200GW_125-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_NCX2200GW,125-NCX2200GW_125-telemetria-tyl-rescue-telemetria-tyl-rescue IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "telemetria-tyl-rescue_NCX2200GW,125-NCX2200GW_125-telemetria-tyl-rescue-telemetria-tyl-rescue" 850 200 50 H V L CNN
+F2 "SOT65P212X110-5N" 850 100 50 H I L CNN
+F3 "http://www.nxp.com/docs/en/data-sheet/NCX2200.pdf" 850 0 50 H I L CNN
+F4 "Analog Comparators Low Voltage Comparator" 850 -100 50 H I L CNN "Description"
+F5 "1.1" 850 -200 50 H I L CNN "Height"
+F6 "771-NCX2200GW125" 850 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/NCX2200GW125?qs=j56XEm5BXrQpPSyPxfTy%2Fg%3D%3D" 850 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "NXP" 850 -500 50 H I L CNN "Manufacturer_Name"
+F9 "NCX2200GW,125" 850 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X OUT 1 0 0 200 R 50 50 0 0 P
+X VEE 2 0 -100 200 R 50 50 0 0 P
+X IN+ 3 0 -200 200 R 50 50 0 0 P
+X IN- 4 1000 0 200 L 50 50 0 0 P
+X VCC 5 1000 -100 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_PMV280ENEAR-PMV280ENEAR-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_PMV280ENEAR-PMV280ENEAR-telemetria-tyl-rescue-telemetria-tyl-rescue Q 0 30 Y Y 1 F N
+F0 "Q" 450 150 50 H V L CNN
+F1 "telemetria-tyl-rescue_PMV280ENEAR-PMV280ENEAR-telemetria-tyl-rescue-telemetria-tyl-rescue" 450 50 50 H V L CNN
+F2 "SOT95P230X110-3N" 450 -50 50 H I L CNN
+F3 "https://assets.nexperia.com/documents/data-sheet/PMV280ENEA.pdf" 450 -150 50 H I L CNN
+F4 "PMV280ENEAR 3 N-Channel MOSFET, 1 A, 100 V, 3-Pin SOT-23 Nexperia" 450 -250 50 H I L CNN "Description"
+F5 "1.1" 450 -350 50 H I L CNN "Height"
+F6 "771-PMV280ENEAR" 450 -450 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMV280ENEAR?qs=%252BEew9%252B0nqrBFzYrVZ6LkLA%3D%3D" 450 -550 50 H I L CNN "Mouser Price/Stock"
+F8 "Nexperia" 450 -650 50 H I L CNN "Manufacturer_Name"
+F9 "PMV280ENEAR" 450 -750 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+C 250 100 150 0 1 10 N
+P 2 0 1 6 230 -20 230 20 N
+P 2 0 1 6 230 0 300 0 N
+P 2 0 1 6 230 80 230 120 N
+P 2 0 1 6 230 220 230 180 N
+P 2 0 1 6 300 100 230 100 N
+P 2 0 1 6 300 100 300 -100 N
+P 2 0 1 6 300 200 230 200 N
+P 2 0 1 6 300 200 300 300 N
+P 3 0 1 6 100 0 200 0 200 200 N
+P 4 0 1 10 230 100 270 120 270 80 230 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 300 -200 100 U 50 50 0 0 P
+X ~ 3 300 400 100 D 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R 0 0 N Y 1 F N
+F0 "R" 80 0 50 V V C CNN
+F1 "telemetria-tyl-rescue_R-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 0 0 50 V V C CNN
+F2 "" -70 0 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -40 -100 40 100 0 1 10 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_R_POT-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_R_POT-Device-telemetria-tyl-rescue-telemetria-tyl-rescue RV 0 40 Y N 1 F N
+F0 "RV" -175 0 50 V V C CNN
+F1 "telemetria-tyl-rescue_R_POT-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" -100 0 50 V V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Potentiometer*
+$ENDFPLIST
+DRAW
+S 40 100 -40 -100 0 1 10 N
+P 2 0 1 0 100 0 60 0 N
+P 4 0 1 0 45 0 90 20 90 -20 45 0 F
+X 1 1 0 150 50 D 50 50 1 1 P
+X 2 2 150 0 50 L 50 50 1 1 P
+X 3 3 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_R_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_R_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue R 0 10 N N 1 F N
+F0 "R" 30 20 50 H V L CNN
+F1 "telemetria-tyl-rescue_R_Small-Device-telemetria-tyl-rescue-telemetria-tyl-rescue" 30 -40 50 H V L CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -30 70 30 -70 0 1 8 N
+X ~ 1 0 100 30 D 50 50 1 1 P
+X ~ 2 0 -100 30 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# telemetria-tyl-rescue_STM32F405RGTx-MCU_ST_STM32F4-telemetria-tyl-rescue-telemetria-tyl-rescue
+#
+DEF telemetria-tyl-rescue_STM32F405RGTx-MCU_ST_STM32F4-telemetria-tyl-rescue-telemetria-tyl-rescue U 0 20 Y Y 1 F N
 F0 "U" -600 1750 50 H V L CNN
-F1 "MCU_ST_STM32F4_STM32F405RGTx" 400 1750 50 H V L CNN
+F1 "telemetria-tyl-rescue_STM32F405RGTx-MCU_ST_STM32F4-telemetria-tyl-rescue-telemetria-tyl-rescue" 400 1750 50 H V L CNN
 F2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" -600 -1700 50 H I R CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -585,174 +750,6 @@ X VDD 64 200 1800 100 D 50 50 1 1 W
 X NRST 7 -700 1600 100 R 50 50 1 1 I
 X PC0 8 -700 -100 100 R 50 50 1 1 B
 X PC1 9 -700 -200 100 R 50 50 1 1 B
-ENDDRAW
-ENDDEF
-#
-# Mechanical_MountingHole_Pad
-#
-DEF Mechanical_MountingHole_Pad H 0 40 N N 1 F N
-F0 "H" 0 250 50 H V C CNN
-F1 "Mechanical_MountingHole_Pad" 0 175 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- MountingHole*Pad*
-$ENDFPLIST
-DRAW
-C 0 50 50 0 1 50 N
-X 1 1 0 -100 100 U 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# NCX2200GW_125_NCX2200GW,125
-#
-DEF NCX2200GW_125_NCX2200GW,125 IC 0 30 Y Y 1 F N
-F0 "IC" 850 300 50 H V L CNN
-F1 "NCX2200GW_125_NCX2200GW,125" 850 200 50 H V L CNN
-F2 "SOT65P212X110-5N" 850 100 50 H I L CNN
-F3 "http://www.nxp.com/docs/en/data-sheet/NCX2200.pdf" 850 0 50 H I L CNN
-F4 "Analog Comparators Low Voltage Comparator" 850 -100 50 H I L CNN "Description"
-F5 "1.1" 850 -200 50 H I L CNN "Height"
-F6 "771-NCX2200GW125" 850 -300 50 H I L CNN "Mouser Part Number"
-F7 "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/NCX2200GW125?qs=j56XEm5BXrQpPSyPxfTy%2Fg%3D%3D" 850 -400 50 H I L CNN "Mouser Price/Stock"
-F8 "NXP" 850 -500 50 H I L CNN "Manufacturer_Name"
-F9 "NCX2200GW,125" 850 -600 50 H I L CNN "Manufacturer_Part_Number"
-DRAW
-P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
-X OUT 1 0 0 200 R 50 50 0 0 P
-X VEE 2 0 -100 200 R 50 50 0 0 P
-X IN+ 3 0 -200 200 R 50 50 0 0 P
-X IN- 4 1000 0 200 L 50 50 0 0 P
-X VCC 5 1000 -100 200 L 50 50 0 0 P
-ENDDRAW
-ENDDEF
-#
-# PMV280ENEAR_PMV280ENEAR
-#
-DEF PMV280ENEAR_PMV280ENEAR Q 0 30 Y Y 1 F N
-F0 "Q" 450 150 50 H V L CNN
-F1 "PMV280ENEAR_PMV280ENEAR" 450 50 50 H V L CNN
-F2 "SOT95P230X110-3N" 450 -50 50 H I L CNN
-F3 "https://assets.nexperia.com/documents/data-sheet/PMV280ENEA.pdf" 450 -150 50 H I L CNN
-F4 "PMV280ENEAR 3 N-Channel MOSFET, 1 A, 100 V, 3-Pin SOT-23 Nexperia" 450 -250 50 H I L CNN "Description"
-F5 "1.1" 450 -350 50 H I L CNN "Height"
-F6 "771-PMV280ENEAR" 450 -450 50 H I L CNN "Mouser Part Number"
-F7 "https://www.mouser.co.uk/ProductDetail/Nexperia/PMV280ENEAR?qs=%252BEew9%252B0nqrBFzYrVZ6LkLA%3D%3D" 450 -550 50 H I L CNN "Mouser Price/Stock"
-F8 "Nexperia" 450 -650 50 H I L CNN "Manufacturer_Name"
-F9 "PMV280ENEAR" 450 -750 50 H I L CNN "Manufacturer_Part_Number"
-DRAW
-C 250 100 150 0 1 10 N
-P 2 0 1 6 230 -20 230 20 N
-P 2 0 1 6 230 0 300 0 N
-P 2 0 1 6 230 80 230 120 N
-P 2 0 1 6 230 220 230 180 N
-P 2 0 1 6 300 100 230 100 N
-P 2 0 1 6 300 100 300 -100 N
-P 2 0 1 6 300 200 230 200 N
-P 2 0 1 6 300 200 300 300 N
-P 3 0 1 6 100 0 200 0 200 200 N
-P 4 0 1 10 230 100 270 120 270 80 230 100 F
-X ~ 1 0 0 100 R 50 50 0 0 P
-X ~ 2 300 -200 100 U 50 50 0 0 P
-X ~ 3 300 400 100 D 50 50 0 0 P
-ENDDRAW
-ENDDEF
-#
-# power_+12V
-#
-DEF power_+12V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+12V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +12V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+3.3V
-#
-DEF power_+3.3V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3.3V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-ALIAS +3.3V
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +3V3 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+3.3VA
-#
-DEF power_+3.3VA #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3.3VA" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +3.3VA 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+5V
-#
-DEF power_+5V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GND
-#
-DEF power_GND #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P
-#
-DEF telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P PS 0 30 Y Y 1 F N
-F0 "PS" 850 300 50 H V L CNN
-F1 "telemetria-tyl-rescue_MP2359DT-LF-P-MP2359DT-LF-P" 850 200 50 H V L CNN
-F2 "SOT95P280X145-6N" 850 100 50 H I L CNN
-F3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" 850 0 50 H I L CNN
-F4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" 850 -100 50 H I L CNN "Description"
-F5 "1.45" 850 -200 50 H I L CNN "Height"
-F6 "Monolithic Power Systems (MPS)" 850 -300 50 H I L CNN "Manufacturer_Name"
-F7 "MP2359DT-LF-P" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "946-MP2359DTLFP" 850 -500 50 H I L CNN "Mouser Part Number"
-F9 "https://www.mouser.co.uk/ProductDetail/Monolithic-Power-Systems-MPS/MP2359DT-LF-P?qs=rC7bBWoQAAlUuezWIXLG%2Fg%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
-DRAW
-P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
-X BST 1 0 0 200 R 50 50 0 0 B
-X GND 2 0 -100 200 R 50 50 0 0 W
-X FB 3 0 -200 200 R 50 50 0 0 O
-X EN 4 1000 -200 200 L 50 50 0 0 I
-X IN 5 1000 -100 200 L 50 50 0 0 W
-X SW 6 1000 0 200 L 50 50 0 0 O
 ENDDRAW
 ENDDEF
 #
