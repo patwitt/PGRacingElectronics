@@ -27,21 +27,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 0000002e  00000000  00000000  000301e4  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000291f5  00000000  00000000  00030212  2**0
+ 12 .debug_info   000291eb  00000000  00000000  00030212  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00005908  00000000  00000000  00059407  2**0
+ 13 .debug_abbrev 00005922  00000000  00000000  000593fd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001f20  00000000  00000000  0005ed10  2**3
+ 14 .debug_aranges 00001f20  00000000  00000000  0005ed20  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00001c88  00000000  00000000  00060c30  2**3
+ 15 .debug_ranges 00001c88  00000000  00000000  00060c40  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000304e1  00000000  00000000  000628b8  2**0
+ 16 .debug_macro  000304e1  00000000  00000000  000628c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0002c84d  00000000  00000000  00092d99  2**0
+ 17 .debug_line   0002c852  00000000  00000000  00092da9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    001149d4  00000000  00000000  000bf5e6  2**0
+ 18 .debug_str    001149c0  00000000  00000000  000bf5fb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  001d3fba  2**0
+ 19 .comment      00000050  00000000  00000000  001d3fbb  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00009820  00000000  00000000  001d400c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -5330,12 +5330,12 @@ void MPU9250_GetData(int16_t* AccData, int16_t* MagData, int16_t* GyroData)
  8002f6c:	20000220 	.word	0x20000220
  8002f70:	43800000 	.word	0x43800000
 
-08002f74 <initSDCard>:
+08002f74 <sdInit>:
 extern MLXSensor MLXRF;
 extern GyroSensor gyro;
 extern SensorStatus statusRegister;
 
-void initSDCard(FATFS* fs)
+void sdInit(FATFS* fs)
 {
  8002f74:	b580      	push	{r7, lr}
  8002f76:	b082      	sub	sp, #8
@@ -5343,37 +5343,37 @@ void initSDCard(FATFS* fs)
  8002f7a:	6078      	str	r0, [r7, #4]
 	  if (f_mount(fs, "", 1) == FR_OK)
  8002f7c:	2201      	movs	r2, #1
- 8002f7e:	490e      	ldr	r1, [pc, #56]	; (8002fb8 <initSDCard+0x44>)
+ 8002f7e:	490e      	ldr	r1, [pc, #56]	; (8002fb8 <sdInit+0x44>)
  8002f80:	6878      	ldr	r0, [r7, #4]
  8002f82:	f00c f8f7 	bl	800f174 <f_mount>
  8002f86:	4603      	mov	r3, r0
  8002f88:	2b00      	cmp	r3, #0
- 8002f8a:	d109      	bne.n	8002fa0 <initSDCard+0x2c>
+ 8002f8a:	d109      	bne.n	8002fa0 <sdInit+0x2c>
 	  {
 		  statusRegister.SDCARD = SENSOR_OK;
- 8002f8c:	4a0b      	ldr	r2, [pc, #44]	; (8002fbc <initSDCard+0x48>)
+ 8002f8c:	4a0b      	ldr	r2, [pc, #44]	; (8002fbc <sdInit+0x48>)
  8002f8e:	7813      	ldrb	r3, [r2, #0]
  8002f90:	2101      	movs	r1, #1
  8002f92:	f361 0302 	bfi	r3, r1, #0, #3
  8002f96:	7013      	strb	r3, [r2, #0]
 		  if (DEBUG)
 			  printf("SDCard mounting success!\n");
- 8002f98:	4809      	ldr	r0, [pc, #36]	; (8002fc0 <initSDCard+0x4c>)
+ 8002f98:	4809      	ldr	r0, [pc, #36]	; (8002fc0 <sdInit+0x4c>)
  8002f9a:	f00d fdb1 	bl	8010b00 <puts>
 	  }else
 	  {
 		  statusRegister.SDCARD = SENSOR_INIT_FAIL;
-		  mountFailHandler();
+		  sdMountFailHandler();
 	  }
 }
- 8002f9e:	e006      	b.n	8002fae <initSDCard+0x3a>
+ 8002f9e:	e006      	b.n	8002fae <sdInit+0x3a>
 		  statusRegister.SDCARD = SENSOR_INIT_FAIL;
- 8002fa0:	4a06      	ldr	r2, [pc, #24]	; (8002fbc <initSDCard+0x48>)
+ 8002fa0:	4a06      	ldr	r2, [pc, #24]	; (8002fbc <sdInit+0x48>)
  8002fa2:	7813      	ldrb	r3, [r2, #0]
  8002fa4:	f043 0307 	orr.w	r3, r3, #7
  8002fa8:	7013      	strb	r3, [r2, #0]
-		  mountFailHandler();
- 8002faa:	f000 f9e7 	bl	800337c <mountFailHandler>
+		  sdMountFailHandler();
+ 8002faa:	f000 f9e7 	bl	800337c <sdMountFailHandler>
 }
  8002fae:	bf00      	nop
  8002fb0:	3708      	adds	r7, #8
@@ -5697,9 +5697,9 @@ int openFile(FIL * file, char * path, BYTE mode)
  800320c:	08014aec 	.word	0x08014aec
  8003210:	08014b08 	.word	0x08014b08
 
-08003214 <saveGyroData>:
+08003214 <gyroSaveData>:
 
-void saveGyroData(GyroSensor* sens)
+void gyroSaveData(GyroSensor* sens)
 {
  8003214:	b590      	push	{r4, r7, lr}
  8003216:	b0c7      	sub	sp, #284	; 0x11c
@@ -5714,7 +5714,7 @@ void saveGyroData(GyroSensor* sens)
  8003224:	f002 f830 	bl	8005288 <HAL_GetTick>
  8003228:	4602      	mov	r2, r0
  800322a:	f107 0310 	add.w	r3, r7, #16
- 800322e:	4950      	ldr	r1, [pc, #320]	; (8003370 <saveGyroData+0x15c>)
+ 800322e:	4950      	ldr	r1, [pc, #320]	; (8003370 <gyroSaveData+0x15c>)
  8003230:	4618      	mov	r0, r3
  8003232:	f00d fc83 	bl	8010b3c <siprintf>
 	f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
@@ -5733,7 +5733,7 @@ void saveGyroData(GyroSensor* sens)
 	for (int i = 0; i < 3; i++)
  800325c:	2300      	movs	r3, #0
  800325e:	f8c7 3114 	str.w	r3, [r7, #276]	; 0x114
- 8003262:	e028      	b.n	80032b6 <saveGyroData+0xa2>
+ 8003262:	e028      	b.n	80032b6 <gyroSaveData+0xa2>
 	{
 		sprintf(dataBuffer, "%f,", sens->data.gyro_data_calc[i]);
  8003264:	f507 738c 	add.w	r3, r7, #280	; 0x118
@@ -5745,7 +5745,7 @@ void saveGyroData(GyroSensor* sens)
  8003276:	4413      	add	r3, r2
  8003278:	e9d3 2300 	ldrd	r2, r3, [r3]
  800327c:	f107 0010 	add.w	r0, r7, #16
- 8003280:	493c      	ldr	r1, [pc, #240]	; (8003374 <saveGyroData+0x160>)
+ 8003280:	493c      	ldr	r1, [pc, #240]	; (8003374 <gyroSaveData+0x160>)
  8003282:	f00d fc5b 	bl	8010b3c <siprintf>
 		f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
  8003286:	f507 738c 	add.w	r3, r7, #280	; 0x118
@@ -5766,13 +5766,13 @@ void saveGyroData(GyroSensor* sens)
  80032b2:	f8c7 3114 	str.w	r3, [r7, #276]	; 0x114
  80032b6:	f8d7 3114 	ldr.w	r3, [r7, #276]	; 0x114
  80032ba:	2b02      	cmp	r3, #2
- 80032bc:	ddd2      	ble.n	8003264 <saveGyroData+0x50>
+ 80032bc:	ddd2      	ble.n	8003264 <gyroSaveData+0x50>
 
 	}
 	for (int i = 0; i < 3; i++)
  80032be:	2300      	movs	r3, #0
  80032c0:	f8c7 3110 	str.w	r3, [r7, #272]	; 0x110
- 80032c4:	e028      	b.n	8003318 <saveGyroData+0x104>
+ 80032c4:	e028      	b.n	8003318 <gyroSaveData+0x104>
 	{
 		sprintf(dataBuffer, "%f,", sens->data.acc_data_calc[i]);
  80032c6:	f507 738c 	add.w	r3, r7, #280	; 0x118
@@ -5784,7 +5784,7 @@ void saveGyroData(GyroSensor* sens)
  80032d8:	4413      	add	r3, r2
  80032da:	e9d3 2300 	ldrd	r2, r3, [r3]
  80032de:	f107 0010 	add.w	r0, r7, #16
- 80032e2:	4924      	ldr	r1, [pc, #144]	; (8003374 <saveGyroData+0x160>)
+ 80032e2:	4924      	ldr	r1, [pc, #144]	; (8003374 <gyroSaveData+0x160>)
  80032e4:	f00d fc2a 	bl	8010b3c <siprintf>
 		f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
  80032e8:	f507 738c 	add.w	r3, r7, #280	; 0x118
@@ -5805,12 +5805,12 @@ void saveGyroData(GyroSensor* sens)
  8003314:	f8c7 3110 	str.w	r3, [r7, #272]	; 0x110
  8003318:	f8d7 3110 	ldr.w	r3, [r7, #272]	; 0x110
  800331c:	2b02      	cmp	r3, #2
- 800331e:	ddd2      	ble.n	80032c6 <saveGyroData+0xb2>
+ 800331e:	ddd2      	ble.n	80032c6 <gyroSaveData+0xb2>
 	}
 
 	sprintf(dataBuffer, "\r\n ");
  8003320:	f107 0310 	add.w	r3, r7, #16
- 8003324:	4914      	ldr	r1, [pc, #80]	; (8003378 <saveGyroData+0x164>)
+ 8003324:	4914      	ldr	r1, [pc, #80]	; (8003378 <gyroSaveData+0x164>)
  8003326:	4618      	mov	r0, r3
  8003328:	f00d fc08 	bl	8010b3c <siprintf>
 
@@ -5845,20 +5845,20 @@ void saveGyroData(GyroSensor* sens)
  8003374:	08014b28 	.word	0x08014b28
  8003378:	08014b2c 	.word	0x08014b2c
 
-0800337c <mountFailHandler>:
+0800337c <sdMountFailHandler>:
 	f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(mlx->File);
 }
 
-void mountFailHandler()
+void sdMountFailHandler()
 {
  800337c:	b580      	push	{r7, lr}
  800337e:	af00      	add	r7, sp, #0
 	printf("SDCard mount failed\n");
- 8003380:	4801      	ldr	r0, [pc, #4]	; (8003388 <mountFailHandler+0xc>)
+ 8003380:	4801      	ldr	r0, [pc, #4]	; (8003388 <sdMountFailHandler+0xc>)
  8003382:	f00d fbbd 	bl	8010b00 <puts>
 	while(1)
- 8003386:	e7fe      	b.n	8003386 <mountFailHandler+0xa>
+ 8003386:	e7fe      	b.n	8003386 <sdMountFailHandler+0xa>
  8003388:	08014b40 	.word	0x08014b40
 
 0800338c <MX_ADC1_Init>:
@@ -8126,13 +8126,13 @@ int main(void)
  8004168:	f001 f89a 	bl	80052a0 <HAL_Delay>
   initializeSensors();
  800416c:	f7ff ff1e 	bl	8003fac <initializeSensors>
-  initSDCard(&fileSystem);
+  sdInit(&fileSystem);
  8004170:	4b1b      	ldr	r3, [pc, #108]	; (80041e0 <main+0x144>)
  8004172:	f503 5382 	add.w	r3, r3, #4160	; 0x1040
  8004176:	f103 0310 	add.w	r3, r3, #16
  800417a:	443b      	add	r3, r7
  800417c:	4618      	mov	r0, r3
- 800417e:	f7fe fef9 	bl	8002f74 <initSDCard>
+ 800417e:	f7fe fef9 	bl	8002f74 <sdInit>
   printStatusRegister();
  8004182:	f7ff fed7 	bl	8003f34 <printStatusRegister>
 
@@ -8175,12 +8175,12 @@ int main(void)
  80041b6:	2b00      	cmp	r3, #0
  80041b8:	d1ee      	bne.n	8004198 <main+0xfc>
 	  {
-		  imu_9dof_get_data(&gyro.data);
+		  gyroGetData(&gyro.data);
  80041ba:	480e      	ldr	r0, [pc, #56]	; (80041f4 <main+0x158>)
- 80041bc:	f000 fb18 	bl	80047f0 <imu_9dof_get_data>
-	  	  saveGyroData(&gyro);
+ 80041bc:	f000 fb18 	bl	80047f0 <gyroGetData>
+	  	  gyroSaveData(&gyro);
  80041c0:	480b      	ldr	r0, [pc, #44]	; (80041f0 <main+0x154>)
- 80041c2:	f7ff f827 	bl	8003214 <saveGyroData>
+ 80041c2:	f7ff f827 	bl	8003214 <gyroSaveData>
 	  if (captured_value != 0) {
  80041c6:	e7e7      	b.n	8004198 <main+0xfc>
  80041c8:	20000480 	.word	0x20000480
@@ -9032,8 +9032,8 @@ void gyroInit(GyroSensor * gyro)
  80046f8:	08014bb8 	.word	0x08014bb8
  80046fc:	00000000 	.word	0x00000000
 
-08004700 <imu_9dof_convert>:
-void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
+08004700 <gyroConvertData>:
+void gyroConvertData(struct imu_9dof * input, struct imu_9dof_calc * output)
 {
  8004700:	b480      	push	{r7}
  8004702:	b083      	sub	sp, #12
@@ -9045,7 +9045,7 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  800470c:	f9b3 3000 	ldrsh.w	r3, [r3]
  8004710:	ee07 3a90 	vmov	s15, r3
  8004714:	eeb8 6be7 	vcvt.f64.s32	d6, s15
- 8004718:	ed9f 5b2f 	vldr	d5, [pc, #188]	; 80047d8 <imu_9dof_convert+0xd8>
+ 8004718:	ed9f 5b2f 	vldr	d5, [pc, #188]	; 80047d8 <gyroConvertData+0xd8>
  800471c:	ee86 7b05 	vdiv.f64	d7, d6, d5
  8004720:	683b      	ldr	r3, [r7, #0]
  8004722:	ed83 7b00 	vstr	d7, [r3]
@@ -9054,7 +9054,7 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  8004728:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
  800472c:	ee07 3a90 	vmov	s15, r3
  8004730:	eeb8 6be7 	vcvt.f64.s32	d6, s15
- 8004734:	ed9f 5b28 	vldr	d5, [pc, #160]	; 80047d8 <imu_9dof_convert+0xd8>
+ 8004734:	ed9f 5b28 	vldr	d5, [pc, #160]	; 80047d8 <gyroConvertData+0xd8>
  8004738:	ee86 7b05 	vdiv.f64	d7, d6, d5
  800473c:	683b      	ldr	r3, [r7, #0]
  800473e:	ed83 7b02 	vstr	d7, [r3, #8]
@@ -9063,7 +9063,7 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  8004744:	f9b3 3004 	ldrsh.w	r3, [r3, #4]
  8004748:	ee07 3a90 	vmov	s15, r3
  800474c:	eeb8 6be7 	vcvt.f64.s32	d6, s15
- 8004750:	ed9f 5b21 	vldr	d5, [pc, #132]	; 80047d8 <imu_9dof_convert+0xd8>
+ 8004750:	ed9f 5b21 	vldr	d5, [pc, #132]	; 80047d8 <gyroConvertData+0xd8>
  8004754:	ee86 7b05 	vdiv.f64	d7, d6, d5
  8004758:	683b      	ldr	r3, [r7, #0]
  800475a:	ed83 7b04 	vstr	d7, [r3, #16]
@@ -9072,9 +9072,9 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  8004760:	f9b3 300c 	ldrsh.w	r3, [r3, #12]
  8004764:	ee07 3a90 	vmov	s15, r3
  8004768:	eeb8 7be7 	vcvt.f64.s32	d7, s15
- 800476c:	ed9f 6b1c 	vldr	d6, [pc, #112]	; 80047e0 <imu_9dof_convert+0xe0>
+ 800476c:	ed9f 6b1c 	vldr	d6, [pc, #112]	; 80047e0 <gyroConvertData+0xe0>
  8004770:	ee27 6b06 	vmul.f64	d6, d7, d6
- 8004774:	ed9f 5b1c 	vldr	d5, [pc, #112]	; 80047e8 <imu_9dof_convert+0xe8>
+ 8004774:	ed9f 5b1c 	vldr	d5, [pc, #112]	; 80047e8 <gyroConvertData+0xe8>
  8004778:	ee86 7b05 	vdiv.f64	d7, d6, d5
  800477c:	683b      	ldr	r3, [r7, #0]
  800477e:	ed83 7b06 	vstr	d7, [r3, #24]
@@ -9083,9 +9083,9 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  8004784:	f9b3 300e 	ldrsh.w	r3, [r3, #14]
  8004788:	ee07 3a90 	vmov	s15, r3
  800478c:	eeb8 7be7 	vcvt.f64.s32	d7, s15
- 8004790:	ed9f 6b13 	vldr	d6, [pc, #76]	; 80047e0 <imu_9dof_convert+0xe0>
+ 8004790:	ed9f 6b13 	vldr	d6, [pc, #76]	; 80047e0 <gyroConvertData+0xe0>
  8004794:	ee27 6b06 	vmul.f64	d6, d7, d6
- 8004798:	ed9f 5b13 	vldr	d5, [pc, #76]	; 80047e8 <imu_9dof_convert+0xe8>
+ 8004798:	ed9f 5b13 	vldr	d5, [pc, #76]	; 80047e8 <gyroConvertData+0xe8>
  800479c:	ee86 7b05 	vdiv.f64	d7, d6, d5
  80047a0:	683b      	ldr	r3, [r7, #0]
  80047a2:	ed83 7b08 	vstr	d7, [r3, #32]
@@ -9094,9 +9094,9 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  80047a8:	f9b3 3010 	ldrsh.w	r3, [r3, #16]
  80047ac:	ee07 3a90 	vmov	s15, r3
  80047b0:	eeb8 7be7 	vcvt.f64.s32	d7, s15
- 80047b4:	ed9f 6b0a 	vldr	d6, [pc, #40]	; 80047e0 <imu_9dof_convert+0xe0>
+ 80047b4:	ed9f 6b0a 	vldr	d6, [pc, #40]	; 80047e0 <gyroConvertData+0xe0>
  80047b8:	ee27 6b06 	vmul.f64	d6, d7, d6
- 80047bc:	ed9f 5b0a 	vldr	d5, [pc, #40]	; 80047e8 <imu_9dof_convert+0xe8>
+ 80047bc:	ed9f 5b0a 	vldr	d5, [pc, #40]	; 80047e8 <gyroConvertData+0xe8>
  80047c0:	ee86 7b05 	vdiv.f64	d7, d6, d5
  80047c4:	683b      	ldr	r3, [r7, #0]
  80047c6:	ed83 7b0a 	vstr	d7, [r3, #40]	; 0x28
@@ -9115,9 +9115,9 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
  80047e8:	00000000 	.word	0x00000000
  80047ec:	40e00000 	.word	0x40e00000
 
-080047f0 <imu_9dof_get_data>:
+080047f0 <gyroGetData>:
 
-void imu_9dof_get_data(struct imu_9dof_calc * imu_9dof_calculated)
+void gyroGetData(GyroSensor * sens)
 {
  80047f0:	b580      	push	{r7, lr}
  80047f2:	b088      	sub	sp, #32
@@ -9132,22 +9132,22 @@ void imu_9dof_get_data(struct imu_9dof_calc * imu_9dof_calculated)
  8004806:	f107 030c 	add.w	r3, r7, #12
  800480a:	4618      	mov	r0, r3
  800480c:	f7fe fade 	bl	8002dcc <MPU9250_GetData>
-    imu_9dof_convert(&imu_9dof_data, imu_9dof_calculated);
- 8004810:	f107 030c 	add.w	r3, r7, #12
- 8004814:	6879      	ldr	r1, [r7, #4]
- 8004816:	4618      	mov	r0, r3
- 8004818:	f7ff ff72 	bl	8004700 <imu_9dof_convert>
-    gyro.dataReady = 0;
- 800481c:	4b03      	ldr	r3, [pc, #12]	; (800482c <imu_9dof_get_data+0x3c>)
- 800481e:	2200      	movs	r2, #0
- 8004820:	619a      	str	r2, [r3, #24]
+    gyroConvertData(&imu_9dof_data, &sens->data);
+ 8004810:	687b      	ldr	r3, [r7, #4]
+ 8004812:	f103 0228 	add.w	r2, r3, #40	; 0x28
+ 8004816:	f107 030c 	add.w	r3, r7, #12
+ 800481a:	4611      	mov	r1, r2
+ 800481c:	4618      	mov	r0, r3
+ 800481e:	f7ff ff6f 	bl	8004700 <gyroConvertData>
+    sens->dataReady = 0;
+ 8004822:	687b      	ldr	r3, [r7, #4]
+ 8004824:	2200      	movs	r2, #0
+ 8004826:	619a      	str	r2, [r3, #24]
 }
- 8004822:	bf00      	nop
- 8004824:	3720      	adds	r7, #32
- 8004826:	46bd      	mov	sp, r7
- 8004828:	bd80      	pop	{r7, pc}
- 800482a:	bf00      	nop
- 800482c:	200005f0 	.word	0x200005f0
+ 8004828:	bf00      	nop
+ 800482a:	3720      	adds	r7, #32
+ 800482c:	46bd      	mov	sp, r7
+ 800482e:	bd80      	pop	{r7, pc}
 
 08004830 <mlxInit>:
 MLXSensor MLXLF;

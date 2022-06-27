@@ -9,17 +9,17 @@
 #define INC_SDCARD_H_
 
 #include "sensorFunctions.h"
-void initSDCard(FATFS* fs);
+void sdInit(FATFS* fs);
 void openAllFiles();
 int createHeaders(FIL * file,char * path);
 
 int openFile(FIL * file, char * path, BYTE mode);
 
 
-void saveGyroData(GyroSensor* sens);
+void gyroSaveData(GyroSensor* sens);
 
-void saveMLXData(MLXSensor* mlx);
+void mlxSaveData(MLXSensor* mlx);
 
 
-void mountFailHandler();
+void sdMountFailHandler();
 #endif /* INC_SDCARD_H_ */

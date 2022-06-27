@@ -13,7 +13,7 @@ extern MLXSensor MLXRF;
 extern GyroSensor gyro;
 extern SensorStatus statusRegister;
 
-void initSDCard(FATFS* fs)
+void sdInit(FATFS* fs)
 {
 	  if (f_mount(fs, "", 1) == FR_OK)
 	  {
@@ -24,7 +24,7 @@ void initSDCard(FATFS* fs)
 	  }else
 	  {
 		  statusRegister.SDCARD = SENSOR_INIT_FAIL;
-		  mountFailHandler();
+		  sdMountFailHandler();
 	  }
 }
 void openAllFiles()
@@ -113,7 +113,7 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 }
 
-void saveGyroData(GyroSensor* sens)
+void gyroSaveData(GyroSensor* sens)
 {
 	char dataBuffer[255];
 	int writedBytes;
@@ -138,7 +138,7 @@ void saveGyroData(GyroSensor* sens)
 	f_sync(sens->File);
 
 }
-void saveMLXData(MLXSensor* mlx)
+void mlxSaveData(MLXSensor* mlx)
 {
 	char dataBuffer[255];
 	int writedBytes;
@@ -157,7 +157,7 @@ void saveMLXData(MLXSensor* mlx)
 	f_sync(mlx->File);
 }
 
-void mountFailHandler()
+void sdMountFailHandler()
 {
 	printf("SDCard mount failed\n");
 	while(1)

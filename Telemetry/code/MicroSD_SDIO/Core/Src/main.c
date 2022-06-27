@@ -96,9 +96,6 @@ int statusToInt()
 }
 void printStatusRegister()
 {
-
-	int a = sizeof(statusRegister);
-	//a = sizeof(statusRegister.checkTime);
 	int fullRegister = statusToInt();
 	int b =0;
 	for(int i=31;i>=0;i--)
@@ -244,7 +241,7 @@ int main(void)
 
   HAL_Delay(1000);
   initializeSensors();
-  initSDCard(&fileSystem);
+  sdInit(&fileSystem);
   printStatusRegister();
 
   openAllFiles();
@@ -269,8 +266,8 @@ int main(void)
 
 	  if(!gyro.dataReady)
 	  {
-		  imu_9dof_get_data(&gyro.data);
-	  	  saveGyroData(&gyro);
+		  gyroGetData(&gyro.data);
+	  	  gyroSaveData(&gyro);
 	  }
 
 	  //HAL_Delay(200);

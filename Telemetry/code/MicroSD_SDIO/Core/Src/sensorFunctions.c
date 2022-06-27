@@ -34,7 +34,7 @@ void gyroInit(GyroSensor * gyro)
 	gyro->saveRate = GYRODATARATE;
 	gyro->timeToNextRead = GYRODATARATE;
 }
-void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
+void gyroConvertData(struct imu_9dof * input, struct imu_9dof_calc * output)
 {
 	output->acc_data_calc[0] = (double) input->acc_data[0] / 16384;
 	output->acc_data_calc[1] = (double) input->acc_data[1] / 16384;
@@ -45,12 +45,12 @@ void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
 
 }
 
-void imu_9dof_get_data(struct imu_9dof_calc * imu_9dof_calculated)
+void gyroGetData(GyroSensor * sens)
 {
 	imu_9dof imu_9dof_data;
     MPU9250_GetData(imu_9dof_data.acc_data, imu_9dof_data.mag_data, imu_9dof_data.gyro_data);
-    imu_9dof_convert(&imu_9dof_data, imu_9dof_calculated);
-    gyro.dataReady = 0;
+    gyroConvertData(&imu_9dof_data, &sens->data);
+    sens->dataReady = 0;
 }
 
 

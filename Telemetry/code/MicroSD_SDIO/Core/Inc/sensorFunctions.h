@@ -89,9 +89,9 @@ typedef struct GYRO{
 //GYRO FUNCS
 void gyroInit(GyroSensor * gyro);
 
-void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output);
+void gyroConvertData(struct imu_9dof * input, struct imu_9dof_calc * output);
 
-void imu_9dof_get_data(struct imu_9dof_calc * imu_9dof_calculated);
+void gyroGetData(GyroSensor * sens);
 
 
 /* *******MLX90640 SECTION  ********/

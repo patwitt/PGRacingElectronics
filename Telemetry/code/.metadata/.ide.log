@@ -10274,3 +10274,1252 @@
 
 
 2022-06-27 13:37:36,999 [INFO] Activator:178 - !SESSION log4j initialized
+2022-06-27 13:37:41,530 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-27 14:52:51,420 [INFO] McuFinderGlobals:39 - Set McuFinder mode to 2 (CubeIDE integrated)
+2022-06-27 14:52:51,525 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913
+2022-06-27 14:52:51,541 [INFO] DbMcusXml:72 - Set database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/mcu/
+2022-06-27 14:52:51,542 [INFO] ApiDb:260 - Set plugin database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/boardmanager/
+2022-06-27 14:52:51,543 [WARN] ApiDb:245 - Overriding images path with different value:  => C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/mcufinder/images/
+2022-06-27 14:52:51,552 [INFO] ApiDb:226 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,554 [INFO] DbMcusAds:119 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,657 [INFO] CrossReferenceDbSqlite:196 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/cs/
+2022-06-27 14:52:51,739 [INFO] RulesReader:57 - Compatibility file has been processed (281 Rules)
+2022-06-27 14:52:51,810 [INFO] DbMcusXml:72 - Set database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/mcu/
+2022-06-27 14:52:51,811 [INFO] ApiDb:260 - Set plugin database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/boardmanager/
+2022-06-27 14:52:51,811 [INFO] ApiDb:247 - Set plugin images path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/mcufinder/images/
+2022-06-27 14:52:51,811 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,811 [INFO] ApiDb:226 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,811 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,812 [INFO] DbMcusAds:119 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,812 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,812 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,812 [INFO] CrossReferenceDbSqlite:196 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/cs/
+2022-06-27 14:52:51,873 [INFO] MainPanel:230 - HeapMemory: 458227712
+2022-06-27 14:52:51,945 [INFO] DbMcusXml:72 - Set database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/mcu/
+2022-06-27 14:52:51,945 [INFO] ApiDb:260 - Set plugin database path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/boardmanager/
+2022-06-27 14:52:51,945 [INFO] ApiDb:247 - Set plugin images path to: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913\\db\/plugins/mcufinder/images/
+2022-06-27 14:52:51,946 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,946 [INFO] ApiDb:226 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,946 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,946 [INFO] DbMcusAds:119 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/
+2022-06-27 14:52:51,946 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,946 [WARN] DbFile:35 - Overriding database path with different value: C:\Users\Patryk\.stmcufinder\plugins\mcufinder/ => C:\Users\Patryk\.stmcufinder\plugins\mcufinder
+2022-06-27 14:52:51,946 [INFO] CrossReferenceDbSqlite:196 - Set database path to: C:\Users\Patryk\.stmcufinder\plugins\mcufinder//mcu/cs/
+2022-06-27 14:52:51,961 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913
+2022-06-27 14:52:51,963 [INFO] PluginManage:188 - Search for loadable plugins [exclusion list=, ]
+2022-06-27 14:52:51,964 [INFO] PluginManage:302 - Check plugin analytics
+2022-06-27 14:52:52,044 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-27 14:52:52,094 [INFO] AnalyticsPlugin:257 - Accepted Software Licenses: 
+2022-06-27 14:52:52,095 [INFO] AnalyticsPlugin:259 - Accepted CMSIS Pack Licenses: 
+2022-06-27 14:52:52,096 [INFO] AnalyticsPlugin:261 - Accepted Firmware Licenses: 
+2022-06-27 14:52:52,101 [INFO] PluginManage:352 - Loaded plugin analytics (category:tool,tabindex:-1)
+2022-06-27 14:52:52,101 [INFO] PluginManage:302 - Check plugin clock
+2022-06-27 14:52:52,112 [INFO] PluginManage:352 - Loaded plugin clock (category:base,tabindex:2)
+2022-06-27 14:52:52,112 [INFO] PluginManage:302 - Check plugin ddr
+2022-06-27 14:52:52,114 [INFO] PluginManage:352 - Loaded plugin ddr (category:tool,tabindex:6)
+2022-06-27 14:52:52,114 [INFO] PluginManage:302 - Check plugin filemanager
+2022-06-27 14:52:52,239 [INFO] PluginManage:352 - Loaded plugin filemanager (category:base,tabindex:10)
+2022-06-27 14:52:52,239 [INFO] PluginManage:302 - Check plugin ipmanager
+2022-06-27 14:52:52,246 [INFO] PluginManage:352 - Loaded plugin ipmanager (category:base,tabindex:5)
+2022-06-27 14:52:52,246 [INFO] PluginManage:302 - Check plugin lpbam
+2022-06-27 14:52:52,255 [INFO] PluginManage:352 - Loaded plugin lpbam (category:base,tabindex:0)
+2022-06-27 14:52:52,255 [INFO] PluginManage:302 - Check plugin pinoutandconfiguration
+2022-06-27 14:52:52,265 [INFO] PluginManage:352 - Loaded plugin pinoutandconfiguration (category:base,tabindex:1)
+2022-06-27 14:52:52,265 [INFO] PluginManage:302 - Check plugin pinoutconfig
+2022-06-27 14:52:52,296 [INFO] PluginManage:352 - Loaded plugin pinoutconfig (category:base,tabindex:0)
+2022-06-27 14:52:52,297 [INFO] PluginManage:302 - Check plugin power
+2022-06-27 14:52:52,307 [INFO] PluginManage:352 - Loaded plugin power (category:power,tabindex:4)
+2022-06-27 14:52:52,307 [INFO] PluginManage:302 - Check plugin projectmanager
+2022-06-27 14:52:52,323 [INFO] PluginManage:352 - Loaded plugin projectmanager (category:projectmanager,tabindex:3)
+2022-06-27 14:52:52,323 [INFO] PluginManage:302 - Check plugin thirdparty
+2022-06-27 14:52:52,418 [WARN] IntegrityCheckThread:78 - waiting for thirdparty lock release [integrity check]
+2022-06-27 14:52:52,419 [INFO] PluginManage:352 - Loaded plugin thirdparty (category:base,tabindex:-1)
+2022-06-27 14:52:52,419 [INFO] IntegrityCheckThread:80 - entering critical section [integrity check]
+2022-06-27 14:52:52,419 [INFO] PluginManage:302 - Check plugin tools
+2022-06-27 14:52:52,421 [INFO] ThirdPartyUpdaterWithRetryManager:66 - Updater plugin not ready yet. [1/15]
+2022-06-27 14:52:52,421 [INFO] PluginManage:352 - Loaded plugin tools (category:base,tabindex:7)
+2022-06-27 14:52:52,421 [INFO] PluginManage:302 - Check plugin tutovideos
+2022-06-27 14:52:52,597 [INFO] PluginManage:352 - Loaded plugin tutovideos (category:base,tabindex:-1)
+2022-06-27 14:52:52,597 [INFO] PluginManage:302 - Check plugin updater
+2022-06-27 14:52:52,610 [INFO] PluginManage:352 - Loaded plugin updater (category:base,tabindex:12)
+2022-06-27 14:52:52,611 [INFO] PluginManage:275 - PluginManage : Loaded plugins [14]
+2022-06-27 14:52:52,841 [INFO] PinOutPanel:1465 - setPackage(No Configuration,No Configuration)
+2022-06-27 14:52:52,914 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,914 [INFO] PluginManager:213 - loadIPPluginJar : add adc
+2022-06-27 14:52:52,916 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,917 [INFO] PluginManager:213 - loadIPPluginJar : add aes
+2022-06-27 14:52:52,918 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,919 [INFO] PluginManager:213 - loadIPPluginJar : add can
+2022-06-27 14:52:52,920 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,920 [INFO] PluginManager:213 - loadIPPluginJar : add comp
+2022-06-27 14:52:52,922 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,923 [INFO] PluginManager:213 - loadIPPluginJar : add cryp
+2022-06-27 14:52:52,924 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,924 [INFO] PluginManager:213 - loadIPPluginJar : add dfsdm
+2022-06-27 14:52:52,929 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,930 [INFO] PluginManager:213 - loadIPPluginJar : add dma
+2022-06-27 14:52:52,932 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,933 [INFO] PluginManager:213 - loadIPPluginJar : add dma3
+2022-06-27 14:52:52,934 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,934 [INFO] PluginManager:213 - loadIPPluginJar : add fatfs
+2022-06-27 14:52:52,939 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,939 [INFO] PluginManager:213 - loadIPPluginJar : add fmc
+2022-06-27 14:52:52,944 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,945 [INFO] PluginManager:213 - loadIPPluginJar : add freertos
+2022-06-27 14:52:52,946 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,946 [INFO] PluginManager:213 - loadIPPluginJar : add genericplugin
+2022-06-27 14:52:52,948 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,948 [INFO] PluginManager:213 - loadIPPluginJar : add gfxmmu
+2022-06-27 14:52:52,952 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,952 [INFO] PluginManager:213 - loadIPPluginJar : add gic
+2022-06-27 14:52:52,957 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,957 [INFO] PluginManager:213 - loadIPPluginJar : add gpio
+2022-06-27 14:52:52,959 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,959 [INFO] PluginManager:213 - loadIPPluginJar : add gtzc
+2022-06-27 14:52:52,960 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,960 [INFO] PluginManager:213 - loadIPPluginJar : add hash
+2022-06-27 14:52:52,963 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,963 [INFO] PluginManager:213 - loadIPPluginJar : add i2c
+2022-06-27 14:52:52,965 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,965 [INFO] PluginManager:213 - loadIPPluginJar : add i2s
+2022-06-27 14:52:52,968 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,968 [INFO] PluginManager:213 - loadIPPluginJar : add ipddr
+2022-06-27 14:52:52,974 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,974 [INFO] PluginManager:213 - loadIPPluginJar : add linkedlist
+2022-06-27 14:52:52,976 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,976 [INFO] PluginManager:213 - loadIPPluginJar : add lorawan
+2022-06-27 14:52:52,977 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,977 [INFO] PluginManager:213 - loadIPPluginJar : add ltdc
+2022-06-27 14:52:52,982 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,983 [INFO] PluginManager:213 - loadIPPluginJar : add mdma
+2022-06-27 14:52:52,985 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,985 [INFO] PluginManager:213 - loadIPPluginJar : add nvic
+2022-06-27 14:52:52,988 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,988 [INFO] PluginManager:213 - loadIPPluginJar : add opamp
+2022-06-27 14:52:52,991 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,991 [INFO] PluginManager:213 - loadIPPluginJar : add openamp
+2022-06-27 14:52:52,993 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:52,993 [INFO] PluginManager:213 - loadIPPluginJar : add pdm2pcm
+2022-06-27 14:52:52,998 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,000 [INFO] PluginManager:213 - loadIPPluginJar : add plateformsettings
+2022-06-27 14:52:53,002 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,002 [INFO] PluginManager:213 - loadIPPluginJar : add quadspi
+2022-06-27 14:52:53,004 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,006 [INFO] PluginManager:213 - loadIPPluginJar : add resmgrutility
+2022-06-27 14:52:53,008 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,008 [INFO] PluginManager:213 - loadIPPluginJar : add sai
+2022-06-27 14:52:53,010 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,010 [INFO] PluginManager:213 - loadIPPluginJar : add spi
+2022-06-27 14:52:53,013 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,013 [INFO] PluginManager:213 - loadIPPluginJar : add stm32_wpan
+2022-06-27 14:52:53,014 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,014 [INFO] PluginManager:213 - loadIPPluginJar : add tim
+2022-06-27 14:52:53,016 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,017 [INFO] PluginManager:213 - loadIPPluginJar : add touchsensing
+2022-06-27 14:52:53,018 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,018 [INFO] PluginManager:213 - loadIPPluginJar : add tracer_emb
+2022-06-27 14:52:53,020 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,020 [INFO] PluginManager:213 - loadIPPluginJar : add ts
+2022-06-27 14:52:53,022 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,022 [INFO] PluginManager:213 - loadIPPluginJar : add tsc
+2022-06-27 14:52:53,023 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,023 [INFO] PluginManager:213 - loadIPPluginJar : add ucpd
+2022-06-27 14:52:53,025 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,025 [INFO] PluginManager:213 - loadIPPluginJar : add usart
+2022-06-27 14:52:53,027 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:52:53,027 [INFO] PluginManager:213 - loadIPPluginJar : add usbx
+2022-06-27 14:52:53,320 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,463 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,471 [INFO] DbMcusAds:47 - JSON generation date=Thu Sep 30 08:55:09 CEST 2021 (1632984909247)
+2022-06-27 14:52:53,472 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,509 [WARN] DetailPanel:320 - Failed to get advertising image, set to default
+2022-06-27 14:52:53,587 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,590 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,590 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,590 [WARN] DetailPanel:320 - Failed to get advertising image, set to default
+2022-06-27 14:52:53,591 [FATAL] Updater:297 - Updater called before beeing initialized
+2022-06-27 14:52:53,632 [INFO] Updater:1026 - Updater Version found : 6.5.0
+2022-06-27 14:52:53,648 [INFO] ApplicationProperties:181 - Using Application install path: C:\ST\STM32CubeIDE_1.9.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.5.0.202202251913
+2022-06-27 14:52:53,964 [INFO] MainUpdater:2729 - connection check result : 10
+2022-06-27 14:52:53,965 [INFO] MainUpdater:276 - Updater Check For Update Now.
+2022-06-27 14:52:53,966 [INFO] MicroXplorer:477 - Change Database Version : DB.6.0.50
+2022-06-27 14:52:54,116 [INFO] CheckServerUpdateThread:115 - End of CheckServer Thread
+2022-06-27 14:52:54,186 [INFO] MainUpdater:2729 - connection check result : 10
+2022-06-27 14:52:54,187 [INFO] MainUpdater:2729 - connection check result : 10
+2022-06-27 14:52:54,223 [INFO] MicroXplorer:447 - Change Database Path : 
+2022-06-27 14:52:54,224 [INFO] MicroXplorer:477 - Change Database Version : DB.6.0.50
+2022-06-27 14:52:54,224 [WARN] ThirdParty:823 - waiting for thirdparty lock release [close project]
+2022-06-27 14:52:55,496 [WARN] PackLoader:238 - Cannot read IP mode file for wolfSSL.I-CUBE-wolfSSL.5.2.0
+2022-06-27 14:52:55,542 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-MEMS1.9.2.0
+2022-06-27 14:52:55,676 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AI.7.1.0
+2022-06-27 14:52:55,687 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.19.1
+2022-06-27 14:52:55,692 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLE1.6.2.3
+2022-06-27 14:52:55,697 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC4.2.0.4
+2022-06-27 14:52:55,715 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLE2.3.2.2
+2022-06-27 14:52:55,721 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SFXS2LP1.3.1.0
+2022-06-27 14:52:55,734 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-F4.1.0.0
+2022-06-27 14:52:55,742 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC7.1.0.0
+2022-06-27 14:52:55,752 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SUBG2.4.2.0
+2022-06-27 14:52:55,773 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-G0.1.0.0
+2022-06-27 14:52:55,786 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-DISPLAY.2.2.0
+2022-06-27 14:52:55,797 [WARN] PackLoader:238 - Cannot read IP mode file for RoweBots.I-CUBE-UNISONRTOS.5.5.0-4
+2022-06-27 14:52:55,816 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-H7.2.1.0
+2022-06-27 14:52:55,822 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALGOBUILD.1.3.0
+2022-06-27 14:52:55,827 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SUBG2.5.0.0
+2022-06-27 14:52:55,861 [WARN] PackLoader:238 - Cannot read IP mode file for SEGGER.I-CUBE-embOS.1.2.0
+2022-06-27 14:52:55,891 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-DISPLAY.2.1.0
+2022-06-27 14:52:55,904 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-G4.1.0.0
+2022-06-27 14:52:55,917 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-L4.1.0.0
+2022-06-27 14:52:55,923 [WARN] PackLoader:238 - Cannot read IP mode file for emotas.I-CUBE-CANOPEN.1.1.2
+2022-06-27 14:52:55,937 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-F7.1.0.0
+2022-06-27 14:52:55,944 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-WL.1.0.0
+2022-06-27 14:52:55,948 [WARN] PackLoader:238 - Cannot read IP mode file for portGmbH.I-Cube-SoM-uGOAL.1.1.0
+2022-06-27 14:52:55,958 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALS.1.0.1
+2022-06-27 14:52:55,978 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-L5.1.0.0
+2022-06-27 14:52:55,983 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-EEPRMA1.3.1.1
+2022-06-27 14:52:55,990 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-GNSS1.5.2.0
+2022-06-27 14:52:55,996 [WARN] PackLoader:238 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOF1.3.0.0
+2022-06-27 14:52:55,998 [INFO] ThirdParty:925 - Integrity check success = true
+2022-06-27 14:52:55,998 [INFO] IntegrityCheckThread:94 - exiting critical section [integrity check]
+2022-06-27 14:52:55,998 [INFO] IntegrityCheckThread:97 - End integrity checks thread
+2022-06-27 14:52:55,998 [INFO] ThirdParty:825 - entering critical section [close project]
+2022-06-27 14:52:55,999 [INFO] ThirdParty:835 - exiting critical section [close project]
+2022-06-27 14:52:56,002 [INFO] PinOutPanel:1465 - setPackage(No Configuration,No Configuration)
+2022-06-27 14:52:56,008 [INFO] UtilMem:74 - Begin LoadConfig() Used Memory: 199850904 Bytes (458227712)
+2022-06-27 14:52:56,014 [INFO] MicroXplorer:447 - Change Database Path : C:/Users/Patryk/.stm32cubemx/databases/DB.6.0.30/db/
+2022-06-27 14:52:56,014 [INFO] MicroXplorer:477 - Change Database Version : DB.6.0.30
+2022-06-27 14:52:58,047 [INFO] OpenFileManager:303 - Change cursor
+2022-06-27 14:52:58,079 [INFO] Mcu:1893 - Initializing MCU STM32F767ZITx STM32F767ZITx STM32F767ZIT6
+2022-06-27 14:52:59,939 [INFO] Context:599 - Trying to add GPIOservice into a context  which must be forbidden
+2022-06-27 14:53:00,602 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A1' from pack STMicroelectronics.X-CUBE-SFXS2LP1.3.1.0: no header file found
+2022-06-27 14:53:00,602 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A2' from pack STMicroelectronics.X-CUBE-SFXS2LP1.3.1.0: no header file found
+2022-06-27 14:53:00,602 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2915A1' from pack STMicroelectronics.X-CUBE-SFXS2LP1.3.1.0: no header file found
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,616 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,617 [WARN] ModelIntegratedComponent:60 - No mode defined for component null
+2022-06-27 14:53:00,619 [WARN] ApiManager:304 - Cannot register API 'Board Extension:NFC07A1' from pack STMicroelectronics.X-CUBE-NFC7.1.0.0: no header file found
+2022-06-27 14:53:00,706 [WARN] ApiManager:304 - Cannot register API 'Board Extension:IKS01A3' from pack STMicroelectronics.X-CUBE-MEMS1.9.2.0: no header file found
+2022-06-27 14:53:00,706 [WARN] ApiManager:304 - Cannot register API 'Board Extension:IKS01A2' from pack STMicroelectronics.X-CUBE-MEMS1.9.2.0: no header file found
+2022-06-27 14:53:00,706 [WARN] ApiManager:304 - Cannot register API 'Board Extension:IKS02A1' from pack STMicroelectronics.X-CUBE-MEMS1.9.2.0: no header file found
+2022-06-27 14:53:00,717 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A1' from pack STMicroelectronics.X-CUBE-SUBG2.4.2.0: no header file found
+2022-06-27 14:53:00,717 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A2' from pack STMicroelectronics.X-CUBE-SUBG2.4.2.0: no header file found
+2022-06-27 14:53:00,717 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2915A1' from pack STMicroelectronics.X-CUBE-SUBG2.4.2.0: no header file found
+2022-06-27 14:53:00,719 [WARN] ApiManager:304 - Cannot register API 'Wireless:BlueNRG-MS' from pack STMicroelectronics.X-CUBE-BLE1.6.2.3: no header file found
+2022-06-27 14:53:00,720 [INFO] RtosManager:484 - Registered RTOS mode: class=CMSIS, group=RTOS, mode=CMSIS_V1, owner=FREERTOS
+2022-06-27 14:53:00,721 [INFO] RtosManager:484 - Registered RTOS mode: class=CMSIS, group=RTOS2, mode=CMSIS_V2, owner=FREERTOS
+2022-06-27 14:53:00,721 [INFO] RtosManager:484 - Registered RTOS mode: class=RTOS, group=Core, mode=CMSIS_V1, owner=FREERTOS
+2022-06-27 14:53:00,721 [INFO] RtosManager:484 - Registered RTOS mode: class=RTOS, group=Core, mode=CMSIS_V2, owner=FREERTOS
+2022-06-27 14:53:00,721 [WARN] ModelIntegratedComponent:181 - Missing modes for component STMicroelectronics:FreeRTOS:0.0.1:STMicroelectronics:RTOS:FreeRTOS:Core:::10.2.0:
+2022-06-27 14:53:00,723 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A1' from pack STMicroelectronics.X-CUBE-SUBG2.5.0.0: no header file found
+2022-06-27 14:53:00,724 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2868A2' from pack STMicroelectronics.X-CUBE-SUBG2.5.0.0: no header file found
+2022-06-27 14:53:00,724 [WARN] ApiManager:304 - Cannot register API 'Board Extension:S2915A1' from pack STMicroelectronics.X-CUBE-SUBG2.5.0.0: no header file found
+2022-06-27 14:53:00,729 [WARN] ApiManager:304 - Cannot register API 'Board Extension:EEPRMA1' from pack STMicroelectronics.X-CUBE-EEPRMA1.3.1.1: no header file found
+2022-06-27 14:53:00,729 [WARN] ApiManager:304 - Cannot register API 'Board Extension:EEPRMA2' from pack STMicroelectronics.X-CUBE-EEPRMA1.3.1.1: no header file found
+2022-06-27 14:53:00,730 [WARN] ApiManager:304 - Cannot register API 'Board Extension:GNSS1A1' from pack STMicroelectronics.X-CUBE-GNSS1.5.2.0: no header file found
+2022-06-27 14:53:00,730 [WARN] ApiManager:304 - Cannot register API 'Board Support:Custom' from pack STMicroelectronics.X-CUBE-GNSS1.5.2.0: no header file found
+2022-06-27 14:53:00,730 [WARN] ApiManager:304 - Cannot register API 'Data Exchange:lib_gnss' from pack STMicroelectronics.X-CUBE-GNSS1.5.2.0: no header file found
+2022-06-27 14:53:00,730 [WARN] ApiManager:304 - Cannot register API 'Board Extension:NFC04A1' from pack STMicroelectronics.X-CUBE-NFC4.2.0.4: no header file found
+2022-06-27 14:53:00,731 [WARN] ApiManager:304 - Cannot register API 'Wireless:BlueNRG-2' from pack STMicroelectronics.X-CUBE-BLE2.3.2.2: no header file found
+2022-06-27 14:53:00,750 [INFO] ThirdPartyModel:282 - Start build external matchings
+2022-06-27 14:53:00,888 [INFO] ThirdPartyModel:295 - End build external matchings
+2022-06-27 14:53:00,911 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Instance) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,911 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Channel) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,911 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Direction) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,911 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphInc) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,911 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemInc) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphDataAlignment) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemDataAlignment) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Mode) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Priority) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOMode) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,912 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOThreshold) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOThreshold) has invalid value (null)
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemBurst) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemBurst) has invalid value (null)
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphBurst) has Id (SDMMC2_RX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphBurst) has invalid value (null)
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Instance) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Channel) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Direction) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphInc) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemInc) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphDataAlignment) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemDataAlignment) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Mode) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Priority) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOMode) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOThreshold) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (FIFOThreshold) has invalid value (null)
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemBurst) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemBurst) has invalid value (null)
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphBurst) has Id (SDMMC2_TX) currently not set
+2022-06-27 14:53:00,913 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphBurst) has invalid value (null)
+2022-06-27 14:53:00,928 [INFO] ImportTextPane:183 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (FamilyName)
+2022-06-27 14:53:01,469 [INFO] UtilMem:74 - End LoadConfig() Used Memory: 260832944 Bytes (458227712)
+2022-06-27 14:53:01,588 [INFO] ApiDb:567 - Connected to CubeFinder SQLite database (C:\Users\Patryk\.stmcufinder\plugins\mcufinder\mcu\cube-finder-db.db)
+2022-06-27 14:53:01,605 [INFO] ApiDb:654 - CubeFinder database Data Model version=2.1
+2022-06-27 14:53:01,605 [INFO] ApiDb:655 - CubeFinder database Configuration version=3.0.30
+2022-06-27 14:53:01,605 [INFO] ApiDb:656 - CubeFinder database generation date=2022-04-29 (1651226108)
+2022-06-27 14:53:01,605 [INFO] ApiDb:657 - CubeFinder database FW Pack versions=[STM32Cube_FW_C0_V1.0.0, STM32Cube_FW_F4_V1.27.0, STM32Cube_FW_F7_V1.16.2, STM32Cube_FW_G0_V1.5.1, STM32Cube_FW_G4_V1.5.0, STM32Cube_FW_H7_V1.10.0, STM32Cube_FW_L5_V1.4.0, STM32Cube_FW_U5_V1.1.0, STM32Cube_FW_WB_V1.13.3, STM32Cube_FW_WL_V1.2.0, X-CUBE-ALGOBUILD_V1.3.0, X-CUBE-ALS_V1.0.1, X-CUBE-AZRTOS-F4_V1.0.0, X-CUBE-AZRTOS-F7_V1.0.0, X-CUBE-AZRTOS-G0_V1.0.0, X-CUBE-AZRTOS-G4_V1.0.0, X-CUBE-AZRTOS-H7_V2.0.0, X-CUBE-AZRTOS-L4_V1.0.0, X-CUBE-AZRTOS-L5_V1.0.0, X-CUBE-AZRTOS-WL_V1.0.0, X-CUBE-BLE1_V6.2.3, X-CUBE-BLE2_V3.2.2, X-CUBE-EEPRMA1_V3.1.1, X-CUBE-GNSS1_V5.2.0, X-CUBE-MEMS1_V9.1.0, X-CUBE-NFC4_V2.0.3, X-CUBE-NFC7_V1.0.0, X-CUBE-SFXS2LP1_V3.1.0, X-CUBE-SUBG2_V4.2.0]
+2022-06-27 14:53:02,837 [INFO] ApiDb:212 - Found 97 in-development CPN: [NUCLEO-C031C6, STM32C0116-DK, STM32C011D6Y3TR, STM32C011D6Y6TR, STM32C011F4P3, STM32C011F4P6, STM32C011F4U3, STM32C011F4U6TR, STM32C011F6P3, STM32C011F6P6, STM32C011F6U3, STM32C011F6U6TR, STM32C011J4M3, STM32C011J4M6, STM32C011J6M3, STM32C011J6M6, STM32C0316-DK, STM32C031C4T3, STM32C031C4T6, STM32C031C4U3, STM32C031C4U6, STM32C031C6T3, STM32C031C6T6, STM32C031C6U3, STM32C031C6U6, STM32C031F4P3, STM32C031F4P6, STM32C031F6P3, STM32C031F6P6, STM32C031G4U3, STM32C031G4U6, STM32C031G6U3, STM32C031G6U6, STM32C031K4T3, STM32C031K4T6, STM32C031K4U3, STM32C031K4U6, STM32C031K6T3, STM32C031K6T6, STM32C031K6U3, STM32C031K6U6, STM32G071K8TXN, STM32G071K8UXN, STM32G081GBU6N, STM32G081KBT6N, STM32G081KBUXN, STM32G0B1CCT6N, STM32G0B1KCT6, STM32G0B1NEY6, STM32G0B1NEY6TR, STM32G0B1RCT6N, STM32G0C1CCT6, STM32G0C1CCT6N, STM32G0C1CCU6N, STM32G0C1CET6N, STM32G0C1CEU6N, STM32G0C1KCT6, STM32G0C1NEY6TR, STM32G0C1RCI6N, STM32G0C1RCT6N, STM32G0C1REI6N, STM32G0C1RET6N, STM32G0C1VCI6, STM32G0C1VEI6, STM32G471CCT6, STM32G471CCU6, STM32G471CET3, STM32G471CET6, STM32G471CEU3, STM32G471CEU6, STM32G471MCT6, STM32G471MET3, STM32G471MET6, STM32G471MEY6TR, STM32G471QCT6, STM32G471QET3, STM32G471RCT6, STM32G471RET3, STM32G471RET6, STM32G471VCH6, STM32G471VCI6, STM32G471VCT6, STM32G471VEH3, STM32G471VEH6, STM32G471VEI3, STM32G471VEI6, STM32G471VET3, STM32G471VET6, STM32G474CCT6, STM32L4R5QGI6STR, STM32U595ZJT6Q, STM32U599BJY6QTR, STM32U599NIH6Q, STM32U599NJH6Q, STM32U5A5ZJT6Q, STM32U5A9BJY6QTR, STM32U5A9NJH6Q]
+2022-06-27 14:53:02,840 [INFO] DbMcus:201 - Found 3458 MCUs, 3458 are supported
+2022-06-27 14:53:02,841 [INFO] ApiDb:407 - Load user favorites file C:\Users\Patryk/.stm32cubeide/favorites.mcus.txt: 0 item(s)
+2022-06-27 14:53:02,841 [INFO] ApiDb:411 - User favorites MCUs=[]
+2022-06-27 14:53:02,842 [INFO] DbMcus:207 - Set 0 / 0 favorites MCUs
+2022-06-27 14:53:02,848 [WARN] ThirdParty:785 - waiting for thirdparty lock release [change project]
+2022-06-27 14:53:02,848 [INFO] ThirdParty:787 - entering critical section [change project]
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SFXS2LP1 3.1.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :wolfSSL I-CUBE-wolfSSL 5.2.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :RoweBots I-CUBE-UNISONRTOS 5.5.0-4
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-F4 1.0.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-H7 2.1.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics USB_HOST 2.0.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics LIBJPEG 8.0.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-G4 1.0.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-L4 1.0.0
+2022-06-27 14:53:02,848 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 3.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics HAL Drivers 0.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics MBEDTLS 2.16.2
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :emotas I-CUBE-CANOPEN 1.1.2
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics MBEDTLS 2.14.1
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC7 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-F7 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 9.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-WL 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SUBG2 4.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :portGmbH I-Cube-SoM-uGOAL 1.1.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALS 1.0.1
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 2.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 7.1.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.19.1
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics ThreadX 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE1 6.2.3
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALGOBUILD 1.3.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-L5 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics FreeRTOS 0.0.1
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SUBG2 5.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :SEGGER I-CUBE-embOS 1.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics STM32_WPAN 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-G0 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-EEPRMA1 3.1.1
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 5.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics ThreadX 0.0.2
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics lwIP 2.0.3
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics lwIP 2.1.2
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC4 2.0.4
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE2 3.2.2
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics USB_HOST 1.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-DISPLAY 2.1.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-DISPLAY 2.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.1.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.2.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOF1 3.0.0
+2022-06-27 14:53:02,849 [INFO] ThirdParty:977 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.3.0
+2022-06-27 14:53:02,850 [INFO] ThirdParty:793 - exiting critical section [change project]
+2022-06-27 14:53:03,351 [INFO] PinOutPanel:1465 - setPackage(No Configuration,No Configuration)
+2022-06-27 14:53:03,353 [INFO] PinOutPanel:1465 - setPackage(STM32F767ZITx,LQFP144)
+2022-06-27 14:53:04,391 [INFO] UtilMem:74 - Before build in PCC Used Memory: 374399232 Bytes (458227712)
+2022-06-27 14:53:05,166 [INFO] UtilMem:74 - After build in PCC Used Memory: 377780432 Bytes (458227712)
+2022-06-27 14:53:05,207 [INFO] ApiDbMcu:488 - Load IP Config File for FATFS
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,284 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,285 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,286 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,286 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,286 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,286 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,286 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,287 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,287 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,287 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,287 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,288 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,288 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,288 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,288 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,289 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,289 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,289 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,290 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,290 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,290 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,291 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,291 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,292 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,292 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,292 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,293 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,293 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,293 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,293 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,294 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,294 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,294 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,295 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,295 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,296 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,296 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,296 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,297 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,297 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,297 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,298 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,298 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,298 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,299 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,299 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,299 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,300 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,300 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,301 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,301 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,301 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,302 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,302 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,303 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,303 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,304 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,304 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,304 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,305 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,305 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,305 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,305 [INFO] IPUIPlugin:75 - create IPUIPlugin
+2022-06-27 14:53:05,319 [INFO] ApiDbMcu:488 - Load IP Config File for PDM2PCM
+2022-06-27 14:53:05,333 [INFO] Can:66 - Can Add PropertyChangeListener com.st.microxplorer.plugins.ip.can.Can@1ee53136
+2022-06-27 14:53:05,334 [INFO] Can:66 - Can Add PropertyChangeListener com.st.microxplorer.plugins.ip.can.Can@2c566719
+2022-06-27 14:53:05,537 [INFO] OpenFileManager:323 - Restore cursor
+2022-06-27 14:53:05,597 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 318291584 Bytes (458227712)
+2022-06-27 18:56:32,244 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:56:32,266 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:56:32,282 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:56:32,289 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:58:15,818 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 18:58:27,946 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 18:58:58,888 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:58:58,913 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:58:58,927 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:58:58,941 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 18:59:22,985 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 18:59:45,334 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 19:00:28,332 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 19:02:54,570 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 252038168 Bytes (485490688)
+2022-06-27 19:02:56,293 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 282389512 Bytes (485490688)
+2022-06-27 19:02:57,010 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 337444448 Bytes (485490688)
+2022-06-27 19:02:57,525 [INFO] ProjectBuilder:2248 - IP not ready for code generation: FATFS
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SYS
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RCC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RTC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SDMMC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: NVIC
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: USART
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: DMA
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: UART
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: GPIO
+2022-06-27 19:02:59,696 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: FATFS
+2022-06-27 19:02:59,699 [INFO] CodeGenerator:681 - code generatio: config db path: C:/Users/Patryk/.stm32cubemx/databases/DB.6.0.30/db/
+2022-06-27 19:03:00,840 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp_save
+2022-06-27 19:03:01,180 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp
+2022-06-27 19:03:01,305 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c_save
+2022-06-27 19:03:01,438 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c
+2022-06-27 19:03:01,449 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h_save
+2022-06-27 19:03:01,536 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h
+2022-06-27 19:03:03,517 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:03:03,527 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:03:03,618 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:03:03,628 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:03:03,691 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:03:03,700 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:03:03,759 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:03:03,768 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:03:03,831 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:03:03,856 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c_save
+2022-06-27 19:03:04,032 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c
+2022-06-27 19:03:04,045 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h_save
+2022-06-27 19:03:04,109 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h
+2022-06-27 19:03:04,124 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c_save
+2022-06-27 19:03:04,212 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c
+2022-06-27 19:03:04,220 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h_save
+2022-06-27 19:03:04,284 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h
+2022-06-27 19:03:04,299 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp_save
+2022-06-27 19:03:04,355 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp
+2022-06-27 19:03:04,421 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c_save
+2022-06-27 19:03:04,490 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c
+2022-06-27 19:03:04,501 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h_save
+2022-06-27 19:03:04,572 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h
+2022-06-27 19:03:04,576 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:03:04,585 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:03:04,622 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:03:04,627 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:03:04,669 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:03:04,675 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:03:04,717 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:03:04,722 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:03:04,775 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:03:04,800 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h_save
+2022-06-27 19:03:04,885 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h
+2022-06-27 19:03:04,902 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c_save
+2022-06-27 19:03:04,974 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c
+2022-06-27 19:03:04,991 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h_save
+2022-06-27 19:03:05,060 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h
+2022-06-27 19:03:05,070 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h_save
+2022-06-27 19:03:05,138 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h
+2022-06-27 19:03:05,156 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c_save
+2022-06-27 19:03:05,231 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c
+2022-06-27 19:03:05,245 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c_save
+2022-06-27 19:03:05,306 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c
+2022-06-27 19:03:05,316 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h_save
+2022-06-27 19:03:05,381 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h
+2022-06-27 19:03:05,398 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c_save
+2022-06-27 19:03:05,506 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c
+2022-06-27 19:03:05,515 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h_save
+2022-06-27 19:03:05,573 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h
+2022-06-27 19:03:05,583 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c_save
+2022-06-27 19:03:05,670 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c
+2022-06-27 19:03:05,677 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h_save
+2022-06-27 19:03:05,741 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h
+2022-06-27 19:03:05,748 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c_save
+2022-06-27 19:03:05,846 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c
+2022-06-27 19:03:05,852 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h_save
+2022-06-27 19:03:05,918 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h
+2022-06-27 19:03:05,931 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c_save
+2022-06-27 19:03:06,038 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c
+2022-06-27 19:03:06,046 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h_save
+2022-06-27 19:03:06,104 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h
+2022-06-27 19:03:06,121 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c_save
+2022-06-27 19:03:06,195 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c
+2022-06-27 19:03:06,200 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h_save
+2022-06-27 19:03:06,253 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h
+2022-06-27 19:03:06,277 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c_save
+2022-06-27 19:03:06,356 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c
+2022-06-27 19:03:06,375 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h_save
+2022-06-27 19:03:06,433 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h
+2022-06-27 19:03:06,458 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c_save
+2022-06-27 19:03:06,534 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c
+2022-06-27 19:03:06,548 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp_save
+2022-06-27 19:03:06,590 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp
+2022-06-27 19:03:06,607 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h_save
+2022-06-27 19:03:06,675 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h
+2022-06-27 19:03:06,732 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h_save
+2022-06-27 19:03:06,802 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h
+2022-06-27 19:03:06,813 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c_save
+2022-06-27 19:03:06,934 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c
+2022-06-27 19:03:07,766 [INFO] ProjectBuilder:2913 - Time for Copy HAL[1] : 360mS.
+2022-06-27 19:03:07,774 [INFO] ProjectBuilder:4015 - Project Generator version: 3.16.0
+2022-06-27 19:03:08,226 [INFO] ConfigFileManager:1287 - The Die is : DIE451
+2022-06-27 19:03:08,242 [INFO] ApiDbMcu:488 - Load IP Config File for FREERTOS
+2022-06-27 19:03:08,242 [INFO] ApiDbMcu:488 - Load IP Config File for LIBJPEG
+2022-06-27 19:03:08,259 [INFO] ApiDbMcu:488 - Load IP Config File for LWIP
+2022-06-27 19:03:08,267 [INFO] ApiDbMcu:488 - Load IP Config File for MBEDTLS
+2022-06-27 19:03:08,301 [INFO] ApiDbMcu:488 - Load IP Config File for USB_DEVICE
+2022-06-27 19:03:08,309 [INFO] ApiDbMcu:488 - Load IP Config File for USB_HOST
+2022-06-27 19:03:10,717 [INFO] ProjectBuilder:4183 - Time for Generating toolchain IDE Files: 2942mS.
+2022-06-27 19:03:10,719 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 1mS.
+2022-06-27 19:03:10,724 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 0mS.
+2022-06-27 19:13:19,972 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 19:13:48,948 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 19:14:32,935 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 356974656 Bytes (698351616)
+2022-06-27 19:14:36,163 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 386857024 Bytes (698351616)
+2022-06-27 19:14:36,698 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 436666432 Bytes (698351616)
+2022-06-27 19:14:36,860 [INFO] ProjectBuilder:2248 - IP not ready for code generation: FATFS
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SYS
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RCC
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:14:42,949 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RTC
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SDMMC
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: NVIC
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: USART
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: DMA
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: UART
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: GPIO
+2022-06-27 19:14:42,950 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: FATFS
+2022-06-27 19:14:42,950 [INFO] CodeGenerator:681 - code generatio: config db path: C:/Users/Patryk/.stm32cubemx/databases/DB.6.0.30/db/
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 19:14:42,983 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 19:14:43,847 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp_save
+2022-06-27 19:14:43,900 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp
+2022-06-27 19:14:43,958 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c_save
+2022-06-27 19:14:44,040 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c
+2022-06-27 19:14:44,050 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h_save
+2022-06-27 19:14:44,120 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h
+2022-06-27 19:14:45,430 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:14:45,430 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:14:45,493 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:14:45,495 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:14:45,527 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:14:45,527 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:14:45,570 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:14:45,572 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:14:45,615 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:14:45,622 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c_save
+2022-06-27 19:14:45,700 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c
+2022-06-27 19:14:45,700 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h_save
+2022-06-27 19:14:45,754 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h
+2022-06-27 19:14:45,766 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c_save
+2022-06-27 19:14:45,846 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c
+2022-06-27 19:14:45,846 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h_save
+2022-06-27 19:14:45,898 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h
+2022-06-27 19:14:45,907 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp_save
+2022-06-27 19:14:45,938 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp
+2022-06-27 19:14:46,033 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c_save
+2022-06-27 19:14:46,073 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c
+2022-06-27 19:14:46,081 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h_save
+2022-06-27 19:14:46,131 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h
+2022-06-27 19:14:46,137 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:14:46,148 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:14:46,182 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:14:46,186 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:14:46,220 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:14:46,220 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:14:46,258 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:14:46,258 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:14:46,312 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:14:46,315 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h_save
+2022-06-27 19:14:46,396 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h
+2022-06-27 19:14:46,412 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c_save
+2022-06-27 19:14:46,469 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c
+2022-06-27 19:14:46,484 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h_save
+2022-06-27 19:14:46,565 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h
+2022-06-27 19:14:46,570 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h_save
+2022-06-27 19:14:46,616 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h
+2022-06-27 19:14:46,621 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c_save
+2022-06-27 19:14:46,684 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c
+2022-06-27 19:14:46,696 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c_save
+2022-06-27 19:14:46,745 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c
+2022-06-27 19:14:46,755 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h_save
+2022-06-27 19:14:46,801 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h
+2022-06-27 19:14:46,818 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c_save
+2022-06-27 19:14:46,898 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c
+2022-06-27 19:14:46,898 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h_save
+2022-06-27 19:14:46,961 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h
+2022-06-27 19:14:46,968 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c_save
+2022-06-27 19:14:47,066 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c
+2022-06-27 19:14:47,072 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h_save
+2022-06-27 19:14:47,121 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h
+2022-06-27 19:14:47,130 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c_save
+2022-06-27 19:14:47,196 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c
+2022-06-27 19:14:47,201 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h_save
+2022-06-27 19:14:47,251 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h
+2022-06-27 19:14:47,264 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c_save
+2022-06-27 19:14:47,345 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c
+2022-06-27 19:14:47,365 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h_save
+2022-06-27 19:14:47,403 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h
+2022-06-27 19:14:47,417 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c_save
+2022-06-27 19:14:47,470 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c
+2022-06-27 19:14:47,474 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h_save
+2022-06-27 19:14:47,531 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h
+2022-06-27 19:14:47,548 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c_save
+2022-06-27 19:14:47,613 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c
+2022-06-27 19:14:47,629 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h_save
+2022-06-27 19:14:47,683 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h
+2022-06-27 19:14:47,701 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c_save
+2022-06-27 19:14:47,777 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c
+2022-06-27 19:14:47,777 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp_save
+2022-06-27 19:14:47,827 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp
+2022-06-27 19:14:47,842 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h_save
+2022-06-27 19:14:47,911 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h
+2022-06-27 19:14:47,945 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h_save
+2022-06-27 19:14:47,992 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h
+2022-06-27 19:14:48,008 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c_save
+2022-06-27 19:14:48,104 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c
+2022-06-27 19:14:48,712 [INFO] ProjectBuilder:2913 - Time for Copy HAL[1] : 217mS.
+2022-06-27 19:14:48,728 [INFO] ProjectBuilder:4015 - Project Generator version: 3.16.0
+2022-06-27 19:14:48,975 [INFO] ConfigFileManager:1287 - The Die is : DIE451
+2022-06-27 19:14:50,174 [INFO] ProjectBuilder:4183 - Time for Generating toolchain IDE Files: 1446mS.
+2022-06-27 19:14:50,176 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 2mS.
+2022-06-27 19:14:50,177 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 0mS.
+2022-06-27 19:18:30,740 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 19:18:32,421 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 445708448 Bytes (779091968)
+2022-06-27 19:18:34,443 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 476117152 Bytes (779091968)
+2022-06-27 19:18:34,985 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 529594528 Bytes (779091968)
+2022-06-27 19:18:35,169 [INFO] ProjectBuilder:2248 - IP not ready for code generation: FATFS
+2022-06-27 19:18:40,904 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SYS
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RCC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RTC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SDMMC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: NVIC
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: USART
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: DMA
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: UART
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: GPIO
+2022-06-27 19:18:40,905 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: FATFS
+2022-06-27 19:18:40,905 [INFO] CodeGenerator:681 - code generatio: config db path: C:/Users/Patryk/.stm32cubemx/databases/DB.6.0.30/db/
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 19:18:40,940 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 19:18:41,700 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp_save
+2022-06-27 19:18:41,731 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp
+2022-06-27 19:18:41,784 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c_save
+2022-06-27 19:18:41,833 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c
+2022-06-27 19:18:41,836 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h_save
+2022-06-27 19:18:41,879 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h
+2022-06-27 19:18:43,268 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:18:43,280 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:18:43,335 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:18:43,335 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:18:43,364 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:18:43,364 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:18:43,421 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:18:43,421 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:18:43,471 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:18:43,485 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c_save
+2022-06-27 19:18:43,551 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c
+2022-06-27 19:18:43,566 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h_save
+2022-06-27 19:18:43,599 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h
+2022-06-27 19:18:43,614 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c_save
+2022-06-27 19:18:43,686 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c
+2022-06-27 19:18:43,688 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h_save
+2022-06-27 19:18:43,736 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h
+2022-06-27 19:18:43,746 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp_save
+2022-06-27 19:18:43,778 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp
+2022-06-27 19:18:43,841 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c_save
+2022-06-27 19:18:43,889 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c
+2022-06-27 19:18:43,906 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h_save
+2022-06-27 19:18:43,950 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h
+2022-06-27 19:18:43,963 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 19:18:43,972 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 19:18:44,012 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 19:18:44,018 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 19:18:44,056 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 19:18:44,060 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 19:18:44,096 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 19:18:44,102 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 19:18:44,141 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 19:18:44,144 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h_save
+2022-06-27 19:18:44,202 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h
+2022-06-27 19:18:44,210 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c_save
+2022-06-27 19:18:44,262 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c
+2022-06-27 19:18:44,276 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h_save
+2022-06-27 19:18:44,324 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h
+2022-06-27 19:18:44,324 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h_save
+2022-06-27 19:18:44,364 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h
+2022-06-27 19:18:44,366 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c_save
+2022-06-27 19:18:44,430 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c
+2022-06-27 19:18:44,439 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c_save
+2022-06-27 19:18:44,480 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c
+2022-06-27 19:18:44,485 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h_save
+2022-06-27 19:18:44,525 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h
+2022-06-27 19:18:44,542 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c_save
+2022-06-27 19:18:44,622 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c
+2022-06-27 19:18:44,622 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h_save
+2022-06-27 19:18:44,677 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h
+2022-06-27 19:18:44,685 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c_save
+2022-06-27 19:18:44,747 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c
+2022-06-27 19:18:44,752 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h_save
+2022-06-27 19:18:44,797 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h
+2022-06-27 19:18:44,805 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c_save
+2022-06-27 19:18:44,865 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c
+2022-06-27 19:18:44,870 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h_save
+2022-06-27 19:18:44,916 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h
+2022-06-27 19:18:44,934 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c_save
+2022-06-27 19:18:45,034 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c
+2022-06-27 19:18:45,043 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h_save
+2022-06-27 19:18:45,084 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h
+2022-06-27 19:18:45,084 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c_save
+2022-06-27 19:18:45,151 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c
+2022-06-27 19:18:45,151 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h_save
+2022-06-27 19:18:45,203 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h
+2022-06-27 19:18:45,225 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c_save
+2022-06-27 19:18:45,297 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c
+2022-06-27 19:18:45,301 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h_save
+2022-06-27 19:18:45,342 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h
+2022-06-27 19:18:45,354 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c_save
+2022-06-27 19:18:45,421 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c
+2022-06-27 19:18:45,424 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp_save
+2022-06-27 19:18:45,458 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp
+2022-06-27 19:18:45,461 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h_save
+2022-06-27 19:18:45,528 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h
+2022-06-27 19:18:45,562 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h_save
+2022-06-27 19:18:45,620 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h
+2022-06-27 19:18:45,636 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c_save
+2022-06-27 19:18:45,785 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c
+2022-06-27 19:18:46,494 [INFO] ProjectBuilder:2913 - Time for Copy HAL[1] : 264mS.
+2022-06-27 19:18:46,501 [INFO] ProjectBuilder:4015 - Project Generator version: 3.16.0
+2022-06-27 19:18:46,686 [INFO] ConfigFileManager:1287 - The Die is : DIE451
+2022-06-27 19:18:47,638 [INFO] ProjectBuilder:4183 - Time for Generating toolchain IDE Files: 1137mS.
+2022-06-27 19:18:47,640 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 2mS.
+2022-06-27 19:18:47,640 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 0mS.
+2022-06-27 19:37:49,412 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:49,428 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:49,444 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:49,459 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:50,754 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:50,771 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:50,787 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:37:50,818 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:38:32,357 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:38:32,372 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:38:32,388 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:38:32,404 [INFO] I2cTimingTraitement:325 - 0x00300F38
+2022-06-27 19:42:39,282 [INFO] NvicIntPanel:96 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,450x189,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2022-06-27 20:11:47,954 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 846617496 Bytes (1064304640)
+2022-06-27 20:11:50,471 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 350026400 Bytes (1064304640)
+2022-06-27 20:11:50,683 [INFO] UtilMem:74 - End SaveConfig() Used Memory: 460917312 Bytes (1064304640)
+2022-06-27 20:11:50,888 [INFO] ProjectBuilder:2248 - IP not ready for code generation: FATFS
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: CAN
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SYS
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: ADC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RCC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: I2C
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: RTC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: SDMMC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: NVIC
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: USART
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: DMA
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: TIM1_8F77
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: UART
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: GPIO
+2022-06-27 20:11:52,054 [INFO] BlockDiagram:2740 - set Specific Code input for plugin: FATFS
+2022-06-27 20:11:52,057 [INFO] CodeGenerator:681 - code generatio: config db path: C:/Users/Patryk/.stm32cubemx/databases/DB.6.0.30/db/
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream0
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : hdmavalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Instancevalue: DMA2_Stream5
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Initvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:298 - 	 sub Args: 
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Channelvalue: DMA_CHANNEL_11
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_WORD
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Modevalue: DMA_PFCTRL
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : FIFOModevalue: DMA_FIFOMODE_ENABLE
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : FIFOThresholdvalue: DMA_FIFO_THRESHOLD_FULL
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : MemBurstvalue: DMA_MBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : PeriphBurstvalue: DMA_PBURST_INC4
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Lockvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Lockvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Statevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Statevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : Parentvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : Parentvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferHalfCpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferM1CpltCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : XferErrorCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : XferErrorCallbackvalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:296 - Argument : ErrorCodevalue: null
+2022-06-27 20:11:52,089 [INFO] Argument:306 - Argument : ErrorCodevalue: null
+2022-06-27 20:11:52,832 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp_save
+2022-06-27 20:11:52,883 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\license.tmp
+2022-06-27 20:11:52,936 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c_save
+2022-06-27 20:11:53,011 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\gpio.c
+2022-06-27 20:11:53,016 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h_save
+2022-06-27 20:11:53,069 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\gpio.h
+2022-06-27 20:11:54,419 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 20:11:54,419 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 20:11:54,465 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 20:11:54,468 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 20:11:54,502 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 20:11:54,502 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 20:11:54,541 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 20:11:54,543 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 20:11:54,582 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 20:11:54,598 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c_save
+2022-06-27 20:11:54,666 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\adc.c
+2022-06-27 20:11:54,666 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h_save
+2022-06-27 20:11:54,720 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\adc.h
+2022-06-27 20:11:54,724 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c_save
+2022-06-27 20:11:54,788 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\can.c
+2022-06-27 20:11:54,788 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h_save
+2022-06-27 20:11:54,836 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\can.h
+2022-06-27 20:11:54,836 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp_save
+2022-06-27 20:11:54,886 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\cortex.tmp
+2022-06-27 20:11:54,934 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c_save
+2022-06-27 20:11:54,982 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\dma.c
+2022-06-27 20:11:54,982 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h_save
+2022-06-27 20:11:55,032 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\dma.h
+2022-06-27 20:11:55,032 [INFO] Middleware:1388 - No code input for Bsp Dependency
+2022-06-27 20:11:55,044 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp_save
+2022-06-27 20:11:55,077 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_HalInit.tmp
+2022-06-27 20:11:55,085 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp_save
+2022-06-27 20:11:55,118 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_vars.tmp
+2022-06-27 20:11:55,130 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp_save
+2022-06-27 20:11:55,168 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_ext_vars.tmp
+2022-06-27 20:11:55,170 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp_save
+2022-06-27 20:11:55,206 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\fatfs_inc.tmp
+2022-06-27 20:11:55,215 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h_save
+2022-06-27 20:11:55,270 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\ffconf.h
+2022-06-27 20:11:55,276 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c_save
+2022-06-27 20:11:55,336 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.c
+2022-06-27 20:11:55,343 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h_save
+2022-06-27 20:11:55,394 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\bsp_driver_sd.h
+2022-06-27 20:11:55,396 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h_save
+2022-06-27 20:11:55,442 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.h
+2022-06-27 20:11:55,449 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c_save
+2022-06-27 20:11:55,503 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\Target\sd_diskio.c
+2022-06-27 20:11:55,503 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c_save
+2022-06-27 20:11:55,559 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.c
+2022-06-27 20:11:55,561 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h_save
+2022-06-27 20:11:55,607 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\FATFS\App\fatfs.h
+2022-06-27 20:11:55,623 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c_save
+2022-06-27 20:11:55,699 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\i2c.c
+2022-06-27 20:11:55,706 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h_save
+2022-06-27 20:11:55,771 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\i2c.h
+2022-06-27 20:11:55,771 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c_save
+2022-06-27 20:11:55,842 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\rtc.c
+2022-06-27 20:11:55,845 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h_save
+2022-06-27 20:11:55,898 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\rtc.h
+2022-06-27 20:11:55,906 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c_save
+2022-06-27 20:11:55,967 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\sdmmc.c
+2022-06-27 20:11:55,976 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h_save
+2022-06-27 20:11:56,022 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\sdmmc.h
+2022-06-27 20:11:56,037 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c_save
+2022-06-27 20:11:56,108 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\tim.c
+2022-06-27 20:11:56,108 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h_save
+2022-06-27 20:11:56,175 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\tim.h
+2022-06-27 20:11:56,181 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c_save
+2022-06-27 20:11:56,236 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\usart.c
+2022-06-27 20:11:56,236 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h_save
+2022-06-27 20:11:56,285 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\usart.h
+2022-06-27 20:11:56,308 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c_save
+2022-06-27 20:11:56,369 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_it.c
+2022-06-27 20:11:56,373 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h_save
+2022-06-27 20:11:56,416 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_it.h
+2022-06-27 20:11:56,421 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c_save
+2022-06-27 20:11:56,506 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\stm32f7xx_hal_msp.c
+2022-06-27 20:11:56,507 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp_save
+2022-06-27 20:11:56,545 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\MXTmpFiles\system.tmp
+2022-06-27 20:11:56,558 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h_save
+2022-06-27 20:11:56,632 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\stm32f7xx_hal_conf.h
+2022-06-27 20:11:56,668 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h_save
+2022-06-27 20:11:56,733 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Inc\main.h
+2022-06-27 20:11:56,745 [INFO] CodeEngine:237 - oldGeneratedFile, C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c_save
+2022-06-27 20:11:56,820 [INFO] CodeEngine:261 - Generated code: C:\Users\Patryk\Desktop\PGR\PGRacingElectronics\Telemetry\code\MicroSD_SDIO\Core\Src\main.c
+2022-06-27 20:11:57,464 [INFO] ProjectBuilder:2913 - Time for Copy HAL[1] : 225mS.
+2022-06-27 20:11:57,464 [INFO] ProjectBuilder:4015 - Project Generator version: 3.16.0
+2022-06-27 20:11:57,637 [INFO] ConfigFileManager:1287 - The Die is : DIE451
+2022-06-27 20:11:58,619 [INFO] ProjectBuilder:4183 - Time for Generating toolchain IDE Files: 1155mS.
+2022-06-27 20:11:58,619 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 0mS.
+2022-06-27 20:11:58,619 [INFO] ProjectBuilder:2785 - Time for Copy CMSIS : 0mS.
