@@ -27,6 +27,16 @@ void initSDCard(FATFS* fs)
 		  mountFailHandler();
 	  }
 }
+void openAllFiles()
+{
+	if(statusRegister.SDCARD == SENSOR_OK)
+	{
+		if(statusRegister.GYRO == SENSOR_OK){
+			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
+		}
+
+	}
+}
 int createHeaders(FIL * file,char * path)
 {
 	FRESULT fres;

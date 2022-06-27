@@ -10,7 +10,7 @@
 
 #include "sensorFunctions.h"
 void initSDCard(FATFS* fs);
-
+void openAllFiles();
 int createHeaders(FIL * file,char * path);
 
 int openFile(FIL * file, char * path, BYTE mode);

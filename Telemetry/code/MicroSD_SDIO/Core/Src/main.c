@@ -79,12 +79,52 @@ extern GyroSensor gyro;
 extern MLXSensor MLXLF;
 extern MLXSensor rightFWheelMlx;
 
+int statusToInt()
+{	int fullRegister = statusRegister.TeleBack;
+	fullRegister = fullRegister << 2;
+	fullRegister =  (fullRegister  |statusRegister.DamperRF) << 3;
+	fullRegister =  (fullRegister  |statusRegister.DamperLF) << 3;
+	fullRegister =  (fullRegister  |statusRegister.Steering) << 3;
+	fullRegister =  (fullRegister  |statusRegister.VSSRF) << 3;
+	fullRegister =  (fullRegister  |statusRegister.VSSLF) << 3;
+	fullRegister =  (fullRegister  |statusRegister.MLXRF) << 3;
+	fullRegister =  (fullRegister  |statusRegister.MLXLF) << 3;
+	fullRegister = (fullRegister  | statusRegister.GYRO) << 3;
+	fullRegister = (fullRegister  | statusRegister.GPS) << 3;
+	fullRegister =  (fullRegister  |statusRegister.SDCARD);
+	return fullRegister;
+}
+void printStatusRegister()
+{
 
+	int a = sizeof(statusRegister);
+	//a = sizeof(statusRegister.checkTime);
+	int fullRegister = statusToInt();
+	int b =0;
+	for(int i=31;i>=0;i--)
+	{
+		b = fullRegister >> i;
+		if(b & 1)
+		{
+			printf("1");
+		}else
+		{
+			printf("0");
+		}
+		if(i%3 == 0)
+		{
+			printf(" ");
+		}
 
+	}
+	printf("\n");
+}
 
 void initializeSensors()
 {
 	  int res = mlxInit(&MLXLF);
+	  gyroInit(&gyro);
+
 	  //res = res | mlxInit(&rightFWheelMLX);
 
 
@@ -121,6 +161,23 @@ int getTime(  RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
     HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
     return ((time->SecondFraction-time->SubSeconds)/((float)time->SecondFraction+1) * 1000);
 }
+
+volatile uint32_t captured_value;
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim == &htim3) {
+    switch (HAL_TIM_GetActiveChannel(&htim3)) {
+      case HAL_TIM_ACTIVE_CHANNEL_1:
+        captured_value = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+
 /* USER CODE END 0 */
 
 /**
@@ -178,6 +235,7 @@ int main(void)
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
   HAL_TIM_Base_Start_IT(&htim14);
   HAL_Delay(3000);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
 
@@ -185,9 +243,14 @@ int main(void)
 
 
   HAL_Delay(1000);
+  initializeSensors();
+  initSDCard(&fileSystem);
+  printStatusRegister();
 
+  openAllFiles();
 
-
+  HAL_TIM_Base_Start(&htim3);
+  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -198,13 +261,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  if (captured_value != 0) {
+		  printf("value = %lu\n", captured_value);
+		  captured_value = 0;
+	  }
 
 
-
-
-	  //imu_9dof_get_data(&gyro.data);
-	  //saveGyroData(&gyro);
-
+	  if(!gyro.dataReady)
+	  {
+		  imu_9dof_get_data(&gyro.data);
+	  	  saveGyroData(&gyro);
+	  }
 
 	  //HAL_Delay(200);
 	  //mlxGetData();

@@ -26,10 +26,11 @@ void gyroInit(GyroSensor * gyro)
 		statusRegister.GYRO = SENSOR_INIT_FAIL;
 	}
 	gyro->File = (FIL*)malloc(sizeof(FIL));
-	gyro->dataReady = 0;
+
 	RTC_DateTypeDef date;
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 	sprintf(gyro->path,"GYRO%02d%02d.csv",date.Date,date.Month);
+	gyro->dataReady = 0;
 	gyro->saveRate = GYRODATARATE;
 	gyro->timeToNextRead = GYRODATARATE;
 }
@@ -49,6 +50,7 @@ void imu_9dof_get_data(struct imu_9dof_calc * imu_9dof_calculated)
 	imu_9dof imu_9dof_data;
     MPU9250_GetData(imu_9dof_data.acc_data, imu_9dof_data.mag_data, imu_9dof_data.gyro_data);
     imu_9dof_convert(&imu_9dof_data, imu_9dof_calculated);
+    gyro.dataReady = 0;
 }
 
 

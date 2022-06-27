@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;MicroSD_SDIO/Core/Src/basicFunctions.h&apos; to &apos;basicFunctions.c&apos;" description="Rename resource &apos;basicFunctions.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/basicFunctions.h" name="basicFunctions.c" stamp="1653663419095" updateReferences="true"/>
+</session>

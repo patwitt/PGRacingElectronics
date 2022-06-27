@@ -1,6 +1,6 @@
-../Core/Src/sensorFunctions.c:17:6:gyroInit	24	static
-../Core/Src/sensorFunctions.c:25:6:imu_9dof_convert	16	static
-../Core/Src/sensorFunctions.c:36:6:imu_9dof_get_data	40	static
-../Core/Src/sensorFunctions.c:50:5:mlxInit	24	static
-../Core/Src/sensorFunctions.c:105:5:mlxGetData	1688	static
-../Core/Src/sensorFunctions.c:132:6:mlxPrintData	24	static
+../Core/Src/sensorFunctions.c:19:6:gyroInit	24	static
+../Core/Src/sensorFunctions.c:37:6:imu_9dof_convert	16	static
+../Core/Src/sensorFunctions.c:48:6:imu_9dof_get_data	40	static
+../Core/Src/sensorFunctions.c:63:5:mlxInit	24	static
+../Core/Src/sensorFunctions.c:124:5:mlxGetData	1688	static
+../Core/Src/sensorFunctions.c:151:6:mlxPrintData	24	static
