@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name PowerBox-rescue)(type Legacy)(uri ${KIPRJMOD}/PowerBox-rescue.lib)(options "")(descr ""))
+)
