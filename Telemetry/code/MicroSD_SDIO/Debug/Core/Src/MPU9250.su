@@ -9,8 +9,8 @@
 ../Core/Src/MPU9250.c:223:16:whoAmI	8	static
 ../Core/Src/MPU9250.c:232:12:whoAmIAK8963	8	static
 ../Core/Src/MPU9250.c:240:9:MPU9250_Init	16	static
-../Core/Src/MPU9250.c:341:6:MPU9250_SetAccelRange	16	static
-../Core/Src/MPU9250.c:347:6:MPU9250_SetGyroRange	16	static
-../Core/Src/MPU9250.c:353:6:MPU9250_SetDLPFBandwidth	16	static
-../Core/Src/MPU9250.c:360:6:MPU9250_SetSampleRateDivider	16	static
-../Core/Src/MPU9250.c:403:6:MPU9250_GetData	32	static
+../Core/Src/MPU9250.c:347:6:MPU9250_SetAccelRange	16	static
+../Core/Src/MPU9250.c:353:6:MPU9250_SetGyroRange	16	static
+../Core/Src/MPU9250.c:359:6:MPU9250_SetDLPFBandwidth	16	static
+../Core/Src/MPU9250.c:366:6:MPU9250_SetSampleRateDivider	16	static
+../Core/Src/MPU9250.c:409:6:MPU9250_GetData	32	static

@@ -19,10 +19,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "can.h"
 #include "dma.h"
 #include "fatfs.h"
 #include "i2c.h"
+#include "rtc.h"
 #include "sdmmc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -31,33 +35,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "MPU9250.h"
+
 #include "basicFunctions.h"
-#include "MLX90640_API.h"
-#include "MLX90640_I2C_Driver.h"
+#include "SDCARD.h"
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define  FPS2HZ   0x02
-#define  FPS4HZ   0x03
-#define  FPS8HZ   0x04
-#define  FPS16HZ  0x05
-#define  FPS32HZ  0x06
 
-#define  MLX90640_ADDR 0x33
-#define	 RefreshRate 0x04
-#define  TA_SHIFT 8 //Default shift for MLX90640 in open air
 
-static uint16_t eeMLX90640[832];
 
-uint16_t frame[834];
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define FILE_DEFAULT_WRITE FA_WRITE | FA_OPEN_APPEND
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -79,158 +73,54 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-typedef struct MLX{
-	FIL mlxFile;
-	I2C_HandleTypeDef i2c;
-	int dataReady;
-	paramsMLX90640 mlx90640;
-	float data[768];
-	float ambientTemp;
-	float vdd;
-	float emissivity;
 
-}MLX;
-MLX mlx;
-int mlxInit()
+SensorStatus statusRegister;
+extern GyroSensor gyro;
+extern MLXSensor MLXLF;
+extern MLXSensor rightFWheelMlx;
+
+
+
+
+void initializeSensors()
 {
-		static uint16_t eeMLX90640[832];
-		HAL_Delay(200);
-		MLX90640_SetRefreshRate(MLX90640_ADDR, RefreshRate);
-	  	MLX90640_SetChessMode(MLX90640_ADDR);
-	  	mlx.emissivity = 0.95;
-	    int status = MLX90640_DumpEE(MLX90640_ADDR, eeMLX90640);
-	    if (status != 0) return status;
-	    status = MLX90640_ExtractParameters(eeMLX90640, &mlx.mlx90640);
-	    if (status != 0) return status;
+	  int res = mlxInit(&MLXLF);
+	  //res = res | mlxInit(&rightFWheelMLX);
 
-	    return 0;
-
-}
-int mlxGetData(){
-	int status = MLX90640_GetFrameData(MLX90640_ADDR, frame);
-	if (status < 0)
-	{
-		printf("Error!\n");
-		return status;
-	}
-
-	mlx.vdd = MLX90640_GetVdd(frame, &mlx.mlx90640);
-	mlx.ambientTemp = MLX90640_GetTa(frame, &mlx.mlx90640) - TA_SHIFT;
-
-	MLX90640_CalculateTo(frame, &mlx.mlx90640, mlx.emissivity , mlx.ambientTemp, mlx.data);
-	status = MLX90640_GetFrameData(MLX90640_ADDR, frame);
-			if(status < 0)
-			{
-				printf("Error!\n");
-			}
-	MLX90640_CalculateTo(frame, &mlx.mlx90640, mlx.emissivity , mlx.ambientTemp, mlx.data);
-	return 0;
-}
-void mlxPrintData()
-{
-	for(int i = 0; i < 768; i++){
-		if(i%32 == 0 && i != 0){
-			printf("\r\n");
-		}
-		printf("%2.2f ",mlx.data[i]);
-	}
-}
-
-struct imu_9dof
-{
-	int16_t acc_data[3];
-	int16_t mag_data[3];
-	int16_t gyro_data[3];
-};
-
-struct imu_9dof_calc
-{
-	double acc_data_calc[3];
-	double gyro_data_calc[3];
-};
-
-void imu_9dof_convert(struct imu_9dof * input, struct imu_9dof_calc * output)
-{
-	output->acc_data_calc[0] = (double) input->acc_data[0] / 16384;
-	output->acc_data_calc[1] = (double) input->acc_data[1] / 16384;
-	output->acc_data_calc[2] = (double) input->acc_data[2] / 16384;
-	output->gyro_data_calc[0] = (double) input->gyro_data[0] * 250 / 32768;
-	output->gyro_data_calc[1] = (double) input->gyro_data[1] * 250 / 32768;
-	output->gyro_data_calc[2] = (double) input->gyro_data[2] * 250 / 32768;
-}
-
-void imu_9dof_get_data(struct imu_9dof * imu_9dof_data, struct imu_9dof_calc * imu_9dof_calculated)
-{
-    MPU9250_GetData(imu_9dof_data->acc_data, imu_9dof_data->mag_data, imu_9dof_data->gyro_data);
-    imu_9dof_convert(imu_9dof_data, imu_9dof_calculated);
-}
-int createHeader(FIL * file,char * path)
-{
-	FRESULT fres;
-	int bytesWritten = 0;
-	fres = f_write(file,"timestamp,",strlen("timestamp,"),&bytesWritten);
-	if(fres != FR_OK){
-		printf("Error while creating %s header",path);
-		return -1;
-	}
-	if(strcmp(path,"GYRO.csv") == 0){
-		fres = f_write(file, "number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n", strlen("timestamp,number,gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n"), &bytesWritten);
-		if(fres != FR_OK)
-		{
-			printf("Error while creating %s header\n",path);
-			return -1;
-		}
-	}else if(strcmp(path,"MLX.csv") == 0){
-		char headerData[25];
-
-		for(int i=0;i<784;i++){
-			sprintf(headerData,"float_%d,", i);
-			fres =  f_write(file, headerData, strlen(headerData), &bytesWritten);
-			if(fres != FR_OK){
-				printf("Error while creating %s header\n",path);
-				return -1;
-			}
-		}
-
-	}else
-	{
-		return -2;
-	}
-	fres =  f_write(file, "\n", strlen("\n"), &bytesWritten);
-	return 1;
 
 }
 
-void openFile(FIL * file, char * path, BYTE mode)
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	FILINFO fInfo;
-	FRESULT fres = f_stat(path, &fInfo);
-	if(fres == FR_OK)
-	{
-		fres = f_open(file, path, mode);
-		if(fres == FR_OK)
-		{
-			printf("Opening file: %s succeeded\n", path);
-		}
-	}else if(fres == FR_NO_FILE)
-	{
-		fres = f_open(file, path, mode);
-		if(fres == FR_OK)
-		{
-			createHeader(file,path);
-			printf("No file: %s, created new\n", path);
-		}
-	}
-	f_sync(file);
 
-
+  if (htim == &htim14 )
+  {
+	 statusRegister.checkTime -= 25;
+	 if( statusRegister.checkTime <= 0)
+	 {
+		 //Check all sensors
+		 statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
+	 }
+	 MLXLF.timeToNextRead -= 25;
+	 if(MLXLF.timeToNextRead <= 0)
+	 {
+		 MLXLF.dataReady = 1;
+		 MLXLF.timeToNextRead = MLXDATARATE;
+	 }
+	 gyro.timeToNextRead -= 25;
+	 if(gyro.timeToNextRead <= 0)
+	 {
+		 gyro.dataReady = 1;
+		 gyro.timeToNextRead = GYRODATARATE;
+	 }
+  }
 }
-void mountFailHandler()
+int getTime(  RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
 {
-	printf("SDCard mount failed\n");
+	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
+    return ((time->SecondFraction-time->SubSeconds)/((float)time->SecondFraction+1) * 1000);
 }
-
-
 /* USER CODE END 0 */
 
 /**
@@ -264,39 +154,40 @@ int main(void)
   MX_USART3_UART_Init();
   MX_FATFS_Init();
   MX_DMA_Init();
-  MX_SDMMC1_SD_Init();
   MX_I2C1_Init();
+  MX_I2C2_Init();
+  MX_UART7_Init();
+  MX_SDMMC2_SD_Init();
+  MX_RTC_Init();
+  MX_ADC1_Init();
+  MX_ADC2_Init();
+  MX_ADC3_Init();
+  MX_CAN1_Init();
+  MX_CAN2_Init();
+  MX_I2C3_Init();
+  MX_I2C4_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
-  int res = mlxInit();
-  if(res != 0)
-  {
-    printf("Error while initializing mlx!\n");
-  }
-  FATFS fileSystem;
-  FIL gyroFIL;
-  FIL MLXFIL;
 
-  UINT writedBytes;
-  struct imu_9dof imu_9dof_data;
-  struct imu_9dof_calc imu_9dof_calculated;
-  MPU9250_Init();
-  char testdata[255];
-  FRESULT fres = 0;
+  FATFS fileSystem;
+
+  RTC_TimeTypeDef time;
+  RTC_DateTypeDef date;
+  statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
+  HAL_TIM_Base_Start_IT(&htim14);
+  HAL_Delay(3000);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+
+  HAL_Delay(200);
+
 
   HAL_Delay(1000);
 
-  if (f_mount(&fileSystem, "", 1) == FR_OK)
-  {
-	  printf("SDCard mounting success!\n");
-	  openFile(&MLXFIL, "MLX.csv", FILE_DEFAULT_WRITE);
-	  openFile(&gyroFIL, "GYRO.csv", FILE_DEFAULT_WRITE);
 
-  }else
-  {
-	  mountFailHandler();
-  }
-  //HAL_UART_Transmit(&huart3, "no filesystem\r\n", 6, HAL_MAX_DELAY);
-  int number = 1;
+
 
   /* USER CODE END 2 */
 
@@ -307,47 +198,21 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  char path[] = "GYRO.csv\0";
-	  char path2[] = "MLX.csv\0";
 
-	  sprintf(testdata, "%d,", HAL_GetTick());
-	f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
-	f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
 
-	imu_9dof_get_data(&imu_9dof_data, &imu_9dof_calculated);
-	for (int i = 0; i < 3; i++)
-	{
-		sprintf(testdata, "%f,", imu_9dof_calculated.gyro_data_calc[i]);
-		  f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
-		printf("%f ", imu_9dof_calculated.gyro_data_calc[i]);
+
+
+	  //imu_9dof_get_data(&gyro.data);
+	  //saveGyroData(&gyro);
+
+
+	  //HAL_Delay(200);
+	  //mlxGetData();
 
 	}
-	for (int i = 0; i < 3; i++)
-	{
-		sprintf(testdata, "%f,", imu_9dof_calculated.gyro_data_calc[i]);
-		  f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
-		printf("%f ", imu_9dof_calculated.acc_data_calc[i]);
-	}
-	sprintf(testdata, "\r\n ");
-	number++;
-	f_write(&gyroFIL, testdata, strlen(testdata), &writedBytes);
-	printf("\r\n");
-	mlxGetData();
-	printf("start = %d \r\n", HAL_GetTick());
-	for(int i=0;i<784;i++)
-		  {
-			  sprintf(testdata,"%2.2f,", mlx.data[i]);
-			  fres =  f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
-		  }
-	printf("end = %d \r\n", HAL_GetTick());
 
-	sprintf(testdata, "\r\n ");
-		f_write(&MLXFIL, testdata, strlen(testdata), &writedBytes);
-		f_sync(&gyroFIL);
-	  f_sync(&MLXFIL);
-	  HAL_Delay(1000);
 
-  }
+
   /* USER CODE END 3 */
 }
 
@@ -361,6 +226,10 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
+  /** Configure LSE Drive Capability
+  */
+  HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   /** Configure the main internal regulator output voltage
   */
   __HAL_RCC_PWR_CLK_ENABLE();
@@ -368,15 +237,15 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 96;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV8;
-  RCC_OscInitStruct.PLL.PLLQ = 8;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 25;
+  RCC_OscInitStruct.PLL.PLLN = 192;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV6;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -388,18 +257,27 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART3|RCC_PERIPHCLK_I2C1
-                              |RCC_PERIPHCLK_SDMMC1;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_USART3
+                              |RCC_PERIPHCLK_UART7|RCC_PERIPHCLK_I2C1
+                              |RCC_PERIPHCLK_I2C2|RCC_PERIPHCLK_I2C3
+                              |RCC_PERIPHCLK_I2C4|RCC_PERIPHCLK_SDMMC2
+                              |RCC_PERIPHCLK_CLK48;
+  PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInitStruct.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.Uart7ClockSelection = RCC_UART7CLKSOURCE_PCLK1;
   PeriphClkInitStruct.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
-  PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_SYSCLK;
+  PeriphClkInitStruct.I2c2ClockSelection = RCC_I2C2CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.I2c3ClockSelection = RCC_I2C3CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
+  PeriphClkInitStruct.Sdmmc2ClockSelection = RCC_SDMMC2CLKSOURCE_CLK48;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
     Error_Handler();

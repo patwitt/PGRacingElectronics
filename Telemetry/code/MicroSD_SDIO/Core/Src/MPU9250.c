@@ -97,7 +97,7 @@ __weak void MPU9250_OnActivate()
 {
 }
 #ifndef USE_SPI
-bool	MPU9250_IsConnected()
+bool MPU9250_IsConnected()
 {
 	if(HAL_I2C_IsDeviceReady(&_MPU9250_I2C,_dev_add,1,HAL_MAX_DELAY)==HAL_OK)
 		return true;
@@ -240,9 +240,15 @@ static int whoAmIAK8963(){
 uint8_t MPU9250_Init()
 {
 	#ifndef USE_SPI
-	while(MPU9250_IsConnected() == false)
+	int tries = 0;
+	while(MPU9250_IsConnected() == false && tries < 5)
 	{
+		tries++;
 		HAL_Delay(100);
+	}
+	if(tries == 5)
+	{
+		return 1;
 	}
 	#endif
 	// select clock source to gyro

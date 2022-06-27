@@ -1,0 +1,6 @@
+../Core/Src/SDCARD.c:16:6:initSDCard	16	static
+../Core/Src/SDCARD.c:30:5:createHeaders	56	static
+../Core/Src/SDCARD.c:66:5:openFile	56	static
+../Core/Src/SDCARD.c:106:6:saveGyroData	296	static
+../Core/Src/SDCARD.c:131:6:saveMLXData	296	static
+../Core/Src/SDCARD.c:150:6:mountFailHandler	8	static

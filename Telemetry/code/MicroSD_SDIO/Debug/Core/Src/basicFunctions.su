@@ -1,0 +1,2 @@
+../Core/Src/basicFunctions.c:19:6:I2CScanner	96	static
+../Core/Src/basicFunctions.c:41:5:__io_putchar	16	static

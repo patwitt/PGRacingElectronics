@@ -1,11 +1,5 @@
-../Core/Src/main.c:94:5:mlxInit	16	static
-../Core/Src/main.c:109:5:mlxGetData	16	static
-../Core/Src/main.c:129:6:mlxPrintData	16	static
-../Core/Src/main.c:152:6:imu_9dof_convert	16	static
-../Core/Src/main.c:162:6:imu_9dof_get_data	16	static
-../Core/Src/main.c:167:5:createHeader	56	static
-../Core/Src/main.c:204:6:openFile	56	static
-../Core/Src/main.c:228:6:mountFailHandler	8	static
-../Core/Src/main.c:240:5:main	12824	static
-../Core/Src/main.c:358:6:SystemClock_Config	232	static
-../Core/Src/main.c:417:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:85:6:initializeSensors	16	static
+../Core/Src/main.c:97:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:129:5:main	4192	static
+../Core/Src/main.c:226:6:SystemClock_Config	232	static
+../Core/Src/main.c:298:6:Error_Handler	4	static,ignoring_inline_asm
