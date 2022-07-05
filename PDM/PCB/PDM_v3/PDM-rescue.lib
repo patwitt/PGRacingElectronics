@@ -1,6 +1,61 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# 90130-1106-90130-1106
+#
+DEF 90130-1106-90130-1106 J 0 30 Y Y 1 F N
+F0 "J" 650 300 50 H V L CNN
+F1 "90130-1106-90130-1106" 650 200 50 H V L CNN
+F2 "SHDR6W65P254_2X3_996X975X1110P" 650 100 50 H I L CNN
+F3 "https://www.molex.com/pdm_docs/sd/901301106_sd.pdf" 650 0 50 H I L CNN
+F4 "Headers & Wire Housings 2.54MM CGRIDIII HDR 6P V DR SHRD TIN" 650 -100 50 H I L CNN "Description"
+F5 "11.1" 650 -200 50 H I L CNN "Height"
+F6 "Molex" 650 -300 50 H I L CNN "Manufacturer_Name"
+F7 "90130-1106" 650 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "538-90130-1106" 650 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Molex/90130-1106/?qs=kEwmkoUtv7SJTmEdS0xkTg%3D%3D" 650 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 600 100 600 -300 200 -300 200 100 N
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 800 0 200 L 50 50 0 0 P
+X 3 3 0 -100 200 R 50 50 0 0 P
+X 4 4 800 -100 200 L 50 50 0 0 P
+X 5 5 0 -200 200 R 50 50 0 0 P
+X 6 6 800 -200 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# AO3401A-AO3401A
+#
+DEF AO3401A-AO3401A Q 0 30 Y Y 1 F N
+F0 "Q" 450 150 50 H V L CNN
+F1 "AO3401A-AO3401A" 450 50 50 H V L CNN
+F2 "SOT95P280X125-3N" 450 -50 50 H I L CNN
+F3 "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf" 450 -150 50 H I L CNN
+F4 "30V P-Channel MOSFET" 450 -250 50 H I L CNN "Description"
+F5 "1.25" 450 -350 50 H I L CNN "Height"
+F6 "Alpha & Omega Semiconductors" 450 -450 50 H I L CNN "Manufacturer_Name"
+F7 "AO3401A" 450 -550 50 H I L CNN "Manufacturer_Part_Number"
+F8 "AO3401A" 450 -850 50 H I L CNN "Arrow Part Number"
+F9 "https://www.arrow.com/en/products/ao3401a/alpha-and-omega-semiconductor?region=nac" 450 -950 50 H I L CNN "Arrow Price/Stock"
+DRAW
+C 250 100 150 0 1 10 N
+P 2 0 1 6 230 -20 230 20 N
+P 2 0 1 6 230 0 300 0 N
+P 2 0 1 6 230 80 230 120 N
+P 2 0 1 6 230 220 230 180 N
+P 2 0 1 6 300 100 230 100 N
+P 2 0 1 6 300 100 300 -100 N
+P 2 0 1 6 300 200 230 200 N
+P 2 0 1 6 300 200 300 300 N
+P 3 0 1 6 100 0 200 0 200 200 N
+P 4 0 1 10 300 100 260 120 260 80 300 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 300 -200 100 U 50 50 0 0 P
+X ~ 3 300 400 100 D 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
 # BTS50010-1TAE-BTS50010-1TAE-PowerBox-rescue
 #
 DEF BTS50010-1TAE-BTS50010-1TAE-PowerBox-rescue U 0 40 Y Y 1 F N
@@ -18,6 +73,181 @@ X VS 4 -100 500 100 R 50 50 1 1 I
 X OUT1 5 650 300 100 L 50 50 1 1 O
 X OUT2 6 650 200 100 L 50 50 1 1 O
 X OUT3 7 650 100 100 L 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# BU4S584G2-TR-BU4S584G2-TR
+#
+DEF BU4S584G2-TR-BU4S584G2-TR IC 0 30 Y Y 1 F N
+F0 "IC" 850 300 50 H V L CNN
+F1 "BU4S584G2-TR-BU4S584G2-TR" 850 200 50 H V L CNN
+F2 "SOT95P280X125-5N" 850 100 50 H I L CNN
+F3 "http://rohmfs.rohm.com/en/products/databook/datasheet/ic/logic_switch/standard_logic/bu4s584g2-e.pdf" 850 0 50 H I L CNN
+F4 "ROHM - BU4S584G2-TR - LOGIC, SCHMITT TRIGGER INVERTER, SSOP-5" 850 -100 50 H I L CNN "Description"
+F5 "1.25" 850 -200 50 H I L CNN "Height"
+F6 "ROHM Semiconductor" 850 -300 50 H I L CNN "Manufacturer_Name"
+F7 "BU4S584G2-TR" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "755-BU4S584G2-TR" 850 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/ROHM-Semiconductor/BU4S584G2-TR?qs=4kLU8WoGk0vLM%2FxATMPLAw%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "BU4S584G2-TR" 850 -700 50 H I L CNN "Arrow Part Number"
+F11 "http://www.arrow.com/en/products/bu4s584g2-tr/rohm-semiconductor" 850 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X NC 1 0 0 200 R 50 50 0 0 N
+X A 2 0 -100 200 R 50 50 0 0 P
+X VSS 3 0 -200 200 R 50 50 0 0 P
+X Y 4 1000 0 200 L 50 50 0 0 P
+X VDD 5 1000 -100 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# EEE-FK1C182SQ-EEE-FK1C182SQ
+#
+DEF EEE-FK1C182SQ-EEE-FK1C182SQ C 0 30 Y Y 1 F N
+F0 "C" 350 250 50 H V L CNN
+F1 "EEE-FK1C182SQ-EEE-FK1C182SQ" 350 150 50 H V L CNN
+F2 "EEEFK0J332AQ" 350 50 50 H I L CNN
+F3 "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" 350 -50 50 H I L CNN
+F4 "Aluminum Electrolytic Capacitors - SMD 16VDC 1800uF 20% 12.5x13.5mm AEC-Q200" 350 -150 50 H I L CNN "Description"
+F5 "15" 350 -250 50 H I L CNN "Height"
+F6 "Panasonic" 350 -350 50 H I L CNN "Manufacturer_Name"
+F7 "EEE-FK1C182SQ" 350 -450 50 H I L CNN "Manufacturer_Part_Number"
+F8 "667-EEE-FK1C182SQ" 350 -550 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Panasonic/EEE-FK1C182SQ?qs=BZBei1rCqCDZ%2F9wPPM5YoA%3D%3D" 350 -650 50 H I L CNN "Mouser Price/Stock"
+F10 "EEE-FK1C182SQ" 350 -750 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/eee-fk1c182sq/panasonic" 350 -850 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 2 0 1 6 100 0 200 0 N
+P 2 0 1 6 160 70 160 30 N
+P 2 0 1 6 180 50 140 50 N
+P 2 0 1 6 300 0 400 0 N
+P 5 0 1 6 200 100 200 -100 230 -100 230 100 200 100 N
+P 5 0 1 10 300 100 300 -100 270 -100 270 100 300 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 500 0 100 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# KF50BDT-TR-KF50BDT-TR
+#
+DEF KF50BDT-TR-KF50BDT-TR IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "KF50BDT-TR-KF50BDT-TR" 1050 200 50 H V L CNN
+F2 "TO228P972X240-3N" 1050 100 50 H I L CNN
+F3 "http://www.st.com/web/en/resource/technical/document/datasheet/CD00000970.pdf" 1050 0 50 H I L CNN
+F4 "KF50BDT-TR, Low Dropout Voltage Regulator, 0.5A, 5 V +/-2%, -0.5  20 Vin, 3-Pin DPAK" 1050 -100 50 H I L CNN "Description"
+F5 "2.4" 1050 -200 50 H I L CNN "Height"
+F6 "STMicroelectronics" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F7 "KF50BDT-TR" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "511-KF50BDT-TR" 1050 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/STMicroelectronics/KF50BDT-TR?qs=Tj7OqeScv5LVEpfIzte25Q%3D%3D" 1050 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "KF50BDT-TR" 1050 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/kf50bdt-tr/stmicroelectronics" 1050 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -200 200 -200 200 100 N
+X INPUT 1 0 0 200 R 50 50 0 0 O
+X OUTPUT 3 0 -100 200 R 50 50 0 0 W
+X GND 4 1200 0 200 L 50 50 0 0 I
+ENDDRAW
+ENDDEF
+#
+# MLX91221KDC-ABR-020-SP-MLX91221KDC
+#
+DEF MLX91221KDC-ABR-020-SP-MLX91221KDC IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "MLX91221KDC-ABR-020-SP-MLX91221KDC" 1050 200 50 H V L CNN
+F2 "SOIC127P600X173-8N" 1050 100 50 H I L CNN
+F3 "https://www.mouser.in/datasheet/2/734/Melexis_MLX91221_Datasheet_Melexis_1-1947405.pdf" 1050 0 50 H I L CNN
+F4 "Board Mount Current Sensors Gen.2 Isolated Integ rated Current Senso" 1050 -100 50 H I L CNN "Description"
+F5 "1.73" 1050 -200 50 H I L CNN "Height"
+F6 "Melexis" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MLX91221KDC-ABR-020-SP" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "482-91221KDCABR020SP" 1050 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Melexis/MLX91221KDC-ABR-020-SP?qs=81r%252BiQLm7BROD1%252ByhTK6jg%3D%3D" 1050 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -400 200 -400 200 100 N
+X IP+_1 1 0 0 200 R 50 50 0 0 P
+X IP+_2 2 0 -100 200 R 50 50 0 0 P
+X IP-_1 3 0 -200 200 R 50 50 0 0 P
+X IP-_2 4 0 -300 200 R 50 50 0 0 P
+X VSS 5 1200 -300 200 L 50 50 0 0 P
+X VREF 6 1200 -200 200 L 50 50 0 0 P
+X VOUT 7 1200 -100 200 L 50 50 0 0 P
+X VDD 8 1200 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# MP2359DT-LF-P-MP2359DT-LF-P
+#
+DEF MP2359DT-LF-P-MP2359DT-LF-P PS 0 30 Y Y 1 F N
+F0 "PS" 850 300 50 H V L CNN
+F1 "MP2359DT-LF-P-MP2359DT-LF-P" 850 200 50 H V L CNN
+F2 "SOT95P280X145-6N" 850 100 50 H I L CNN
+F3 "https://ms.componentsearchengine.com/Datasheets/2/MP2359DT-LF-P.pdf" 850 0 50 H I L CNN
+F4 "MONOLITHIC POWER SYSTEMS (MPS) - MP2359DT-LF-P - DC-DC Switching Buck (Step Down) Regulator, 4.5V-24V in, 810mV to 15V out, 1.2A, 1.4MHz, SOT-23-6" 850 -100 50 H I L CNN "Description"
+F5 "1.45" 850 -200 50 H I L CNN "Height"
+F6 "Monolithic Power Systems (MPS)" 850 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MP2359DT-LF-P" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "946-MP2359DTLFP" 850 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Monolithic-Power-Systems-MPS/MP2359DT-LF-P?qs=rC7bBWoQAAlUuezWIXLG%2Fg%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 N
+X BST 1 0 0 200 R 50 50 0 0 B
+X GND 2 0 -100 200 R 50 50 0 0 W
+X FB 3 0 -200 200 R 50 50 0 0 O
+X EN 4 1000 -200 200 L 50 50 0 0 I
+X IN 5 1000 -100 200 L 50 50 0 0 W
+X SW 6 1000 0 200 L 50 50 0 0 O
+ENDDRAW
+ENDDEF
+#
+# SCMR18H105PRBB0-SCMR18H105PRBB0
+#
+DEF SCMR18H105PRBB0-SCMR18H105PRBB0 C 0 30 Y Y 1 F N
+F0 "C" 350 250 50 H V L CNN
+F1 "SCMR18H105PRBB0-SCMR18H105PRBB0" 350 150 50 H V L CNN
+F2 "SCMR18H105PRBB0" 350 50 50 H I L CNN
+F3 "http://datasheets.avx.com/AVX-SCM.pdf" 350 -50 50 H I L CNN
+F4 "Supercapacitors / Ultracapacitors 6V 1F ER250mOhm" 350 -150 50 H I L CNN "Description"
+F5 "19.5" 350 -250 50 H I L CNN "Height"
+F6 "AVX" 350 -350 50 H I L CNN "Manufacturer_Name"
+F7 "SCMR18H105PRBB0" 350 -450 50 H I L CNN "Manufacturer_Part_Number"
+F8 "581-SCMR18H105PRBB0" 350 -550 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/AVX/SCMR18H105PRBB0?qs=qSfuJ%252Bfl%2Fd4vn1K0bnBb9g%3D%3D" 350 -650 50 H I L CNN "Mouser Price/Stock"
+F10 "SCMR18H105PRBB0" 350 -750 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/scmr18h105prbb0/avx" 350 -850 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 2 0 1 6 100 0 200 0 N
+P 2 0 1 6 160 70 160 30 N
+P 2 0 1 6 180 50 140 50 N
+P 2 0 1 6 300 0 400 0 N
+P 5 0 1 6 200 100 200 -100 230 -100 230 100 200 100 N
+P 5 0 1 10 300 100 300 -100 270 -100 270 100 300 100 F
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 500 0 100 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# TMP236A4DBZT-TMP236A4DBZT
+#
+DEF TMP236A4DBZT-TMP236A4DBZT IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "TMP236A4DBZT-TMP236A4DBZT" 950 200 50 H V L CNN
+F2 "SOT95P237X112-3N" 950 100 50 H I L CNN
+F3 "https://www.ti.com/lit/gpn/tmp236" 950 0 50 H I L CNN
+F4 "Board Mount Temperature Sensors &plusmn;2.5&deg;C analog output temperature sensor, with 19.5mV/&deg;C gain&nbsp; 3-SOT-23 -10 to 125" 950 -100 50 H I L CNN "Description"
+F5 "1.12" 950 -200 50 H I L CNN "Height"
+F6 "Texas Instruments" 950 -300 50 H I L CNN "Manufacturer_Name"
+F7 "TMP236A4DBZT" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "595-TMP236A4DBZT" 950 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/TMP236A4DBZT?qs=lc2O%252BfHJPVa7bgUN%2F99GoA%3D%3D" 950 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "TMP236A4DBZT" 950 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/tmp236a4dbzt/texas-instruments?region=nac" 950 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 900 100 900 -200 200 -200 200 100 N
+X VDD 1 0 0 200 R 50 50 0 0 P
+X VOUT 2 0 -100 200 R 50 50 0 0 P
+X GND 3 1100 0 200 L 50 50 0 0 P
 ENDDRAW
 ENDDEF
 #

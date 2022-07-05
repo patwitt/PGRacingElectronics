@@ -1,6 +1,26 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# BD733L5FP-CE2
+#
+DEF BD733L5FP-CE2 IC 0 30 Y Y 1 F N
+F0 "IC" 950 300 50 H V L CNN
+F1 "BD733L5FP-CE2" 950 200 50 H V L CNN
+F2 "BD750L5FPCE2" 950 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets_SAMA/9583176291112c103e7c855c7f59947b.pdf" 950 0 50 H I L CNN
+F4 "Ultra Low Quiescent Current LDO Regulator: The BD7xxL5FP-C Series are low quiescent regulators featuring 50V absolute maximum voltage, and output voltage accuracy of +/-2%, 500mA output current and 6A (Typ.) current consumption. There regulators are therefore ideal for applications requiring a direct connection to the battery and a low current consumption. Ceramic capacitors can be used for compensation of the output capacitor phase." 950 -100 50 H I L CNN "Description"
+F5 "ROHM Semiconductor" 950 -300 50 H I L CNN "Manufacturer_Name"
+F6 "BD733L5FP-CE2" 950 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "755-BD733L5FP-CE2" 950 -500 50 H I L CNN "Mouser Part Number"
+F8 "https://www.mouser.co.uk/ProductDetail/ROHM-Semiconductor/BD733L5FP-CE2?qs=9Cg39qEKpi4aZ83OxnY0mQ%3D%3D" 950 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 900 100 900 -200 200 -200 200 100 N
+X VCC 1 0 0 200 R 50 50 0 0 P
+X VOUT 3 0 -100 200 R 50 50 0 0 P
+X GND 4 1100 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
 # EC12E1220405
 #
 DEF EC12E1220405 EC12E1220405 0 40 Y Y 1 F N

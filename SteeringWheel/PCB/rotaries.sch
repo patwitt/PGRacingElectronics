@@ -254,8 +254,6 @@ F 3 "" H 2075 1425 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Connection ~ 2075 1425
-Text HLabel 1325 3425 0    50   Input ~ 0
-ROT_SCR
 $Comp
 L Device:R_Small 1k?
 U 1 1 61BB2C09
@@ -406,47 +404,8 @@ Wire Wire Line
 	2025 3625 2125 3625
 Wire Wire Line
 	2125 3825 2025 3825
-Connection ~ 2025 3825
-Connection ~ 2025 3525
-Connection ~ 2025 3425
-Connection ~ 2025 3325
-Connection ~ 2025 3225
-Connection ~ 2025 3125
-$Comp
-L Alpha-SR2512F:SR2512F-0110-19R0B-E9-N-W-159 UniCHG1
-U 1 1 61BB2C6B
-P 1225 3425
-F 0 "UniCHG1" H 1675 4090 50  0000 C CNN
-F 1 "SR2512F-0110-19R0B-E9-N-W-159" H 1675 3999 50  0000 C CNN
-F 2 "PGR-06_Additional:Alpha_Taiwan-SR2512F-0110-19R0B-E9-N-W-159-MFG" H 1225 4225 50  0001 L CNN
-F 3 "http://www.taiwanalpha.com/downloads?target=products&id=226" H 1225 4325 50  0001 L CNN
-F 4 "No" H 1225 4425 50  0001 L CNN "automotive"
-F 5 "Switch" H 1225 4525 50  0001 L CNN "category"
-F 6 "0.3A" H 1225 4625 50  0001 L CNN "contact current rating"
-F 7 "50mΩ" H 1225 4725 50  0001 L CNN "contact resistance"
-F 8 "Electromechanical" H 1225 4825 50  0001 L CNN "device class L1"
-F 9 "Switches" H 1225 4925 50  0001 L CNN "device class L2"
-F 10 "Rotary Switches" H 1225 5025 50  0001 L CNN "device class L3"
-F 11 "10000Cycles" H 1225 5125 50  0001 L CNN "electromechanical life"
-F 12 "https://cdn.sparkfun.com/datasheets/Components/Switches/SP14040026%20SPEC.pdf" H 1225 5225 50  0001 L CNN "footprint url"
-F 13 "34.1mm" H 1225 5325 50  0001 L CNN "height"
-F 14 "Yes" H 1225 5425 50  0001 L CNN "lead free"
-F 15 "43ac97a8fa9c0b2e" H 1225 5525 50  0001 L CNN "library id"
-F 16 "Alpha (Taiwan)" H 1225 5625 50  0001 L CNN "manufacturer"
-F 17 "Through Hole" H 1225 5725 50  0001 L CNN "mount"
-F 18 "105-SR2512F-110NS" H 1225 5825 50  0001 L CNN "mouser part number"
-F 19 "1000gf" H 1225 5925 50  0001 L CNN "operating force"
-F 20 "ROT_SW_31MM_25MM_11_PTH" H 1225 6025 50  0001 L CNN "package"
-F 21 "Yes" H 1225 6125 50  0001 L CNN "rohs"
-F 22 "0.4mm" H 1225 6225 50  0001 L CNN "standoff height"
-F 23 "SP10T" H 1225 6325 50  0001 L CNN "throw configuration"
-F 24 "125V" H 1225 6425 50  0001 L CNN "voltage rating AC"
-	1    1225 3425
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2325 3675 2025 3675
-Connection ~ 2025 3725
 Wire Wire Line
 	2025 3675 2025 3725
 Wire Wire Line
@@ -470,7 +429,6 @@ Wire Wire Line
 	2325 3575 2025 3575
 Wire Wire Line
 	2025 3575 2025 3625
-Connection ~ 2025 3625
 $Comp
 L power:+3.3V #PWR0118
 U 1 1 61BB2C7F
@@ -482,7 +440,6 @@ F 3 "" H 2025 3925 50  0001 C CNN
 	1    2025 3925
 	-1   0    0    1   
 $EndComp
-Connection ~ 2025 3925
 $Comp
 L power:GND #PWR0119
 U 1 1 61BB2C86
@@ -494,7 +451,6 @@ F 3 "" H 2025 3025 50  0001 C CNN
 	1    2025 3025
 	-1   0    0    1   
 $EndComp
-Connection ~ 2025 3025
 $Comp
 L PGR-06_Wheel_Additional:EC12E1220405 EC12E1
 U 1 1 61D02DB2
@@ -603,4 +559,48 @@ F 3 "" H 3075 4375 50  0001 C CNN
 	1    3075 4375
 	0    1    1    0   
 $EndComp
+Connection ~ 2025 3025
+Connection ~ 2025 3925
+Connection ~ 2025 3625
+Connection ~ 2025 3725
+Connection ~ 2025 3125
+Connection ~ 2025 3225
+Connection ~ 2025 3325
+Connection ~ 2025 3425
+Connection ~ 2025 3525
+Connection ~ 2025 3825
+$Comp
+L Alpha-SR2512F:SR2512F-0110-19R0B-E9-N-W-159 UniCHG1
+U 1 1 61BB2C6B
+P 1225 3425
+F 0 "UniCHG1" H 1675 4090 50  0000 C CNN
+F 1 "SR2512F-0110-19R0B-E9-N-W-159" H 1675 3999 50  0000 C CNN
+F 2 "PGR-06_Additional:Alpha_Taiwan-SR2512F-0110-19R0B-E9-N-W-159-MFG" H 1225 4225 50  0001 L CNN
+F 3 "http://www.taiwanalpha.com/downloads?target=products&id=226" H 1225 4325 50  0001 L CNN
+F 4 "No" H 1225 4425 50  0001 L CNN "automotive"
+F 5 "Switch" H 1225 4525 50  0001 L CNN "category"
+F 6 "0.3A" H 1225 4625 50  0001 L CNN "contact current rating"
+F 7 "50mΩ" H 1225 4725 50  0001 L CNN "contact resistance"
+F 8 "Electromechanical" H 1225 4825 50  0001 L CNN "device class L1"
+F 9 "Switches" H 1225 4925 50  0001 L CNN "device class L2"
+F 10 "Rotary Switches" H 1225 5025 50  0001 L CNN "device class L3"
+F 11 "10000Cycles" H 1225 5125 50  0001 L CNN "electromechanical life"
+F 12 "https://cdn.sparkfun.com/datasheets/Components/Switches/SP14040026%20SPEC.pdf" H 1225 5225 50  0001 L CNN "footprint url"
+F 13 "34.1mm" H 1225 5325 50  0001 L CNN "height"
+F 14 "Yes" H 1225 5425 50  0001 L CNN "lead free"
+F 15 "43ac97a8fa9c0b2e" H 1225 5525 50  0001 L CNN "library id"
+F 16 "Alpha (Taiwan)" H 1225 5625 50  0001 L CNN "manufacturer"
+F 17 "Through Hole" H 1225 5725 50  0001 L CNN "mount"
+F 18 "105-SR2512F-110NS" H 1225 5825 50  0001 L CNN "mouser part number"
+F 19 "1000gf" H 1225 5925 50  0001 L CNN "operating force"
+F 20 "ROT_SW_31MM_25MM_11_PTH" H 1225 6025 50  0001 L CNN "package"
+F 21 "Yes" H 1225 6125 50  0001 L CNN "rohs"
+F 22 "0.4mm" H 1225 6225 50  0001 L CNN "standoff height"
+F 23 "SP10T" H 1225 6325 50  0001 L CNN "throw configuration"
+F 24 "125V" H 1225 6425 50  0001 L CNN "voltage rating AC"
+	1    1225 3425
+	1    0    0    -1  
+$EndComp
+Text HLabel 1325 3425 0    50   Input ~ 0
+ROT_UNI
 $EndSCHEMATC

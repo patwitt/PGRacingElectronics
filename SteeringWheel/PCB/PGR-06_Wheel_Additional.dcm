@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP BD733L5FP-CE2
+D Ultra Low Quiescent Current LDO Regulator: The BD7xxL5FP-C Series are low quiescent regulators featuring 50V absolute maximum voltage, and output voltage accuracy of +/-2%, 500mA output current and 6A (Typ.) current consumption. There regulators are therefore ideal for applications requiring a direct connection to the battery and a low current consumption. Ceramic capacitors can be used for compensation of the output capacitor phase.
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets_SAMA/9583176291112c103e7c855c7f59947b.pdf
+$ENDCMP
+#
 $CMP SR2512F-0110-19R0B-E9-N-W-159
 D SR2512F-0110-19R0B-E9-N-W-159
 F http://www.taiwanalpha.com/downloads?target=products&id=226

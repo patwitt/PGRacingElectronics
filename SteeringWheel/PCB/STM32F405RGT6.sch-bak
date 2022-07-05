@@ -533,10 +533,8 @@ NoConn ~ 3500 5375
 NoConn ~ 3500 5275
 NoConn ~ 3500 5175
 NoConn ~ 3500 4875
-NoConn ~ 3500 4175
 NoConn ~ 3500 3975
 NoConn ~ 4900 4575
-NoConn ~ 4900 3275
 NoConn ~ 4900 2775
 Text GLabel 3500 3775 0    50   Input ~ 0
 HSE_OUT
@@ -673,8 +671,6 @@ F 3 "" H 4100 5925 50  0001 C CNN
 	1    4100 5925
 	1    0    0    -1  
 $EndComp
-NoConn ~ 4900 5575
-NoConn ~ 4900 5675
 $Comp
 L power:+3.3V #PWR031
 U 1 1 6194B9B7
@@ -713,13 +709,8 @@ Text HLabel 4900 5475 2    50   Input ~ 0
 CAN2_TX
 Text HLabel 3500 4675 0    50   Input ~ 0
 BTN_PTT
-Text HLabel 3500 4575 0    50   Input ~ 0
-BTN_SCR
 Text HLabel 4900 5175 2    50   Input ~ 0
 BTN_UNI2
-Text HLabel 3500 4975 0    50   Input ~ 0
-LED_DATA
-NoConn ~ 3500 5075
 NoConn ~ 4900 5275
 Text HLabel 4900 4175 2    50   Input ~ 0
 BTN_CLCH
@@ -740,29 +731,15 @@ SWCLK
 Text GLabel 4900 3775 2    50   Input ~ 0
 SWDIO
 NoConn ~ 4900 3975
-$Comp
-L MCU_ST_STM32F4:STM32F405RGTx U6
-U 1 1 61927F05
-P 4200 4075
-F 0 "U6" H 4750 5825 50  0000 C CNN
-F 1 "STM32F405RGT6" H 4700 2325 50  0000 C CNN
-F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 3600 2375 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00037051.pdf" H 4200 4075 50  0001 C CNN
-F 4 "C15742" H 4200 4075 50  0001 C CNN "LCSC Part #"
-	1    4200 4075
-	1    0    0    -1  
-$EndComp
-Text HLabel 4900 2475 2    50   Input ~ 0
+Text HLabel 3500 5075 0    50   Input ~ 0
 ROT_UNI
-Text HLabel 4900 2575 2    50   Input ~ 0
+Text HLabel 4900 3275 2    50   Input ~ 0
 ROT_SCR
 NoConn ~ 3500 5475
 NoConn ~ 4900 4975
 NoConn ~ 4900 5075
 NoConn ~ 3500 5575
 NoConn ~ 3500 5675
-NoConn ~ 3500 4275
-NoConn ~ 3500 4375
 NoConn ~ 3500 4475
 Text HLabel 4200 2250 1    50   Input ~ 0
 VDD
@@ -779,4 +756,30 @@ Text HLabel 4900 2975 2    50   Input ~ 0
 CLCH_CLK
 Text HLabel 4900 3175 2    50   Input ~ 0
 CLCH_CS
+Text HLabel 3500 4575 0    50   Input ~ 0
+BTN_SCR
+NoConn ~ 4900 2575
+NoConn ~ 4900 2475
+$Comp
+L MCU_ST_STM32F4:STM32F405RGTx U6
+U 1 1 61927F05
+P 4200 4075
+F 0 "U6" H 4750 5825 50  0000 C CNN
+F 1 "STM32F405RGT6" H 4700 2325 50  0000 C CNN
+F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 3600 2375 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00037051.pdf" H 4200 4075 50  0001 C CNN
+F 4 "C15742" H 4200 4075 50  0001 C CNN "LCSC Part #"
+	1    4200 4075
+	1    0    0    -1  
+$EndComp
+Text HLabel 3500 4775 0    50   Input ~ 0
+LED_R
+Text HLabel 4900 5675 2    50   Input ~ 0
+LED_G
+Text HLabel 4900 5575 2    50   Input ~ 0
+LED_B
+NoConn ~ 3500 4975
+NoConn ~ 3500 4175
+NoConn ~ 3500 4275
+NoConn ~ 3500 4375
 $EndSCHEMATC
