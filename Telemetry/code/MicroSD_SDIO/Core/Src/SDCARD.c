@@ -6,16 +6,25 @@
  */
 #include "SDCARD.h"
 #include<stdio.h>
+
 #define FILE_DEFAULT_MODE FA_WRITE | FA_OPEN_APPEND
 
-extern MLXSensor MLXLF;
-extern MLXSensor MLXRF;
 extern GyroSensor gyro;
+extern MLXSensor mlxLFSensor;
+extern MLXSensor mlxRFSensor;
+extern ABSSensor absLFSensor;
+extern ABSSensor absRFSensor;
 extern SensorStatus statusRegister;
-
+void sdDeInit(FATFS* fs)
+{
+	  if (f_mount(0,"",0) == FR_OK)
+	  {
+		  statusRegister.SDCARD = SENSOR_OFF;
+	  }
+}
 void sdInit(FATFS* fs)
 {
-	  if (f_mount(fs, "", 1) == FR_OK)
+	  if (f_mount(fs, "", 0) == FR_OK)
 	  {
 		  statusRegister.SDCARD = SENSOR_OK;
 		  if (DEBUG)
@@ -24,7 +33,7 @@ void sdInit(FATFS* fs)
 	  }else
 	  {
 		  statusRegister.SDCARD = SENSOR_INIT_FAIL;
-		  sdMountFailHandler();
+		  //sdMountFailHandler();
 	  }
 }
 void openAllFiles()
@@ -34,7 +43,15 @@ void openAllFiles()
 		if(statusRegister.GYRO == SENSOR_OK){
 			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
 		}
+		if(statusRegister.MLXLF == SENSOR_OK){
+			openFile(mlxLFSensor.File, mlxLFSensor.path, FILE_DEFAULT_MODE);
+		}
+		if(statusRegister.VSSLF == SENSOR_OK){
+			openFile(absLFSensor.File, absLFSensor.path, FILE_DEFAULT_MODE);
+		}
+		if(statusRegister.DamperLF == SENSOR_OK){
 
+		}
 	}
 }
 int createHeaders(FIL * file,char * path)
@@ -47,12 +64,13 @@ int createHeaders(FIL * file,char * path)
 		printf("Error while creating %s header",path);
 		return -1;
 	}
-	if(strstr(path,"GYRO.csv") == 0){
+
+	if(strstr(path,"GYRO") != NULL){
 		fres = f_write(file, "gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n", strlen("gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n"), &bytesWritten);
 
-	}else if(strstr(path,"MLX.csv") == 0){
+	}else if(strstr(path,"MLX")!= NULL){
 		char headerData[25];
-		fres =  f_write(file, "ID", strlen("ID"), &bytesWritten);
+		fres =  f_write(file, "ID,", strlen("ID,"), &bytesWritten);
 		for(int i=0;i<784;i++){
 			sprintf(headerData,"float_%d,", i);
 			fres = fres | f_write(file, headerData, strlen(headerData), &bytesWritten);
@@ -60,10 +78,17 @@ int createHeaders(FIL * file,char * path)
 			fres =  fres | f_write(file, headerData, strlen(headerData), &bytesWritten);
 		}
 
+	}else if(strstr(path,"ABS")!= NULL){
+		fres = f_write(file, "ID,speed\r\n", strlen("ID,speed\r\n"), &bytesWritten);
+	}else if(strstr(path,"DAMP")!= NULL){
+		fres = f_write(file, "ID,length\r\n", strlen("ID,length\r\n"), &bytesWritten);
+	}else if(strstr(path,"WHEEL")!= NULL){
+		fres = f_write(file, "ID,angle\r\n", strlen("ID,angle\r\n"), &bytesWritten);
 	}else
 	{
 		return -2;
 	}
+
 	if(fres != FR_OK){
 		printf("Error while creating %s header\n",path);
 		return -1;
@@ -72,6 +97,7 @@ int createHeaders(FIL * file,char * path)
 	return 1;
 
 }
+
 
 int openFile(FIL * file, char * path, BYTE mode)
 {
@@ -117,24 +143,29 @@ void gyroSaveData(GyroSensor* sens)
 {
 	char dataBuffer[255];
 	int writedBytes;
+	FRESULT status = 0;
 	//Save time stamp
 	sprintf(dataBuffer, "%d,", HAL_GetTick());
-	f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(dataBuffer, "%f,", sens->data.gyro_data_calc[i]);
-		f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+		status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 
 	}
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(dataBuffer, "%f,", sens->data.acc_data_calc[i]);
-		f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+		status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	}
 
 	sprintf(dataBuffer, "\r\n ");
 
-	f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	if(status != 0 && statusRegister.SDCARD < SENSOR_FAIL && statusRegister.SDCARD > SENSOR_OFF)
+	{
+		statusRegister.SDCARD += 1;
+	}
 	f_sync(sens->File);
 
 }
@@ -156,7 +187,26 @@ void mlxSaveData(MLXSensor* mlx)
 	f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(mlx->File);
 }
+void absSaveData(ABSSensor * sens)
+{
+	char dataBuffer[255];
+	int writedBytes;
+	float calcData = absCalculate(sens->data);
+	sprintf(dataBuffer, "%d,%d,%f\r\n", HAL_GetTick(),sens->ID,calcData);
+	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	f_sync(sens->File);
 
+
+}
+void adcSaveData(ADCSensor * sens)
+{
+	char dataBuffer[255];
+	int writedBytes;
+	float calcData = absCalculate(sens->data);
+	sprintf(dataBuffer, "%d,%f\r\n", HAL_GetTick(),calcData);
+	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	f_sync(sens->File);
+}
 void sdMountFailHandler()
 {
 	printf("SDCard mount failed\n");

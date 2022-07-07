@@ -37,6 +37,7 @@
 #include <stdarg.h>
 
 #include "basicFunctions.h"
+
 #include "SDCARD.h"
 
 /* USER CODE END Includes */
@@ -62,7 +63,15 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern I2C_HandleTypeDef hi2c1;
+extern I2C_HandleTypeDef hi2c2;
+extern I2C_HandleTypeDef hi2c3;
+extern I2C_HandleTypeDef hi2c4;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
+extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
+extern ADC_HandleTypeDef hadc3;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,11 +82,13 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+FATFS fileSystem;
 SensorStatus statusRegister;
 extern GyroSensor gyro;
-extern MLXSensor MLXLF;
-extern MLXSensor rightFWheelMlx;
+extern MLXSensor mlxLFSensor;
+extern MLXSensor mlxRFSensor;
+extern ABSSensor absLFSensor;
+extern ABSSensor absRFSensor;
 
 int statusToInt()
 {	int fullRegister = statusRegister.TeleBack;
@@ -117,11 +128,52 @@ void printStatusRegister()
 	printf("\n");
 }
 
-void initializeSensors()
+int sendFileToUart(FIL * f,char * path)
 {
-	  int res = mlxInit(&MLXLF);
-	  gyroInit(&gyro);
+	 FRESULT res;
+	 UINT dmy;
+	 char buff[1000];
+	 f_close(f);
+	 res = f_open(f, path, FA_READ);
+	 if (res) return res;
+	 HAL_UART_Transmit(&huart3, path, strlen(path), HAL_MAX_DELAY);
+	 while (res == FR_OK && !f_eof(f)) {
 
+	        res = f_read(f, buff, 1000, &dmy);
+	        HAL_UART_Transmit(&huart3, buff, dmy, HAL_MAX_DELAY);
+	 }
+	 HAL_UART_Transmit(&huart3, "EOF", 3, HAL_MAX_DELAY);
+	 f_close(f);
+	 return res;
+}
+int sendAllFilesToUart()
+{
+	FILINFO f;
+	if(f_stat(gyro.path, &f)==FR_OK);
+	{
+		sendFileToUart(gyro.File, gyro.path);
+	}
+	if(f_stat(mlxLFSensor.path, &f)==FR_OK);
+	{
+		sendFileToUart(mlxLFSensor.File, mlxLFSensor.path);
+	}
+	if(f_stat(absLFSensor.path, &f)==FR_OK);
+	{
+		sendFileToUart(absLFSensor.File, absLFSensor.path);
+	}
+	return 0;
+
+}
+
+ADCSensor sensord;
+void initSensors()
+{
+	  mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
+	  mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
+	  gyroInit(&gyro);
+	  absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
+	  absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
+	  damperInit(&sensord, DAMPERRF, 0);
 	  //res = res | mlxInit(&rightFWheelMLX);
 
 
@@ -132,48 +184,103 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   if (htim == &htim14 )
   {
+	  /*
+	 if(statusRegister.SDCARD == SENSOR_FAIL || statusRegister.SDCARD == SENSOR_INIT_FAIL)
+	 {
+		 sdDeInit();
+		 sdInit(&fileSystem);
+		 openAllFiles();
+	 }*/
 	 statusRegister.checkTime -= 25;
 	 if( statusRegister.checkTime <= 0)
 	 {
 		 //Check all sensors
 		 statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
+		 printStatusRegister();
+
 	 }
-	 MLXLF.timeToNextRead -= 25;
-	 if(MLXLF.timeToNextRead <= 0)
+	 mlxLFSensor.timeToNextRead -= 25;
+	 if(mlxLFSensor.timeToNextRead <= 0)
 	 {
-		 MLXLF.dataReady = 1;
-		 MLXLF.timeToNextRead = MLXDATARATE;
+		 mlxLFSensor.dataReady = 1;
+		 mlxLFSensor.timeToNextRead = MLX_DATA_RATE;
+	 }
+	 mlxRFSensor.timeToNextRead -= 25;
+	 if(mlxRFSensor.timeToNextRead <= 0)
+	 {
+	 	mlxRFSensor.dataReady = 1;
+	    mlxRFSensor.timeToNextRead = MLX_DATA_RATE;
+	 }
+	 absLFSensor.timeToZeroSpeed -= 25;
+	 if(absLFSensor.timeToZeroSpeed <= 0)
+	 {
+		 absLFSensor.data = 0;
+		 absLFSensor.dataReady = 1;
+		 absLFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
 	 }
 	 gyro.timeToNextRead -= 25;
 	 if(gyro.timeToNextRead <= 0)
 	 {
 		 gyro.dataReady = 1;
-		 gyro.timeToNextRead = GYRODATARATE;
+		 gyro.timeToNextRead = GYRO_DATA_RATE;
 	 }
   }
 }
-int getTime(  RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
+int getTime(RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
 {
 	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BIN);
     HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
     return ((time->SecondFraction-time->SubSeconds)/((float)time->SecondFraction+1) * 1000);
 }
 
-volatile uint32_t captured_value;
 
+//ABS
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim == &htim3) {
-    switch (HAL_TIM_GetActiveChannel(&htim3)) {
+  if (htim == absLFSensor.timer) {
+    switch (HAL_TIM_GetActiveChannel(absLFSensor.timer)) {
       case HAL_TIM_ACTIVE_CHANNEL_1:
-        captured_value = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+    	  absLFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+    	  absLFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+    	  absLFSensor.dataReady = 1;
         break;
       default:
         break;
     }
+  }else if(htim == absRFSensor.timer) {
+        switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
+          case HAL_TIM_ACTIVE_CHANNEL_1:
+        	  absRFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+        	  absRFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+        	  absRFSensor.dataReady = 1;
+            break;
+          default:
+            break;
+        }
   }
 }
+char received_command[255];
+int command_lenght = 0;
+char bufor;
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
 
+	if(huart==&huart3)
+	{
+
+		received_command[command_lenght] = bufor;
+		command_lenght++;
+		if(bufor == "\n"){
+			command_lenght = 0;
+			if(strcmp(received_command, "download\n") == 0)
+			{
+				sendAllFilesToUart();
+				openAllFiles();
+			}
+		}
+		HAL_UART_Receive_IT(&huart3, &bufor, 1);
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -225,13 +332,13 @@ int main(void)
   MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
 
-  FATFS fileSystem;
+
 
   RTC_TimeTypeDef time;
   RTC_DateTypeDef date;
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
   HAL_TIM_Base_Start_IT(&htim14);
-  HAL_Delay(3000);
+
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
@@ -240,15 +347,16 @@ int main(void)
 
 
   HAL_Delay(1000);
-  initializeSensors();
+  initSensors();
   sdInit(&fileSystem);
   printStatusRegister();
 
   openAllFiles();
-
+  HAL_UART_Receive_IT(&huart3, &bufor, 1);
   HAL_TIM_Base_Start(&htim3);
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
-
+  HAL_TIM_Base_Start(&htim4);
+  HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -258,20 +366,34 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if (captured_value != 0) {
-		  printf("value = %lu\n", captured_value);
-		  captured_value = 0;
-	  }
 
-
-	  if(!gyro.dataReady)
+	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
-		  gyroGetData(&gyro.data);
-	  	  gyroSaveData(&gyro);
-	  }
+		  if(gyro.dataReady)
+		  {
+			  gyroGetData(&gyro);
+			  gyroSaveData(&gyro);
+		  }
+		  if(mlxLFSensor.dataReady)
+		  {
+			  //mlxGetData(&mlxLFSensor);
+			  //mlxSaveData(&mlxLFSensor);
+		  }
+		  if(mlxRFSensor.dataReady)
+		  {
+			  //mlxGetData(&mlxRFSensor);
+			  //mlxSaveData(&mlxRFSensor);
+		  }
+		  if(absLFSensor.dataReady)
+		  {
 
-	  //HAL_Delay(200);
-	  //mlxGetData();
+			  //absSaveData(&absLFSensor);
+		  }
+		  if(absRFSensor.dataReady){
+			  //absSaveData(&absRFSensor);
+		  }
+	  }
+	  adcGetData(&sensord);
 
 	}
 

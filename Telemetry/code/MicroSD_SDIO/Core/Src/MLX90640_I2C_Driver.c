@@ -25,7 +25,7 @@ void MLX90640_I2CInit()
 }
 
 
-int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress, uint16_t nMemAddressRead, uint16_t *data)
+int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress, uint16_t nMemAddressRead, uint16_t *data,I2C_HandleTypeDef * i2c)
 {
 
 	uint8_t* p = (uint8_t*) data;
@@ -51,7 +51,7 @@ int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress, uint16_t nMemAddr
 } 
 
 
-int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data)
+int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data,I2C_HandleTypeDef * i2c)
 {
 
 	uint8_t sa;
@@ -72,7 +72,7 @@ int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data)
 			return -1;
 	}         
 	
-	MLX90640_I2CRead(slaveAddr,writeAddress,1, &dataCheck);
+	MLX90640_I2CRead(slaveAddr,writeAddress,1, &dataCheck,i2c);
 	
 	if ( dataCheck != data)
 	{

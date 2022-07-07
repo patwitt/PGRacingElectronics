@@ -1,0 +1,94 @@
+ID | CTR | DATA | CRC |
+11 | 7   |  64  |  15 |
+
+2^11 = 2048 ramek
+
+Założenia:
+- Brak adresacji od kogo i do kogo każdy wie co ma dostać i skąd 
+- Te same dane z róznych miejsc rozróżniane na podstawie id ramki 
+
+
+0-200 Komendy
+
+Sprzęgło wysoki priorytet 
+200-300 - najważniejsze ramki
+400-500 - zmiana biegów
+500-600 - PDM 
+600-800 - EMU na drugim canie 
+
+800-1000 Dane Telemetryczne
+
+
+
+Telemetria wysyłana regularnie + na zapas ramka do zapytań + ramki konfiguracyjne co wysyłać i co ile, co ile mierzyć itd. 
+
+id: 800 zapytanie o dane do telemtria przód
+bity w dacie określają co chcesz zapytać wg kolejnosci ramek, smae jedynki zapytanie o wszystko 
+
+id: 801 RPM - 10/s (jedna ramka 1 bajt)
+id: 802 ABS - 30/s (jedna ramka na wszystkie koła po 2 bajty na koło) 
+id: 803 Brake - wysyłane przy zmianie? max 10/s (1 bajt)
+id: 804 Gas - wysyłane przy zmianie wartości? max 10/s (1bajt)
+id: 805 skręt kierownicy - wysyłane przy zmianie wartości? max 10/s (1bajt)
+
+ MLX 4 ramki na każde koło albo 2 ramki na przód i na tył 
+ 
+id: 810 mlxLF - 1/s
+id: 811 mlxRF - 1/s
+id: 812 mlxLB - 1/s
+id: 813 mlxRB - 1/s
+
+ Amorki jak MLX
+
+id: 814 amorek LF - wysyłane przy zmianie wartości? max 10/s (1bajt)
+id: 815 amorek RF - wysyłane przy zmianie wartości? max 10/s (1bajt)
+id: 816 amorek LB - wysyłane przy zmianie wartości? max 10/s (1bajt)
+id: 817 amorek RB - wysyłane przy zmianie wartości? max 10/s (1bajt)
+id: 818 akcelometr-x - domyślnie nie wysyłane
+id: 819 akcelometr-y - domyślnie nie wysyłane
+id: 820 akcelometr-z - domyślnie nie wysyłane
+id: 821 żyroskop-x - domyślnie nie wysyłane
+id: 822 żyroskop-y - domyślnie nie wysyłane
+id: 823 ayroskop-z - domyślnie nie wysyłane
+id: 824 aktualny czas - domyślnie nie wysyłane
+
+itd. jw. 
+
+0-199 Komendy do zmiany wszelkich ustawień w bolidzie pochodzące z kierownicy/dashboardu/modułu telemetrii
+
+//potecjalne id do zmiany
+id: 1 - whoisconnected - ramka do sprawdzenia kto jest połączony
+id: 2 - ramka hello miedzy innymi odpowiedz na ramke 1
+
+
+id: 30-50 konfiguracja wyświetlacza 
+id: 50-70 konfiguracja telemetrii 
+id: 80 konfigruacja ledów, tryb, jasność
+
+200-300 Wysoki priorytet
+
+id:201 Pozycja sprzęgłą z częstotliowścią 20-30/s 
+
+id:300 push to talk wysyłane przy zmianie
+
+400-500 Zmiana biegów
+id: 400 synchroniczne bieg aktualny
+id: 401 wycięcie zapłonu na EMU 
+id: 402 pozycja przepustnicy 
+id: 403 zmiany biegów 
+
+500-600 PDM 
+id: 500 5 pomiarów natężenia
+id: 501 ?5pomiarów napięcia
+
+
+EMU: 
+
+ABS 
+wycięcie zapłonu 
+gaszenie bolidu 
+sondy egt 
+informacja o biegu 
+
+
+

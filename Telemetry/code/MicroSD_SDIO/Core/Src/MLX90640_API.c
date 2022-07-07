@@ -37,12 +37,12 @@ int CheckAdjacentPixels(uint16_t pix1, uint16_t pix2);
 float GetMedian(float *values, int n);
 int IsPixelBad(uint16_t pixel,paramsMLX90640 *params);
   
-int MLX90640_DumpEE(uint8_t slaveAddr, uint16_t *eeData)
+int MLX90640_DumpEE(uint8_t slaveAddr, uint16_t *eeData,I2C_HandleTypeDef * i2c)
 {
-     return MLX90640_I2CRead(slaveAddr, 0x2400, 832, eeData);
+     return MLX90640_I2CRead(slaveAddr, 0x2400, 832, eeData,i2c);
 }
 
-int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
+int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData,I2C_HandleTypeDef * i2c)
 {
     uint16_t dataReady = 0;
     uint16_t controlRegister1;
@@ -53,7 +53,7 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
     
     while(dataReady == 0)
     {
-        error = MLX90640_I2CRead(slaveAddr, 0x8000, 1, &statusRegister);
+        error = MLX90640_I2CRead(slaveAddr, 0x8000, 1, &statusRegister,i2c);
         if(error != 0)
         {
             return error;
@@ -61,25 +61,25 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
         dataReady = statusRegister & 0x0008;
     }
 
-    error = MLX90640_I2CWrite(slaveAddr, 0x8000, 0x0030);
+    error = MLX90640_I2CWrite(slaveAddr, 0x8000, 0x0030,i2c);
     if(error == -1)
     {
         return error;
     }
 
-    error = MLX90640_I2CRead(slaveAddr, 0x0400, 768, frameData);
+    error = MLX90640_I2CRead(slaveAddr, 0x0400, 768, frameData,i2c);
     if(error != 0)
     {
         return error;
     }
     
-    error = MLX90640_I2CRead(slaveAddr, 0x0700, 64, data);
+    error = MLX90640_I2CRead(slaveAddr, 0x0700, 64, data,i2c);
     if(error != 0)
     {
         return error;
     }
 
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     frameData[832] = controlRegister1;
     frameData[833] = statusRegister & 0x0001;
 
@@ -127,7 +127,7 @@ int MLX90640_ExtractParameters(uint16_t *eeData, paramsMLX90640 *mlx90640)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_SetResolution(uint8_t slaveAddr, uint8_t resolution)
+int MLX90640_SetResolution(uint8_t slaveAddr, uint8_t resolution,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int value;
@@ -135,12 +135,12 @@ int MLX90640_SetResolution(uint8_t slaveAddr, uint8_t resolution)
     
     value = (resolution & 0x03) << 10;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     
     if(error == 0)
     {
         value = (controlRegister1 & 0xF3FF) | value;
-        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value);        
+        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value,i2c);
     }    
     
     return error;
@@ -148,13 +148,13 @@ int MLX90640_SetResolution(uint8_t slaveAddr, uint8_t resolution)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_GetCurResolution(uint8_t slaveAddr)
+int MLX90640_GetCurResolution(uint8_t slaveAddr,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int resolutionRAM;
     int error;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     if(error != 0)
     {
         return error;
@@ -166,7 +166,7 @@ int MLX90640_GetCurResolution(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_SetRefreshRate(uint8_t slaveAddr, uint8_t refreshRate)
+int MLX90640_SetRefreshRate(uint8_t slaveAddr, uint8_t refreshRate,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int value;
@@ -174,11 +174,11 @@ int MLX90640_SetRefreshRate(uint8_t slaveAddr, uint8_t refreshRate)
     
     value = (refreshRate & 0x07)<<7;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     if(error == 0)
     {
         value = (controlRegister1 & 0xFC7F) | value;
-        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value);
+        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value,i2c);
     }    
     
     return error;
@@ -186,13 +186,13 @@ int MLX90640_SetRefreshRate(uint8_t slaveAddr, uint8_t refreshRate)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_GetRefreshRate(uint8_t slaveAddr)
+int MLX90640_GetRefreshRate(uint8_t slaveAddr,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int refreshRate;
     int error;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     if(error != 0)
     {
         return error;
@@ -204,18 +204,18 @@ int MLX90640_GetRefreshRate(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_SetInterleavedMode(uint8_t slaveAddr)
+int MLX90640_SetInterleavedMode(uint8_t slaveAddr,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int value;
     int error;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     
     if(error == 0)
     {
         value = (controlRegister1 & 0xEFFF);
-        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value);        
+        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value,i2c);
     }    
     
     return error;
@@ -223,18 +223,18 @@ int MLX90640_SetInterleavedMode(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_SetChessMode(uint8_t slaveAddr)
+int MLX90640_SetChessMode(uint8_t slaveAddr,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int value;
     int error;
         
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     
     if(error == 0)
     {
         value = (controlRegister1 | 0x1000);
-        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value);        
+        error = MLX90640_I2CWrite(slaveAddr, 0x800D, value,i2c);
     }    
     
     return error;
@@ -242,13 +242,13 @@ int MLX90640_SetChessMode(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 
-int MLX90640_GetCurMode(uint8_t slaveAddr)
+int MLX90640_GetCurMode(uint8_t slaveAddr,I2C_HandleTypeDef * i2c)
 {
     uint16_t controlRegister1;
     int modeRAM;
     int error;
     
-    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1);
+    error = MLX90640_I2CRead(slaveAddr, 0x800D, 1, &controlRegister1,i2c);
     if(error != 0)
     {
         return error;

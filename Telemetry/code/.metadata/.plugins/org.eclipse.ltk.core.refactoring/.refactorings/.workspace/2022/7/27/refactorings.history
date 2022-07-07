@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;MicroSD_SDIO/Core/Src/mlxabs.c&apos;" deleteContents="false" description="Delete resource &apos;MicroSD_SDIO/Core/Src/mlxabs.c&apos;" element1="/MicroSD_SDIO/Core/Src/mlxabs.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1656792885279"/>
+</session>

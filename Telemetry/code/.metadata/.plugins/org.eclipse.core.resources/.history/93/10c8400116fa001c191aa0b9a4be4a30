@@ -1,0 +1,169 @@
+#include "MLX90640_API.h"
+#define  FPS2HZ   0x02
+#define  FPS4HZ   0x03
+#define  FPS8HZ   0x04
+#define  FPS16HZ  0x05
+#define  FPS32HZ  0x06
+
+#define  MLX90640_ADDR 0x33 // Default mlx address
+#define	 RefreshRate 0x04
+#define  TA_SHIFT 8 //Default shift for MLX90640 in open air
+typedef enum SensorsDeagultTimings{
+	MLX_DATA_RATE = 1000,
+	DAMPER_DATA_RATE = 50,
+
+
+	ABS_ZERO_SPEED_TIME = 100,
+
+
+
+};
+typedef struct MLX{
+
+	int dataReady; // flag to check if data is ready to read/write to file
+	int timeToNextRead;
+	int ID ;
+	I2C_HandleTypeDef * i2c; // I2C connected to sensor
+	paramsMLX90640 mlx90640;
+	float data[768]; // data frame array of 768 pixels
+	float ambientTemp; // temperature of sensor itself
+	float vdd; // Voltage
+	float emissivity;
+
+}MLXSensor;
+typedef struct ABS{
+
+	int dataReady; // flag to check if data is ready to read and write to file
+	int saveRate;
+	int data;
+	int ID;
+	int timeToZeroSpeed; //after that time if not new input we assume car is not moving
+	TIM_HandleTypeDef * timer;
+	int timerChannel;
+}ABSSensor;
+
+ABSSensor absLBSensor;
+ABSSensor absRBSensor;
+MLXSensor mlxLBSensor;
+MLXSensor mlxRBSensor;
+void absInit(ABSSensor * sens,int id,TIM_HandleTypeDef* tim,int channel){
+	sens->ID = id;
+	sens->timer = tim;
+	sens->timerChannel = channel;
+}
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim == absLBSensor.timer) {
+    switch (HAL_TIM_GetActiveChannel(absLBSensor.timer)) {
+      case HAL_TIM_ACTIVE_CHANNEL_1:
+    	  absLBSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+    	  absLBSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+    	  absLBSensor.dataReady = 1;
+        break;
+      default:
+        break;
+    }
+  }else if(htim == absRBSensor.timer) {
+        switch (HAL_TIM_GetActiveChannel(absRBSensor.timer)) {
+          case HAL_TIM_ACTIVE_CHANNEL_1:
+        	  absRBSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+        	  absRBSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+        	  absRBSensor.dataReady = 1;
+            break;
+          default:
+            break;
+        }
+  }
+}
+
+
+float absCalculate(int data)
+{
+//kąt 1/12
+//Średnica opony: 15"?
+//Prędkośc = czas * (średnica*kąt*PI)
+	float res = (1/12)*38.1*data*M_PI;
+	return res;
+}
+
+
+int mlxInit(MLXSensor *mlx,int id, I2C_HandleTypeDef * i2c)
+{
+		uint16_t eeMLX90640[832];
+		mlx->timeToNextRead = MLX_DATA_RATE;
+		mlx->dataReady = 0;
+	  	mlx->emissivity = 0.95;
+	  	mlx->ID = id;
+		MLX90640_SetRefreshRate(MLX90640_ADDR, RefreshRate,mlx->i2c);
+	  	MLX90640_SetChessMode(MLX90640_ADDR,mlx->i2c);
+	    int status = MLX90640_DumpEE(MLX90640_ADDR, eeMLX90640,mlx->i2c);
+	    status = status | MLX90640_ExtractParameters(eeMLX90640, &mlx->mlx90640);
+	    mlx->i2c = i2c;
+
+	    return status;
+}
+
+//Copy and calcualte data from sensor memory to stm
+int mlxGetData(MLXSensor* mlx){
+	uint16_t frame[832];
+	int status = MLX90640_GetFrameData(MLX90640_ADDR, frame,mlx->i2c);
+	if (status < 0)
+	{
+		printf("Error while getting frame 1: %d\n",status);
+		return status;
+	}
+
+	mlx->vdd = MLX90640_GetVdd(frame, &mlx->mlx90640);
+	mlx->ambientTemp = MLX90640_GetTa(frame, &mlx->mlx90640) - TA_SHIFT;
+
+	MLX90640_CalculateTo(frame, &mlx->mlx90640, mlx->emissivity , mlx->ambientTemp, mlx->data);
+	status = MLX90640_GetFrameData(MLX90640_ADDR, frame,mlx->i2c);
+	if(status < 0)
+	{
+		printf("Error while getting frame 2: %d\n",status);
+		return status;
+	}
+	mlx->dataReady = 1;
+	MLX90640_CalculateTo(frame, &mlx->mlx90640, mlx->emissivity , mlx->ambientTemp, mlx->data);
+	return 0;
+}
+
+//DEBUG printing on default uart
+void mlxPrintData(MLXSensor* mlx)
+{
+	for(int i = 0; i < 768; i++){
+		if(i%32 == 0 && i != 0){
+			printf("\r\n");
+		}
+		printf("%2.2f ",mlx->data[i]);
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+
+  if (htim == &htim14 )
+  {
+	 mlxLBSensor.timeToNextRead -= 25;
+	 if(mlxLBSensor.timeToNextRead <= 0)
+	 {
+		 mlxLBSensor.dataReady = 1;
+		 mlxLBSensor.timeToNextRead = MLX_DATA_RATE;
+	 }
+	 mlxRBSensor.timeToNextRead -= 25;
+	 if(mlxRBSensor.timeToNextRead <= 0)
+	 {
+	 	mlxRBSensor.dataReady = 1;
+	    mlxRBSensor.timeToNextRead = MLX_DATA_RATE;
+	 }
+	 absLBSensor.timeToZeroSpeed -= 25;
+	 if(absLBSensor.timeToZeroSpeed <= 0)
+	 {
+		 absLBSensor.data = 0;
+		 absLBSensor.dataReady = 1;
+		 absLBSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+	 }
+
+  }
+}

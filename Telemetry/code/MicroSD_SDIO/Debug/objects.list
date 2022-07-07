@@ -9,6 +9,7 @@
 "./Core/Src/gpio.o"
 "./Core/Src/i2c.o"
 "./Core/Src/main.o"
+"./Core/Src/queue.o"
 "./Core/Src/rtc.o"
 "./Core/Src/sdmmc.o"
 "./Core/Src/sensorFunctions.o"

@@ -1,6 +1,7 @@
 Core/Src/MLX90640_API.o: ../Core/Src/MLX90640_API.c \
- ../Core/Inc/MLX90640_I2C_Driver.h ../Core/Inc/MLX90640_API.h \
- ../Core/Inc/main.h ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h \
+ ../Core/Inc/MLX90640_I2C_Driver.h ../Core/Inc/MPU9250_Config.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h \
+ ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h \
  ../Core/Inc/stm32f7xx_hal_conf.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h \
@@ -37,9 +38,10 @@ Core/Src/MLX90640_API.o: ../Core/Src/MLX90640_API.c \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
- ../Core/Inc/basicFunctions.h
+ ../Core/Inc/MLX90640_API.h ../Core/Inc/basicFunctions.h
 ../Core/Inc/MLX90640_I2C_Driver.h:
-../Core/Inc/MLX90640_API.h:
+../Core/Inc/MPU9250_Config.h:
+../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -78,4 +80,5 @@ Core/Src/MLX90640_API.o: ../Core/Src/MLX90640_API.c \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
+../Core/Inc/MLX90640_API.h:
 ../Core/Inc/basicFunctions.h:

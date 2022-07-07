@@ -15,18 +15,22 @@
 
 #define DEBUG 1 // Debug writing on/off
 
-#define MLXDATARATE 1000 // MLX data read interval in miliseconds
-#define GYRODATARATE 250 // Gyro data read interval in milisencods
+
+
 
 typedef enum {
 	GPS = 0,
 	GYRO,
-	MLX,
-	VSS,
+	MLXLF,
+	MLXRF,
+	ABSLF,
+	ABSRF,
 	WHEEL,
-	DAMPER,
+	DAMPERLF,
+	DAMPERRF,
 
-};
+
+}SENSORS;
 
 typedef enum{
 	SENSOR_OFF = 0b000,
@@ -37,7 +41,7 @@ typedef enum{
 	SENSOR_INVALID_DATA = 0b101,
 	SENSOR_INIT_FAIL = 0b111,
 	SENSOR_ALL_CHECK_TIME = 10000,
-};
+}SENSOR_STATUS;
 
 typedef struct SensorStatus{
 	unsigned int SDCARD : 3;
@@ -56,25 +60,87 @@ typedef struct SensorStatus{
 
 
 } SensorStatus;
+typedef enum SensorsDeagultTimings{
+	MLX_DATA_RATE = 1000,
+	GYRO_DATA_RATE = 250,
+	DAMPER_DATA_RATE = 50,
+	STEERING_DATA_RATE = 50,
 
+	ABS_ZERO_SPEED_TIME = 100,
+
+	GPS_ERROR_TIME = 1000,
+	ADC_ERROR_TIME = 1000,
+
+};
 void sensorsInit();
+/* *******ADC SECTION  ********/
+typedef enum AdcSensorTypes{
+	damper = 0,
+	steeringWheel,
+	brake
+}AdcSensorType;
+typedef struct ADCSensor{
+	FIL *File; //ADC File to write
+	char path[20]; // path of file to write;
+	int dataReady; // flag to check if data is ready to read and write to file
+	int timeToNextRead;
+	int timeFromLastSuccRead;
+	int data;
+	int ID;
+	AdcSensorType adcType;
+	ADC_HandleTypeDef * adc;
+	int adcChannel;
+}ADCSensor;
 
+void adcInit(ADCSensor* sens,ADC_HandleTypeDef * adc,int channel,FIL * f);
+void damperInit(ADCSensor* sens,SENSORS id,FIL * f);
+void steeringInit(ADCSensor* sens);
+void adcGetData(ADCSensor * sens);
+/* *******GPS SECTION  ********/
+
+
+typedef struct GPS{
+	FIL *File; //GPS File to write
+	char path[20]; // path of file to write;
+	int dataReady; // flag to check if data is ready to read and write to file
+	int saveRate;
+	char bufor[255];
+	char data[255];
+	USART_TypeDef uart;
+}GPSSensor;
+/* *******ABS SECTION  ********/
+
+
+typedef struct ABS{
+	FIL *File; //ABS File to write
+	char path[20]; // path of file to write;
+	int dataReady; // flag to check if data is ready to read and write to file
+	int saveRate;
+	int data;
+	int ID;
+	//ABS data asynchronous
+	int timeToZeroSpeed; //after that time if not new input we assume car is not moving
+	TIM_HandleTypeDef * timer;
+	int timerChannel;
+}ABSSensor;
+
+void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef * tim,int channel,FIL* f);
 /* *******GYRO SECTION  ********/
 //GYRO DEFINES
 //GYRO STRUCTS
 
-typedef struct imu_9dof
+typedef struct gyroData
 {
 	int16_t acc_data[3];
 	int16_t mag_data[3];
 	int16_t gyro_data[3];
-}imu_9dof;
+}gyroData;
 
-typedef struct imu_9dof_calc
+typedef struct gyroDataCalc
 {
 	double acc_data_calc[3];
 	double gyro_data_calc[3];
-}imu_9dof_calc;
+}gyroDataCalculated;
 
 typedef struct GYRO{
 	FIL *File; //GYRO File to write
@@ -82,18 +148,16 @@ typedef struct GYRO{
 	int dataReady; // flag to check if data is ready to read/write to file
 	int saveRate;
 	int timeToNextRead;
-	imu_9dof_calc data;
+	gyroDataCalculated data;
 	I2C_HandleTypeDef i2c;
 }GyroSensor;
 
 //GYRO FUNCS
 void gyroInit(GyroSensor * gyro);
 
-void gyroConvertData(struct imu_9dof * input, struct imu_9dof_calc * output);
-
 void gyroGetData(GyroSensor * sens);
 
-
+void gyroConvertData(struct gyroData * input, struct gyroDataCalc * output);
 /* *******MLX90640 SECTION  ********/
 //MLX DEFINES
 
@@ -103,14 +167,12 @@ void gyroGetData(GyroSensor * sens);
 #define  FPS16HZ  0x05
 #define  FPS32HZ  0x06
 
-#define  MLX90640_ADDR 0x33 // Defult mlx address
+#define  MLX90640_ADDR 0x33 // Default mlx address
 #define	 RefreshRate 0x04
 #define  TA_SHIFT 8 //Default shift for MLX90640 in open air
 
-#define leftFrontWheelI2C hi2c1
-#define rightFrontWheelI2C hi2c2
+
 //MLX STRUCTS
-//UNIONS?
 typedef struct MLX{
 	FIL *File; //mlx File to write
 	char path[20]; // path of file to write;
@@ -118,7 +180,7 @@ typedef struct MLX{
 	int saveRate;
 	int timeToNextRead;
 	int ID ;
-	I2C_HandleTypeDef i2c; // I2C connected to sensor
+	I2C_HandleTypeDef * i2c; // I2C connected to sensor
 	paramsMLX90640 mlx90640;
 	float data[768]; // data frame array of 768 pixels
 	float ambientTemp; // temperature of sensor itself
@@ -128,10 +190,8 @@ typedef struct MLX{
 }MLXSensor;
 
 
-
-
 //MLX FUNCS
-int mlxInit(MLXSensor *mlx);
+int mlxInit(MLXSensor *mlx,SENSORS id, I2C_HandleTypeDef * i2c,FIL * f);
 
 //Copy and calcualte data from sensor memory to stm
 int mlxGetData(MLXSensor* mlx);

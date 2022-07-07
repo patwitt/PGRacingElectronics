@@ -1,0 +1,20 @@
+Sensor list:
+-MLX x2
+-Gyro
+-GPS
+-Steering wheel
+-Damper x2
+-Vss x2
+-Brake?
+
+Sensors avaible to mannualy check:
+-Gyro
+-MLX
+-GPS?
+
+Struktura konfiguracji telmetrii: 
+- dla każdego czujnika on/off
+- dla każdego czujnika częstotliwość pomiarów 
+
+
+Zapisywanie logów z cana 

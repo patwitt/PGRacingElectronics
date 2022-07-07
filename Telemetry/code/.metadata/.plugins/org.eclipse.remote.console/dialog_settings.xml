@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<section name="org.eclipse.remote.internal.console.TerminalConsoleSettingsDialog">
 		<item key="connectionType" value="org.eclipse.remote.serial.core.connectionType"/>
-		<item key="connectionName" value="stm32"/>
+		<item key="connectionName" value="arduino adapter"/>
 		<item key="encoding" value="UTF-8"/>
 	</section>
 </section>
