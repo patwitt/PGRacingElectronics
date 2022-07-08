@@ -1,6 +1,9 @@
 #ifndef INC_DEFINE_CONFIG_H
 #define INC_DEFINE_CONFIG_H
 
+/* General configs */
+#define CONFIG_RUN_DEBUG                 (FALSE)
+
 /* DBW configs */
 #define CONFIG_DBW_CALIBRATE_TPS_AUTO    (TRUE)
 #define CONFIG_DBW_ADJUST_SENS_LIMITS    (FALSE)
