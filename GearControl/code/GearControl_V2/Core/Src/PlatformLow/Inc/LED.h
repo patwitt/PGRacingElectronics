@@ -19,5 +19,5 @@ typedef enum {
 
 void LED_Process(void);
 void LED_SetStatus(LEDStatus status);
-
+void LED_indicateResetWithDelay(const uint32_t periodx100ms);
 #endif /* INC_LED_CTRL_H_ */

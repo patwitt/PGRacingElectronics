@@ -73,7 +73,9 @@ void GearWatchdog_Start(const GearWatchdogTypeEnum watchdog)
 void GearWatchdog_Feed(const GearWatchdogTypeEnum watchdog)
 {
 	if (watchdog < GEAR_WDG_COUNT) {
-		gearWdg[watchdog].status = GEAR_WATCHDOG_STATUS_FED_ON_TIME;
+		 if (gearWdg[watchdog].status == GEAR_WATCHDOG_STATUS_ACTIVE) {
+			 	 gearWdg[watchdog].status = GEAR_WATCHDOG_STATUS_FED_ON_TIME;
+		}
 	}
 }
 

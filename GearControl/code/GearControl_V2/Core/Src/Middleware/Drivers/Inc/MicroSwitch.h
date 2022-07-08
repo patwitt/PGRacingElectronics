@@ -10,9 +10,6 @@
 
 #include "Types.h"
 
-
-#define MICROSWITCH_CNT (2U)
-
 typedef enum {
 	MS_G_DOWN = 0U,
 	MS_G_UP   = 1U,
@@ -44,6 +41,7 @@ typedef struct {
 } MicroSwitch;
 
 void MicroSwitch_Init(void);
+void MicroSwitch_Process(void);
 void MicroSwitch_SetControl(MicroSwitchControlType control);
 MicroSwitchControlType MicroSwitch_GetControl(void);
 __IO MicroSwitch* MicroSwitch_Get(MicroSwitchTypeEnum microswitch);

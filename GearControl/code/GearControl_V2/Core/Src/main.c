@@ -18,7 +18,6 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <CAN.h>
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -28,10 +27,13 @@
 /* Application */
 #include "DBW.h"
 #include "GearControl.h"
+#include "GearSensor.h"
 /* Middleware */
 #include "MicroSwitch.h"
 /* Platform Low */
+#include "Watchdog.h"
 #include "Adc.h"
+#include "CAN.h"
 #include "LED.h"
 #include "Scheduler.h"
 #include "SwTimer.h"
@@ -55,11 +57,14 @@ typedef union {
 		uint64_t irqInitErr : 1;       // IRQ (Interrupts) module init failure
 		uint64_t dbwInitErr : 1;       // DBW module init failure
 		uint64_t schedulerInitErr : 1; // Scheduler module init failure
+		uint64_t canInitErr : 1;       // CAN Bus init failure
+		uint64_t gearSensInitErr : 1;  // Gear Sensor init failure
+		uint64_t gearCtrlInitErr : 1;  // Gear Control init failure
 		uint64_t halErr : 1;           // HAL generic error
 	};
 } ErrorFlags;
 
-ErrorFlags errorFlags = {.errTotal = 0U};
+static ErrorFlags errorFlags = {.errTotal = 0U};
 
 /* USER CODE END PM */
 
@@ -98,46 +103,55 @@ static void MX_IWDG_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-static void PeriodicProcess1msHandler(void)
+static void PeriodicTask_1ms(void)
 {
+	/* Gear Sensor reading process */
+	GearSensor_Process();
+
+	/* Drive-By-Wire process */
 	DBW_Process();
 
-#if 0
-	/* Poll MicroSwitch Status */
-	MicroSwitch_PollStatus();
-
-	/* MicroSwitch process */
-	MicroSwitch_Process();
-#endif
-}
-
-static void PeriodicProcess10msHandler(void)
-{
-	SwTimerExecute();
-#if 0
 	/* Gear Control process */
 	GearControl_Process();
 
-	/* Gear Sensor process */
-	GearSensor_Process();
-#endif
+	/* MicroSwitch process */
+	MicroSwitch_Process();
 }
 
-static void PeriodicProcess100msHandler(void)
+static void PeriodicTask_10ms(void)
 {
-	//OnOffSwitch_Process();
+	/* Software Timers Process */
+	SwTimerExecute();
+
+	/* CAN Bus Tx Callback */
+	//CAN_TxCallback();
 }
 
-static void PeriodicProcess500msHandler(void)
+static void PeriodicTask_500ms(void)
 {
+	/* LED Process */
 	LED_Process();
 }
 
-static SchedulerType schedule[N_PROCESS] = {{.handler = PeriodicProcess1msHandler, .period = 1U},
-								            {.handler = PeriodicProcess10msHandler, .period = 10U},
-											{.handler = PeriodicProcess100msHandler, .period = 100U},
-											{.handler = PeriodicProcess500msHandler, .period = 500U}
+/* Scheduler Tasks Configuration */
+static SchedulerType schedule[N_PROCESS] = {
+	{
+		/* 1ms task */
+		.handler = PeriodicTask_1ms,
+		.period = 1U
+	},
+	{
+		/* 10ms task */
+		.handler = PeriodicTask_10ms,
+		.period = 10U
+	},
+	{
+		/* 500ms task */
+		.handler = PeriodicTask_500ms,
+		.period = 500U
+	}
 };
+
 /* USER CODE END 0 */
 
 /**
@@ -178,38 +192,51 @@ int main(void)
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Enable watchdog first - no return */
+  Watchdog_Init(&hiwdg);
+
+  /* VAL x 100ms */
+  LED_indicateResetWithDelay(10U);
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
-	  /* Init CAN Manager */
-	  //CANManager_Init(&hcan1);
-
-	  /* Initialize ADC */
+#if CAN_BUS_ENABLE
+	  /* Initialize CAN Bus */
+	  if (CAN_Init(&hcan1) != ERROR_OK) {
+		  errorFlags.canInitErr = TRUE;
+	  }
+#endif
+	  /* Initialize ADC 1 */
 	  if (ADC_Init(&hadc1, ADC_1_HANDLE, ADC_1_CHANNELS_COUNT) != ERROR_OK) {
 		  errorFlags.adcInitErr = TRUE;
 	  }
 
+	  /* Initialize ADC 2 */
 	  if (ADC_Init(&hadc2, ADC_2_HANDLE, ADC_2_CHANNELS_COUNT) != ERROR_OK) {
 		  errorFlags.adcInitErr = TRUE;
 	  }
 
-	  /* Interrupts Init */
+	  /* Initialize Interrupts */
 	  if (IRQ_Init() != ERROR_OK) {
 		  errorFlags.irqInitErr = TRUE;
 	  }
 
-	  /* DBW Init */
+	  /* Initialize Drive-By-Wire */
 	  if (DBW_Init() != ERROR_OK) {
 		  errorFlags.dbwInitErr = TRUE;
 	  }
 
 	  /* Initialize Gear Sensor module */
-	  //GearSensor_Init(gearsens);
-	  /* Initialize MicroSwitch module */
-	  //MicroSwitch_Init(gearsens);
+	  if (GearSensor_Init() != ERROR_OK) {
+		  errorFlags.gearSensInitErr = TRUE;
+	  }
+
+	  if (GearControl_Init(&htim3) != ERROR_OK) {
+		  errorFlags.gearCtrlInitErr = TRUE;
+	  }
 
 	  if (errorFlags.errTotal == ERROR_OK) {
 		  /* Initialize Scheduler */
-		  if (SchedulerInit(schedule, &htim2, &hiwdg) == ERROR_OK) {
+		  if (SchedulerInit(schedule, &htim2) == ERROR_OK) {
 			  /* Run scheduler */
 			  SchedulerRun();
 		  } else {
@@ -472,7 +499,7 @@ static void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_8;
-  hiwdg.Init.Reload = 7;
+  hiwdg.Init.Reload = 11;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();
@@ -505,7 +532,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 3359;
+  htim1.Init.Period = 4639;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;

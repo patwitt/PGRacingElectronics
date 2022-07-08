@@ -24,9 +24,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "DefineConfig.h"
-
-#include "PlatformLow/Inc/Adc.h"
-#include "PlatformLow/Inc/Scheduler.h"
+#include "CAN.h"
+#include "Adc.h"
+#include "Scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,8 +47,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
-static __IO AdcDataChannel* adc1Channels = NULL;
-static __IO AdcDataChannel* adc2Channels = NULL;
+static AdcDataChannel* adc1Channels = NULL;
+static AdcDataChannel* adc2Channels = NULL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,6 +67,7 @@ uint16_t debugAdc1[ADC_1_CHANNELS_COUNT];
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc1;
 extern DMA_HandleTypeDef hdma_adc2;
+extern CAN_HandleTypeDef hcan1;
 /* USER CODE BEGIN EV */
 ErrorEnum IRQ_Init(void)
 {
@@ -221,6 +222,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles CAN1 RX0 interrupts.
+  */
+void CAN1_RX0_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN1_RX0_IRQn 0 */
+
+  /* USER CODE END CAN1_RX0_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan1);
+  /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
+  CAN_RxCallback();
+  /* USER CODE END CAN1_RX0_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA2 stream2 global interrupt.
   */
 void DMA2_Stream2_IRQHandler(void)
@@ -230,27 +245,20 @@ void DMA2_Stream2_IRQHandler(void)
   /* USER CODE END DMA2_Stream2_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc2);
   /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
+  Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_TPS_1].avgData, *adc2Channels[ADC_CHANNEL_TPS_1].raw);
+  Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_TPS_2].avgData, *adc2Channels[ADC_CHANNEL_TPS_2].raw);
+  Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_1].avgData, *adc2Channels[ADC_CHANNEL_APPS_1].raw);
+  Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_2].avgData, *adc2Channels[ADC_CHANNEL_APPS_2].raw);
 
-  adc2Channels[ADC_CHANNEL_TPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_1].avgBuff, adc2Channels[ADC_CHANNEL_TPS_1].raw);
-  adc2Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].raw);
-  adc2Channels[ADC_CHANNEL_APPS_1].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_1].avgBuff, adc2Channels[ADC_CHANNEL_APPS_1].raw);
-  adc2Channels[ADC_CHANNEL_APPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_APPS_2].avgBuff, adc2Channels[ADC_CHANNEL_APPS_2].raw);
-
-#ifdef SHOW_MIN_MAX
+#if CONFIG_ADC_SHOW_MIN_MAX
   if (HAL_GetTick() > 100U) {
-	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_TPS_1]);
-	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_TPS_2]);
-	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_APPS_1]);
-	  ADC_updateMinMax(&adc2Channels[ADC_CHANNEL_APPS_2]);
+	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_TPS_1].avgData.avg, &adc2Channels[ADC_CHANNEL_TPS_1].min, &adc2Channels[ADC_CHANNEL_TPS_1].max);
+	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_TPS_2].avgData.avg, &adc2Channels[ADC_CHANNEL_TPS_2].min, &adc2Channels[ADC_CHANNEL_TPS_2].max);
+	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_APPS_1].avgData.avg, &adc2Channels[ADC_CHANNEL_APPS_1].min, &adc2Channels[ADC_CHANNEL_APPS_1].max);
+	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_APPS_2].avgData.avg, &adc2Channels[ADC_CHANNEL_APPS_2].min, &adc2Channels[ADC_CHANNEL_APPS_2].max);
   }
 #endif
 
-#ifdef RUN_DEBUG
-  debugAdc2[ADC_CHANNEL_TPS_1] = adc2Channels[ADC_CHANNEL_TPS_1].avg;
-  debugAdc2[ADC_CHANNEL_TPS_2] = adc2Channels[ADC_CHANNEL_TPS_2].avg;
-  debugAdc2[ADC_CHANNEL_APPS_1] = adc2Channels[ADC_CHANNEL_APPS_1].avg;
-  debugAdc2[ADC_CHANNEL_APPS_2] = adc2Channels[ADC_CHANNEL_APPS_2].avg;
-#endif
   /* USER CODE END DMA2_Stream2_IRQn 1 */
 }
 
@@ -264,7 +272,11 @@ void DMA2_Stream4_IRQHandler(void)
   /* USER CODE END DMA2_Stream4_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc1);
   /* USER CODE BEGIN DMA2_Stream4_IRQn 1 */
-  adc1Channels[ADC_CHANNEL_GEAR_POS].avg = ADC_AvgSamples(adc1Channels[ADC_CHANNEL_GEAR_POS].avgBuff, adc1Channels[ADC_CHANNEL_GEAR_POS].raw);
+  Utils_RollingAverage_U16(&adc1Channels[ADC_CHANNEL_GEAR_SENS].avgData, *adc1Channels[ADC_CHANNEL_GEAR_SENS].raw);
+
+  debugAdc1[ADC_CHANNEL_GEAR_SENS] = *adc1Channels[ADC_CHANNEL_GEAR_SENS].raw;
+
+  //adc1Channels[ADC_CHANNEL_GEAR_SENS].avg = ADC_AvgSamples(adc1Channels[ADC_CHANNEL_GEAR_SENS].avgBuff, adc1Channels[ADC_CHANNEL_GEAR_SENS].raw);
   //adc1Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].raw);
   /* USER CODE END DMA2_Stream4_IRQn 1 */
 }

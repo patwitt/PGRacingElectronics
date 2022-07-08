@@ -18,7 +18,7 @@ typedef enum {
 	GEAR_REQUEST_INVALID
 } GearRequestEnum;
 
-ErrorEnum GearRequestsInit(void);
-GearRequestEnum GearRequestGet(void);
+ErrorEnum GearRequest_Init(void);
+GearRequestEnum GearRequest_Get(void);
 
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_GEARREQUEST_H_ */

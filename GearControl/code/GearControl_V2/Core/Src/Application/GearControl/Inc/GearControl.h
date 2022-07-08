@@ -72,7 +72,7 @@ enum
 #define ON (1U)
 #define OFF (0U)
 
-ErrorEnum GearControl_Init(void);
+ErrorEnum GearControl_Init(TIM_HandleTypeDef *htim);
 void GearControl_Process(void);
 
 #endif /* SRC_APPLICATION_GEARCONTROL_INC_GEARCONTROL_H_ */

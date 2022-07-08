@@ -6,15 +6,21 @@
  */
 
 #include <DCMotor.h>
-#include "DefineConfig.h"
+#include "Utils.h"
 #include "Types.h"
 #include "main.h"
 
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
+#if 0
+/* Max. frequency available - 25kHz */
 #define PWM_DUTY_CYCLE_MAX (3359.0f)
 #define PWM_MULTIPLIER (3359.0f / 1000.0f)
+#endif
+
+#define PWM_DUTY_CYCLE_MAX (4640.0f)
+#define PWM_MULTIPLIER (4640.0f / 1000.0f)
 #define PWM_DUTY_CYCLE_MIN (0U)
 
 extern TIM_HandleTypeDef htim1;
@@ -91,8 +97,7 @@ void DCMotor_Update(float target, DCMotorDirectionEnum direction)
 		case DC_MOTOR_ENABLED:
 			dcController.targetDutyCycle = DCMotor_ConvertTargetToPwm(target);
 
-			switch (direction)
-			{
+			switch (direction) {
 				case DC_MOTOR_ROTATE_PLUS:
 					*dcController.PWM_H_minus = 0U;
 					*dcController.PWM_H_plus = dcController.targetDutyCycle;

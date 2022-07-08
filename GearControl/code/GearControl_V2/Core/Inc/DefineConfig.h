@@ -1,14 +1,20 @@
 #ifndef INC_DEFINE_CONFIG_H
 #define INC_DEFINE_CONFIG_H
 
-#define CLAMP_MAX(val, max) ((val > max) ? max : val)
-#define CLAMP_MIN(val, min) ((val < min) ? min : val)
+/* DBW configs */
+#define CONFIG_DBW_CALIBRATE_TPS_AUTO    (TRUE)
+#define CONFIG_DBW_ADJUST_SENS_LIMITS    (FALSE)
 
-#if 1
-#define CALIBRATE_TPS_AUTO
-#endif
+/* ADC configs */
+#define CONFIG_ADC_SHOW_MIN_MAX          (TRUE)
 
-#define SHOW_MIN_MAX
-#define LED_ENABLED
+/* CAN BUS config */
+#define CAN_BUS_ENABLE                   (FALSE)
+
+/* PID configs */
+#define CONFIG_PID_ENABLE_RC_LPF         (FALSE)
+#define CONFIG_PID_ENABLE_IIR            (TRUE)
+#define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE)
+#define CONFIG_PID_APPLY_BRAKE           (TRUE)
 
 #endif // INC_DEFINE_CONFIG_H

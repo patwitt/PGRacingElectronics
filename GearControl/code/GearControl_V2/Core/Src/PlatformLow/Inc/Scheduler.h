@@ -11,7 +11,7 @@
 #include "Types.h"
 #include "stm32f4xx_hal.h"
 
-#define N_PROCESS (4U)
+#define N_PROCESS (3U)
 
 typedef void (*handleType)(void);
 
@@ -41,7 +41,7 @@ typedef struct
   SchedulerStatsType stats;  /**< Stores the task's statistics */
 } SchedulerType;
 
-ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer, IWDG_HandleTypeDef *const watchdog);
+ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer);
 void SchedulerRun(void);
 void SchedulerCallback(void);
 void SysTickResetElapsed(void);

@@ -6,190 +6,160 @@
  */
 
 #include "GearSensor.h"
-
-#include "main.h"
-
+#include "Adc.h"
 
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
-#define N_CHANNELS (4U)
 
-typedef struct
+#define GEAR_SENS_ADC_UNKNOWN (0U)
+
+typedef enum {
+	GEAR_SENS_STATUS_NOT_IN_RANGE,
+	GEAR_SENS_STATUS_IN_RANGE,
+	GEAR_SENS_STATUS_CHECK_IN_PROGRESS
+} GearSensorStatusEnum;
+
+typedef struct {
+	const GearSensorStatesEnum state;
+	const uint16 adcExpectedReading;
+	const uint16 adcResolution;
+	uint32_t validCnt;
+} GearSensorConfigType;
+
+static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
+	 [GEAR_SENS_1] = {
+		 .adcExpectedReading = 2690U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_N] = {
+		 .adcExpectedReading = 4000U ,.adcResolution = 200U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_2] = {
+	     .adcExpectedReading = 1938U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_3] = {
+		 .adcExpectedReading = 1390U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_4] = {
+	     .adcExpectedReading = 888U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_5] = {
+		 .adcExpectedReading = 518U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_6] = {
+	     .adcExpectedReading = 190U ,.adcResolution = 80U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_IN_PROG] = {
+		 .adcExpectedReading = 0xFFFFU ,.adcResolution = 0U, .validCnt = 0U
+	 },
+	 [GEAR_SENS_INVALID] = {
+		 .adcExpectedReading = 0U ,.adcResolution = 0U, .validCnt = 0U
+	 }
+};
+
+typedef struct {
+	/* Gear Sensor Channel */
+	__IO AdcDataChannel* gearSensAdc;
+	GearSensorConfigType *const config;
+	GearSensorStatesEnum state;
+	uint32_t validCnt;
+	const uint32_t nChecks;
+} GearSensorHandler;
+
+GearSensorHandler gearSens = {.gearSensAdc = NULL, .state = GEAR_SENS_INVALID, .config = GearSensorConfig, .validCnt = 0U, .nChecks = 3U};
+
+GearSensorStatesEnum GearSensor_GetState(void)
 {
-	const GearStates state;
-	const uint16 adcVal;
-	const uint16 adcThreshold;
-	__IO uint8 validCnt;
-}GearInfoS;
-
-static GearInfoS GearInfo[] = {{GEAR_INIT   ,0xFFFFU,0U,   0},
-							   {GEAR_1      ,2690U  ,80U,  0},
-							   {GEAR_N      ,4000U  ,200U, 0},
-							   {GEAR_2      ,1938U  ,80U,  0},
-							   {GEAR_3      ,1390U  ,80U,  0},
-							   {GEAR_4      ,888U   ,80U,  0},
-							   {GEAR_5      ,518U   ,80U,  0},
-							   {GEAR_6      ,190U   ,80U,  0},
-							   {GEAR_IN_PROG,0xFFFFU,0U,   0},
-							   {GEAR_INVALID,0      ,0U,   0}};
-
-static GearStates state;
-
-GearStates GearSensor_GetState(void)
-{
-	return state;
+	return gearSens.state;
 }
 
 /* ---------------------------- */
 /* Static function declarations */
 /* ---------------------------- */
-
-static inline uint8 InRange(GearInfoS* gearinfo, uint8 nSamples);
-
+static inline GearSensorStatusEnum GearSensor_ValidateRange(const GearSensorStatesEnum testedGear);
+static inline bool_t GearSensor_IsInRange(const uint16_t adcReading,
+		                                  const uint16_t resolution,
+										  const uint16_t expected);
 /* ---------------------------- */
 /*       Static functions       */
 /* ---------------------------- */
-#if 0
-/* Check if adc reading is within threshold for given gear position */
-static inline uint8 InRange(GearInfoS* gearinfo, uint8 nSamples)
-{
-	uint8 in_range = FALSE;
-
-	if ((gear_sensor.rawVal[0] != GEARSENSOR_UNDEFINED) &&
-		(gearinfo->adcVal >= (gear_sensor.rawVal[0] - gearinfo->adcThreshold)) &&
-		(gearinfo->adcVal <= (gear_sensor.rawVal[0] + gearinfo->adcThreshold)))
-	{
-		if (gearinfo->validCnt >= nSamples)
-		{
-			in_range = TRUE;
-			gearinfo->validCnt = 0;
-		}
-		else
-		{
-			in_range = CHECK_IN_PROG;
-			gearinfo->validCnt++;
-		}
-	}
-	else
-	{
-		/* Reset valid counter and return FALSE */
-		gearinfo->validCnt = 0;
-	}
-
-	return in_range;
+static inline bool_t GearSensor_IsInRange(const uint16_t adcReading, const uint16_t resolution, const uint16_t expected) {
+	return ((adcReading > GEAR_SENS_ADC_UNKNOWN) &&
+			(expected >= (*gearSens.gearSensAdc->raw - resolution)) &&
+			(expected <= (*gearSens.gearSensAdc->raw + resolution)));
 }
-#endif
+
+/* Check if adc reading is within threshold for given gear position */
+static inline GearSensorStatusEnum GearSensor_ValidateRange(const GearSensorStatesEnum testedGear)
+{
+	GearSensorStatusEnum inRange = GEAR_SENS_STATUS_NOT_IN_RANGE;
+	GearSensorConfigType *const testedGearCfg = &gearSens.config[testedGear];
+
+	if (GearSensor_IsInRange(*gearSens.gearSensAdc->raw, testedGearCfg->adcResolution, testedGearCfg->adcExpectedReading)) {
+		if (testedGearCfg->validCnt >= gearSens.nChecks) {
+			inRange = GEAR_SENS_STATUS_IN_RANGE;
+			testedGearCfg->validCnt = 0U;
+		} else {
+			inRange = GEAR_SENS_STATUS_CHECK_IN_PROGRESS;
+			++testedGearCfg->validCnt;
+		}
+	} else {
+		/* Reset valid counter and return NOT IN RANGE to test the next one */
+		testedGearCfg->validCnt = 0U;
+	}
+
+	return inRange;
+}
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+ErrorEnum GearSensor_Init(void)
+{
+	ErrorEnum error = ERROR_OK;
+
+	gearSens.gearSensAdc = ADC_getAdcChannelPtr(ADC_1_HANDLE, ADC_CHANNEL_GEAR_SENS);
+
+	if (gearSens.gearSensAdc != NULL) {
+		/* Init OK */
+	} else {
+		error = ERROR_NULL;
+	}
+
+	return error;
+}
 
 /* Get current gear by sensor reading */
-GearStates GearSensor_GetStateBySensorAdc(uint8 nSamples)
+GearSensorStatesEnum GearSensor_GetStateBySensorAdc(void)
 {
-	uint8 i = (uint8)GEAR_1; /* Start with GEAR 1 id */
-	GearStates state = GEAR_INVALID;
+	GearSensorStatesEnum gearTestIndex  = GEAR_SENS_1; /* Start with GEAR 1 */
+	GearSensorStatesEnum recognizedGear = GEAR_SENS_INVALID;
 
-	while (GearInfo[i].state != GEAR_INVALID)
-	{
-		uint8 status = InRange(&GearInfo[i], nSamples);
+	while ((gearTestIndex != GEAR_SENS_INVALID) && (recognizedGear == GEAR_SENS_INVALID)) {
+		const GearSensorStatusEnum isInRangeStatus = GearSensor_ValidateRange(gearTestIndex);
 
-		if (status == TRUE)
-		{
-			state = GearInfo[i].state;
-			break;
+		switch (isInRangeStatus) {
+			case GEAR_SENS_STATUS_IN_RANGE:
+				/* Gear found, return recognized gear */
+				recognizedGear = gearTestIndex;
+				break;
+
+			case GEAR_SENS_STATUS_CHECK_IN_PROGRESS:
+				recognizedGear = GEAR_SENS_IN_PROG;
+				break;
+
+			case GEAR_SENS_STATUS_NOT_IN_RANGE:
+			default:
+				++gearTestIndex;
+				break;
 		}
-		else if (status == CHECK_IN_PROG)
-		{
-			state = GEAR_IN_PROG;
-			break;
-		}
-		++i;
 	}
 
-	return state;
+	return recognizedGear;
 }
 
-#if 0
-/* Check if gear was changed by monitoring IDLE state */
 void GearSensor_Process(void)
 {
-	GearStates nextstate = GearControl_GetNextState();
-	GearStates currentstate = GearControl_GetState();
-
-	if ((SHIFT_IDLE == ShiftControl_GetState()) && (nextstate == GEAR_INVALID))
-	{
-		uint8 isInRange = InRange(&GearInfo[(uint8)currentstate], SAMPLES_3);
-
-		if (FALSE == isInRange)
-		{
-			GearStates newState = GearSensor_GetStateBySensorAdc(SAMPLES_3);
-
-			if (newState == GEAR_IN_PROG)
-			{
-				/* CHECK IN PROGRESS */
-			}
-			else
-			{
-				/* Gear found or unkown (adc == 0) */
-				if (newState != GEAR_INVALID)
-				{
-					GearControl_SetState(newState);
-					GearSensor_SetState(GEAR_NOT_CHANGED);
-				}
-				else
-				{
-					/* adc equal 0, unknown gear */
-					GearSensor_SetState(GEAR_UNKNOWN);
-				}
-
-				ShiftControl_SetValidation(VALIDATION_DONE);
-				GearControl_SetError(GEAR_NOT_SHIFTED_ERROR, TRUE);
-			}
-		}
-		else if ((TRUE == isInRange) &&
-				(VALIDATION_POLL == ShiftControl_GetValidation()))
-		{
-			/* Gear found after unkown sensor state */
-			GearSensor_SetState(GEAR_OK);
-			GearControl_SetError(GEAR_NOT_SHIFTED_ERROR, FALSE);
-			ShiftControl_SetValidation(VALIDATION_DONE);
-		}
-		else
-		{
-			/* CHECK IN PROGRESS */
-		}
-	}
+	gearSens.state = GearSensor_GetStateBySensorAdc();
 }
 
-void GearSensor_DMAProcess(void)
-{
-	GearStates nextstate = GearControl_GetNextState();
-	ShiftStates state = ShiftControl_GetState();
-
-	testadcval = gear_sensor.rawVal[0];
-
-	switch (state)
-	{
-		case SHIFT_EXEC:
-			if ((GEAR_INVALID != nextstate) &&
-				(TRUE == InRange(&GearInfo[(uint8)nextstate], N_SAMPLES)))
-			{
-				GearControl_SetServoPos(SET_DEG, POS_DEG_DEFAULT, 0);
-				GearControl_SetError(GEAR_NOT_SHIFTED_ERROR, FALSE);
-				ShiftControl_SetState(SHIFT_DONE);
-			}
-			break;
-
-		case SHIFT_IDLE:
-			if (GEARSENSOR_UNDEFINED == gear_sensor.rawVal[0])
-			{
-				GearControl_SetServoPos(SET_DEG, POS_DEG_DEFAULT, 0);
-			}
-			break;
-
-		default:
-			break;
-	}
-}
-#endif

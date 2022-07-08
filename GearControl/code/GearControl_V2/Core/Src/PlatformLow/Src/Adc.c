@@ -8,6 +8,7 @@
 #include "Adc.h"
 #include "main.h"
 #include "DefineConfig.h"
+#include "Utils.h"
 
 /* ---------------------------- */
 /*          Local data          */
@@ -21,8 +22,16 @@ static __IO uint16 adc2DmaBuff[ADC_2_CHANNELS_COUNT];
 static __IO uint16 *const adcDmaBuffers[ADC_HANDLE_COUNT] = {&adc1DmaBuff[0U], &adc2DmaBuff[0U]};
 
 /* Adc data available for other IEs */
-static AdcDataChannel adc1Data[ADC_1_CHANNELS_COUNT];
-static AdcDataChannel adc2Data[ADC_2_CHANNELS_COUNT];
+static AdcDataChannel adc1Data[ADC_1_CHANNELS_COUNT] = {
+		[ADC_CHANNEL_GEAR_SENS] = {.avgData.nSamples = N_SAMPLES_U16},
+		[ADC_CHANNEL_IS]        = {.avgData.nSamples = N_SAMPLES_U16}
+};
+static AdcDataChannel adc2Data[ADC_2_CHANNELS_COUNT] = {
+		[ADC_CHANNEL_TPS_1] = {.avgData.nSamples = N_SAMPLES_U16},
+		[ADC_CHANNEL_TPS_2] = {.avgData.nSamples = N_SAMPLES_U16},
+		[ADC_CHANNEL_APPS_1] = {.avgData.nSamples = N_SAMPLES_U16},
+		[ADC_CHANNEL_APPS_2] = {.avgData.nSamples = N_SAMPLES_U16}
+};
 static AdcDataChannel *const adcData[ADC_HANDLE_COUNT] = {&adc1Data[0U], &adc2Data[0U]};
 
 /* ---------------------------- */
@@ -39,7 +48,7 @@ ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandl
 			for (uint32_t channel = 0U; channel < conversions; ++channel) {
 				adcData[adcHandle][channel].raw = &adcDmaBuffers[adcHandle][channel];
 
-#ifdef SHOW_MIN_MAX
+#if CONFIG_ADC_SHOW_MIN_MAX
 				adcData[adcHandle][channel].max = 0U;
 				adcData[adcHandle][channel].min = 0xFFFFU;
 #endif
@@ -54,22 +63,9 @@ ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandl
 	return err;
 }
 
-#ifdef SHOW_MIN_MAX
-void ADC_updateMinMax(__IO AdcDataChannel* adcChannel) {
-	if (adcChannel != NULL) {
-		if (adcChannel->avg < adcChannel->min) {
-			adcChannel->min = adcChannel->avg;
-		}
-		if (adcChannel->avg > adcChannel->max) {
-			adcChannel->max = adcChannel->avg;
-		}
-	}
-}
-#endif
-
-__IO AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
+AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
 {
-	__IO AdcDataChannel* dmaAdc = NULL;
+	AdcDataChannel* dmaAdc = NULL;
 
 	if (adcHandle < ADC_HANDLE_COUNT) {
 		dmaAdc = adcData[adcHandle];
@@ -78,9 +74,9 @@ __IO AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
 	return dmaAdc;
 }
 
-__IO AdcDataChannel* ADC_getAdcChannelPtr(const AdcHandleEnum adcHandle, const AdcChannelEnum channel)
+AdcDataChannel* ADC_getAdcChannelPtr(const AdcHandleEnum adcHandle, const AdcChannelEnum channel)
 {
-	__IO AdcDataChannel* adcChannel = NULL;
+	AdcDataChannel* adcChannel = NULL;
 
 	if ((adcHandle < ADC_HANDLE_COUNT) && (channel <= adcChannelsMaxConversions[adcHandle])) {
 		adcChannel = &adcData[adcHandle][channel];

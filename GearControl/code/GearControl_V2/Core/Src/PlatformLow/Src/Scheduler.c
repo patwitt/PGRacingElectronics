@@ -27,7 +27,7 @@ static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t durat
 static void SchedulerExecuteTasks(void);
 static void SchedulerTimeBase(void);
 
-ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer, IWDG_HandleTypeDef *const watchdog)
+ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer)
 {
 	ErrorEnum err = ERROR_OK;
 
@@ -39,9 +39,6 @@ ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const 
    	  }
 
    	if (err == ERROR_OK) {
-		/* Enable watchdog - no return */
-		Watchdog_Init(watchdog);
-
 		/* Assign scheduler timer to stop watch - no return */
 		StopWatchInit(timer);
 
@@ -100,10 +97,8 @@ static void SchedulerExecuteTasks(void)
 
    TimerStopWatchStartFrame(&frameStopWatch);
 
-   for (uint32_t i = 0U; i < N_PROCESS; ++i)
-   {
-         if (timers[i] >= schedule_[i].period)
-         {
+   for (uint32_t i = 0U; i < N_PROCESS; ++i) {
+         if (timers[i] >= schedule_[i].period) {
             TimerStopWatchStartLap(&taskStopWatch);
             schedule_[i].handler();
             SchedulerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
@@ -120,13 +115,11 @@ static void SchedulerExecuteTasks(void)
 
 static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t duration)
 {
-   if (duration > stats->maxDuration)
-   {
+   if (duration > stats->maxDuration) {
       stats->maxDuration = duration;
    }
 
-   if (duration < stats->minDuration)
-   {
+   if (duration < stats->minDuration) {
       stats->minDuration = duration;
    }
 
@@ -135,14 +128,13 @@ static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t durat
 #if 0
 static void SchedulerUpdateCpuLoadStats(const uint32_t lastDuration)
 {
-#ifndef DOXYGEN_IGNORE
 #define MEASUREMENT_30S (30U)  /**< value of 30 second measurement*/
 #define FRAMES_PER_MEASUREMENT (MEASUREMENT_30S * SYS_TICK_FREQ) /**< value of frame per measurement  */
 #define CRITICAL_LOAD (50U)    /**< value of critical load */
 #define FULL_LOAD (100U)       /**< value of full load */
 #define CRITICAL_TIME ((CRITICAL_LOAD * MEASUREMENT_30S * HW_TIMER_FREQUENCY) / FULL_LOAD) /**< value of critical time */
 #define SCALE_US_TO_MS (1000U) /**< value of microsecond in millisecond */
-#endif
+
    static uint32_t totalDuration = 0U;
    static uint32_t framesCount = 0U;
 

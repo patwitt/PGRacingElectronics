@@ -17,8 +17,10 @@
 static MicroSwitchInternal microSwitchUp = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_1};
 static MicroSwitchInternal microSwitchDown = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_2};
 
-static __IO MicroSwitch microSwitches[MS_COUNT] = {{.internal = &microSwitchDown},
-		                                                    {.internal = &microSwitchUp}};
+static __IO MicroSwitch microSwitches[MS_COUNT] = {
+	{.internal = &microSwitchDown},
+	{.internal = &microSwitchUp}
+};
 
 static MicroSwitchControlType microSwitchControl = MS_CONTROL_DISABLED;
 
@@ -35,7 +37,7 @@ static void MicroSwitch_DebounceLow(void)
 {
 	static uint32_t lowDebCnt = 0U;
 
-	/* Make sure both microswitches were LOW debouncing before triggering gearshifting again */
+	/* Make sure both microswitches were LOW debouncing before triggering gear shifting again */
 	if ((HAL_GPIO_ReadPin(GPIOC, microSwitches[MS_G_UP].internal->GPIO) == GPIO_PIN_RESET) &&
 		(HAL_GPIO_ReadPin(GPIOC, microSwitches[MS_G_DOWN].internal->GPIO) == GPIO_PIN_RESET)) {
 		++lowDebCnt;
@@ -77,8 +79,7 @@ static void MicroSwitch_NormalOperation(void)
 /* ---------------------------- */
 void MicroSwitch_Init(void)
 {
-	for (uint32_t i = 0U; i < MS_COUNT; ++i)
-	{
+	for (uint32_t i = 0U; i < MS_COUNT; ++i) {
 		microSwitches[i].internal->debCnt = 0U;
 		microSwitches[i].internal->validCnt = 0U;
 		microSwitches[i].state = MS_STATE_DEBOUNCING;
@@ -87,8 +88,7 @@ void MicroSwitch_Init(void)
 
 void MicroSwitch_Process(void)
 {
-	switch (microSwitchControl)
-	{
+	switch (microSwitchControl) {
 		case MS_CONTROL_DEBOUNCE_LOW:
 			MicroSwitch_DebounceLow();
 			break;
@@ -107,13 +107,13 @@ void MicroSwitch_Process(void)
 
 __IO MicroSwitch* MicroSwitch_Get(MicroSwitchTypeEnum microswitch)
 {
-	__IO MicroSwitch* mswitch = NULL;
+	__IO MicroSwitch* mSwitch = NULL;
 
 	if (microswitch < MS_COUNT) {
-		mswitch = &microSwitches[microswitch];
+		mSwitch = &microSwitches[microswitch];
 	}
 
-	return mswitch;
+	return mSwitch;
 }
 
 void MicroSwitch_SetControl(MicroSwitchControlType control)
