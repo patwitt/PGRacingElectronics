@@ -102,6 +102,17 @@ ErrorEnum Servo_Disable(const ServoTypeEnum servoType)
 	return err;
 }
 
+ErrorEnum Servo_EnableAndGoToDefaultPos(const ServoTypeEnum servoType)
+{
+	ErrorEnum err = Servo_Enable(servoType);
+
+	if (err == ERROR_OK) {
+		err = Servo_SetDefaultPos(servoType);
+	}
+
+	return err;
+}
+
 ErrorEnum Servo_Enable(const ServoTypeEnum servoType)
 {
 	ErrorEnum err = ERROR_OK;

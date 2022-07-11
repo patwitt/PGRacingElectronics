@@ -43,6 +43,7 @@ typedef enum {
 
 ErrorEnum Servo_Init(const ServoTypeEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams);
 ErrorEnum Servo_Enable(const ServoTypeEnum servoType);
+ErrorEnum Servo_EnableAndGoToDefaultPos(const ServoTypeEnum servoType);
 ErrorEnum Servo_Disable(const ServoTypeEnum servoType);
 ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg);
 ErrorEnum Servo_SetDefaultPos(const ServoTypeEnum servoType);

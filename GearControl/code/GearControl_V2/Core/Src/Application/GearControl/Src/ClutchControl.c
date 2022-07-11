@@ -43,24 +43,9 @@ static ClutchControlHandler clutchCtrl = {.control  = CLUTCH_CTRL_INIT_CAN_ACK,
 /* ---------------------------- */
 /* Static function declarations */
 /* ---------------------------- */
-static ErrorEnum ClutchControl_EnableServo(void);
 static void ClutchControl_GearControl(void);
 static void ClutchControl_CAN_Acknowledge(void);
 static void ClutchControl_CAN_NormalOperation(void);
-
-/* ---------------------------- */
-/*       Static functions       */
-/* ---------------------------- */
-static ErrorEnum ClutchControl_EnableServo(void)
-{
-	ErrorEnum servoErr = Servo_Enable(clutchCtrl.servo);
-
-	if (servoErr == ERROR_OK) {
-		servoErr = Servo_SetDefaultPos(clutchCtrl.servo);
-	}
-
-	return servoErr;
-}
 
 static void ClutchControl_GearControl(void)
 {
@@ -80,7 +65,7 @@ static void ClutchControl_CAN_Acknowledge(void)
 			clutchCtrl.canAck = TRUE;
 
 			/* Try to enable clutch servo */
-			if (ClutchControl_EnableServo() == ERROR_OK) {
+			if (Servo_EnableAndGoToDefaultPos(clutchCtrl.servo) == ERROR_OK) {
 				clutchCtrl.control = CLUTCH_CTRL_NORMAL_OP;
 			} else {
 				clutchCtrl.control = CLUTCH_CTRL_SERVO_DISABLED;
@@ -103,7 +88,9 @@ static void ClutchControl_CAN_NormalOperation(void)
 		const uint32_t clutchPosFromCan = (uint32_t)clutchRxMsg->buffer[CAN_DATA_BYTE_DATA_0];
 
 		/* Set received servo position */
-		Servo_SetPos(clutchCtrl.servo, clutchPosFromCan);
+		if (Servo_SetPos(clutchCtrl.servo, clutchPosFromCan) != ERROR_OK) {
+			clutchCtrl.control = CLUTCH_CTRL_SERVO_DISABLED;
+		}
 
 		clutchRxMsg->newData = FALSE;
 		}

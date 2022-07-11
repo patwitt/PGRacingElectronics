@@ -26,7 +26,8 @@ typedef enum {
 	GEAR_4     = 4U,
 	GEAR_5     = 5U,
 	GEAR_6     = 6U,
-	GEAR_INIT  = 7U
+	GEAR_INIT  = 7U,
+	GEAR_DISABLED = 8U
 } GearCtrlStates;
 
 static const ServoConfig gearServoConfig = {
@@ -61,7 +62,12 @@ static GearCtrlStates GearCtrlState_Init(void)
 	GearSensorStatesEnum gearSensState = GearSensor_GetState();
 
 	if (gearSensState <= GEAR_SENS_6) {
-		nextState = (GearCtrlStates)gearSensState;
+		/* Enable gear shifting servo */
+		if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
+			nextState = (GearCtrlStates)gearSensState;
+		} else {
+			nextState = GEAR_DISABLED;
+		}
 	}
 
 	return nextState;
