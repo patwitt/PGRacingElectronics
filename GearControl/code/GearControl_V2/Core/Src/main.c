@@ -27,7 +27,9 @@
 /* Application */
 #include "DBW.h"
 #include "GearControl.h"
+#include "ClutchControl.h"
 #include "GearSensor.h"
+#include "Servo.h"
 /* Middleware */
 #include "MicroSwitch.h"
 /* Platform Low */
@@ -53,14 +55,15 @@
 typedef union {
 	uint64_t errTotal;
 	struct {
-		uint64_t adcInitErr : 1;       // ADC module init failure
-		uint64_t irqInitErr : 1;       // IRQ (Interrupts) module init failure
-		uint64_t dbwInitErr : 1;       // DBW module init failure
-		uint64_t schedulerInitErr : 1; // Scheduler module init failure
-		uint64_t canInitErr : 1;       // CAN Bus init failure
-		uint64_t gearSensInitErr : 1;  // Gear Sensor init failure
-		uint64_t gearCtrlInitErr : 1;  // Gear Control init failure
-		uint64_t halErr : 1;           // HAL generic error
+		uint64_t adcInitErr : 1;        // ADC module init failure
+		uint64_t irqInitErr : 1;        // IRQ (Interrupts) module init failure
+		uint64_t dbwInitErr : 1;        // DBW module init failure
+		uint64_t schedulerInitErr : 1;  // Scheduler module init failure
+		uint64_t canInitErr : 1;        // CAN Bus init failure
+		uint64_t gearSensInitErr : 1;   // Gear Sensor init failure
+		uint64_t gearCtrlInitErr : 1;   // Gear Control init failure
+		uint64_t clutchCtrlInitErr : 1; // Clutch Control init failure
+		uint64_t halErr : 1;            // HAL generic error
 	};
 } ErrorFlags;
 
@@ -114,6 +117,9 @@ static void PeriodicTask_1ms(void)
 	/* Gear Control process */
 	GearControl_Process();
 
+	/* Clutch Control process */
+	ClutchControl_Process();
+
 	/* MicroSwitch process */
 	MicroSwitch_Process();
 }
@@ -124,7 +130,9 @@ static void PeriodicTask_10ms(void)
 	SwTimerExecute();
 
 	/* CAN Bus Tx Callback */
-	//CAN_TxCallback();
+#if CONFIG_CAN_ENABLE
+	CAN_TxCallback();
+#endif
 }
 
 static void PeriodicTask_500ms(void)
@@ -199,7 +207,7 @@ int main(void)
   LED_indicateResetWithDelay(10U);
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
-#if CAN_BUS_ENABLE
+#if CONFIG_CAN_ENABLE
 	  /* Initialize CAN Bus */
 	  if (CAN_Init(&hcan1) != ERROR_OK) {
 		  errorFlags.canInitErr = TRUE;
@@ -230,8 +238,14 @@ int main(void)
 		  errorFlags.gearSensInitErr = TRUE;
 	  }
 
+	  /* Initialize Gear Control module */
 	  if (GearControl_Init(&htim3) != ERROR_OK) {
 		  errorFlags.gearCtrlInitErr = TRUE;
+	  }
+
+	  /* Initialize Clutch Control module */
+	  if (ClutchControl_Init(&htim3) != ERROR_OK) {
+		  errorFlags.clutchCtrlInitErr = TRUE;
 	  }
 
 	  if (errorFlags.errTotal == ERROR_OK) {

@@ -7,6 +7,7 @@
 #include "CAN.h"
 #include "GearControl.h"
 
+#include "Utils.h"
 #include "GearRequest.h"
 #include "GearWatchdog.h"
 #include "MicroSwitch.h"
@@ -28,11 +29,21 @@ typedef enum {
 	GEAR_INIT  = 7U
 } GearCtrlStates;
 
+static const ServoConfig gearServoConfig = {
+		.limits = {
+			 .degMin     = 20U, //!< 70 deg down
+		     .degDefault = 90U,
+			 .degMax     = 160U //!< 70 deg up
+		},
+		.pwmChannel = TIM_CHANNEL_3
+};
+
 typedef struct {
 	GearCtrlStates state;
+	const ServoTypeEnum servo;
 } GearControlHandler;
 
-static __IO GearControlHandler gearCtrl = {.state = GEAR_INIT};
+static __IO GearControlHandler gearCtrl = {.state = GEAR_INIT, .servo = SERVO_GEAR_SHIFT};
 
 /* ---------------------------- */
 /* Static function declarations */
@@ -71,26 +82,30 @@ static GearCtrlStates GearCtrlState_Handler(void)
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
-ErrorEnum GearControl_Init(TIM_HandleTypeDef *htim)
+ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 {
 	ErrorEnum err = ERROR_OK;
 
 	/* Initialize Gear Requests module */
-	if (err == ERROR_OK) {
-		err = GearRequest_Init();
-	}
+	err = GearRequest_Init();
 
 	/* Initialize Gear Watchdog module */
 	if (err == ERROR_OK) {
 		err = GearWatchdog_Init();
 	}
 
-	/* Initialize Servo module */
+	/* Initialize gear servo */
 	if (err == ERROR_OK) {
-		if ((htim != NULL) && (htim->Instance != NULL)) {
-			err = Servo_Init(SERVO_GEAR_SHIFT, &htim->Instance->CCR3);
-		} else {
-			err = ERROR_NULL;
+		NULL_ERR_CHECK2(err, htim, htim->Instance);
+
+		if (err == ERROR_OK) {
+			/* Gear Control servo PWM parameters */
+			ServoPwmParams gearServoPwmParams = {
+				.htim = htim,
+				.PWM = &htim->Instance->CCR3
+			};
+
+			err = Servo_Init(gearCtrl.servo, &gearServoConfig, gearServoPwmParams);
 		}
 	}
 

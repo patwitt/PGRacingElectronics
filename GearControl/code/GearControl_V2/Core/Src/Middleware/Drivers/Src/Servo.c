@@ -10,49 +10,42 @@
 #include "DefineConfig.h"
 #include "Types.h"
 #include "main.h"
+#include "Utils.h"
 
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
-extern TIM_HandleTypeDef htim3;
 
 typedef struct {
-	const uint32_t degMin;
-	const uint32_t degDefault;
-	const uint32_t degMax;
-} PositionLimits;
-
-typedef struct {
-	__IO uint32* PWM;
 	__IO ServoStateEnum state;
-	const uint32_t channel;
-	PositionLimits *const limits;
+	const ServoConfig *config;
+	ServoPwmParams pwm;
 } ServoController;
 
-static PositionLimits clutchPosLim = {.degMin = 18U, .degDefault = 18U, .degMax = 162U};
-static PositionLimits gearPosLim   = {.degMin = 50U, .degDefault = 90U, .degMax = 130U};
-
-static ServoController servos[SERVO_COUNT] = {{.PWM = NULL, .state = SERVO_UNINITIALIZED, .channel = TIM_CHANNEL_3, .limits = &gearPosLim},    // Servo gear shift
-											  {.PWM = NULL, .state = SERVO_UNINITIALIZED, .channel = TIM_CHANNEL_1, .limits = &clutchPosLim}}; // Servo clutch
+static ServoController servos[SERVO_COUNT] = {{.state = SERVO_UNINITIALIZED},  // Servo gear shift
+											  {.state = SERVO_UNINITIALIZED}   // Servo clutch
+};
 
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
-ErrorEnum Servo_Init(const ServoTypeEnum servo, __IO uint32_t *const pwm)
+ErrorEnum Servo_Init(const ServoTypeEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams)
 {
 	ErrorEnum err = ERROR_OK;
 
-	if (servo < SERVO_COUNT) {
-		if ((htim3.Instance != NULL)  && (pwm != NULL)) {
-			*pwm = 0U;
-			servos[servo].PWM = pwm;
-			servos[servo].state = SERVO_DISABLED;
-		} else {
-			err = ERROR_NULL;
-		}
+	if (servoType < SERVO_COUNT) {
+		ServoController *const servo = &servos[servoType];
 
-		if (err != ERROR_OK) {
-			servos[servo].state = SERVO_FAILURE;
+		NULL_ERR_CHECK3(err, config, pwmParams.htim, pwmParams.PWM);
+
+		if (err == ERROR_OK) {
+			servo->config = config;
+			servo->pwm = pwmParams;
+
+			/* Disable servo at Init */
+			Servo_Disable(servoType);
+		} else {
+			servo->state = SERVO_FAILURE;
 		}
 	} else {
 		err = ERROR_OOR;
@@ -61,51 +54,103 @@ ErrorEnum Servo_Init(const ServoTypeEnum servo, __IO uint32_t *const pwm)
 	return err;
 }
 
-void Servo_Disable(const ServoTypeEnum servo)
+ErrorEnum Servo_SetDefaultPos(const ServoTypeEnum servoType)
 {
-	if (servo < SERVO_COUNT) {
-		if (servos[servo].PWM != NULL) {
-			*servos[servo].PWM = 0U;
-			servos[servo].state = SERVO_DISABLED;
+	ErrorEnum err = ERROR_OK;
 
-			/* Stop PWM timer */
-			if (HAL_TIM_PWM_Stop(&htim3, servos[servo].channel) != HAL_OK) {
-				servos[servo].state = SERVO_FAILURE;
-			}
+	if (servoType < SERVO_COUNT) {
+		ServoController *const servo = &servos[servoType];
+
+		NULL_ERR_CHECK1(err, servo->config);
+
+		if (err == ERROR_OK) {
+			err = Servo_SetPos(servoType, servo->config->limits.degDefault);
 		}
+	} else {
+		err = ERROR_OOR;
 	}
+
+	return err;
 }
 
-void Servo_Enable(const ServoTypeEnum servo)
+ErrorEnum Servo_Disable(const ServoTypeEnum servoType)
 {
-	if (servo < SERVO_COUNT) {
-		if (servos[servo].PWM != NULL) {
-			*servos[servo].PWM = 0U;
-			servos[servo].state = SERVO_ENABLED;
+	ErrorEnum err = ERROR_OK;
 
-			/* Start PWM timer */
-			if (HAL_TIM_PWM_Start(&htim3, servos[servo].channel) != HAL_OK) {
-				servos[servo].state = SERVO_FAILURE;
+	if (servoType < SERVO_COUNT) {
+		ServoController *const servo = &servos[servoType];
+
+		if (servo->state != SERVO_DISABLED) {
+			NULL_ERR_CHECK3(err, servo->config, servo->pwm.htim, servo->pwm.PWM);
+
+			if (err == ERROR_OK) {
+				*servo->pwm.PWM = 0U;
+
+				/* Stop PWM timer */
+				if (HAL_TIM_PWM_Stop(servo->pwm.htim, servo->config->pwmChannel) == HAL_OK) {
+					/* Disabling OK */
+					servo->state = SERVO_DISABLED;
+				} else {
+					servo->state = SERVO_FAILURE;
+				}
 			}
 		}
+	} else {
+		err = ERROR_OOR;
 	}
+
+	return err;
+}
+
+ErrorEnum Servo_Enable(const ServoTypeEnum servoType)
+{
+	ErrorEnum err = ERROR_OK;
+
+	if (servoType < SERVO_COUNT) {
+		ServoController *const servo = &servos[servoType];
+
+		if (servo->state != SERVO_ENABLED) {
+			NULL_ERR_CHECK3(err, servo->config, servo->pwm.htim, servo->pwm.PWM);
+
+			if (err == ERROR_OK) {
+				*servo->pwm.PWM = 0U;
+
+				/* Start PWM timer */
+				if (HAL_TIM_PWM_Start(servo->pwm.htim, servo->config->pwmChannel) == HAL_OK) {
+					/* Enabling OK */
+					servo->state = SERVO_ENABLED;
+				} else {
+					servo->state = SERVO_FAILURE;
+				}
+			}
+		}
+	} else {
+		err = ERROR_OOR;
+	}
+
+	return err;
 }
 
 /* 500 - 0 deg */
 /* 1500 - 90 deg */
 /* 2500 - 180 deg */
-void Servo_SetPos(const ServoTypeEnum servo, const uint32_t deg)
+ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg)
 {
-	if (servo < SERVO_COUNT) {
-		switch (servos[servo].state) {
+	ErrorEnum err = ERROR_OK;
+
+	if (servoType < SERVO_COUNT) {
+		ServoController *const servo = &servos[servoType];
+
+		switch (servo->state) {
 		case SERVO_ENABLED:
-			if ((deg >= servos[servo].limits->degMin) && (deg <= servos[servo].limits->degMax)) {
+			if ((deg >= servo->config->limits.degMin) &&
+				(deg <= servo->config->limits.degMax)) {
 				if (deg < 90U) {
 					/* 0-90 deg use floor */
-					*servos[servo].PWM = (uint32)(floor((11.111111f * deg))) + (uint32)500U;
+					*servo->pwm.PWM = (uint32)(floor((11.111111f * deg))) + (uint32)500U;
 				} else {
 					/* 90-180 deg use ceil */
-					*servos[servo].PWM = (uint32)(ceil((11.111111f * deg))) + (uint32)500U;
+					*servo->pwm.PWM = (uint32)(ceil((11.111111f * deg))) + (uint32)500U;
 				}
 			}
 			break;
@@ -117,8 +162,12 @@ void Servo_SetPos(const ServoTypeEnum servo, const uint32_t deg)
 		case SERVO_UNINITIALIZED:
 		case SERVO_FAILURE:
 		default:
-			Servo_Disable(servo);
+			err = Servo_Disable(servoType);
 			break;
 		}
+	} else {
+		err = ERROR_OOR;
 	}
+
+	return err;
 }

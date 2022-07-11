@@ -58,9 +58,9 @@ static AdcDataChannel* adc2Channels = NULL;
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#ifdef RUN_DEBUG
-uint16_t debugAdc2[ADC_2_CHANNELS_COUNT];
+#if CONFIG_RUN_DEBUG
 uint16_t debugAdc1[ADC_1_CHANNELS_COUNT];
+uint16_t debugAdc2[ADC_2_CHANNELS_COUNT];
 #endif
 /* USER CODE END 0 */
 
@@ -231,7 +231,9 @@ void CAN1_RX0_IRQHandler(void)
   /* USER CODE END CAN1_RX0_IRQn 0 */
   HAL_CAN_IRQHandler(&hcan1);
   /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
+#if CONFIG_CAN_ENABLE
   CAN_RxCallback();
+#endif
   /* USER CODE END CAN1_RX0_IRQn 1 */
 }
 
@@ -249,6 +251,14 @@ void DMA2_Stream2_IRQHandler(void)
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_TPS_2].avgData, *adc2Channels[ADC_CHANNEL_TPS_2].raw);
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_1].avgData, *adc2Channels[ADC_CHANNEL_APPS_1].raw);
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_2].avgData, *adc2Channels[ADC_CHANNEL_APPS_2].raw);
+
+#if CONFIG_RUN_DEBUG
+/* For STMSTUDIO */
+  debugAdc2[ADC_CHANNEL_TPS_1] = *adc2Channels[ADC_CHANNEL_TPS_1].raw;
+  debugAdc2[ADC_CHANNEL_TPS_2] = *adc2Channels[ADC_CHANNEL_TPS_2].raw;
+  debugAdc2[ADC_CHANNEL_APPS_1] = *adc2Channels[ADC_CHANNEL_APPS_1].raw;
+  debugAdc2[ADC_CHANNEL_APPS_2] = *adc2Channels[ADC_CHANNEL_APPS_2].raw;
+#endif
 
 #if CONFIG_ADC_SHOW_MIN_MAX
   if (HAL_GetTick() > 100U) {
@@ -273,11 +283,14 @@ void DMA2_Stream4_IRQHandler(void)
   HAL_DMA_IRQHandler(&hdma_adc1);
   /* USER CODE BEGIN DMA2_Stream4_IRQn 1 */
   Utils_RollingAverage_U16(&adc1Channels[ADC_CHANNEL_GEAR_SENS].avgData, *adc1Channels[ADC_CHANNEL_GEAR_SENS].raw);
+  //Utils_RollingAverage_U16(&adc1Channels[ADC_CHANNEL_IS].avgData, *adc1Channels[ADC_CHANNEL_IS].raw);
 
+#if CONFIG_RUN_DEBUG
+  /* For STMSTUDIO */
   debugAdc1[ADC_CHANNEL_GEAR_SENS] = *adc1Channels[ADC_CHANNEL_GEAR_SENS].raw;
+  //debugAdc1[ADC_CHANNEL_IS] = *adc1Channels[ADC_CHANNEL_IS].raw;
+#endif
 
-  //adc1Channels[ADC_CHANNEL_GEAR_SENS].avg = ADC_AvgSamples(adc1Channels[ADC_CHANNEL_GEAR_SENS].avgBuff, adc1Channels[ADC_CHANNEL_GEAR_SENS].raw);
-  //adc1Channels[ADC_CHANNEL_TPS_2].avg = ADC_AvgSamples(adc2Channels[ADC_CHANNEL_TPS_2].avgBuff, adc2Channels[ADC_CHANNEL_TPS_2].raw);
   /* USER CODE END DMA2_Stream4_IRQn 1 */
 }
 

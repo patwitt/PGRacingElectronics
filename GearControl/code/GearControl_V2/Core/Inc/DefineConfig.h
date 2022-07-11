@@ -12,7 +12,7 @@
 #define CONFIG_ADC_SHOW_MIN_MAX          (TRUE)
 
 /* CAN BUS config */
-#define CAN_BUS_ENABLE                   (FALSE)
+#define CONFIG_CAN_ENABLE                (FALSE)
 
 /* PID configs */
 #define CONFIG_PID_ENABLE_RC_LPF         (FALSE)

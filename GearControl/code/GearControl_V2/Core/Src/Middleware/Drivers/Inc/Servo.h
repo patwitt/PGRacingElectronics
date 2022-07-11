@@ -9,6 +9,24 @@
 #define SRC_MIDDLEWARE_DRIVERS_INC_SERVO_H_
 
 #include "Types.h"
+#include "stm32f4xx_hal.h"
+
+/* ---------------------------- */
+typedef struct {
+	const uint32_t degMin;
+	const uint32_t degDefault;
+	const uint32_t degMax;
+} ServoPositionLimits;
+
+typedef struct {
+	const uint32_t pwmChannel;
+	ServoPositionLimits limits;
+} ServoConfig;
+
+typedef struct {
+	TIM_HandleTypeDef *htim;
+	__IO uint32_t *PWM;
+} ServoPwmParams;
 
 typedef enum {
 	SERVO_GEAR_SHIFT = 0U,
@@ -23,9 +41,10 @@ typedef enum {
 	SERVO_FAILURE
 } ServoStateEnum;
 
-ErrorEnum Servo_Init(const ServoTypeEnum servo, __IO uint32_t *const pwm);
-void Servo_Enable(const ServoTypeEnum servo);
-void Servo_Disable(const ServoTypeEnum servo);
-void Servo_SetPos(const ServoTypeEnum servo, const uint32_t deg);
+ErrorEnum Servo_Init(const ServoTypeEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams);
+ErrorEnum Servo_Enable(const ServoTypeEnum servoType);
+ErrorEnum Servo_Disable(const ServoTypeEnum servoType);
+ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg);
+ErrorEnum Servo_SetDefaultPos(const ServoTypeEnum servoType);
 
 #endif /* SRC_MIDDLEWARE_DRIVERS_INC_SERVO_H_ */

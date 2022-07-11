@@ -18,6 +18,27 @@
 #define N_SAMPLES_F   (8U)
 #define N_SAMPLES_U16 (10U)
 
+#define NULL_ERR_CHECK1(error, param1) \
+	if (param1 == NULL) { \
+		error = ERROR_NULL; \
+	} \
+
+#define NULL_ERR_CHECK2(error, param1, param2) \
+	if ((param1 == NULL) || (param2 == NULL)) { \
+		error = ERROR_NULL; \
+	} \
+
+#define NULL_ERR_CHECK3(error, param1, param2, param3) \
+	if ((param1 == NULL) || (param2 == NULL) || (param3 == NULL)) { \
+		error = ERROR_NULL; \
+	} \
+
+#define NULL_CHECK1(param1) (param1 != NULL)
+
+#define NULL_CHECK2(param1, param2) (param1 != NULL) && (param2 != NULL)
+
+#define NULL_CHECK3(param1, param2, param3) (param1 != NULL) && (param2 != NULL) && (param3 != NULL)
+
 typedef struct {
 	float x1;
 	float x2;
