@@ -207,13 +207,15 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				break;
 
 			default:
-				/* Anything else is invalid */
+				/* Anything else is invalid, just ignore */
 				break;
 		}
 
+		/* requested flag updated by SetRequest() function if request is valid */
 		if (request->requested) {
 			/* Go to next selected shift state on valid request */
 			nextShiftState = request->shiftProcedure;
+			/* Disable MicroSwitches - shift is being processed */
 			MicroSwitch_SetControl(MS_CONTROL_DISABLED);
 		}
 	}
@@ -223,12 +225,15 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 
 static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 {
-	/* Shift down procedure - rev match | throttle blip | clutch slip */
+	/* Shift up procedure - injectors cut | clutch slip */
 	GearShiftStates nextShiftState = SHIFT_PROCEDURE_UP;
 
 	/*
 	 * TODO Shift up procedure.
 	 */
+
+	/* Trigger injectors cut */
+	InjectorsCut_Trigger();
 	(void)nextShiftState;
 
 	return SHIFT_EXEC;
@@ -236,15 +241,13 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 
 static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
 {
-	/* Shift up procedure - injectors cut | clutch slip */
+	/* Shift down procedure - rev match | throttle blip | clutch slip */
 	GearShiftStates nextShiftState = SHIFT_PROCEDURE_DOWN;
 
 	/*
 	 * TODO Shift down procedure.
 	 */
 
-	/* Trigger injectors cut */
-	InjectorsCut_Trigger();
 	(void)nextShiftState;
 
 	return SHIFT_EXEC;
@@ -262,26 +265,31 @@ static inline GearStates GearCtrlState_Handler(void)
 			break;
 
 		case SHIFT_IDLE:
-			/* Process shift requests invalid requests will be ignored */
+			/* Process shift requests, invalid requests will be ignored */
 			gearCtrl.shiftState = GearCtrl_ShiftProcessRequests(&gearCtrl.request);
 			break;
 
 		case SHIFT_PROCEDURE_DOWN:
+			/* Shifting DOWN procedure before engaging servo */
 			gearCtrl.shiftState = GearCtrl_ShiftProcedureDown();
 			break;
 
 		case SHIFT_PROCEDURE_UP:
+			/* Shifting UP procedure before engaging servo */
 			gearCtrl.shiftState = GearCtrl_ShiftProcedureUp();
 			break;
 
 		case SHIFT_EXEC:
+			/* Execute shift - engage servo to requested position */
 			gearCtrl.shiftState = GearCtrl_ShiftExecute(&gearCtrl.request);
 			break;
 
 		case SHIFT_VALIDATE:
+			// TODO Validate if gear shift was successful, feed watchdog
 			break;
 
 		case SHIFT_DONE:
+			// TODO Finish or remove DONE state, feed watchdog
 			GearCtrl_ResetRequest(&gearCtrl.request);
 			gearCtrl.shiftState = SHIFT_IDLE;
 			MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
