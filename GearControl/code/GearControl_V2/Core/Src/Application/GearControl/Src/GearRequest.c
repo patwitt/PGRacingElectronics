@@ -7,7 +7,7 @@
 #include "Types.h"
 #include "MicroSwitch.h"
 #include "GearRequest.h"
-#include "GearSensor.h"
+#include "GearControl.h"
 
 /* ---------------------------- */
 /*         Local data           */
@@ -37,10 +37,10 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request)
 {
 	GearRequestEnum ret = GEAR_REQUEST_NONE;
-	const GearSensorStatesEnum gearState = GearSensor_GetState();
+	const GearStates currentGear = GearControl_GetGear();
 
-	switch (gearState) {
-		case GEAR_SENS_1:
+	switch (currentGear) {
+		case GEAR_1:
 			switch (request) {
 				case GEAR_REQUEST_SHIFT_UP:
 					ret = request;
@@ -55,11 +55,11 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 			}
 			break;
 
-		case GEAR_SENS_N:
-		case GEAR_SENS_2:
-		case GEAR_SENS_3:
-		case GEAR_SENS_4:
-		case GEAR_SENS_5:
+		case GEAR_N:
+		case GEAR_2:
+		case GEAR_3:
+		case GEAR_4:
+		case GEAR_5:
 			switch (request) {
 				case GEAR_REQUEST_SHIFT_UP:
 				case GEAR_REQUEST_SHIFT_DOWN:
@@ -71,7 +71,7 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 			}
 			break;
 
-		case GEAR_SENS_6:
+		case GEAR_6:
 			switch (request) {
 				case GEAR_REQUEST_SHIFT_UP:
 					ret = request;

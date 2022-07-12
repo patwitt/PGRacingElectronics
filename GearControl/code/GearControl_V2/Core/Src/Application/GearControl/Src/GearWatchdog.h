@@ -9,12 +9,7 @@
 #define SRC_APPLICATION_GEARCONTROL_SRC_GEARWATCHDOG_H_
 
 #include "Types.h"
-
-typedef enum {
-	GEAR_WDG_SHIFT      = 0U,
-	GEAR_WDG_FUEL_CUT   = 1U,
-	GEAR_WDG_COUNT      = 2U
-} GearWatchdogTypeEnum;
+#include "SwTimer.h"
 
 typedef enum {
 	GEAR_WATCHDOG_STATUS_FED_ON_TIME,
@@ -24,10 +19,25 @@ typedef enum {
 	GEAR_WATCHDOG_STATUS_COUNT
 } GearWatchdogStatusEnum;
 
-ErrorEnum GearWatchdog_Init(void);
+typedef enum {
+	GEAR_WDG_SHIFT      = 0U,
+	GEAR_WDG_FUEL_CUT   = 1U,
+	GEAR_WDG_COUNT      = 2U
+} GearWatchdogTypeEnum;
+
+typedef void (*WatchdogFailTrigger)(void);
+
+typedef struct {
+	__IO GearWatchdogStatusEnum status;
+	WatchdogFailTrigger elapsedTrigger;
+	SwTimerType timer;
+	const uint32_t timeoutMs;
+} GearWatchdogType;
+
 void GearWatchdog_Process(void);
-void GearWatchdog_Start(const GearWatchdogTypeEnum watchdog);
-void GearWatchdog_Feed(const GearWatchdogTypeEnum watchdog);
-GearWatchdogStatusEnum GearWatchdog_GetStatus(const GearWatchdogTypeEnum watchdog);
+
+ErrorEnum GearWatchdog_Init(GearWatchdogType *const wdgEntity);
+void GearWatchdog_Start(GearWatchdogType *const wdgEntity);
+void GearWatchdog_Feed(GearWatchdogType *const wdgEntity);
 
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_GEARWATCHDOG_H_ */
