@@ -3,6 +3,16 @@ connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.byteSiz
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.parity=0
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.portName=COM5
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.stopBits=0
+connections/org.eclipse.remote.serial.core.connectionType/aa/serial.baudRate=6
+connections/org.eclipse.remote.serial.core.connectionType/aa/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/aa/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/aa/serial.portName=COM8
+connections/org.eclipse.remote.serial.core.connectionType/aa/serial.stopBits=0
+connections/org.eclipse.remote.serial.core.connectionType/aaaaa/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/aaaaa/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/aaaaa/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/aaaaa/serial.portName=COM8
+connections/org.eclipse.remote.serial.core.connectionType/aaaaa/serial.stopBits=0
 connections/org.eclipse.remote.serial.core.connectionType/arduino+adapter/serial.baudRate=11
 connections/org.eclipse.remote.serial.core.connectionType/arduino+adapter/serial.byteSize=3
 connections/org.eclipse.remote.serial.core.connectionType/arduino+adapter/serial.parity=0

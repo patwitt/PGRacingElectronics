@@ -89,6 +89,7 @@ extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
 extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
+extern GPSSensor gpsSensor;
 
 int statusToInt()
 {	int fullRegister = statusRegister.TeleBack;
@@ -126,7 +127,7 @@ void printStatusRegister()
 
 	}
 	printf("\n");
-}
+};
 
 int sendFileToUart(FIL * f,char * path)
 {
@@ -136,31 +137,43 @@ int sendFileToUart(FIL * f,char * path)
 	 f_close(f);
 	 res = f_open(f, path, FA_READ);
 	 if (res) return res;
-	 HAL_UART_Transmit(&huart3, path, strlen(path), HAL_MAX_DELAY);
+	 HAL_Delay(1000);
+	 sprintf(buff,"%s\n", path);
+	 HAL_UART_Transmit(&huart7,  buff, strlen(buff), HAL_MAX_DELAY);
+	 //HAL_UART_Transmit(&huart7,  '\n', 1, HAL_MAX_DELAY);
+	 HAL_Delay(1000);
 	 while (res == FR_OK && !f_eof(f)) {
 
 	        res = f_read(f, buff, 1000, &dmy);
-	        HAL_UART_Transmit(&huart3, buff, dmy, HAL_MAX_DELAY);
+	        HAL_UART_Transmit(&huart7, buff, dmy, HAL_MAX_DELAY);
 	 }
-	 HAL_UART_Transmit(&huart3, "EOF", 3, HAL_MAX_DELAY);
+	 HAL_Delay(1000);
+	 HAL_UART_Transmit(&huart7, "\n", 1, HAL_MAX_DELAY);
+	 HAL_UART_Transmit(&huart7, "EOF\n", 4, HAL_MAX_DELAY);
 	 f_close(f);
 	 return res;
 }
 int sendAllFilesToUart()
 {
 	FILINFO f;
-	if(f_stat(gyro.path, &f)==FR_OK);
-	{
-		sendFileToUart(gyro.File, gyro.path);
-	}
-	if(f_stat(mlxLFSensor.path, &f)==FR_OK);
+
+	HAL_UART_Transmit(&huart7, "TORBA", 5, HAL_MAX_DELAY);
+	HAL_Delay(1000);
+	if(f_stat(absLFSensor.path, &f)==FR_OK)
+		{
+			sendFileToUart(absLFSensor.File, absLFSensor.path);
+		}
+	if(f_stat(mlxLFSensor.path, &f)==FR_OK)
 	{
 		sendFileToUart(mlxLFSensor.File, mlxLFSensor.path);
 	}
-	if(f_stat(absLFSensor.path, &f)==FR_OK);
+	if(f_stat(gyro.path, &f)==FR_OK)
 	{
-		sendFileToUart(absLFSensor.File, absLFSensor.path);
+		sendFileToUart(gyro.File, gyro.path);
 	}
+
+	HAL_Delay(1000);
+	HAL_UART_Transmit(&huart7, "BORBA\n", 6, HAL_MAX_DELAY);
 	return 0;
 
 }
@@ -169,11 +182,12 @@ ADCSensor sensord;
 void initSensors()
 {
 	  mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
-	  mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
+	  //mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
 	  gyroInit(&gyro);
 	  absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
 	  absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
 	  damperInit(&sensord, DAMPERRF, 0);
+	  GPSInit(&gpsSensor);
 	  //res = res | mlxInit(&rightFWheelMLX);
 
 
@@ -261,25 +275,35 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 }
 char received_command[255];
 int command_lenght = 0;
-char bufor;
+uint8_t bufor;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 
-	if(huart==&huart3)
+	if(huart==&huart7)
 	{
-
+		/*
 		received_command[command_lenght] = bufor;
 		command_lenght++;
-		if(bufor == "\n"){
+		if(bufor == '\n'){
 			command_lenght = 0;
+
 			if(strcmp(received_command, "download\n") == 0)
 			{
 				sendAllFilesToUart();
 				openAllFiles();
 			}
-		}
-		HAL_UART_Receive_IT(&huart3, &bufor, 1);
+			received_command[0] = 0;
+		}*/
+		strncat(gpsSensor.bufor, &(gpsSensor.Rx_data), 1);
+		  if(gpsSensor.Rx_data == '\n')
+		  {
+		    strcpy(gpsSensor.data,gpsSensor.bufor);
+		    gpsSensor.bufor[0]='\0';
+		    gpsSensor.dataReady = 1;
+		  }
+		  HAL_UART_Receive_IT(gpsSensor.uart, &(gpsSensor.Rx_data), 1);
 	}
+	//HAL_UART_Receive_IT(&huart7, &bufor, 1);
 }
 
 /* USER CODE END 0 */
@@ -339,20 +363,22 @@ int main(void)
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
   HAL_TIM_Base_Start_IT(&htim14);
 
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
-  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+
 
   HAL_Delay(200);
 
 
   HAL_Delay(1000);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
   initSensors();
   sdInit(&fileSystem);
   printStatusRegister();
 
   openAllFiles();
-  HAL_UART_Receive_IT(&huart3, &bufor, 1);
+
+
   HAL_TIM_Base_Start(&htim3);
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
   HAL_TIM_Base_Start(&htim4);
@@ -386,14 +412,18 @@ int main(void)
 		  }
 		  if(absLFSensor.dataReady)
 		  {
-
 			  //absSaveData(&absLFSensor);
 		  }
 		  if(absRFSensor.dataReady){
 			  //absSaveData(&absRFSensor);
 		  }
+		  if(gpsSensor.dataReady)
+		  {
+			  HAL_UART_Transmit(&huart3, (gpsSensor.data), strlen(gpsSensor.data), HAL_MAX_DELAY);
+			 gpsSaveData(&gpsSensor);
+		  }
 	  }
-	  adcGetData(&sensord);
+	  //adcGetData(&sensord);
 
 	}
 

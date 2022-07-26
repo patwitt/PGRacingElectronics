@@ -104,10 +104,13 @@ typedef struct GPS{
 	char path[20]; // path of file to write;
 	int dataReady; // flag to check if data is ready to read and write to file
 	int saveRate;
+	uint8_t Rx_data;
 	char bufor[255];
 	char data[255];
-	USART_TypeDef uart;
+	UART_HandleTypeDef * uart;
 }GPSSensor;
+
+
 /* *******ABS SECTION  ********/
 
 

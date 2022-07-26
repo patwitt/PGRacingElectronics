@@ -140,7 +140,7 @@ void HAL_SD_MspInit(SD_HandleTypeDef* sdHandle)
     __HAL_LINKDMA(sdHandle,hdmatx,hdma_sdmmc2_tx);
 
     /* SDMMC2 interrupt Init */
-    HAL_NVIC_SetPriority(SDMMC2_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(SDMMC2_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(SDMMC2_IRQn);
   /* USER CODE BEGIN SDMMC2_MspInit 1 */
 

@@ -1,10 +1,10 @@
-01:16:34 **** Incremental Build of configuration Debug for project MicroSD_SDIO ****
+04:50:46 **** Incremental Build of configuration Debug for project MicroSD_SDIO ****
 make -j8 all 
 arm-none-eabi-size   MicroSD_SDIO.elf 
    text	   data	    bss	    dec	    hex	filename
- 100512	    488	  23608	 124608	  1e6c0	MicroSD_SDIO.elf
+ 103384	   3524	  23984	 130892	  1ff4c	MicroSD_SDIO.elf
 Finished building: default.size.stdout
  
 
-01:16:35 Build Finished. 0 errors, 0 warnings. (took 330ms)
+04:50:46 Build Finished. 0 errors, 0 warnings. (took 281ms)
 

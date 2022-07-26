@@ -14,6 +14,7 @@ extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
 extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
+extern GPSSensor gpsSensor;
 extern SensorStatus statusRegister;
 void sdDeInit(FATFS* fs)
 {
@@ -52,6 +53,7 @@ void openAllFiles()
 		if(statusRegister.DamperLF == SENSOR_OK){
 
 		}
+		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
 	}
 }
 int createHeaders(FIL * file,char * path)
@@ -138,7 +140,20 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 
 }
-
+void gpsSaveData(GPSSensor * sens)
+{
+	char dataBuffer[255];
+	int writedBytes;
+	FRESULT status = 0;
+	//Save time stamp
+	sprintf(dataBuffer, "%d,", HAL_GetTick());
+	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
+	sprintf(dataBuffer, "\r\n ");
+	status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	sens->dataReady = 0;
+	f_sync(sens->File);
+}
 void gyroSaveData(GyroSensor* sens)
 {
 	char dataBuffer[255];

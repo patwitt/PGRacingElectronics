@@ -12,6 +12,7 @@
 #include <math.h>
 extern RTC_HandleTypeDef hrtc;
 extern SensorStatus statusRegister;
+extern UART_HandleTypeDef huart7;
 
 /* *******GLOBAL VARIABLES ********/
 MLXSensor mlxLFSensor;
@@ -19,7 +20,85 @@ MLXSensor mlxRFSensor;
 GyroSensor gyro;
 ABSSensor absLFSensor;
 ABSSensor absRFSensor;
+GPSSensor gpsSensor;
+//GPS
+char commands[4][255] = {"$PMTK314,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n",//Send Data setup
+		"$PMTK251,115200*1f\r\n", //BuadRate change
+		"$PMTK869,1,0*34\r\n", // Easy mode off
+		"$PMTK220,100*2f\r\n"}; // Update Rate
 
+
+
+int calculateCSM(char * command)
+{
+	int chsm = 0;
+	char c;
+	for(int i=0; i < strlen(command); i++)
+	{
+		c = command[i];
+		chsm = chsm ^ c;
+	}
+	return chsm;
+}
+
+void createCommand(char * command)
+{
+	char final[255];
+	int chsm = calculateCSM(command);
+	sprintf(final, "$%s*%02X\r\n", command, chsm);
+	strcpy(command,final);
+}
+
+static void gpsReinitUart(GPSSensor * sens)
+{
+
+  HAL_UART_Abort_IT(sens->uart);
+  HAL_UART_DeInit(sens->uart);
+  huart7.Instance = UART7;
+   huart7.Init.BaudRate = 115200;
+   huart7.Init.WordLength = UART_WORDLENGTH_8B;
+   huart7.Init.StopBits = UART_STOPBITS_1;
+   huart7.Init.Parity = UART_PARITY_NONE;
+   huart7.Init.Mode = UART_MODE_TX_RX;
+   huart7.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+   huart7.Init.OverSampling = UART_OVERSAMPLING_16;
+   huart7.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+   huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT;
+   huart7.AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
+  if (HAL_UART_Init(sens->uart) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+
+}
+
+
+extern UART_HandleTypeDef huart3;
+void GPSInit(GPSSensor * sens)
+{
+	sens->File = (FIL*)malloc(sizeof(FIL));
+	sens->saveRate = GPS_ERROR_TIME;
+	sens->uart = &huart7;
+	RTC_DateTypeDef date;
+	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+	sprintf(sens->path,"GPS%02d%02d.csv",date.Date,date.Month);
+	//HAL_UART_Transmit(sens->uart, commands[1], strlen(commands[1]), HAL_MAX_DELAY); // zmiana baudrate GPSa
+	//ReInit_UART1(); // zmiana BaudRate na stm
+	HAL_UART_Receive_IT(sens->uart, &(sens->Rx_data), 1); // aktywacja przerwan
+	HAL_Delay(100);
+	HAL_UART_Transmit(sens->uart, commands[0], strlen(commands[0]), HAL_MAX_DELAY);
+	HAL_Delay(100);
+	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+
+	HAL_UART_Transmit(sens->uart, commands[2], strlen(commands[2]), HAL_MAX_DELAY);
+	HAL_Delay(100);
+	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+
+	HAL_UART_Transmit(sens->uart, commands[3], strlen(commands[3]), HAL_MAX_DELAY);
+	HAL_Delay(100);
+	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+}
 /* *******ADC SECTION  ********/
 extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;

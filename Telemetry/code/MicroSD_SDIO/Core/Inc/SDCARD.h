@@ -23,6 +23,7 @@ void mlxSaveData(MLXSensor* mlx);
 void absSaveData(ABSSensor* sens);
 
 void adcSaveData(ADCSensor* sens);
+void gpsSaveData(GPSSensor * sens);
 
 void sdMountFailHandler();
 #endif /* INC_SDCARD_H_ */

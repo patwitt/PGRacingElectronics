@@ -62,12 +62,12 @@ void Error_Handler(void);
 #define GYRO_SDA_GPIO_Port GPIOF
 #define GYRO_SCL_Pin GPIO_PIN_1
 #define GYRO_SCL_GPIO_Port GPIOF
+#define GPS_RX_Pin GPIO_PIN_6
+#define GPS_RX_GPIO_Port GPIOF
+#define GPS_TX_Pin GPIO_PIN_7
+#define GPS_TX_GPIO_Port GPIOF
 #define VSS2_Pin GPIO_PIN_6
 #define VSS2_GPIO_Port GPIOA
-#define GPS_RX_Pin GPIO_PIN_7
-#define GPS_RX_GPIO_Port GPIOE
-#define GPS_TX_Pin GPIO_PIN_8
-#define GPS_TX_GPIO_Port GPIOE
 #define UART_DEBUG_TX_Pin GPIO_PIN_10
 #define UART_DEBUG_TX_GPIO_Port GPIOB
 #define UART_DEBUG_RX_Pin GPIO_PIN_11
