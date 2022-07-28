@@ -20,8 +20,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "adc.h"
 #include "can.h"
 #include "crc.h"
+#include "dma.h"
 #include "dma2d.h"
 #include "ltdc.h"
 #include "quadspi.h"
@@ -34,6 +36,7 @@
 /* USER CODE BEGIN Includes */
 #include "at25sf128a.h"
 #include "ecumaster.h"
+#include "WS2812_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,12 +81,6 @@ int main(void)
 
   /* USER CODE END 1 */
 
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
-
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -110,6 +107,9 @@ int main(void)
   MX_TIM3_Init();
   MX_CAN2_Init();
   MX_CAN1_Init();
+  MX_DMA_Init();
+  MX_TIM4_Init();
+  MX_ADC1_Init();
   MX_TouchGFX_Init();
   /* USER CODE BEGIN 2 */
   FLASH_QSPI_Init();
