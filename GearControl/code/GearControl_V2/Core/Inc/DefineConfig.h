@@ -5,8 +5,12 @@
 #define CONFIG_RUN_DEBUG                 (FALSE)
 
 /* DBW configs */
+#define CONFIG_DBW_ENABLE                (FALSE)
 #define CONFIG_DBW_CALIBRATE_TPS_AUTO    (TRUE)
 #define CONFIG_DBW_ADJUST_SENS_LIMITS    (FALSE)
+
+/* Clutch config */
+#define CONFIG_CLUTCH_ENABLE             (FALSE)
 
 /* ADC configs */
 #define CONFIG_ADC_SHOW_MIN_MAX          (TRUE)

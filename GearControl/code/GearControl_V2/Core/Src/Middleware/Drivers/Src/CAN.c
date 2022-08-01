@@ -59,7 +59,7 @@ typedef struct {
 static CAN_Handler canHandler_ = {.rxMsg = canRxMsgsConfig, .txMsg = canTxMsgsConfig, .hcan = NULL};
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 static HAL_StatusTypeDef CAN_HALInit(void);
 static inline void CAN_UpdateRxMsg(CAN_RxHeaderTypeDef *const rxHeader,
@@ -208,7 +208,7 @@ CAN_RxMsgType* CAN_GetRxMsg(CAN_RxMsgEnum const rxMsgId)
 	return rxMsgPtr;
 }
 
-void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const uint32_t byte, const uint8_t data)
+void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data)
 {
 	if (txMsgId < CAN_TX_MSG_COUNT) {
 		if ((byte < canHandler_.txMsg[txMsgId].txHeader.DLC) &&

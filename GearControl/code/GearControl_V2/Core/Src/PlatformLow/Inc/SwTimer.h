@@ -11,7 +11,7 @@
 #include "Types.h"
 
 /**
-  \brief  Structure used to track a Software Timer.
+  @brief  Structure used to track a Software Timer.
  */
 typedef struct
 {
@@ -26,31 +26,6 @@ typedef struct
 #define ONE_SEC_IN_MSEC 1000U /**< Value of second in milliseconds */
 
 void SwTimerExecute(void);
-
-/**
- * @brief Software Timer Initialization
- *
- * Initializes a single software timer with the given attributes.  If the timer is currently running, the timer will be stopped.
- *
- * @param timer Software timer structure to initialize
- * @param period Period of the timer in ms
- * @param endlessCount True if the timer should restart after expiring
- *
- * @note
- * The resolution of the timer is 10ms.  Everything will be rounded to the closest 10ms
- *
- */
-ErrorEnum SwTimerInit(SwTimerType* timer, uint32 period, bool_t endlessCount);
-
-/**
- * @brief Retrieves the period for a given timer
- *
- * @param timer Software timer structure to retrieve the period of
- *
- * @return the timer period in ms
- *
- */
-uint32 SwTimerGetPeriod(const SwTimerType* timer);
 
 /**
  * @brief Register a given software timer
@@ -69,7 +44,18 @@ ErrorEnum SwTimerRegister(SwTimerType* timer);
  *
  */
 
-void SwTimerStart(SwTimerType* timer);
+void SwTimerStart(SwTimerType* timer, const uint32_t period);
+
+/**
+ * @brief Check if the given timer is active
+ *
+ * @param timer Software timer structure to check
+ *
+ * @return True if the software timer exists and is active
+ *
+ *
+ */
+bool_t SwTimerIsActive(const SwTimerType* timer);
 
 /**
  * @brief Check if declared timer time elapsed
@@ -79,7 +65,7 @@ void SwTimerStart(SwTimerType* timer);
  * @return True if the time has elapsed
  *
  */
-bool_t SwTimerHasTimerElapsed(const SwTimerType* timer);
+bool_t SwTimerHasElapsed(const SwTimerType* timer);
 
 /**
  * @brief Returns the application uptime.

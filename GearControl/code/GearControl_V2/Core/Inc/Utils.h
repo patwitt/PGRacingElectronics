@@ -39,6 +39,13 @@
 
 #define NULL_CHECK3(param1, param2, param3) (param1 != NULL) && (param2 != NULL) && (param3 != NULL)
 
+typedef enum {
+	DEBOUNCE_EXCEEDED,
+	DEBOUNCE_IN_PROGRESS,
+	DEBOUNCE_CNT_ZERO,
+	DEBOUNCE_STATUS_CNT
+} UtilsDebounceStatus;
+
 typedef struct {
 	float x1;
 	float x2;
@@ -46,11 +53,6 @@ typedef struct {
 	float y2;
 	float val;
 } Slope;
-
-static inline float Utils_CalcSlope(Slope *const slope, const float div)
-{
-    return (slope->y2 - slope->y1) / div;
-}
 
 typedef struct {
 	float avg;
@@ -67,6 +69,40 @@ typedef struct {
 	uint32_t index;
 	const uint32_t nSamples;
 } AvgBuffer_U16;
+
+typedef struct {
+    const uint32_t x_length;
+    const float *const x_values;
+    const float *const y_values;
+} table_1d;
+
+static inline uint32_t Utils_Debounce(const bool_t failCondition, __IO uint32_t *const debCnt, const uint32_t debMs)
+{
+	UtilsDebounceStatus debounce = DEBOUNCE_IN_PROGRESS;
+
+	if (failCondition) {
+		if (*debCnt <= debMs) {
+			++(*debCnt);
+		}
+	} else {
+		if (*debCnt > 0U) {
+			--(*debCnt);
+		}
+	}
+
+	if (*debCnt > debMs) {
+		debounce = DEBOUNCE_EXCEEDED;
+	} else if (*debCnt == 0U) {
+		debounce = DEBOUNCE_CNT_ZERO;
+	} else { /* Do nothing, in progress */}
+
+	return debounce;
+}
+
+static inline float Utils_CalcSlope(Slope *const slope, const float div)
+{
+    return (slope->y2 - slope->y1) / div;
+}
 
 static inline void Utils_RollingAverage_U16(__IO AvgBuffer_U16 *const avgData, const uint16_t newSample)
 {
@@ -134,11 +170,6 @@ static __IO inline void Utils_UpdateMinMax_U16(const uint16 value, uint16 *const
 /* https://www.avrfreaks.net/forum/implementing-look-tables-c */
 /* https://www.electro-tech-online.com/threads/linear-interpolation-and-lookup-tables-c.147507/ */
 
-typedef struct {
-    const uint32_t x_length;
-    const float *const x_values;
-    const float *const y_values;
-} table_1d;
 /**
 * Returns the interpolated y-value.
 * Saturates to y0 or y1 if x outside interval [x0, x1].

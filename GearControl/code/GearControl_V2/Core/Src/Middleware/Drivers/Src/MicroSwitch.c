@@ -25,7 +25,7 @@ static __IO MicroSwitch microSwitches[MS_COUNT] = {
 static MicroSwitchControlType microSwitchControl = MS_CONTROL_DISABLED;
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 static void MicroSwitch_DebounceLow(void);
 static void MicroSwitch_NormalOperation(void);

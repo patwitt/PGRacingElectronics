@@ -35,7 +35,7 @@ typedef struct {
 static DCMotorController dcController = {.PWM_H_plus = NULL, .PWM_H_minus = NULL, .targetDutyCycle = 0U, .state = DC_MOTOR_UNINITIALIZED};
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 static void DCMotor_ResetPwm(void);
 static __IO uint32 DCMotor_ConvertTargetToPwm(float target);

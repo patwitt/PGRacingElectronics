@@ -41,7 +41,7 @@ static ClutchControlHandler clutchCtrl = {.control  = CLUTCH_CTRL_INIT_CAN_ACK,
 										  .canAck   = FALSE};
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 static void ClutchControl_GearControl(void);
 static void ClutchControl_CAN_Acknowledge(void);

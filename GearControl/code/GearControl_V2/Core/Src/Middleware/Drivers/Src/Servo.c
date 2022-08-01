@@ -11,6 +11,7 @@
 #include "Types.h"
 #include "main.h"
 #include "Utils.h"
+#include "SwTimer.h"
 
 /* ---------------------------- */
 /*          Local data          */
@@ -22,8 +23,13 @@ typedef struct {
 	ServoPwmParams pwm;
 } ServoController;
 
-static ServoController servos[SERVO_COUNT] = {{.state = SERVO_UNINITIALIZED},  // Servo gear shift
-											  {.state = SERVO_UNINITIALIZED}   // Servo clutch
+static ServoController servos[SERVO_COUNT] = {
+		[SERVO_GEAR_SHIFT] = {
+			.state = SERVO_UNINITIALIZED
+		},
+		[SERVO_CLUTCH] = {
+			.state = SERVO_UNINITIALIZED
+		}
 };
 
 /* ---------------------------- */
@@ -147,7 +153,7 @@ ErrorEnum Servo_Enable(const ServoTypeEnum servoType)
 /* 2500 - 180 deg */
 ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg)
 {
-	ErrorEnum err = ERROR_OK;
+	ErrorEnum err = ERROR_NOK;
 
 	if (servoType < SERVO_COUNT) {
 		ServoController *const servo = &servos[servoType];
@@ -156,6 +162,8 @@ ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg)
 		case SERVO_ENABLED:
 			if ((deg >= servo->config->limits.degMin) &&
 				(deg <= servo->config->limits.degMax)) {
+				/* Valid set pos request */
+				err = ERROR_OK;
 				if (deg < 90U) {
 					/* 0-90 deg use floor */
 					*servo->pwm.PWM = (uint32)(floor((11.111111f * deg))) + (uint32)500U;
@@ -173,7 +181,7 @@ ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg)
 		case SERVO_UNINITIALIZED:
 		case SERVO_FAILURE:
 		default:
-			err = Servo_Disable(servoType);
+			(void)Servo_Disable(servoType);
 			break;
 		}
 	} else {

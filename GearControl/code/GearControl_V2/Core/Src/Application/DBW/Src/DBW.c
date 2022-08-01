@@ -166,7 +166,7 @@ static AppsSensorType apps_ = {.apps1 = NULL, .apps2 = NULL, .error = ERROR_OK, 
 static DbwHandle dbw = {.tps = &tps_, .apps = &apps_, .state = DBW_DISABLED};
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 /* Convert raw ADC to Float */
 static inline float DBW_ConvertTpsRawValue(void);
@@ -205,7 +205,7 @@ static DBW_States DBW_HandlerInit(void)
 
 #if CONFIG_DBW_CALIBRATE_TPS_AUTO
 					/* Start TPS calibration */
-					SwTimerStart(&tps_.timer);
+					SwTimerStart(&tps_.timer, TPS_CALIBRATION_TIME_MS);
 					tps_.calibrationDirection = DC_MOTOR_ROTATE_PLUS;
 					DCMotor_Update(TPS_CALIBRATION_SPEED, tps_.calibrationDirection);
 					tps_.limits->calibMax = 0U;
@@ -232,7 +232,7 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 	apps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*apps_.apps1->raw + *apps_.apps2->raw));
 	Utils_UpdateMax_U16(apps_.plausibility->absDiff, &apps_.plausibility->maxAbsDiff);
 
-	if (!SwTimerHasTimerElapsed(&apps_.timer)) {
+	if (!SwTimerHasElapsed(&apps_.timer)) {
 		if (apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed) {
 			Utils_UpdateMinMax_U16(*apps_.apps2->raw, &apps_.limits->calibMin, &apps_.limits->calibMax);
 		}
@@ -261,7 +261,7 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 	tps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*tps_.tps2->raw + *tps_.tps1->raw));
 	Utils_UpdateMax_U16(tps_.plausibility->absDiff, &tps_.plausibility->maxAbsDiff);
 
-	if (!SwTimerHasTimerElapsed(&tps_.timer)) {
+	if (!SwTimerHasElapsed(&tps_.timer)) {
 		/* Run TPS calibration to set new MIN/MAX ADC values */
 		const bool_t isPlausible = (tps_.plausibility->absDiff < tps_.plausibility->maxDiffAllowed);
 
@@ -452,16 +452,10 @@ ErrorEnum DBW_Init(void)
 		(apps_.apps1 != NULL) && (apps_.apps1->raw != NULL) &&
 		(apps_.apps2 != NULL) && (apps_.apps2->raw != NULL)) {
 
-		err = SwTimerInit(&apps_.timer, APPS_CALIBRATION_TIME_MS, FALSE);
-		if (err == ERROR_OK) {
-			err = SwTimerRegister(&apps_.timer);
-		}
+		err = SwTimerRegister(&apps_.timer);
 
 		if (err == ERROR_OK) {
-			err = SwTimerInit(&tps_.timer, TPS_CALIBRATION_TIME_MS, FALSE);
-			if (err == ERROR_OK) {
-				err = SwTimerRegister(&tps_.timer);
-			}
+			err = SwTimerRegister(&tps_.timer);
 		}
 
 		if (err == ERROR_OK) {
@@ -534,7 +528,7 @@ void DBW_RequestAppsCalibration(void)
 {
 	if (dbw.state != DBW_DISABLED) {
 		DCMotor_Disable();
-		SwTimerStart(&apps_.timer);
+		SwTimerStart(&apps_.timer, APPS_CALIBRATION_TIME_MS);
 		apps_.limits->calibMin = 0xFFFFU;
 		apps_.limits->calibMax = 0U;
 		dbw.state = DBW_CALIBRATE_APPS;

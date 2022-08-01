@@ -6,6 +6,8 @@
  */
 #include "InjectorsCut.h"
 #include "GearWatchdog.h"
+#include "stm32f4xx_hal.h"
+#include "main.h"
 
 /* ---------------------------- */
 /*         Local data           */
@@ -21,18 +23,42 @@ static GearWatchdogType injectorsCutWdg = {
 
 typedef struct {
 	GearWatchdogType *const watchdog;
-	const uint32 GPIO;
+	GPIO_TypeDef *const gpioPort;
+	const uint16_t gpioPin;
 } InjectorsCutHandler;
 
-static __IO InjectorsCutHandler injectorsHandler = {.watchdog = &injectorsCutWdg, .GPIO = 0U};
+static InjectorsCutHandler injectorsHandler = {.watchdog = &injectorsCutWdg,
+		                                       .gpioPort = GEAR_CUT_GPIO_Port,
+											   .gpioPin  = GEAR_CUT_Pin
+};
+
+/* ---------------------------- */
+/* Local function declarations  */
+/* ---------------------------- */
+static inline void InjectorsCut_EnableInjectors(void);
+static inline void InjectorsCut_DisableInjectors(void);
+
+/* ---------------------------- */
+/*        Local functions       */
+/* ---------------------------- */
+static inline void InjectorsCut_EnableInjectors(void)
+{
+	HAL_GPIO_WritePin(injectorsHandler.gpioPort, injectorsHandler.gpioPin, GPIO_PIN_SET);
+}
+
+static inline void InjectorsCut_DisableInjectors(void)
+{
+	HAL_GPIO_WritePin(injectorsHandler.gpioPort, injectorsHandler.gpioPin, GPIO_PIN_RESET);
+}
 
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
 void InjectorsCutWatchdogElapsedTrigger(void)
 {
-	/* Disable Injectors Cut */
-
+	/* Watchdog time elapsed */
+	/* Disable Injectors Cut, enable injectors again */
+	InjectorsCut_EnableInjectors();
 }
 
 ErrorEnum InjectorsCut_Init(void)
@@ -40,9 +66,7 @@ ErrorEnum InjectorsCut_Init(void)
 	ErrorEnum err = ERROR_OK;
 
 	/* Initialize Injectors Cut Watchdog */
-	if (err == ERROR_OK) {
-		err = GearWatchdog_Init(injectorsHandler.watchdog);
-	}
+	err = GearWatchdog_Init(injectorsHandler.watchdog);
 
 	return err;
 }
@@ -52,10 +76,15 @@ void InjectorsCut_Trigger(void)
 	/* Start Watchdog */
 	GearWatchdog_Start(injectorsHandler.watchdog);
 
-	/* Trigger injectors cut */
+	/* Trigger injectors cut, disable injectors */
+	InjectorsCut_DisableInjectors();
 }
 
 void InjectorsCut_Finish(void)
 {
+	/* Feed watchdog, notice of successful shift on time */
 	GearWatchdog_Feed(injectorsHandler.watchdog);
+
+	/* Disable Injectors Cut, enable injectors again */
+	InjectorsCut_EnableInjectors();
 }

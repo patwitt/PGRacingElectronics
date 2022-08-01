@@ -54,17 +54,6 @@ static void SwTimerDeactivate(SwTimerType* timer);
 static bool_t SwTimerIsExpired(const SwTimerType* timer);
 
 /**
- * @brief Check if the given timer is active
- *
- * @param timer Software timer structure to check
- *
- * @return True if the software timer exists and is active
- *
- * @private
- */
-static bool_t SwTimerIsActive(const SwTimerType* timer);
-
-/**
  * @brief Deactivates software timer when the given timer is active and expired
  *
  * @param timer Software timer structure to process
@@ -72,43 +61,22 @@ static bool_t SwTimerIsActive(const SwTimerType* timer);
  * @private
  */
 static void SwTimerProcessSwTimer(SwTimerType* timer);
-
+static void SwTimerInit(SwTimerType* timer);
 
 void SwTimerExecute(void)
 {
    ++uptime_;
 
-   for (uint32 i = 0; i < timersCount_; i++)
-   {
+   for (uint32 i = 0; i < timersCount_; i++) {
       SwTimerProcessSwTimer(timers_[i]);
    }
 }
 
-ErrorEnum SwTimerInit(SwTimerType* timer, uint32 period, bool_t endlessCount)
+static void SwTimerInit(SwTimerType* timer)
 {
-   //ASSERT_VOID(timer != NULL);
-	ErrorEnum error = ERROR_OK;
-
-	if (timer != NULL) {
-	   timer->period = period / SYSTICK_RESOLUTION_IN_MS;
-	   timer->endlessCount = endlessCount;
-	   timer->active = false;
-	   timer->count = DEFAULT_COUNT;
-	   timer->elapsed = false;
-	} else {
-		error = ERROR_NULL;
-	}
-
-	return error;
-}
-
-uint32 SwTimerGetPeriod(const SwTimerType* timer)
-{
-   uint32 period = 0U;
-
-   period = timer->period * SYSTICK_RESOLUTION_IN_MS;
-
-   return period;
+   timer->active = false;
+   timer->count = DEFAULT_COUNT;
+   timer->elapsed = false;
 }
 
 ErrorEnum SwTimerRegister(SwTimerType* timer)
@@ -117,6 +85,7 @@ ErrorEnum SwTimerRegister(SwTimerType* timer)
 
 	if (timer != NULL) {
 		if (timersCount_ < SW_TIMERS_MAX) {
+		   SwTimerInit(timer);
 		   timers_[timersCount_] = timer;
 		   timersCount_++;
 		} else {
@@ -129,23 +98,25 @@ ErrorEnum SwTimerRegister(SwTimerType* timer)
 	return err;
 }
 
-void SwTimerStart(SwTimerType* timer)
+void SwTimerStart(SwTimerType* timer, const uint32_t period)
 {
-   //ASSERT_VOID(timer != NULL);
-
-   if (!timer->active)
-   {
+   if ((timer != NULL) && (!timer->active)) {
+	  timer->period = period / SYSTICK_RESOLUTION_IN_MS;
       timer->count = DEFAULT_COUNT;
       timer->elapsed = false;
       timer->active = true;
    }
 }
 
-bool_t SwTimerHasTimerElapsed(const SwTimerType* timer)
+bool_t SwTimerHasElapsed(const SwTimerType* timer)
 {
-   //ASSERT_VOID(timer != NULL);
+   bool_t elapsed = FALSE;
 
-   return timer->elapsed;
+   if (timer != NULL) {
+	   elapsed = timer->elapsed;
+   }
+
+   return elapsed;
 }
 
 uint32 SwTimerGetUptime(void)
@@ -157,11 +128,7 @@ static void SwTimerDeactivate(SwTimerType* timer)
 {
    timer->count = 0U;
    timer->elapsed = true;
-
-   if (!timer->endlessCount)
-   {
-      timer->active = false;
-   }
+   timer->active = false;
 }
 
 static bool_t SwTimerIsExpired(const SwTimerType* timer)
@@ -170,14 +137,12 @@ static bool_t SwTimerIsExpired(const SwTimerType* timer)
    return timer->count >= timer->period;
 }
 
-static bool_t SwTimerIsActive(const SwTimerType* timer)
+bool_t SwTimerIsActive(const SwTimerType* timer)
 {
    bool_t isActive = false;
 
-   if (timer != NULL)
-   {
-      if (timer->active)
-      {
+   if (timer != NULL) {
+      if (timer->active) {
          isActive = true;
       }
    }
@@ -187,14 +152,12 @@ static bool_t SwTimerIsActive(const SwTimerType* timer)
 
 static void SwTimerProcessSwTimer(SwTimerType* timer)
 {
-   if (SwTimerIsActive(timer))
-   {
-      //Clear the elapsed flag
+   if (SwTimerIsActive(timer)) {
+      /* Clear the elapsed flag */
       timer->elapsed = false;
       timer->count++;
 
-      if (SwTimerIsExpired(timer))
-      {
+      if (SwTimerIsExpired(timer)) {
          SwTimerDeactivate(timer);
       }
    }

@@ -78,7 +78,7 @@ ErrorEnum CAN_Init(CAN_HandleTypeDef* hcan);
 
 /* TX functions */
 void CAN_TxCallback(void);
-void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const uint32_t byte, const uint8_t data);
+void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data);
 void CAN_TxUpdateStatus(const CAN_TxMsgEnum txMsgId, const CAN_MsgStatus status);
 
 /* RX functions */

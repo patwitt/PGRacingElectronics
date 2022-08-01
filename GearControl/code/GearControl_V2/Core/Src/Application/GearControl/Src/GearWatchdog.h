@@ -36,6 +36,7 @@ typedef struct {
 
 void GearWatchdog_Process(void);
 
+boolean GearWatchdog_HasElapsed(GearWatchdogType *const wdgEntity);
 ErrorEnum GearWatchdog_Init(GearWatchdogType *const wdgEntity);
 void GearWatchdog_Start(GearWatchdogType *const wdgEntity);
 void GearWatchdog_Feed(GearWatchdogType *const wdgEntity);

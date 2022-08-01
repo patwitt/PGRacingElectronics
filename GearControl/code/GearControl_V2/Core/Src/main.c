@@ -27,6 +27,7 @@
 /* Application */
 #include "DBW.h"
 #include "GearControl.h"
+#include "GearControlCAN.h"
 #include "ClutchControl.h"
 #include "GearSensor.h"
 #include "Servo.h"
@@ -108,18 +109,18 @@ static void MX_IWDG_Init(void);
 /* USER CODE BEGIN 0 */
 static void PeriodicTask_1ms(void)
 {
-	/* Gear Sensor reading process */
-	GearSensor_Process();
-
+#if CONFIG_DBW_ENABLE
 	/* Drive-By-Wire process */
 	DBW_Process();
-
-	/* Gear Control process */
-	GearControl_Process();
-
+#endif // CONFIG_DBW_ENABLE
+#if CONFIG_CLUTCH_ENABLE
 	/* Clutch Control process */
 	ClutchControl_Process();
-
+#endif // CONFIG_CLUTCH_ENABLE
+	/* Gear Sensor reading process */
+	GearSensor_Process();
+	/* Gear Control process */
+	GearControl_Process();
 	/* MicroSwitch process */
 	MicroSwitch_Process();
 }
@@ -129,10 +130,13 @@ static void PeriodicTask_10ms(void)
 	/* Software Timers Process */
 	SwTimerExecute();
 
-	/* CAN Bus Tx Callback */
 #if CONFIG_CAN_ENABLE
+	/* Gear Control CAN process */
+	GearControlCAN_Process();
+
+	/* CAN Bus Tx Callback */
 	CAN_TxCallback();
-#endif
+#endif // CONFIG_CAN_ENABLE
 }
 
 static void PeriodicTask_500ms(void)
@@ -212,7 +216,7 @@ int main(void)
 	  if (CAN_Init(&hcan1) != ERROR_OK) {
 		  errorFlags.canInitErr = TRUE;
 	  }
-#endif
+#endif // CONFIG_CAN_ENABLE
 	  /* Initialize ADC 1 */
 	  if (ADC_Init(&hadc1, ADC_1_HANDLE, ADC_1_CHANNELS_COUNT) != ERROR_OK) {
 		  errorFlags.adcInitErr = TRUE;
@@ -228,11 +232,6 @@ int main(void)
 		  errorFlags.irqInitErr = TRUE;
 	  }
 
-	  /* Initialize Drive-By-Wire */
-	  if (DBW_Init() != ERROR_OK) {
-		  errorFlags.dbwInitErr = TRUE;
-	  }
-
 	  /* Initialize Gear Sensor module */
 	  if (GearSensor_Init() != ERROR_OK) {
 		  errorFlags.gearSensInitErr = TRUE;
@@ -242,12 +241,18 @@ int main(void)
 	  if (GearControl_Init(&htim3) != ERROR_OK) {
 		  errorFlags.gearCtrlInitErr = TRUE;
 	  }
-
+#if CONFIG_DBW_ENABLE
+	  /* Initialize Drive-By-Wire */
+	  if (DBW_Init() != ERROR_OK) {
+		  errorFlags.dbwInitErr = TRUE;
+	  }
+#endif // CONFIG_DBW_ENABLE
+#if CONFIG_CLUTCH_ENABLE
 	  /* Initialize Clutch Control module */
 	  if (ClutchControl_Init(&htim3) != ERROR_OK) {
 		  errorFlags.clutchCtrlInitErr = TRUE;
 	  }
-
+#endif // CONFIG_CLUTCH_ENABLE
 	  if (errorFlags.errTotal == ERROR_OK) {
 		  /* Initialize Scheduler */
 		  if (SchedulerInit(schedule, &htim2) == ERROR_OK) {

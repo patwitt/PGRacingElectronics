@@ -27,7 +27,7 @@ static const GearRequestEnum gearRequestLUT[MS_STATE_COUNT + 1U][MS_STATE_COUNT 
 };
 
 /* ---------------------------- */
-/* Static function declarations */
+/* Local function declarations  */
 /* ---------------------------- */
 static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request);
 
