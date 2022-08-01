@@ -54,9 +54,9 @@ static const CANShiftStatus shiftCanMap[SHIFT_DISABLED + 1U] = {
 //! Gear servo configuration
 static const ServoConfig gearServoConfig = {
 		.limits = {
-			 .degMin     = DEG_DOWN_MAX, //!< 80 deg down
+			 .degMin     = (DEG_DEFAULT - DEG_DOWN_MAX), //!< 80 deg down
 		     .degDefault = DEG_DEFAULT,
-			 .degMax     = DEG_UP_MAX //!< 80 deg up
+			 .degMax     = (DEG_DEFAULT + DEG_UP_MAX) //!< 80 deg up
 		},
 		.pwmChannel = TIM_CHANNEL_3
 };
