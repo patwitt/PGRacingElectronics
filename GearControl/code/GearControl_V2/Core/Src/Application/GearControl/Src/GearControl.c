@@ -167,20 +167,25 @@ static inline GearStates GearCtrlState_Init(void)
 	GearStates nextState = GEAR_INIT;
 
 	if (GearSensor_GetPlausibility() == GEAR_SENS_PLAUSIBLE) {
-		/* Enable gear shifting servo */
-		if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
-			/* Gear sensor reading OK, proceed with normal operation */
-			/* ! Gears sensor reading are mapped 1:1 to GearStates ! */
-			/* ! Order is important, do not change ! */
-			nextState = (GearStates)GearSensor_GetState();
 
-			/* Activate MicroSwitches Control */
-			/* Start by debouncing LOW state (both switches LOW) */
-			MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
+		const GearSensorStatesEnum gearSens = GearSensor_GetState();
 
-			gearCtrl.shiftState = SHIFT_IDLE;
-		} else {
-			nextState = GEAR_SERVO_FAILURE;
+		if (gearSens <= GEAR_SENS_6) {
+			/* Enable gear shifting servo */
+			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
+				/* Gear sensor reading OK, proceed with normal operation */
+				/* ! Gears sensor reading are mapped 1:1 to GearStates ! */
+				/* ! Order is important, do not change ! */
+				nextState = (GearStates)gearSens;
+
+				/* Activate MicroSwitches Control */
+				/* Start by debouncing LOW state (both switches LOW) */
+				MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
+
+				gearCtrl.shiftState = SHIFT_IDLE;
+			} else {
+				nextState = GEAR_SERVO_FAILURE;
+			}
 		}
 	}
 
