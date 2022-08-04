@@ -244,8 +244,10 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
 				break;
 
+			case GEAR_REQUEST_NONE:
+			case GEAR_REQUEST_INVALID:
 			default:
-				/* Anything else is invalid, just ignore */
+				/* Anything else is irrelevant, just ignore */
 				break;
 		}
 
