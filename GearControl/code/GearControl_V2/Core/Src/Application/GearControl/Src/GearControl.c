@@ -170,7 +170,7 @@ static inline GearStates GearCtrlState_Init(void)
 
 		const GearSensorStatesEnum gearSens = GearSensor_GetState();
 
-		if (gearSens <= GEAR_SENS_6) {
+		if (gearSens <= GEAR_SENS_UNKNOWN) {
 			/* Enable gear shifting servo */
 			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
 				/* Gear sensor reading OK, proceed with normal operation */

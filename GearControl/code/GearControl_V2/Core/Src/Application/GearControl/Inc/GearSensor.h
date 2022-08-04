@@ -26,10 +26,10 @@ typedef enum {
 	GEAR_SENS_4           = 4U,
 	GEAR_SENS_5           = 5U,
 	GEAR_SENS_6           = 6U,
-	GEAR_SENS_IN_PROG     = 7U,
-	GEAR_SENS_INVALID     = 8U,
+	GEAR_SENS_UNKNOWN     = 7U,
+	GEAR_SENS_IN_PROG     = 8U,
+	GEAR_SENS_INVALID     = 9U,
 	/* ! This order must be unchanged ! end */
-	GEAR_SENS_UNKNOWN     = 9U,
 	GEAR_SENS_IMPLAUS     = 10U,
 	GEAR_SENS_COUNT       = 11U
 } GearSensorStatesEnum;

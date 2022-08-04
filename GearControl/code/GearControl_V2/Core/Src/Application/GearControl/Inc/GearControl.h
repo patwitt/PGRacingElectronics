@@ -22,9 +22,9 @@ typedef enum {
 	GEAR_4                = 4U,
 	GEAR_5                = 5U,
 	GEAR_6                = 6U,
+	GEAR_UNKNOWN          = 7U,
 	/* ! This order must be unchanged ! end */
-	GEAR_INIT             = 7U,
-	GEAR_UNKNOWN          = 8U,
+	GEAR_INIT             = 8U,
 	GEAR_DISABLED         = 9U,
 	GEAR_SENS_FAILURE     = 10U,
 	GEAR_SERVO_FAILURE    = 11U,
