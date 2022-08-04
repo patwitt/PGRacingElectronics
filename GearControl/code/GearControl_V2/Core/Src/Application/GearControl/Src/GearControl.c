@@ -219,7 +219,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 	GearStates expectedGear = GEAR_DISABLED;
 	GearShiftStates nextShiftState = SHIFT_IDLE;
 
-	if ((NULL_CHECK1(request)) && (request->requested)) {
+	if ((NULL_CHECK1(request)) && (!request->requested)) {
 		const GearRequestEnum newRequest = GearRequest_Get();
 
 		switch (newRequest) {
