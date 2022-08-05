@@ -20,14 +20,35 @@
 	</buildSpec>
 	<natures>
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>Core</name>
+			<value>file:/C:/Users/User/Desktop/PGRACING/PGR_git/PGRacingElectronics/GearControl/code/GearControl_V2/Core/Inc</value>
+		</variable>
+		<variable>
+			<name>DBW</name>
+			<value>file:/C:/Users/User/Desktop/PGRACING/PGR_git/PGRacingElectronics/GearControl/code/GearControl_V2/Core/Src/Application/DBW/Inc</value>
+		</variable>
+		<variable>
+			<name>GearControl</name>
+			<value>file:/C:/Users/User/Desktop/PGRACING/PGR_git/PGRacingElectronics/GearControl/code/GearControl_V2/Core/Src/Application/GearControl/Inc</value>
+		</variable>
+		<variable>
+			<name>Middleware</name>
+			<value>file:/C:/Users/User/Desktop/PGRACING/PGR_git/PGRacingElectronics/GearControl/code/GearControl_V2/Core/Src/Middleware/Drivers/Inc</value>
+		</variable>
+		<variable>
+			<name>PlatformLow</name>
+			<value>file:/C:/Users/User/Desktop/PGRACING/PGR_git/PGRacingElectronics/GearControl/code/GearControl_V2/Core/Src/PlatformLow/Inc</value>
+		</variable>
+	</variableList>
 </projectDescription>
