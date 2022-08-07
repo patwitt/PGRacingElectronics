@@ -7,11 +7,11 @@
 C_SRCS += \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/TouchGFX/App/app_touchgfx.c 
 
-C_DEPS += \
-./Application/User/TouchGFX/App/app_touchgfx.d 
-
 OBJS += \
 ./Application/User/TouchGFX/App/app_touchgfx.o 
+
+C_DEPS += \
+./Application/User/TouchGFX/App/app_touchgfx.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -19,13 +19,19 @@
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp"/>
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\main_screen\mainPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\main_screen\mainView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\main_screen\mainViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
-    <ClCompile Include="..\..\gui\src\start_screen\startPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\start_screen\startView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\start_screen\startViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\alertBar.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\alertBarBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\RoundBorderBox.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\RoundBorderBoxBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1Presenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1View.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\screen1_screen\Screen1ViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\tempBox.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\tempBoxBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2Presenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2View.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\screen2_screen\Screen2ViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xlsx"/>
@@ -170,15 +176,24 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\main_screen\mainPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\main_screen\mainView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\main_screen\mainViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\start_screen\startPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\start_screen\startView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\start_screen\startViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\alertBar.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\alertBarBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\BoxRoundedCorners.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\BoxRoundedCornersButtonStyle.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\ColorHelper.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\RoundBorderBox.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\RoundBorderBoxBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1Presenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1View.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen1_screen\Screen1ViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\tempBox.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\tempBoxBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2Presenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2View.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen2_screen\Screen2ViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

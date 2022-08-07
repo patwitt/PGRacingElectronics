@@ -52,7 +52,7 @@ void MX_FMC_Init(void)
   hsdram1.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_2;
   hsdram1.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
   hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_2;
-  hsdram1.Init.ReadBurst = FMC_SDRAM_RBURST_DISABLE;
+  hsdram1.Init.ReadBurst = FMC_SDRAM_RBURST_ENABLE;
   hsdram1.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_0;
   /* SdramTiming */
   SdramTiming.LoadToActiveDelay = 2;
@@ -109,7 +109,9 @@ void MX_FMC_Init(void)
 	HAL_SDRAM_SendCommand(&hsdram1, &command, HAL_MAX_DELAY);
 	//Krok 6: Ustawienie licznika odswiezania
 	//15.62us*freq -20
-	HAL_SDRAM_ProgramRefreshRate(&hsdram1, REFRESH_COUNT);
+	HAL_SDRAM_ProgramRefreshRate(&hsdram1, 1660);
+	//HAL_SDRAM_ProgramRefreshRate(&hsdram1, 760);
+
   /* USER CODE END FMC_Init 2 */
 }
 

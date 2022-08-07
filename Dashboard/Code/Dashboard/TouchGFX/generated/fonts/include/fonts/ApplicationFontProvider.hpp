@@ -13,17 +13,27 @@ class FlashDataReader;
 
 struct Typography
 {
-    static const touchgfx::FontId TYPOGRAPHY_00 = 0;
-    static const touchgfx::FontId TYPOGRAPHY_01 = 1;
-    static const touchgfx::FontId TYPOGRAPHY_02 = 2;
+    static const touchgfx::FontId DEFAULT = 0;
+    static const touchgfx::FontId LARGE = 1;
+    static const touchgfx::FontId SMALL = 2;
+    static const touchgfx::FontId TYPOGRAPHY_00 = 3;
+    static const touchgfx::FontId TYPOGRAPHY_01 = 4;
+    static const touchgfx::FontId TYPOGRAPHY_02 = 5;
+    static const touchgfx::FontId TYPOGRAPHY_03 = 6;
+    static const touchgfx::FontId TYPOGRAPHY_04 = 7;
 };
 
 struct TypographyFontIndex
 {
-    static const touchgfx::FontId TYPOGRAPHY_00 = 0; // digital_7_200_4bpp
-    static const touchgfx::FontId TYPOGRAPHY_01 = 1; // digital_7_400_4bpp
-    static const touchgfx::FontId TYPOGRAPHY_02 = 2; // digital_7_20_4bpp
-    static const uint16_t NUMBER_OF_FONTS = 3;
+    static const touchgfx::FontId DEFAULT = 0;       // verdana_20_4bpp
+    static const touchgfx::FontId LARGE = 1;         // verdana_40_4bpp
+    static const touchgfx::FontId SMALL = 2;         // verdana_10_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_00 = 0; // verdana_20_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_01 = 3; // swisop3_300_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_02 = 4; // swisop3_40_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_03 = 5; // swisop3_60_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_04 = 6; // swisop3_50_4bpp
+    static const uint16_t NUMBER_OF_FONTS = 7;
 };
 
 class ApplicationFontProvider : public touchgfx::FontProvider

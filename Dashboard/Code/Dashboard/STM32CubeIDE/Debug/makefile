@@ -71,9 +71,6 @@ default.size.stdout \
 OBJDUMP_LIST += \
 code.list \
 
-OBJCOPY_BIN += \
-code.bin \
-
 
 # All Target
 all: main-build
@@ -83,7 +80,7 @@ main-build: code.elf secondary-outputs
 
 # Tool invocations
 code.elf: $(OBJS) $(USER_OBJS) F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\Code\Dashboard\STM32CubeIDE\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\Code\Dashboard\STM32CubeIDE\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code.map" -Wl,--gc-sections -static -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "code.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"F:\Marcin\Documents\Studia\PGRacing\PGRacingElectronics\Dashboard\Code\Dashboard\STM32CubeIDE\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code.map" -Wl,--gc-sections -static -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/code/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc -LF:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -97,17 +94,12 @@ code.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-code.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "code.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) code.bin code.elf code.list default.size.stdout
+	-$(RM) code.elf code.list default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
