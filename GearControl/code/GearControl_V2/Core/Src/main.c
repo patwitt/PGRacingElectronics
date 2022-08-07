@@ -109,14 +109,14 @@ static void MX_IWDG_Init(void);
 /* USER CODE BEGIN 0 */
 static void PeriodicTask_1ms(void)
 {
-#if CONFIG_DBW_ENABLE
+#if CONFIG_ENABLE_DBW
 	/* Drive-By-Wire process */
 	DBW_Process();
-#endif // CONFIG_DBW_ENABLE
-#if CONFIG_CLUTCH_ENABLE
+#endif // CONFIG_ENABLE_DBW
+#if CONFIG_ENABLE_CLUTCH
 	/* Clutch Control process */
 	ClutchControl_Process();
-#endif // CONFIG_CLUTCH_ENABLE
+#endif // CONFIG_ENABLE_CLUTCH
 	/* Gear Sensor reading process */
 	GearSensor_Process();
 	/* Gear Control process */
@@ -130,13 +130,13 @@ static void PeriodicTask_10ms(void)
 	/* Software Timers Process */
 	SwTimerExecute();
 
-#if CONFIG_CAN_ENABLE
+#if CONFIG_ENABLE_CAN
 	/* Gear Control CAN process */
 	GearControlCAN_Process();
 
 	/* CAN Bus Tx Callback */
 	CAN_TxCallback();
-#endif // CONFIG_CAN_ENABLE
+#endif // CONFIG_ENABLE_CAN
 }
 
 static void PeriodicTask_500ms(void)
@@ -211,12 +211,12 @@ int main(void)
   LED_indicateResetWithDelay(10U);
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
-#if CONFIG_CAN_ENABLE
+#if CONFIG_ENABLE_CAN
 	  /* Initialize CAN Bus */
 	  if (CAN_Init(&hcan1) != ERROR_OK) {
 		  errorFlags.canInitErr = TRUE;
 	  }
-#endif // CONFIG_CAN_ENABLE
+#endif // CONFIG_ENABLE_CAN
 	  /* Initialize ADC 1 */
 	  if (ADC_Init(&hadc1, ADC_1_HANDLE, ADC_1_CHANNELS_COUNT) != ERROR_OK) {
 		  errorFlags.adcInitErr = TRUE;
@@ -241,18 +241,18 @@ int main(void)
 	  if (GearControl_Init(&htim3) != ERROR_OK) {
 		  errorFlags.gearCtrlInitErr = TRUE;
 	  }
-#if CONFIG_DBW_ENABLE
+#if CONFIG_ENABLE_DBW
 	  /* Initialize Drive-By-Wire */
 	  if (DBW_Init() != ERROR_OK) {
 		  errorFlags.dbwInitErr = TRUE;
 	  }
-#endif // CONFIG_DBW_ENABLE
-#if CONFIG_CLUTCH_ENABLE
+#endif // CONFIG_ENABLE_DBW
+#if CONFIG_ENABLE_CLUTCH
 	  /* Initialize Clutch Control module */
 	  if (ClutchControl_Init(&htim3) != ERROR_OK) {
 		  errorFlags.clutchCtrlInitErr = TRUE;
 	  }
-#endif // CONFIG_CLUTCH_ENABLE
+#endif // CONFIG_ENABLE_CLUTCH
 	  if (errorFlags.errTotal == ERROR_OK) {
 		  /* Initialize Scheduler */
 		  if (SchedulerInit(schedule, &htim2) == ERROR_OK) {

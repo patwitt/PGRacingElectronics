@@ -21,6 +21,7 @@ typedef enum {
 	GEAR_SENS_STATUS_CHECK_IN_PROGRESS
 } GearSensorStatusEnum;
 
+//! Gear Sensor configuration struct
 typedef struct {
 	const GearSensorStatesEnum state;
 	const uint16 adcExpectedReading;
@@ -28,6 +29,23 @@ typedef struct {
 	uint32_t validCnt;
 } GearSensorConfigType;
 
+//! Gear Sensor handler struct
+typedef struct {
+	/* Gear Sensor Channel */
+	__IO AdcDataChannel* gearSensAdc;
+	GearSensorConfigType *const config;
+	GearSensorStatesEnum state;
+	const GearSensorPlausibilityEnum *const plausibilityMap;
+	GearSensorPlausibilityEnum plausibility;
+	uint32_t validCnt;
+	uint32_t plausibilityCnt;
+	uint32_t unknownReadingCnt;
+	const uint32_t plausibilityDebounceMs;
+	const uint32_t unknownDebounceMs;
+	const uint32_t nChecks;
+} GearSensorHandler;
+
+//! Mapping of sensor debouncing <- plausibility
 static const GearSensorPlausibilityEnum plausibilityDebounceMap[DEBOUNCE_STATUS_CNT + 1U] = {
 	[DEBOUNCE_EXCEEDED]    = GEAR_SENS_IMPLAUSIBLE,
 	[DEBOUNCE_CNT_ZERO]    = GEAR_SENS_PLAUSIBLE,
@@ -35,6 +53,7 @@ static const GearSensorPlausibilityEnum plausibilityDebounceMap[DEBOUNCE_STATUS_
 	[DEBOUNCE_STATUS_CNT]  = GEAR_SENS_PLAUSIBILITY_CNT
 };
 
+//! Gear Sensor configuration
 static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 [GEAR_SENS_1] = {
 		 .adcExpectedReading = 2690U ,.adcResolution = 80U, .validCnt = 0U
@@ -65,22 +84,8 @@ static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 }
 };
 
-typedef struct {
-	/* Gear Sensor Channel */
-	__IO AdcDataChannel* gearSensAdc;
-	GearSensorConfigType *const config;
-	GearSensorStatesEnum state;
-	const GearSensorPlausibilityEnum *const plausibilityMap;
-	GearSensorPlausibilityEnum plausibility;
-	uint32_t validCnt;
-	uint32_t plausibilityCnt;
-	uint32_t unknownReadingCnt;
-	const uint32_t plausibilityDebounceMs;
-	const uint32_t unknownDebounceMs;
-	const uint32_t nChecks;
-} GearSensorHandler;
-
-GearSensorHandler gearSens = {
+//! Gear Sensor handler
+static GearSensorHandler gearSens = {
 		.gearSensAdc = NULL,
 		.state = GEAR_SENS_INVALID,
 	    .config = GearSensorConfig,
@@ -103,16 +108,40 @@ static inline GearSensorStatusEnum GearSensor_ValidateRange(const GearSensorStat
 static inline bool_t GearSensor_IsInRange(const uint16_t adcReading,
 		                                  const uint16_t resolution,
 										  const uint16_t expected);
+
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
+/**
+ * @brief Check if ADC reading is in gear sensor range.
+ *
+ * If the ADC reading is greater than the unknown threshold, and the expected value is within the
+ * resolution of the ADC reading, then return true.
+ * 
+ * @param adcReading The ADC reading from the gear sensor.
+ * @param resolution The resolution of the ADC.
+ * @param expected   the expected ADC reading for the gear sensor.
+ * 
+ * @return TRUE if reading is in range, FALSE otherwise.
+ */
 static inline bool_t GearSensor_IsInRange(const uint16_t adcReading, const uint16_t resolution, const uint16_t expected) {
 	return ((adcReading >= GEAR_SENS_ADC_READING_UNKNOWN_THRESHOLD) &&
 			(expected >= (*gearSens.gearSensAdc->raw - resolution)) &&
 			(expected <= (*gearSens.gearSensAdc->raw + resolution)));
 }
 
-/* Check if adc reading is within threshold for given gear position */
+/**
+ * @brief Validate range of potential gear.
+ * 
+ * If the ADC reading is in range, increment the valid counter and return
+ * `GEAR_SENS_STATUS_CHECK_IN_PROGRESS` if the valid counter is less than the number of checks
+ * required, otherwise return `GEAR_SENS_STATUS_IN_RANGE` and reset the valid counter. Otherwise, reset
+ * the valid counter and return `GEAR_SENS_STATUS_NOT_IN_RANGE`
+ * 
+ * @param testedGear The gear we're testing.
+ * 
+ * @return Gear sensor status.
+ */
 static inline GearSensorStatusEnum GearSensor_ValidateRange(const GearSensorStatesEnum testedGear)
 {
 	GearSensorStatusEnum inRange = GEAR_SENS_STATUS_NOT_IN_RANGE;
@@ -136,6 +165,13 @@ static inline GearSensorStatusEnum GearSensor_ValidateRange(const GearSensorStat
 	return inRange;
 }
 
+/**
+ * @brief Process gear sensor by ADC readings.
+ * 
+ * It checks if the ADC value is within the range of a gear, and if it is, it returns the gear.
+ * 
+ * @return The gear that is read by sensor.
+ */
 static inline GearSensorStatesEnum GearSensor_ProcessSensorAdc(void)
 {
 	GearSensorStatesEnum gearTestIndex  = GEAR_SENS_1; /* Start with GEAR 1 */
@@ -167,7 +203,14 @@ static inline GearSensorStatesEnum GearSensor_ProcessSensorAdc(void)
 	return recognizedGear;
 }
 
-/* Get current gear by sensor reading */
+/**
+ * @brief First layer function to get gear by sensor reading.
+ * 
+ * If the ADC reading is below a certain threshold, then the gear sensor is in an unknown state.
+ * Otherwise, the gear sensor is in a known state and gear will be processed by ADC reading.
+ * 
+ * @return Recognized gear by the gear sensor.
+ */
 static inline GearSensorStatesEnum GearSensor_GetStateBySensorAdc(void)
 {
 	GearSensorStatesEnum recognizedGear = GEAR_SENS_INVALID;
@@ -199,6 +242,11 @@ static inline GearSensorStatesEnum GearSensor_GetStateBySensorAdc(void)
 	return recognizedGear;
 }
 
+/**
+ * @brief Gear sensor plausibility check and debouncing mechanism.
+ * 
+ * @param gearSensReading The current gear sensor reading.
+ */
 static inline void GearSensor_PlausibilityCheck(GearSensorStatesEnum *const gearSensReading)
 {
 	/* Debouncing of Gear sensor reading */
@@ -214,6 +262,14 @@ static inline void GearSensor_PlausibilityCheck(GearSensorStatesEnum *const gear
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of Gear Sensor module.
+ * 
+ * The function initializes the gear sensor by getting a pointer to the ADC channel that the gear
+ * sensor is connected to.
+ * 
+ * @return an error code.
+ */
 ErrorEnum GearSensor_Init(void)
 {
 	ErrorEnum error = ERROR_OK;
@@ -229,16 +285,29 @@ ErrorEnum GearSensor_Init(void)
 	return error;
 }
 
+/**
+ * @brief Get the current state of the gear sensor.
+ * 
+ * @return The state of the gear sensor.
+ */
 GearSensorStatesEnum GearSensor_GetState(void)
 {
 	return gearSens.state;
 }
 
+/**
+ * @brief Get the plausibility of the gear sensor.
+ * 
+ * @return The plausibility of the gear sensor.
+ */
 GearSensorPlausibilityEnum GearSensor_GetPlausibility(void)
 {
 	return gearSens.plausibility;
 }
 
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
 void GearSensor_Process(void)
 {
 	GearSensorStatesEnum sensorReading = GearSensor_GetStateBySensorAdc();

@@ -14,12 +14,15 @@
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
+
+//! Clutch Position limits struct
 typedef struct {
 	const uint32_t degMin;
 	const uint32_t degDefault;
 	const uint32_t degMax;
 } ClutchPosLimits;
 
+//! Clutch Control handler struct
 typedef struct {
 	ClutchControlStates control;
 	ClutchControlStates savedCtrl;
@@ -29,6 +32,7 @@ typedef struct {
 	bool_t canAck;
 } ClutchControlHandler;
 
+//! Clutch servo configuration
 static const ServoConfig clutchServoConfig = {
 		.limits = {
 			 .degMin     = 18U,
@@ -38,26 +42,31 @@ static const ServoConfig clutchServoConfig = {
 		.pwmChannel = TIM_CHANNEL_1
 };
 
+//! This must be before watchdogs structs declaration
 static void ClutchControl_WatchdogElapsedTrigger(void);
 
+//! Upshift clutch slip watchdog
 static GearWatchdogType upShiftClutchSlipWdg = {
 		.elapsedTrigger = ClutchControl_WatchdogElapsedTrigger,
 		.status = GEAR_WATCHDOG_STATUS_INACTIVE,
 		.timeoutMs = CLUTCH_UPSHIFT_SLIP_TIMEOUT_MS
 };
 
+//! Downshift clutch slip watchdog
 static GearWatchdogType downShiftClutchSlipWdg = {
 		.elapsedTrigger = ClutchControl_WatchdogElapsedTrigger,
 		.status = GEAR_WATCHDOG_STATUS_INACTIVE,
 		.timeoutMs = CLUTCH_DOWNSHIFT_SLIP_TIMEOUT_MS
 };
 
-static GearWatchdogType *const clutchWdgMap[CLUTCH_DIR_COUNT] = {
-	[CLUTCH_DIR_UPSHIFT] = &upShiftClutchSlipWdg,
+//! Mapping of shift direction <- running watchdog
+static GearWatchdogType *const clutchWdgMap[CLUTCH_DIR_COUNT + 1U] = {
+	[CLUTCH_DIR_UPSHIFT]   = &upShiftClutchSlipWdg,
 	[CLUTCH_DIR_DOWNSHIFT] = &downShiftClutchSlipWdg,
+	[CLUTCH_DIR_COUNT]     = NULL
 };
 
-
+//! Clutch Control handler
 static ClutchControlHandler clutchCtrl = {
 		.control  = CLUTCH_CTRL_INIT_CAN_ACK,
 		.savedCtrl = CLUTCH_CTRL_INIT_CAN_ACK,
@@ -70,15 +79,31 @@ static ClutchControlHandler clutchCtrl = {
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
+static void ClutchControl_StateMachine(void);
 static void ClutchControl_CAN_Acknowledge(void);
 static void ClutchControl_CAN_NormalOperation(void);
 
+/* ---------------------------- */
+/*        Local functions       */
+/* ---------------------------- */
+
+/**
+ * @brief Clutch watchdog elapsed function.
+ * 
+ * If the clutch is engaged, disengage it and set the clutch control to the saved control.
+ */
 static void ClutchControl_WatchdogElapsedTrigger(void)
 {
-	ClutchControl_DisableSlip();
+	(void)Servo_SetDefaultPos(clutchCtrl.servo);
+	clutchCtrl.control = clutchCtrl.savedCtrl;
 }
 
-
+/**
+ * @brief Wait for CAN Acknowledge message state.
+ *
+ * If the CAN message is valid, and the message is an acknowledge message, then enable the servo and go
+ * to normal operation mode.
+ */
 static void ClutchControl_CAN_Acknowledge(void)
 {
 	CAN_RxMsgType* clutchRxMsg = CAN_GetRxMsg(clutchCtrl.canRxMsg);
@@ -101,6 +126,19 @@ static void ClutchControl_CAN_Acknowledge(void)
 	}
 }
 
+/**
+ * @brief Normal Operation of Clutch Control (from steering wheel).
+ * 
+ * If the CAN message is valid, set the servo position to the value received from the CAN message.
+ * The first thing we do is get the CAN message from the CAN driver. 
+ * Then we validate the CAN message. If the message is invalid, we go to the CAN ERROR state. 
+ * If the message is valid, we check if the message is new and if we're allowed to acknowledge the
+ * message. 
+ * If the message is new and we're allowed to acknowledge it, we get the clutch position from the CAN
+ * message. 
+ * Then we set the servo position to the value received from the CAN message. 
+ * Finally, we set the newData flag to false and the CAN message is ready to receive a new message.
+ */
 static void ClutchControl_CAN_NormalOperation(void)
 {
 	CAN_RxMsgType* clutchRxMsg = CAN_GetRxMsg(clutchCtrl.canRxMsg);
@@ -127,6 +165,13 @@ static void ClutchControl_CAN_NormalOperation(void)
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of the clutch control module.
+ * 
+ * @param htim pointer to the timer used for the clutch servo.
+ * 
+ * @return an error code.
+ */
 ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
 {
 	ErrorEnum err = ERROR_OK;
@@ -140,12 +185,15 @@ ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
 			.PWM = &htim->Instance->CCR1
 		};
 
+		/* Initialize Clutch servo */
 		err = Servo_Init(clutchCtrl.servo, &clutchServoConfig, clutchServoPwmParams);
 
+		/* Initialize watchdog for clutch slip upshifts */
 		if (err == ERROR_OK) {
 			err = GearWatchdog_Init(&upShiftClutchSlipWdg);
 		}
 
+		/* Initialize watchdog for clutch slip downshifts */
 		if (err == ERROR_OK) {
 			err = GearWatchdog_Init(&downShiftClutchSlipWdg);
 		}
@@ -154,32 +202,57 @@ ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
 	return err;
 }
 
+/**
+ * @brief Trigger the clutch slip procedure.
+ *
+ * It sets the clutch control to gear control, sets the servo position to the specified slip degrees,
+ * and starts the watchdog.
+ * 
+ * @param slipDegrees The number of degrees to slip the clutch.
+ * @param direction   CLUTCH_DIR_UP or CLUTCH_DIR_DOWN.
+ */
 void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
 {
-#if CONFIG_CLUTCH_ENABLE && CONFIG_GEAR_CLUTCH_SLIP_ENABLE
+	clutchCtrl.runningWdg = clutchWdgMap[direction];
+	clutchCtrl.savedCtrl = clutchCtrl.control;
+
+#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
 	if (direction < CLUTCH_DIR_COUNT) {
-		clutchCtrl.savedCtrl = clutchCtrl.control;
 		clutchCtrl.control = CLUTCH_CTRL_GEARCTRL;
 		(void)Servo_SetPos(clutchCtrl.servo, slipDegrees);
+		GearWatchdog_Start(clutchCtrl.runningWdg);
 	}
 #endif
-	clutchCtrl.runningWdg = clutchWdgMap[direction];
 }
 
+/**
+ * @brief Disable the clutch slip procedure.
+ * 
+ * If the clutch is enabled and the slip control is enabled, then set the servo to the default position
+ * and feed the running watchdog. Set the running watchdog to NULL and set the control to the
+ * saved control.
+ */
 void ClutchControl_DisableSlip(void)
 {
-#if CONFIG_CLUTCH_ENABLE && CONFIG_GEAR_CLUTCH_SLIP_ENABLE
+#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
 	(void)Servo_SetDefaultPos(clutchCtrl.servo);
-	clutchCtrl.control = clutchCtrl.savedCtrl;
 	GearWatchdog_Feed(clutchCtrl.runningWdg);
 #endif
 	clutchCtrl.runningWdg = NULL;
+	clutchCtrl.control = clutchCtrl.savedCtrl;
 }
 
-void ClutchControl_Process(void)
+/**
+ * @brief Clutch Control state machine.
+ *
+ * Controls the clutch servo based on CAN messages received from
+ * the steering wheel or gear control module.
+ */
+static void ClutchControl_StateMachine(void)
 {
 	switch (clutchCtrl.control) {
 		case CLUTCH_CTRL_INIT_CAN_ACK:
+			/* Wait for CAN Acknowledge message */
 			ClutchControl_CAN_Acknowledge();
 			break;
 
@@ -194,12 +267,22 @@ void ClutchControl_Process(void)
 			break;
 
 		case CLUTCH_CTRL_CAN_ERROR:
+			/* CAN error message */
 			(void)Servo_SetDefaultPos(clutchCtrl.servo);
 			break;
 
 		case CLUTCH_CTRL_SERVO_DISABLED:
 		default:
+			/* Clutch disabled due to servo error */
 			(void)Servo_Disable(clutchCtrl.servo);
 			break;
 	}
+}
+
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
+void ClutchControl_Process(void)
+{
+	ClutchControl_StateMachine();
 }

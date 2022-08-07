@@ -11,6 +11,7 @@
 /*          Local data          */
 /* ---------------------------- */
 
+//! An array of pointers to all watchdog entities.
 static GearWatchdogType* gearWdg[GEAR_WDG_COUNT] = {
 	[GEAR_WDG_SHIFT]            = NULL,
 	[GEAR_WDG_INJECTORS_CUT]    = NULL,
@@ -21,6 +22,16 @@ static GearWatchdogType* gearWdg[GEAR_WDG_COUNT] = {
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of the Gear Watchdog module.
+ *
+ * The function initializes a watchdog entity and registers it in the global array of watchdog
+ * entities.
+ * 
+ * @param wdgEntity This is a pointer to the watchdog entity.
+ * 
+ * @return an error code.
+ */
 ErrorEnum GearWatchdog_Init(GearWatchdogType *const wdgEntity)
 {
 	ErrorEnum err = ERROR_OK;
@@ -41,6 +52,12 @@ ErrorEnum GearWatchdog_Init(GearWatchdogType *const wdgEntity)
 	return err;
 }
 
+/**
+ * @brief Main process function that is called from the Scheduler.
+ * 
+ * If the watchdog is active and the timer has elapsed, call the elapsedTrigger function and set the
+ * status to elapsed.
+ */
 void GearWatchdog_Process(void)
 {
 	for (uint32_t i = 0U; i < GEAR_WDG_COUNT; ++i) {
@@ -66,17 +83,11 @@ void GearWatchdog_Process(void)
 	}
 }
 
-boolean GearWatchdog_HasElapsed(GearWatchdogType *const wdgEntity)
-{
-	boolean hasElapsed = TRUE;
-
-	if (NULL_CHECK1(wdgEntity)) {
-		hasElapsed = (wdgEntity->status == GEAR_WATCHDOG_STATUS_ELAPSED);
-	}
-
-	return hasElapsed;
-}
-
+/**
+ * @brief Start the watchdog timer.
+ * 
+ * @param wdgEntity A pointer to the watchdog entity.
+ */
 void GearWatchdog_Start(GearWatchdogType *const wdgEntity)
 {
 	if (NULL_CHECK1(wdgEntity)) {
@@ -85,6 +96,13 @@ void GearWatchdog_Start(GearWatchdogType *const wdgEntity)
 	}
 }
 
+/**
+ * @brief Feed the watchdog.
+ * 
+ * If the watchdog is active, then mark it as fed on time.
+ * 
+ * @param wdgEntity Pointer to the watchdog entity.
+ */
 void GearWatchdog_Feed(GearWatchdogType *const wdgEntity)
 {
 	if (NULL_CHECK1(wdgEntity)) {

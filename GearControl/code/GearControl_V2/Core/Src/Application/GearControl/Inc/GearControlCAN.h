@@ -19,7 +19,8 @@ typedef enum {
 	CAN_GEARSENS_UNKNOWN      = 0x05U,
 	CAN_GEARSENS_FAILURE      = 0x06U,
 	CAN_GEARSENS_IMPLAUSIBLE  = 0x07U,
-	CAN_SHIFT_DISABLED        = 0x08U
+	CAN_SHIFT_DISABLED        = 0x08U,
+	CAN_SHIFT_STATUS_COUNT    = 0x09U
 } CANShiftStatus;
 
 ErrorEnum GearControlCAN_Init(void);

@@ -233,7 +233,7 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
 static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 invalidValue);
 #endif
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
 static DBW_States DBW_HandlerInit(void)
 {

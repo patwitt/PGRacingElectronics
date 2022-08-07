@@ -34,11 +34,37 @@ typedef enum {
 	SHIFT_GEAR_UNKNOWN         = 8U,
 	SHIFT_GEARSENS_FAILURE     = 9U,
 	SHIFT_GEARSENS_IMPLAUSIBLE = 10U,
-	SHIFT_DISABLED             = 11U
+	SHIFT_DISABLED             = 11U,
+	SHIFT_STATES_COUNT         = 12U
 } GearShiftStates;
 
+//! Gear shift request
+typedef struct {
+	bool_t requested;               //!< New gearshift request flag
+	uint32_t servoDeg;              //!< Servo degrees for gearshift
+	GearStates expectedGear;        //!< Expected next gear
+	GearShiftStates shiftProcedure; //!< Shifting procedure that will be executed after request is processed
+} GearShiftRequest;
+
+//! Gear Control main handler struct
+typedef struct {
+	GearWatchdogType *const watchdog;               //!< Gear shift watchdog
+	const GearServoDegData *const servoDegMap;      //!< Gear servo degrees mapping
+	const ClutchSlipConfig *const upShiftSlipCfg;   //!< Clutch upshift slip config
+	const ClutchSlipConfig *const downShiftSlipCfg; //!< Clutch downshift slip config
+	const ServoConfig *const servoConfig;           //!< Gear servo configuration
+	GearStates gear;                                //!< Actual gear by estimation and sensor reading
+	GearShiftRequest request;                       //!< Gear shift request
+	GearShiftStates shiftState;                     //!< Shift state - describes dynamic behavior
+	const ServoTypeEnum servo;                      //!< Servo Type
+	const CANShiftStatus *const canShiftStatusMap;  //!< CAN Bus shift mapping - CAN signal <- shift status
+	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
+	uint32_t debCnt;                                //!< Debounce counter
+	uint32_t delayTim;                              //!< Delay timer
+} GearControlHandler;
+
 //! Mapping of shift state <- CAN shift status signal
-static const CANShiftStatus shiftCanMap[SHIFT_DISABLED + 1U] = {
+static const CANShiftStatus shiftCanMap[SHIFT_STATES_COUNT + 1U] = {
 	[SHIFT_INIT]                 = CAN_SHIFT_INIT,
 	[SHIFT_IDLE]                 = CAN_SHIFT_IDLE,
 	[SHIFT_PROCEDURE_UP]         = CAN_SHIFT_EXEC,
@@ -50,7 +76,8 @@ static const CANShiftStatus shiftCanMap[SHIFT_DISABLED + 1U] = {
 	[SHIFT_GEAR_UNKNOWN]         = CAN_GEARSENS_UNKNOWN,
 	[SHIFT_GEARSENS_FAILURE]     = CAN_GEARSENS_FAILURE,
 	[SHIFT_GEARSENS_IMPLAUSIBLE] = CAN_GEARSENS_IMPLAUSIBLE,
-	[SHIFT_DISABLED]             = CAN_SHIFT_DISABLED
+	[SHIFT_DISABLED]             = CAN_SHIFT_DISABLED,
+	[SHIFT_STATES_COUNT]         = CAN_SHIFT_DISABLED
 };
 
 //! Gear servo configuration
@@ -76,31 +103,6 @@ static const ClutchSlipConfig downShiftClutchSlipConfig = {
 	.slipDelayMs = CLUTCH_DOWNSHIFT_DELAY_MS,
 	.direction = CLUTCH_DIR_DOWNSHIFT
 };
-
-//! Gear shift request
-typedef struct {
-	bool_t requested;
-	uint32_t servoDeg;
-	GearStates expectedGear; //!< Expected next gear
-	GearShiftStates shiftProcedure;   //!< Shifting procedure that will be executed after request is processed
-} GearShiftRequest;
-
-//! Gear Control main handler struct
-typedef struct {
-	GearWatchdogType *const watchdog;          //!< Gear shift watchdog
-	const GearServoDegData *const servoDegMap; //!< Gear servo degrees mapping
-	const ClutchSlipConfig *const upShiftSlipCfg;
-	const ClutchSlipConfig *const downShiftSlipCfg;
-	const ServoConfig *const servoConfig;      //!< Gear servo configuration
-	GearStates gear;                           //!< Actual gear by estimation and sensor reading
-	GearShiftRequest request;                  //!< Gear shift request
-	GearShiftStates shiftState;                //!< Shift state - describes dynamic behavior
-	const ServoTypeEnum servo;                 //!< Servo Type
-	const CANShiftStatus *const canShiftStatusMap;
-	const uint32_t gearDebounceMs;
-	uint32_t debCnt;
-	uint32_t delayTim;
-} GearControlHandler;
 
 //! This must be before gearWdg declaration
 static void GearWatchdogElapsedTrigger(void);
@@ -138,11 +140,12 @@ static __IO GearControlHandler gearCtrl = {
 /* Local function declarations  */
 /* ---------------------------- */
 static inline GearStates GearCtrlState_Init(void);
-static inline GearStates GearCtrlState_Handler(void);
+static inline GearStates GearCtrlState_ShiftHandler(void);
 
-static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shift);
+static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shiftProcedure);
 static inline void GearCtrl_ResetRequest(__IO GearShiftRequest *const request);
 
+static void GearControl_StateMachine(void);
 static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const request);
 static inline GearShiftStates GearCtrl_ShiftProcedureUp(void);
 static inline GearShiftStates GearCtrl_ShiftProcedureDown(void);
@@ -152,12 +155,15 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void);
 
 static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const establishedGear);
 static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establishedGear);
+
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
+/**
+ * @brief Watchdog elapsed - failed gear shift.
+ */
 static void GearWatchdogElapsedTrigger(void)
 {
-	/* Watchdog elapsed - failed gear shift */
 	/* Reset request and debounce microswitches LOW */
 	GearCtrl_ResetRequest(&gearCtrl.request);
 	MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
@@ -170,17 +176,30 @@ static void GearWatchdogElapsedTrigger(void)
 	}
 }
 
-static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shift)
+/**
+ * @brief Set the gear shift request to the given parameters.
+ * 
+ * @param GearShiftRequest Gear shift request struct pointer.
+ * @param servoDeg         The angle of the servo to move to.
+ * @param expectedGear     The gear that the gearbox should be in after the shift.
+ * @param shiftProcedure   Shift procedure state (up/down) that will be executed.
+ */
+static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shiftProcedure)
 {
 	if (NULL_CHECK1(request)) {
 		request->requested = TRUE;
 		request->servoDeg = servoDeg;
 		request->expectedGear = expectedGear;
-		request->shiftProcedure = shift;
+		request->shiftProcedure = shiftProcedure;
 		gearCtrl.delayTim = 0U;
 	}
 }
 
+/**
+ * @brief Resets the gear shift request.
+ * 
+ * @param GearShiftRequest Gear shift request struct pointer.
+ */
 static inline void GearCtrl_ResetRequest(__IO GearShiftRequest *const request)
 {
 	if (NULL_CHECK1(request)) {
@@ -192,7 +211,11 @@ static inline void GearCtrl_ResetRequest(__IO GearShiftRequest *const request)
 	}
 }
 
-/* Gear state Initialization handler */
+/**
+ * @brief Initialization of the gear control state machine.
+ * 
+ * @return The next state of the gear control state machine.
+ */
 static inline GearStates GearCtrlState_Init(void)
 {
 	GearStates nextState = GEAR_INIT;
@@ -225,6 +248,13 @@ static inline GearStates GearCtrlState_Init(void)
 	return nextState;
 }
 
+/**
+ * @brief Execute the shift request by setting the servo position and starting the gear watchdog.
+ * 
+ * @param GearShiftRequest Gear shift request struct pointer.
+ * 
+ * @return The next state of the gear shift state machine.
+ */
 static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const request)
 {
 	/* Execute shift and go to validation step */
@@ -245,6 +275,16 @@ static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const
 	return nextShiftState;
 }
 
+/**
+ * @brief Poll and process new requests in IDLE state.
+ *
+ * It checks if there's a new gear shift request, and if so, it sets the request parameters and returns
+ * the next state to go to.
+ * 
+ * @param GearShiftRequest Gear shift request struct pointer.
+ * 
+ * @return The next state of the gear shift state machine.
+ */
 static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftRequest *const request)
 {
 	/* Request gear shift if any new request is valid */
@@ -296,9 +336,20 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 	return nextShiftState;
 }
 
+/**
+ * @brief Up-shift procedure.
+ *
+ * Trigger the clutch slip and injectors cut and if the clutch slip delay has elapsed, 
+ * go to the next state.
+ * 
+ * The first state triggers the clutch slip and injectors cut, and then goes to the second state.
+ * The second state waits for the clutch slip delay and injectors cut delay to elapse,
+ * and then goes to execute gearshift state.
+ * 
+ * @return The next state of the state machine.
+ */
 static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 {
-	/* Shift up procedure - injectors cut | clutch slip */
 	typedef enum {
 		SHIFT_PROCEDURE_UP_TRIGGERS,
 		SHIFT_PROCEDURE_UP_DELAY
@@ -337,9 +388,21 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 	return nextShiftState;
 }
 
+/**
+ * @brief Down-shift procedure.
+ *
+ * Trigger the clutch slip and if the clutch slip delay has elapsed, 
+ * go to the next state.
+ * 
+ * The first state triggers the clutch slip, and then goes to the second state.
+ * The second state waits for the clutch slip delay to elapse,
+ * and then goes to execute gearshift state.
+ * 
+ * @return The next state of the state machine.
+ */
 static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
 {
-	/* Shift down procedure - rev match | throttle blip | clutch slip */
+	/* Shift down procedure - TODO add rev match | throttle blip */
 	typedef enum {
 		SHIFT_PROCEDURE_DOWN_TRIGGERS,
 		SHIFT_PROCEDURE_DOWN_DELAY
@@ -375,6 +438,15 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
 	return nextShiftState;
 }
 
+/**
+ * @brief Validation of gear shift after execute.
+ * 
+ * If the gear sensor is in the expected gear, set the current gear to the expected gear, feed the gear
+ * watchdog, disable the injectors cut, reset the clutch slip, and change the state to success.
+ * 
+ * @param gear             pointer to the current gear.
+ * @param GearShiftRequest Gear shift request struct pointer.
+ */
 static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
 {
 	const GearStates gearSens = (GearStates)GearSensor_GetState();
@@ -398,6 +470,13 @@ static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO Ge
 	}
 }
 
+/**
+ * @brief Successful gearshift state.
+ *
+ * Reset the request and set the microswitch control to debounce low.
+ *
+ * @return The next state of the gear shift state machine.
+ */
 static inline GearShiftStates GearCtrl_ShiftSuccessful(void)
 {
 	GearShiftStates nextShiftState = SHIFT_IDLE;
@@ -413,6 +492,18 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void)
 	return nextShiftState;
 }
 
+/**
+ * @brief Debounce the gear sensor reading against the established gear and if the debounce fails, go to the
+ * failure state.
+ * 
+ * The function is called from the main state machine and it's purpose is to check if the gear sensor
+ * reading is the same as the established gear. If it is, then the function returns the current state.
+ * If it isn't, then the function returns the failure state.
+ * 
+ * @param establishedGear This is the gear that the system has established.
+ * 
+ * @return The nextShiftState is being returned.
+ */
 static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const establishedGear)
 {
 	GearShiftStates nextShiftState = gearCtrl.shiftState;
@@ -459,6 +550,21 @@ static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const 
 	return nextShiftState;
 }
 
+/**
+ * @brief Gear shifting monitoring.
+ * 
+ * This function will recover wrong gear state if sensor reading is in valid range.
+ * If the gear sensor reading is plausible, check the gear against the sensor reading.
+ * Otherwise, return the shift state that indicates the gear sensor reading is
+ * implausible.
+ * 
+ * The function is called from the main state machine, and the established gear is passed in as a
+ * pointer. The function returns the next shift state.
+ * 
+ * @param establishedGear This is the gear that the car is currently in.
+ * 
+ * @return The nextShiftState is being returned.
+ */
 static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establishedGear)
 {
 	/* Keep old shifting state */
@@ -498,8 +604,12 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 	return nextShiftState;
 }
 
-/* Gear state handler, called every 1 ms */
-static inline GearStates GearCtrlState_Handler(void)
+/**
+ * @brief State machine that handles gear shifting.
+ * 
+ * @return Next Gear that will be set.
+ */
+static inline GearStates GearCtrlState_ShiftHandler(void)
 {
 	GearStates nextGear = gearCtrl.gear;
 
@@ -562,9 +672,62 @@ static inline GearStates GearCtrlState_Handler(void)
 	return nextGear;
 }
 
+/**
+ * @brief The function is a state machine that handles the gear shifting process.
+ */
+static void GearControl_StateMachine(void)
+{
+	switch (gearCtrl.gear) {
+		case GEAR_INIT:
+			/* Init state is handled separately */
+			gearCtrl.gear = GearCtrlState_Init();
+			break;
+
+		case GEAR_1:
+		case GEAR_N:
+		case GEAR_2:
+		case GEAR_3:
+		case GEAR_4:
+		case GEAR_5:
+		case GEAR_6:
+			/* All other states representing gears use the same shift handler */
+			gearCtrl.gear = GearCtrlState_ShiftHandler();
+			break;
+
+		case GEAR_UNKNOWN:
+		case GEAR_SENS_FAILURE:
+		case GEAR_IMPLAUSIBLE:
+			/* Recover gear state */
+			GearCtrl_ResetRequest(&gearCtrl.request);
+			/* Go to default position and call handler to recover gear from sensor reading */
+			if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
+				gearCtrl.gear = GearCtrlState_ShiftHandler();
+			} else {
+				gearCtrl.gear = GEAR_SERVO_FAILURE;
+			}
+			break;
+
+		case GEAR_SERVO_FAILURE:
+		case GEAR_DISABLED:
+		case GEAR_COUNT:
+		default:
+			/* Gear shifting is disabled, unrecoverable without MCU reset */
+			GearCtrl_ResetRequest(&gearCtrl.request);
+			(void)Servo_SetDefaultPos(gearCtrl.servo);
+			break;
+	}
+}
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of the gear control module.
+ * 
+ * @param htim pointer to the timer that will be used to generate the PWM signal.
+ * 
+ * @return an error code.
+ */
 ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 {
 	ErrorEnum err = ERROR_OK;
@@ -581,12 +744,12 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 	if (err == ERROR_OK) {
 		err = GearWatchdog_Init(gearCtrl.watchdog);
 	}
-#if CONFIG_GEAR_INJECTORS_CUT_ENABLE
+#if CONFIG_ENABLE_INJECTORS_CUT
+	/* Initialize injectors cut module */
 	if (err == ERROR_OK) {
 		err = InjectorsCut_Init();
 	}
 #endif
-	/* Initialize gear servo */
 	if (err == ERROR_OK) {
 		NULL_ERR_CHECK2(err, htim, htim->Instance);
 
@@ -597,6 +760,7 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 				.PWM = &htim->Instance->CCR3
 			};
 
+			/* Initialize gear servo */
 			err = Servo_Init(gearCtrl.servo, gearCtrl.servoConfig, gearServoPwmParams);
 		}
 	}
@@ -604,55 +768,26 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 	return err;
 }
 
-/* Gear control main process */
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
 void GearControl_Process(void)
 {
 	/* Update CAN Status based on current shifting state */
 	GearControlCAN_UpdateStatus(gearCtrl.canShiftStatusMap[gearCtrl.shiftState]);
 
-	switch (gearCtrl.gear) {
-		case GEAR_INIT:
-			/* Init state is handled separately */
-			gearCtrl.gear = GearCtrlState_Init();
-			break;
-
-		case GEAR_1:
-		case GEAR_N:
-		case GEAR_2:
-		case GEAR_3:
-		case GEAR_4:
-		case GEAR_5:
-		case GEAR_6:
-			/* All other states representing gears use the same handler */
-			gearCtrl.gear = GearCtrlState_Handler();
-			break;
-
-		case GEAR_UNKNOWN:
-		case GEAR_SENS_FAILURE:
-		case GEAR_IMPLAUSIBLE:
-			/* Call handler to recover gear state */
-			GearCtrl_ResetRequest(&gearCtrl.request);
-			if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
-				gearCtrl.gear = GearCtrlState_Handler();
-			} else {
-				gearCtrl.gear = GEAR_SERVO_FAILURE;
-			}
-			break;
-
-		case GEAR_SERVO_FAILURE:
-		case GEAR_DISABLED:
-		case GEAR_COUNT:
-		default:
-			/* Gear shifting is disabled, unrecoverable without MCU reset */
-			GearCtrl_ResetRequest(&gearCtrl.request);
-			(void)Servo_SetDefaultPos(gearCtrl.servo);
-			break;
-	}
+	/* Gear Control state machine */
+	GearControl_StateMachine();
 
 	/* Gear watchdog process */
 	GearWatchdog_Process();
 }
 
+/**
+ * @brief This function returns the current gear state
+ * 
+ * @return Current gear.
+ */
 GearStates GearControl_GetGear(void)
 {
 	return gearCtrl.gear;

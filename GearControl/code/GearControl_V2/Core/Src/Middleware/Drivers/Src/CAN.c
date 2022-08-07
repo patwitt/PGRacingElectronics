@@ -71,7 +71,7 @@ static inline void CAN_DecodeRxMsg(CAN_RxHeaderTypeDef *const rxHeader,
 								   const HAL_StatusTypeDef *const status);
 static ErrorEnum CAN_ValidateRxMsgStatus(const CAN_MsgStatus msgStatus);
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
 static HAL_StatusTypeDef CAN_HALInit(void)
 {

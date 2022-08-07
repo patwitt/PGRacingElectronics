@@ -15,15 +15,14 @@
  */
 typedef struct
 {
-   uint32 count;  /**< The current counter value */
-   uint32 period; /**< The timer period in ticks */
-   bool_t active;   /**< True if the timer is active (counting) */
-   bool_t elapsed;  /**< True if the timer is elapsed */
+   uint32 count;        /**< The current counter value */
+   uint32 period;       /**< The timer period in ticks */
+   bool_t active;       /**< True if the timer is active (counting) */
+   bool_t elapsed;      /**< True if the timer is elapsed */
    bool_t endlessCount; /**< If true, this timer will repeat counting after expiration */
 } SwTimerType;
 
-#define SYSTICK_RESOLUTION_IN_MS 10U /**< Systick's resolution value in milliseconds */
-#define ONE_SEC_IN_MSEC 1000U /**< Value of second in milliseconds */
+#define SYSTICK_RESOLUTION_IN_MS (10U) /**< Systick's resolution value in milliseconds */
 
 void SwTimerExecute(void);
 

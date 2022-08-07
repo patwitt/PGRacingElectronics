@@ -14,11 +14,13 @@
 /*          Local data          */
 /* ---------------------------- */
 
+//! CAN reporting states
 typedef enum {
 	CAN_REPORTING_IN_PROGRESS,
 	CAN_REPORTING_IDLE
 } CANReportingState;
 
+//! Mapping of CAN signal <- time of reporting in ms
 static const uint32_t canStatusAlivenessMsMap[CAN_SHIFT_DISABLED + 1U] = {
 	[CAN_SHIFT_INIT]            = 500U,
 	[CAN_SHIFT_IDLE]            = 20U,
@@ -31,6 +33,7 @@ static const uint32_t canStatusAlivenessMsMap[CAN_SHIFT_DISABLED + 1U] = {
 	[CAN_SHIFT_DISABLED]        = 500U
 };
 
+//! CAN reporting handler struct
 typedef struct {
 	SwTimerType timer;
 	CANShiftStatus shiftStatus;
@@ -42,6 +45,7 @@ typedef struct {
 	const CAN_TxMsgStdIdEnum msgId;
 } CANReportHandler;
 
+//! CAN Reporting handler
 static CANReportHandler canReportCtrl = {
 		/* Status variables */
 		.reportingState = CAN_REPORTING_IDLE,
@@ -59,8 +63,16 @@ static CANReportHandler canReportCtrl = {
 static inline void GearControlCAN_ShiftStatusHandler(void);
 
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
+/**
+ * @brief CAN Shift status handler.
+ * 
+ * If the reporting state is idle, and the new shift status is different from the current shift status,
+ * then save the new shift status, start the timer, and set the reporting state to in progress. If the
+ * reporting state is in progress, and the timer has elapsed, then set the reporting state to idle. If
+ * the reporting state is in progress, and the timer has not elapsed, then update the shift status.
+ */
 static inline void GearControlCAN_ShiftStatusHandler(void)
 {
 	switch (canReportCtrl.reportingState) {
@@ -92,9 +104,15 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
 			break;
 	}
 }
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of Gear Control CAN module.
+ * 
+ * @return an error code.
+ */
 ErrorEnum GearControlCAN_Init(void)
 {
 	ErrorEnum err = ERROR_OK;
@@ -104,12 +122,22 @@ ErrorEnum GearControlCAN_Init(void)
 	return err;
 }
 
+/**
+ * @brief Update shift status.
+ *
+ * If the current reporting state is IDLE, then the new shift status will be processed.
+ * 
+ * @param shiftStatus The current shift status.
+ */
 void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus)
 {
 	/* New shift status will be processed only in IDLE reporting state */
 	canReportCtrl.newShiftStatus = shiftStatus;
 }
 
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
 void GearControlCAN_Process(void)
 {
 	/* Update gear data */

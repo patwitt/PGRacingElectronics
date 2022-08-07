@@ -41,7 +41,7 @@ static void DCMotor_ResetPwm(void);
 static __IO uint32 DCMotor_ConvertTargetToPwm(float target);
 
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
 static void DCMotor_ResetPwm(void) {
 	*dcController.PWM_H_plus = 0U;

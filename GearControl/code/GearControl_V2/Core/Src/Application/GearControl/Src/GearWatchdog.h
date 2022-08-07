@@ -27,18 +27,16 @@ typedef enum {
 	GEAR_WDG_COUNT            = 4U
 } GearWatchdogTypeEnum;
 
-typedef void (*WatchdogFailTrigger)(void);
+typedef void (*WatchdogElapsedTrigger)(void);
 
 typedef struct {
 	__IO GearWatchdogStatusEnum status;
-	WatchdogFailTrigger elapsedTrigger;
+	WatchdogElapsedTrigger elapsedTrigger;
 	SwTimerType timer;
 	const uint32_t timeoutMs;
 } GearWatchdogType;
 
 void GearWatchdog_Process(void);
-
-boolean GearWatchdog_HasElapsed(GearWatchdogType *const wdgEntity);
 ErrorEnum GearWatchdog_Init(GearWatchdogType *const wdgEntity);
 void GearWatchdog_Start(GearWatchdogType *const wdgEntity);
 void GearWatchdog_Feed(GearWatchdogType *const wdgEntity);

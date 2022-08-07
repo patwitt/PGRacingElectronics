@@ -31,7 +31,7 @@ static void MicroSwitch_DebounceLow(void);
 static void MicroSwitch_NormalOperation(void);
 
 /* ---------------------------- */
-/*       Static functions       */
+/*        Local functions       */
 /* ---------------------------- */
 static void MicroSwitch_DebounceLow(void)
 {
