@@ -7,11 +7,11 @@
 C_SRCS += \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Core/Src/system_stm32f7xx.c 
 
-C_DEPS += \
-./Drivers/CMSIS/system_stm32f7xx.d 
-
 OBJS += \
 ./Drivers/CMSIS/system_stm32f7xx.o 
+
+C_DEPS += \
+./Drivers/CMSIS/system_stm32f7xx.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

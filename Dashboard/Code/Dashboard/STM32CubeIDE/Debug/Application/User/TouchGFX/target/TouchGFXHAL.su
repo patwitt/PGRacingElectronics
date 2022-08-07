@@ -13,14 +13,14 @@ TouchGFXGeneratedHAL.hpp:103:18:virtual void TouchGFXGeneratedHAL::flushFrameBuf
 TouchGFXGeneratedHAL.hpp:27:7:TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
 TouchGFXGeneratedHAL.hpp:27:7:virtual TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
 TouchGFXHAL.hpp:98:18:virtual void TouchGFXHAL::flushFrameBuffer()	16	static
-TouchGFXHAL.cpp:22:6:virtual void TouchGFXHAL::initialize()	16	static
-TouchGFXHAL.cpp:38:11:virtual uint16_t* TouchGFXHAL::getTFTFrameBuffer() const	16	static
-TouchGFXHAL.cpp:53:6:virtual void TouchGFXHAL::setTFTFrameBuffer(uint16_t*)	16	static
-TouchGFXHAL.cpp:70:6:virtual void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect&)	16	static
-TouchGFXHAL.cpp:85:6:virtual bool TouchGFXHAL::blockCopy(void*, const void*, uint32_t)	24	static
-TouchGFXHAL.cpp:94:6:virtual void TouchGFXHAL::configureInterrupts()	16	static
-TouchGFXHAL.cpp:107:6:virtual void TouchGFXHAL::enableInterrupts()	16	static
-TouchGFXHAL.cpp:120:6:virtual void TouchGFXHAL::disableInterrupts()	16	static
-TouchGFXHAL.cpp:134:6:virtual void TouchGFXHAL::enableLCDControllerInterrupt()	16	static
+TouchGFXHAL.cpp:34:6:virtual void TouchGFXHAL::initialize()	16	static
+TouchGFXHAL.cpp:49:11:virtual uint16_t* TouchGFXHAL::getTFTFrameBuffer() const	16	static
+TouchGFXHAL.cpp:63:6:virtual void TouchGFXHAL::setTFTFrameBuffer(uint16_t*)	16	static
+TouchGFXHAL.cpp:79:6:virtual void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect&)	16	static
+TouchGFXHAL.cpp:93:6:virtual bool TouchGFXHAL::blockCopy(void*, const void*, uint32_t)	24	static
+TouchGFXHAL.cpp:102:6:virtual void TouchGFXHAL::configureInterrupts()	16	static
+TouchGFXHAL.cpp:118:6:virtual void TouchGFXHAL::enableInterrupts()	16	static
+TouchGFXHAL.cpp:130:6:virtual void TouchGFXHAL::disableInterrupts()	16	static
+TouchGFXHAL.cpp:143:6:virtual void TouchGFXHAL::enableLCDControllerInterrupt()	16	static
 TouchGFXHAL.hpp:30:7:TouchGFXHAL::~TouchGFXHAL()	16	static
 TouchGFXHAL.hpp:30:7:virtual TouchGFXHAL::~TouchGFXHAL()	16	static

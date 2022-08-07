@@ -1,3 +1,4 @@
+Types.hpp:91:5:touchgfx::colortype::colortype(uint32_t)	16	static
 HAL.hpp:103:13:touchgfx::HAL::~HAL()	16	static
 HAL.hpp:103:13:virtual touchgfx::HAL::~HAL()	16	static
 HAL.hpp:112:17:static touchgfx::HAL* touchgfx::HAL::getInstance()	4	static
@@ -37,3 +38,5 @@ TouchGFXGeneratedHAL.cpp:145:6:virtual void TouchGFXGeneratedHAL::FlushCache()	1
 TouchGFXGeneratedHAL.cpp:159:10:void HAL_LTDC_LineEventCallback(LTDC_HandleTypeDef*)	16	static
 TouchGFXGeneratedHAL.hpp:27:7:TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
 TouchGFXGeneratedHAL.hpp:27:7:virtual TouchGFXGeneratedHAL::~TouchGFXGeneratedHAL()	16	static
+TouchGFXGeneratedHAL.cpp:181:1:void __static_initialization_and_destruction_0(int, int)	80	static
+TouchGFXGeneratedHAL.cpp:181:1:cpp)	8	static
