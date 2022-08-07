@@ -16,6 +16,16 @@
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
+/**
+ * @brief Initialization of the RC filter coefficients and the filter output.
+ * 
+ * @param filter       Pointer to the RCFilter structure.
+ * @param cutoffFreqHz The cutoff frequency of the filter in Hz.
+ * @param sampleTimeS  The time between each sample.
+ * 
+ * @return an error code.
+ */
 ErrorEnum RCFilter_Init(RCFilter *const filter, const float cutoffFreqHz, const float sampleTimeS)
 {
 	ErrorEnum error = ERROR_OK;
@@ -45,6 +55,14 @@ ErrorEnum RCFilter_Init(RCFilter *const filter, const float cutoffFreqHz, const 
 	return error;
 }
 
+/**
+ * @brief Update the RC filter output.
+ * 
+ * @param filter    Pointer to the RCFilter structure.
+ * @param newSample The new sample to be filtered.
+ * 
+ * @return The filtered sample.
+ */
 float RCFilter_Update(RCFilter *const filter, const float newSample)
 {
 	/* Shift output samples */

@@ -56,7 +56,7 @@ typedef struct {
 	GearStates gear;                                //!< Actual gear by estimation and sensor reading
 	GearShiftRequest request;                       //!< Gear shift request
 	GearShiftStates shiftState;                     //!< Shift state - describes dynamic behavior
-	const ServoTypeEnum servo;                      //!< Servo Type
+	const ServoEntityEnum servo;                      //!< Servo Type
 	const CANShiftStatus *const canShiftStatusMap;  //!< CAN Bus shift mapping - CAN signal <- shift status
 	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
@@ -159,6 +159,7 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
+
 /**
  * @brief Watchdog elapsed - failed gear shift.
  */

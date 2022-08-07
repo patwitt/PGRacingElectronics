@@ -27,7 +27,7 @@ typedef struct {
 	ClutchControlStates control;
 	ClutchControlStates savedCtrl;
 	GearWatchdogType *runningWdg;
-	const ServoTypeEnum servo;
+	const ServoEntityEnum servo;
 	const CAN_RxMsgEnum canRxMsg;
 	bool_t canAck;
 } ClutchControlHandler;

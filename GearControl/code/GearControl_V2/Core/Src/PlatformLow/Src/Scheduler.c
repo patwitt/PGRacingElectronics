@@ -27,6 +27,16 @@ static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t durat
 static void SchedulerExecuteTasks(void);
 static void SchedulerTimeBase(void);
 
+/**
+ * @brief Initialization of the Scheduler module.
+ *
+ * Initialize the scheduler and start the timer.
+ * 
+ * @param schedule pointer to the array of SchedulerType structures.
+ * @param timer    pointer to the timer used for the scheduler.
+ * 
+ * @return an error code.
+ */
 ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer)
 {
 	ErrorEnum err = ERROR_OK;
@@ -55,6 +65,11 @@ ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const 
    	return err;
 }
 
+/**
+ * @brief Initialize the scheduler statistics.
+ * 
+ * @param stats A pointer to the statistics structure.
+ */
 static void SchedulerInitStats(SchedulerStatsType* stats)
 {
    stats->lastDuration = 0U;
@@ -62,34 +77,51 @@ static void SchedulerInitStats(SchedulerStatsType* stats)
    stats->minDuration = UINT32_MAX;
 }
 
+/**
+ * @brief Scheduler callback.
+ * 
+ * The SchedulerCallback function is called by the system
+ * every time the RTOS timer expires at a period of 1ms.
+ */
 void SchedulerCallback(void)
 {
-	  for (uint32 i = 0U; i < N_PROCESS; ++i)
-	  {
+	  for (uint32 i = 0U; i < N_PROCESS; ++i) {
 		  ++timers[i];
 	  }
+     /* Set elapsed flag to TRUE on callback */
 	  hasElapsed = TRUE;
 }
 
-// coverity[misra_c_2012_rule_8_7_violation] - GADSS-AD-1 Public API method for IE
+/**
+ * @brief Scheduler runner infinite loop.
+ */
 void SchedulerRun(void)
 {
-   while (1U)
-   {
+   while (TRUE) {
       SchedulerTimeBase();
    }
 }
 
+/**
+ * @brief Time base of the Scheduler.
+ * 
+ * If the system 1ms timer has elapsed, execute the tasks and reset the timer.
+ */
 static void SchedulerTimeBase(void)
 {
-   if (hasElapsed)
-   {
+   if (hasElapsed) {
+      /* Execute Scheduler tasks */
       SchedulerExecuteTasks();
-
+      /* Reset elapsed flag */
       hasElapsed = FALSE;
    }
 }
 
+/**
+ * @brief Scheduler task execute function.
+ * 
+ * The function loops through the array of tasks and executes each task if its timer has expired.
+ */
 static void SchedulerExecuteTasks(void)
 {
    static TimerStopWatchLapType frameStopWatch = {0U};
@@ -113,6 +145,14 @@ static void SchedulerExecuteTasks(void)
    WatchdogFeed();
 }
 
+/**
+ * @brief Update scheduler stats.
+ * 
+ * It updates the statistics for a given task.
+ * 
+ * @param stats    A pointer to the statistics structure for the task.
+ * @param duration The time it took to execute the task.
+ */
 static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t duration)
 {
    if (duration > stats->maxDuration) {

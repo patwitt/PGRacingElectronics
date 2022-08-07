@@ -63,6 +63,9 @@ static bool_t SwTimerIsExpired(const SwTimerType* timer);
 static void SwTimerProcessSwTimer(SwTimerType* timer);
 static void SwTimerInit(SwTimerType* timer);
 
+/**
+ * @brief Process all Software Timers.
+ */
 void SwTimerExecute(void)
 {
    ++uptime_;
@@ -72,6 +75,12 @@ void SwTimerExecute(void)
    }
 }
 
+/**
+ * The function SwTimerInit() initializes the timer by setting the active flag to FALSE, the count to
+ * DEFAULT_COUNT, and the elapsed flag to FALSE.
+ * 
+ * @param timer A pointer to the timer to be initialized.
+ */
 static void SwTimerInit(SwTimerType* timer)
 {
    timer->active = FALSE;

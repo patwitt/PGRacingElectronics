@@ -27,12 +27,20 @@ static MicroSwitchControlType microSwitchControl = MS_CONTROL_DISABLED;
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
+static void MicroSwitch_StateMachine(void);
 static void MicroSwitch_DebounceLow(void);
 static void MicroSwitch_NormalOperation(void);
 
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
+
+/**
+ * @brief MicroSwitch debouncing for LOW states.
+ * 
+ * If both microswitches are in LOW state for at least 20ms to low,
+ * go to ENABLED state.
+ */
 static void MicroSwitch_DebounceLow(void)
 {
 	static uint32_t lowDebCnt = 0U;
@@ -52,6 +60,12 @@ static void MicroSwitch_DebounceLow(void)
 	}
 }
 
+/**
+ * @brief MicroSwitches normal operation.
+ * 
+ * Debounces microswitches for 10ms and if any is detected to be high,
+ * changes state of that microswitch to high.
+ */
 static void MicroSwitch_NormalOperation(void)
 {
 	for (uint32_t i = 0U; i < MS_COUNT; ++i) {
@@ -77,6 +91,12 @@ static void MicroSwitch_NormalOperation(void)
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
+/**
+ * @brief Initialization of the MicroSwitch module.
+ * 
+ * It resets all internal variables.
+ */
 void MicroSwitch_Init(void)
 {
 	for (uint32_t i = 0U; i < MS_COUNT; ++i) {
@@ -86,7 +106,10 @@ void MicroSwitch_Init(void)
 	}
 }
 
-void MicroSwitch_Process(void)
+/**
+ * @brief MicroSwitch module main state machine.
+ */
+static void MicroSwitch_StateMachine(void)
 {
 	switch (microSwitchControl) {
 		case MS_CONTROL_DEBOUNCE_LOW:
@@ -100,11 +123,29 @@ void MicroSwitch_Process(void)
 		case MS_CONTROL_DISABLED:
 			microSwitches[MS_G_UP].state = MS_STATE_DEBOUNCING;
 			microSwitches[MS_G_DOWN].state = MS_STATE_DEBOUNCING;
+
 		default:
 			break;
 	}
 }
 
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
+void MicroSwitch_Process(void)
+{
+	MicroSwitch_StateMachine();
+}
+
+/**
+ * @brief Get microswitch entity.
+ * 
+ *  This function returns a pointer to a MicroSwitch struct.
+ * 
+ * @param microswitch The microswitch to get.
+ * 
+ * @return A pointer to a MicroSwitch struct.
+ */
 __IO MicroSwitch* MicroSwitch_Get(MicroSwitchTypeEnum microswitch)
 {
 	__IO MicroSwitch* mSwitch = NULL;
@@ -116,11 +157,24 @@ __IO MicroSwitch* MicroSwitch_Get(MicroSwitchTypeEnum microswitch)
 	return mSwitch;
 }
 
+/**
+ * @brief Set Control of Microswitches.
+ * 
+ * Used by upper layers for changing control of MicroSwitches.
+ * Mainly used for changing to LOW debouncing.
+ * 
+ * @param control The control type to set.
+ */
 void MicroSwitch_SetControl(MicroSwitchControlType control)
 {
 	microSwitchControl = control;
 }
 
+/**
+ * This function returns the current control state of the micro switch.
+ * 
+ * @return The current microswitch control.
+ */
 MicroSwitchControlType MicroSwitch_GetControl(void)
 {
 	return microSwitchControl;

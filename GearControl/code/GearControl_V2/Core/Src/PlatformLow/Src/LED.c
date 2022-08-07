@@ -17,44 +17,22 @@
 #define DELAY_100MS (100U)
 
 static LEDStatus ledStatus = LED_OFF;
+
+/* ---------------------------- */
+/* Local function declarations  */
+/* ---------------------------- */
 static void LED_Delay(const uint32_t Delay);
+static void LED_StateMachine(void);
 
 /* ---------------------------- */
-/*       Global functions       */
+/*        Local functions       */
 /* ---------------------------- */
-void LED_Process(void)
-{
-	switch (ledStatus) {
-		case LED_OFF:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
-			break;
 
-		case LED_BLINK_1HZ:
-			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);
-			break;
-
-		case LED_SOLID:
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
-			break;
-
-		default:
-			break;
-	}
-}
-
-void LED_SetStatus(LEDStatus newStatus)
-{
-	ledStatus = newStatus;
-}
-
-void LED_indicateResetWithDelay(const uint32_t periodx100ms)
-{
-	for (uint32_t i = 0U; i < periodx100ms; ++i) {
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);
-		LED_Delay(DELAY_100MS);
-	}
-}
-
+/**
+ * @brief LED delay function that feeds the watchdog every millisecond.
+ * 
+ * @param Delay The delay in milliseconds.
+ */
 static void LED_Delay(const uint32_t Delay)
 {
   uint32_t tickstart = HAL_GetTick();
@@ -78,4 +56,64 @@ static void LED_Delay(const uint32_t Delay)
 	  }
 	  prevTick = tick;
   }
+}
+
+/**
+ * @brief LED state machine.
+ *
+ * Controls the LED operational state.
+ */
+static void LED_StateMachine(void)
+{
+	switch (ledStatus) {
+		case LED_OFF:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+			break;
+
+		case LED_BLINK_1HZ:
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);
+			break;
+
+		case LED_SOLID:
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/* ---------------------------- */
+/*       Global functions       */
+/* ---------------------------- */
+
+/**
+ * @brief Main process function that is called from the Scheduler.
+ */
+void LED_Process(void)
+{
+	LED_StateMachine();
+}
+
+/**
+ * @brief Set the status of the LED.
+ * 
+ * @param newStatus The new status of the LED.
+ */
+void LED_SetStatus(LEDStatus newStatus)
+{
+	ledStatus = newStatus;
+}
+
+/**
+ * @brief Toggle the LED on and off for a certain period of time.
+ * 
+ * @param periodx100ms The number of times to toggle the LED.
+ */
+void LED_indicateResetWithDelay(const uint32_t periodx100ms)
+{
+	for (uint32_t i = 0U; i < periodx100ms; ++i) {
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);
+		LED_Delay(DELAY_100MS);
+	}
 }

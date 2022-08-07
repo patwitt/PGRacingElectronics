@@ -59,6 +59,15 @@ static __IO uint32 DCMotor_ConvertTargetToPwm(float target) {
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
+/**
+ * @brief Initialization of the DC Motor module.
+ * 
+ * It initializes the PWM timers for the DC motor and sets the PWM_H_plus and PWM_H_minus pointers to
+ * the correct memory locations.
+ * 
+ * @return an error code.
+ */
 ErrorEnum DCMotor_Init(void) {
 	ErrorEnum err = ERROR_OK;
 
@@ -91,6 +100,15 @@ ErrorEnum DCMotor_Init(void) {
 	return err;
 }
 
+/**
+ * @brief DC Motor update.
+ * 
+ * The function takes a target speed and a direction as input, and then sets the duty cycle of the PWM
+ * output to the target speed.
+ * 
+ * @param target    The target speed of the motor from PID controller.
+ * @param direction DC Motor rotational direction.
+ */
 void DCMotor_Update(float target, DCMotorDirectionEnum direction)
 {
 	switch (dcController.state) {
@@ -123,9 +141,16 @@ void DCMotor_Update(float target, DCMotorDirectionEnum direction)
 	}
 }
 
+/**
+ * @brief Disable the DC Motor.
+ * 
+ * The function disables the motor by resetting the PWM,
+ * setting the OE, INH1, INH2 pin to low.
+ */
 void DCMotor_Disable(void)
 {
 	DCMotor_ResetPwm();
+
 	HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(INH1_GPIO_Port, INH1_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(INH2_GPIO_Port, INH2_Pin, GPIO_PIN_RESET);
@@ -140,6 +165,12 @@ void DCMotor_Disable(void)
 	}
 }
 
+/**
+ * @brief Enable the DC Motor.
+ * 
+ * The function enables the motor by resetting the PWM,
+ * setting the OE, INH1, INH2 pin to high.
+ */
 void DCMotor_Enable(void)
 {
 	DCMotor_ResetPwm();

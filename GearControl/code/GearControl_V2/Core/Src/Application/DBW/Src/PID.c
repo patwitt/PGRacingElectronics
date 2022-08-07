@@ -28,6 +28,18 @@ static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, 
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
+/**
+ * @brief Update PID controller output signal.
+ * 
+ * Feedback controller that uses the error signal (the difference between the
+ * target and the measured value) to compute the output.
+ * 
+ * @param target The computed target value should be reached.
+ * @param measurement The current measurement of the system.
+ *
+ * @return The output of the PID controller.
+ */
 float PID_Update(float *target, const float measurement)
 {
 	static uint32_t sampleCnt = 0U;
@@ -98,4 +110,3 @@ float PID_Update(float *target, const float measurement)
 
 	return pid.out;
 }
-

@@ -32,7 +32,7 @@ typedef enum {
 	SERVO_GEAR_SHIFT = 0U,
 	SERVO_CLUTCH     = 1U,
 	SERVO_COUNT      = 2U
-} ServoTypeEnum;
+} ServoEntityEnum;
 
 typedef enum {
 	SERVO_UNINITIALIZED,
@@ -41,11 +41,11 @@ typedef enum {
 	SERVO_FAILURE
 } ServoStateEnum;
 
-ErrorEnum Servo_Init(const ServoTypeEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams);
-ErrorEnum Servo_Enable(const ServoTypeEnum servoType);
-ErrorEnum Servo_EnableAndGoToDefaultPos(const ServoTypeEnum servoType);
-ErrorEnum Servo_Disable(const ServoTypeEnum servoType);
-ErrorEnum Servo_SetPos(const ServoTypeEnum servoType, const uint32_t deg);
-ErrorEnum Servo_SetDefaultPos(const ServoTypeEnum servoType);
+ErrorEnum Servo_Init(const ServoEntityEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams);
+ErrorEnum Servo_Enable(const ServoEntityEnum servoType);
+ErrorEnum Servo_EnableAndGoToDefaultPos(const ServoEntityEnum servoType);
+ErrorEnum Servo_Disable(const ServoEntityEnum servoType);
+ErrorEnum Servo_SetPos(const ServoEntityEnum servoType, const uint32_t deg);
+ErrorEnum Servo_SetDefaultPos(const ServoEntityEnum servoType);
 
 #endif /* SRC_MIDDLEWARE_DRIVERS_INC_SERVO_H_ */

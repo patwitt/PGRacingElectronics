@@ -17,6 +17,14 @@
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of the IIR filter with the given alpha value.
+ * 
+ * @param filter A pointer to the IIRFilter structure.
+ * @param alpha  The filter's smoothing factor.
+ * 
+ * @return an error code.
+ */
 ErrorEnum IIRFilter_Init(IIRFilter *const filter, const float alpha)
 {
 	ErrorEnum error = ERROR_OK;
@@ -37,6 +45,14 @@ ErrorEnum IIRFilter_Init(IIRFilter *const filter, const float alpha)
 	return error;
 }
 
+/**
+ * @brief Update IIR filter output.
+ * 
+ * @param filter A pointer to the IIRFilter structure.
+ * @param newSample The new sample to be filtered.
+ * 
+ * @return The output of the filter.
+ */
 float IIRFilter_Update(IIRFilter *const filter, const float newSample)
 {
 	filter->output = (ALPHA_MAX - filter->alpha) * newSample + filter->alpha * filter->output;

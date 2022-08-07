@@ -208,7 +208,7 @@ int main(void)
   Watchdog_Init(&hiwdg);
 
   /* VAL x 100ms */
-  LED_indicateResetWithDelay(10U);
+  LED_indicateResetWithDelay(7U);
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
 #if CONFIG_ENABLE_CAN

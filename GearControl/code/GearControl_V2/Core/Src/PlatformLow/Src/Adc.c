@@ -37,6 +37,17 @@ static AdcDataChannel *const adcData[ADC_HANDLE_COUNT] = {&adc1Data[0U], &adc2Da
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+/**
+ * @brief Initialization of the ADC module.
+ * 
+ * It starts the ADC and DMA, and initializes the ADC data structure.
+ * 
+ * @param adcHalHandle This is the HAL handle for the ADC peripheral.
+ * @param adcHandle    The handle of the ADC to initialize.
+ * @param conversions  The number of conversions to be done.
+ * 
+ * @return an error code.
+ */
 ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandle, const uint32 conversions)
 {
 	ErrorEnum err = ERROR_OK;
@@ -63,6 +74,13 @@ ErrorEnum ADC_Init(ADC_HandleTypeDef* adcHalHandle, const AdcHandleEnum adcHandl
 	return err;
 }
 
+/**
+ * @brief Get ADC struct pointer.
+ * 
+ * @param adcHandle The ADC handle.
+ * 
+ * @return A pointer to the AdcDataChannel struct.
+ */
 AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
 {
 	AdcDataChannel* dmaAdc = NULL;
@@ -74,6 +92,16 @@ AdcDataChannel* ADC_getAdcStruct(const AdcHandleEnum adcHandle)
 	return dmaAdc;
 }
 
+/**
+ * @brief Get ADC channel pointer.
+ * 
+ * If the ADC handle and channel are valid, return a pointer to the ADC channel data structure.
+ *
+ * @param adcHandle The ADC handle.
+ * @param channel   The channel number of the ADC.
+ * 
+ * @return A pointer to the ADC channel.
+ */
 AdcDataChannel* ADC_getAdcChannelPtr(const AdcHandleEnum adcHandle, const AdcChannelEnum channel)
 {
 	AdcDataChannel* adcChannel = NULL;
