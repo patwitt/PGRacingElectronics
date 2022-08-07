@@ -63,8 +63,8 @@ static void MicroSwitch_DebounceLow(void)
 /**
  * @brief MicroSwitches normal operation.
  * 
- * Debounces microswitches for 10ms and if any is detected to be high,
- * changes state of that microswitch to high.
+ * Debounces microswitches for 10ms and if any is detected to be HIGH,
+ * changes state of that microswitch to HIGH. Otherwise it's set to LOW.
  */
 static void MicroSwitch_NormalOperation(void)
 {
