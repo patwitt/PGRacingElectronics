@@ -10,6 +10,7 @@
 #define CONFIG_ENABLE_CAN                (FALSE) //!< Enable CAN Bus
 #define CONFIG_ENABLE_INJECTORS_CUT      (TRUE)  //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (TRUE)  //!< Enable Clutch Slip on gearshifts
+#define CONFIG_ENABLE_SCHEDULER_WATCHDOG (FALSE) //!< Enable Scheduler Watchdog
 
 /* DBW configs */
 #define CONFIG_DBW_CALIBRATE_TPS_AUTO    (TRUE)  //!< Automatically calibrate TPS thresholds

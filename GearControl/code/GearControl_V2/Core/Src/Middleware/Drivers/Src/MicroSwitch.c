@@ -22,7 +22,7 @@ static __IO MicroSwitch microSwitches[MS_COUNT] = {
 	{.internal = &microSwitchUp}
 };
 
-static MicroSwitchControlType microSwitchControl = MS_CONTROL_DISABLED;
+static MicroSwitchControlType microSwitchControl = MS_CONTROL_DEBOUNCE_LOW;
 
 /* ---------------------------- */
 /* Local function declarations  */
