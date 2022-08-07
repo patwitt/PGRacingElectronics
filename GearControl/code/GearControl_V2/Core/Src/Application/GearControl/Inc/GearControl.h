@@ -11,7 +11,7 @@
 #include "Types.h"
 #include "stm32f4xx_hal.h"
 
-/*********** Data structures ***********/
+#define GEAR_SHIFT_TIMEOUT_MS (200U)
 
 typedef enum {
 	/* ! This order must be unchanged ! begin */

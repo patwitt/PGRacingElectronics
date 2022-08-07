@@ -22,7 +22,7 @@
  */
 
 #include "SwTimer.h"
-
+#include "Utils.h"
 #include "Types.h"
 #include "main.h"
 
@@ -47,7 +47,7 @@ static void SwTimerDeactivate(SwTimerType* timer);
  *
  * @param timer Software timer structure to check for expiration
  *
- * @return True if the timer reaches the declared period
+ * @return TRUE if the timer reaches the declared period
  *
  * @private
  */
@@ -74,16 +74,16 @@ void SwTimerExecute(void)
 
 static void SwTimerInit(SwTimerType* timer)
 {
-   timer->active = false;
+   timer->active = FALSE;
    timer->count = DEFAULT_COUNT;
-   timer->elapsed = false;
+   timer->elapsed = FALSE;
 }
 
 ErrorEnum SwTimerRegister(SwTimerType* timer)
 {
 	ErrorEnum err = ERROR_OK;
 
-	if (timer != NULL) {
+	if (NULL_CHECK1(timer)) {
 		if (timersCount_ < SW_TIMERS_MAX) {
 		   SwTimerInit(timer);
 		   timers_[timersCount_] = timer;
@@ -100,11 +100,11 @@ ErrorEnum SwTimerRegister(SwTimerType* timer)
 
 void SwTimerStart(SwTimerType* timer, const uint32_t period)
 {
-   if ((timer != NULL) && (!timer->active)) {
+   if ((NULL_CHECK1(timer)) && (!timer->active)) {
 	  timer->period = period / SYSTICK_RESOLUTION_IN_MS;
       timer->count = DEFAULT_COUNT;
-      timer->elapsed = false;
-      timer->active = true;
+      timer->elapsed = FALSE;
+      timer->active = TRUE;
    }
 }
 
@@ -112,7 +112,7 @@ bool_t SwTimerHasElapsed(const SwTimerType* timer)
 {
    bool_t elapsed = FALSE;
 
-   if (timer != NULL) {
+   if (NULL_CHECK1(timer)) {
 	   elapsed = timer->elapsed;
    }
 
@@ -127,23 +127,23 @@ uint32 SwTimerGetUptime(void)
 static void SwTimerDeactivate(SwTimerType* timer)
 {
    timer->count = 0U;
-   timer->elapsed = true;
-   timer->active = false;
+   timer->elapsed = TRUE;
+   timer->active = FALSE;
 }
 
 static bool_t SwTimerIsExpired(const SwTimerType* timer)
 {
-   //A timer can have a period of 0, so this needs to be >=
+   // A timer can have a period of 0, so this needs to be >=
    return timer->count >= timer->period;
 }
 
 bool_t SwTimerIsActive(const SwTimerType* timer)
 {
-   bool_t isActive = false;
+   bool_t isActive = FALSE;
 
-   if (timer != NULL) {
+   if (NULL_CHECK1(timer)) {
       if (timer->active) {
-         isActive = true;
+         isActive = TRUE;
       }
    }
 
@@ -154,7 +154,7 @@ static void SwTimerProcessSwTimer(SwTimerType* timer)
 {
    if (SwTimerIsActive(timer)) {
       /* Clear the elapsed flag */
-      timer->elapsed = false;
+      timer->elapsed = FALSE;
       timer->count++;
 
       if (SwTimerIsExpired(timer)) {
@@ -162,3 +162,22 @@ static void SwTimerProcessSwTimer(SwTimerType* timer)
       }
    }
 }
+
+void SwTimerDelay_Tick(__IO uint32_t* timer)
+{
+	if (NULL_CHECK1(timer)) {
+		++(*timer);
+	}
+}
+
+bool_t SwTimerDelay_Elapsed(__IO uint32_t* timer, const uint32_t timeout)
+{
+	bool_t elapsed = FALSE;
+
+	if (NULL_CHECK1(timer)) {
+		elapsed = (*timer >= timeout);
+	}
+
+	return elapsed;
+}
+

@@ -151,19 +151,68 @@ typedef struct
 } DbwHandle;
 
 /* Plausibility */
-static PlausibilityParamType tpsPlaus = {.maxAbsDiff = 0U, .maxDiffAllowed = TPS_ADC_MAX_DIFF_THRESHOLD, .debounceMs = TPS_DEBOUNCE_MS, .errorFlag = ERROR_DBW_TPS_PLAUSIBILITY};
-static PlausibilityParamType appsPlaus = {.maxAbsDiff = 0U, .maxDiffAllowed = APPS_ADC_MAX_DIFF_THRESHOLD, .debounceMs = APPS_DEBOUNCE_MS, .errorFlag = ERROR_DBW_APPS_PLAUSIBILITY};
+static PlausibilityParamType tpsPlaus = {
+	.maxAbsDiff = 0U,
+	.maxDiffAllowed = TPS_ADC_MAX_DIFF_THRESHOLD,
+	.debounceMs = TPS_DEBOUNCE_MS,
+	.errorFlag = ERROR_DBW_TPS_PLAUSIBILITY
+};
+
+static PlausibilityParamType appsPlaus = {
+	.maxAbsDiff = 0U,
+	.maxDiffAllowed = APPS_ADC_MAX_DIFF_THRESHOLD,
+	.debounceMs = APPS_DEBOUNCE_MS,
+	.errorFlag = ERROR_DBW_APPS_PLAUSIBILITY
+};
 
 /* Limits */
-static SensorLimitsType tpsLim = {.min = TPS_MIN_MEASURED_F, .max = TPS_MAX_MEASURED_F, .calibMax = 0U, .calibMin = 0xFFFFU, .feasibleMin = TPS_FEASIBLE_MIN, .feasibleMax = TPS_FEASIBLE_MAX};
-static SensorLimitsType appsLim = {.min = APPS_MIN_MEASURED_F, .max = APPS_MAX_MEASURED_F, .calibMax = 0U, .calibMin = 0xFFFFU, .feasibleMin = APPS_FEASIBLE_MIN, .feasibleMax = APPS_FEASIBLE_MAX};
+static SensorLimitsType tpsLim = {
+	.min = TPS_MIN_MEASURED_F,
+	.max = TPS_MAX_MEASURED_F,
+	.calibMax = 0U,
+	.calibMin = 0xFFFFU,
+	.feasibleMin = TPS_FEASIBLE_MIN,
+	.feasibleMax = TPS_FEASIBLE_MAX
+};
+static SensorLimitsType appsLim = {
+	.min = APPS_MIN_MEASURED_F,
+	.max = APPS_MAX_MEASURED_F,
+	.calibMax = 0U,
+	.calibMin = 0xFFFFU,
+	.feasibleMin = APPS_FEASIBLE_MIN,
+	.feasibleMax = APPS_FEASIBLE_MAX
+};
 
 /* Sensors */
-static TpsSensorType tps_ = {.tps1 = NULL, .tps2 = NULL, .idlePosMin = 0xFFFFU, .idlePosMax = 0U, .error = ERROR_OK, .plausibility = &tpsPlaus, .limits = &tpsLim, .calibrationDirection = DC_MOTOR_DISABLED, .posMin = 1001.0f, .posMax = 0.0f};
-static AppsSensorType apps_ = {.apps1 = NULL, .apps2 = NULL, .error = ERROR_OK, .plausibility = &appsPlaus, .limits = &appsLim, .posMin = 1001.0f, .posMax = 0.0f};
+static TpsSensorType tps_ = {
+	.tps1 = NULL,
+	.tps2 = NULL,
+	.idlePosMin = 0xFFFFU,
+	.idlePosMax = 0U,
+	.error = ERROR_OK,
+	.plausibility = &tpsPlaus,
+	.limits = &tpsLim,
+	.calibrationDirection = DC_MOTOR_DISABLED,
+	.posMin = 1001.0f,
+	.posMax = 0.0f
+};
+
+static AppsSensorType apps_ = {
+	.apps1 = NULL,
+	.apps2 = NULL,
+	.error = ERROR_OK,
+	.plausibility = &appsPlaus,
+	.limits = &appsLim,
+	.posMin = 1001.0f,
+	.posMax = 0.0f
+};
 
 /* DBW */
-static DbwHandle dbw = {.tps = &tps_, .apps = &apps_, .state = DBW_DISABLED};
+static DbwHandle dbw = {
+	.tps = &tps_,
+	.apps = &apps_,
+	.state = DBW_DISABLED
+};
 
 /* ---------------------------- */
 /* Local function declarations  */

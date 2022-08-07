@@ -20,9 +20,11 @@ typedef enum {
 } GearWatchdogStatusEnum;
 
 typedef enum {
-	GEAR_WDG_SHIFT      = 0U,
-	GEAR_WDG_FUEL_CUT   = 1U,
-	GEAR_WDG_COUNT      = 2U
+	GEAR_WDG_SHIFT            = 0U,
+	GEAR_WDG_INJECTORS_CUT    = 1U,
+	GEAR_WDG_UPSHIFT_CLUTCH   = 2U,
+	GEAR_WDG_DOWNSHIFT_CLUTCH = 3U,
+	GEAR_WDG_COUNT            = 4U
 } GearWatchdogTypeEnum;
 
 typedef void (*WatchdogFailTrigger)(void);

@@ -79,4 +79,7 @@ bool_t SwTimerHasElapsed(const SwTimerType* timer);
  */
 uint32 SwTimerGetUptime(void);
 
+void SwTimerDelay_Tick(__IO uint32_t* timer);
+bool_t SwTimerDelay_Elapsed(__IO uint32_t* timer, const uint32_t timeout);
+
 #endif /* INC_SW_TIMER_H */

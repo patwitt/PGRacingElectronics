@@ -5,6 +5,7 @@
  *      Author: Patryk Wittbrodt
  */
 
+#include "GearWatchdog.h"
 #include "ClutchControl.h"
 #include "Servo.h"
 #include "CAN.h"
@@ -19,6 +20,15 @@ typedef struct {
 	const uint32_t degMax;
 } ClutchPosLimits;
 
+typedef struct {
+	ClutchControlStates control;
+	ClutchControlStates savedCtrl;
+	GearWatchdogType *runningWdg;
+	const ServoTypeEnum servo;
+	const CAN_RxMsgEnum canRxMsg;
+	bool_t canAck;
+} ClutchControlHandler;
+
 static const ServoConfig clutchServoConfig = {
 		.limits = {
 			 .degMin     = 18U,
@@ -28,31 +38,46 @@ static const ServoConfig clutchServoConfig = {
 		.pwmChannel = TIM_CHANNEL_1
 };
 
-typedef struct {
-	ClutchControlStates control;
-	const ServoTypeEnum servo;
-	const CAN_RxMsgEnum canRxMsg;
-	bool_t canAck;
-} ClutchControlHandler;
+static void ClutchControl_WatchdogElapsedTrigger(void);
 
-static ClutchControlHandler clutchCtrl = {.control  = CLUTCH_CTRL_INIT_CAN_ACK,
-		                                  .servo    = SERVO_CLUTCH,
-										  .canRxMsg = CAN_RX_MSG_CLUTCH,
-										  .canAck   = FALSE};
+static GearWatchdogType upShiftClutchSlipWdg = {
+		.elapsedTrigger = ClutchControl_WatchdogElapsedTrigger,
+		.status = GEAR_WATCHDOG_STATUS_INACTIVE,
+		.timeoutMs = CLUTCH_UPSHIFT_SLIP_TIMEOUT_MS
+};
+
+static GearWatchdogType downShiftClutchSlipWdg = {
+		.elapsedTrigger = ClutchControl_WatchdogElapsedTrigger,
+		.status = GEAR_WATCHDOG_STATUS_INACTIVE,
+		.timeoutMs = CLUTCH_DOWNSHIFT_SLIP_TIMEOUT_MS
+};
+
+static GearWatchdogType *const clutchWdgMap[CLUTCH_DIR_COUNT] = {
+	[CLUTCH_DIR_UPSHIFT] = &upShiftClutchSlipWdg,
+	[CLUTCH_DIR_DOWNSHIFT] = &downShiftClutchSlipWdg,
+};
+
+
+static ClutchControlHandler clutchCtrl = {
+		.control  = CLUTCH_CTRL_INIT_CAN_ACK,
+		.savedCtrl = CLUTCH_CTRL_INIT_CAN_ACK,
+		.servo    = SERVO_CLUTCH,
+		.canRxMsg = CAN_RX_MSG_CLUTCH,
+		.canAck   = FALSE,
+		.runningWdg = NULL
+};
 
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
-static void ClutchControl_GearControl(void);
 static void ClutchControl_CAN_Acknowledge(void);
 static void ClutchControl_CAN_NormalOperation(void);
 
-static void ClutchControl_GearControl(void)
+static void ClutchControl_WatchdogElapsedTrigger(void)
 {
-	/*
-	 * @TODO: Control clutch on gear shifts from Gear control module
-	 */
+	ClutchControl_DisableSlip();
 }
+
 
 static void ClutchControl_CAN_Acknowledge(void)
 {
@@ -116,18 +141,39 @@ ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
 		};
 
 		err = Servo_Init(clutchCtrl.servo, &clutchServoConfig, clutchServoPwmParams);
+
+		if (err == ERROR_OK) {
+			err = GearWatchdog_Init(&upShiftClutchSlipWdg);
+		}
+
+		if (err == ERROR_OK) {
+			err = GearWatchdog_Init(&downShiftClutchSlipWdg);
+		}
 	}
 
 	return err;
 }
 
-void ClutchControl_SetState(const ClutchControlStates clutchControl)
+void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
 {
-	if (clutchControl < CLUTCH_CTRL_COUNT) {
-		if (clutchCtrl.control != CLUTCH_CTRL_SERVO_DISABLED) {
-			clutchCtrl.control = clutchControl;
-		}
+#if CONFIG_CLUTCH_ENABLE && CONFIG_GEAR_CLUTCH_SLIP_ENABLE
+	if (direction < CLUTCH_DIR_COUNT) {
+		clutchCtrl.savedCtrl = clutchCtrl.control;
+		clutchCtrl.control = CLUTCH_CTRL_GEARCTRL;
+		(void)Servo_SetPos(clutchCtrl.servo, slipDegrees);
 	}
+#endif
+	clutchCtrl.runningWdg = clutchWdgMap[direction];
+}
+
+void ClutchControl_DisableSlip(void)
+{
+#if CONFIG_CLUTCH_ENABLE && CONFIG_GEAR_CLUTCH_SLIP_ENABLE
+	(void)Servo_SetDefaultPos(clutchCtrl.servo);
+	clutchCtrl.control = clutchCtrl.savedCtrl;
+	GearWatchdog_Feed(clutchCtrl.runningWdg);
+#endif
+	clutchCtrl.runningWdg = NULL;
 }
 
 void ClutchControl_Process(void)
@@ -138,12 +184,13 @@ void ClutchControl_Process(void)
 			break;
 
 		case CLUTCH_CTRL_NORMAL_OP:
+			/* Normal control from steering wheel */
 			ClutchControl_CAN_NormalOperation();
 			break;
 
 		case CLUTCH_CTRL_GEARCTRL:
 			/* Control from gear control module */
-			ClutchControl_GearControl();
+			/* It's changed back to normal operation from Gear Control */
 			break;
 
 		case CLUTCH_CTRL_CAN_ERROR:

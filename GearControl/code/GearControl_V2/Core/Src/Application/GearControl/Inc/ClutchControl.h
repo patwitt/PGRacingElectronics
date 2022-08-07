@@ -9,7 +9,34 @@
 #define SRC_APPLICATION_GEARCONTROL_SRC_CLUTCHCONTROL_H_
 
 #include "Types.h"
+#include "DefineConfig.h"
 #include "stm32f4xx_hal.h"
+
+#define CLUTCH_UPSHIFT_SLIP_TIMEOUT_MS   (80U)
+#define CLUTCH_DOWNSHIFT_SLIP_TIMEOUT_MS (80U)
+
+#define CLUTCH_UPSHIFT_SLIP_DEG (124U)
+#define CLUTCH_DOWNSHIFT_SLIP_DEG (124U)
+
+#if CONFIG_CLUTCH_ENABLE && CONFIG_GEAR_CLUTCH_SLIP_ENABLE
+#define CLUTCH_UPSHIFT_DELAY_MS (20U)
+#define CLUTCH_DOWNSHIFT_DELAY_MS (20U)
+#else
+#define CLUTCH_UPSHIFT_DELAY_MS (0U)
+#define CLUTCH_DOWNSHIFT_DELAY_MS (0U)
+#endif
+
+typedef enum {
+	CLUTCH_DIR_UPSHIFT,
+	CLUTCH_DIR_DOWNSHIFT,
+	CLUTCH_DIR_COUNT
+} ClutchShiftDirection;
+
+typedef struct {
+	const uint32_t slipDeg;
+	const uint32_t slipDelayMs;
+	const ClutchShiftDirection direction;
+} ClutchSlipConfig;
 
 typedef enum {
 	CLUTCH_CTRL_CAN_ERROR      = 0U, //!< CAN error - still operational, position set to default
@@ -22,6 +49,8 @@ typedef enum {
 
 ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim);
 void ClutchControl_Process(void);
-void ClutchControl_SetState(const ClutchControlStates clutchControl);
+void ClutchControl_SetControl(const ClutchControlStates clutchControl);
 
+void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction);
+void ClutchControl_DisableSlip(void);
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_CLUTCHCONTROL_H_ */

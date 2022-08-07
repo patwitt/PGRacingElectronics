@@ -18,7 +18,7 @@ static void InjectorsCutWatchdogElapsedTrigger(void);
 static GearWatchdogType injectorsCutWdg = {
 		.elapsedTrigger = InjectorsCutWatchdogElapsedTrigger,
 		.status = GEAR_WATCHDOG_STATUS_INACTIVE,
-		.timeoutMs = 100U
+		.timeoutMs = INJECTORS_CUT_WATCHDOG_TIMEOUT_MS
 };
 
 typedef struct {
@@ -27,9 +27,10 @@ typedef struct {
 	const uint16_t gpioPin;
 } InjectorsCutHandler;
 
-static InjectorsCutHandler injectorsHandler = {.watchdog = &injectorsCutWdg,
-		                                       .gpioPort = GEAR_CUT_GPIO_Port,
-											   .gpioPin  = GEAR_CUT_Pin
+static InjectorsCutHandler injectorsHandler = {
+	.watchdog = &injectorsCutWdg,
+    .gpioPort = GEAR_CUT_GPIO_Port,
+	.gpioPin  = GEAR_CUT_Pin
 };
 
 /* ---------------------------- */
@@ -73,18 +74,22 @@ ErrorEnum InjectorsCut_Init(void)
 
 void InjectorsCut_Trigger(void)
 {
+#if CONFIG_GEAR_INJECTORS_CUT_ENABLE
 	/* Start Watchdog */
 	GearWatchdog_Start(injectorsHandler.watchdog);
 
 	/* Trigger injectors cut, disable injectors */
 	InjectorsCut_DisableInjectors();
+#endif
 }
 
 void InjectorsCut_Finish(void)
 {
+#if CONFIG_GEAR_INJECTORS_CUT_ENABLE
 	/* Feed watchdog, notice of successful shift on time */
 	GearWatchdog_Feed(injectorsHandler.watchdog);
 
 	/* Disable Injectors Cut, enable injectors again */
 	InjectorsCut_EnableInjectors();
+#endif
 }
