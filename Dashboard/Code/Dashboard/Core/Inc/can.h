@@ -43,6 +43,7 @@ void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);
 void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);
 uint16_t LittleToBigEndian(uint8_t* data);

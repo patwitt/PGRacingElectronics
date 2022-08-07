@@ -56,7 +56,7 @@ void MX_CAN1_Init(void)
   }
   /* USER CODE BEGIN CAN1_Init 2 */
 
-	HAL_CAN_Start(&hcan1);
+	//HAL_CAN_Start(&hcan1);
 
   /* USER CODE END CAN1_Init 2 */
 
@@ -89,8 +89,20 @@ void MX_CAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN2_Init 2 */
+  CAN_FilterTypeDef canfilterconfig;
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+    canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
+    canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+    canfilterconfig.FilterIdHigh = 0;
+    canfilterconfig.FilterIdLow = 0;
+    canfilterconfig.FilterMaskIdHigh = 0;
+    canfilterconfig.FilterMaskIdLow = 0;
+    canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+    canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+    canfilterconfig.SlaveStartFilterBank = 10;
+  HAL_CAN_ConfigFilter(&hcan2, &canfilterconfig);
 
-	HAL_CAN_Start(&hcan2);
+	//HAL_CAN_Start(&hcan2);
 
   /* USER CODE END CAN2_Init 2 */
 
@@ -223,9 +235,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
 	if (hcan->Instance == CAN1) {
-		ComputeEcumasterFrame(RxHeader, RxData);
-	} else {
+		//ComputeEcumasterFrame(RxHeader, RxData);
 		ComputeInternalFrame(RxHeader, RxData);
+	} else {
+		//ComputeInternalFrame(RxHeader, RxData);
+		ComputeEcumasterFrame(RxHeader, RxData);
 	}
 }
 
@@ -251,7 +265,7 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 	} else if (RxHeader.StdId == Frame5) {
 		EcuData.gear = RxData[0];
 		EcuData.ecuTemp = RxData[1];
-		EcuData.batt = LittleToBigEndian(&RxData[4]);
+		EcuData.batt = LittleToBigEndian(&RxData[2]);
 		EcuData.errflag = LittleToBigEndian(&RxData[5]);
 		EcuData.flags1 = RxData[7];
 	} else if (RxHeader.StdId == Frame6) {
@@ -269,7 +283,7 @@ void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 }
 
 uint16_t LittleToBigEndian(uint8_t *data) {
-	uint16_t returnData = data[0] * 0xFFFF + data[1];
+	uint16_t returnData = data[0] + data[1] * 0xFF;
 	return returnData;
 }
 

@@ -4,6 +4,7 @@
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
 #include <gui/screen1_screen/Screen1Presenter.hpp>
 
+
 class Screen1View : public Screen1ViewBase
 {
 public:
@@ -17,7 +18,7 @@ public:
     
     void setRPM(int inRPM);
     void setBatt(float inBatt);
-    void setClt(float inClt);
+    void setClt(int16_t inClt);
     void setGear(int inGear);
 
 protected:

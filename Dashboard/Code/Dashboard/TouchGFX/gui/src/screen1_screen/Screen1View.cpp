@@ -1,6 +1,7 @@
 #include <gui/screen1_screen/Screen1View.hpp>
 #include <stdio.h>
 #include <cstring>
+#include <ecumaster.h>
 
 Screen1View::Screen1View()
 {
@@ -9,10 +10,10 @@ Screen1View::Screen1View()
     cltArea.setWildcard(cltAreaBuffer);
     battArea.setWildcard(battAreaBuffer);
 
-    setRPM(100);
+    setRPM(EcuData.rpm);
     setGear(2);
-    setClt(71.2);
-    setBatt(13.42);
+    setClt(EcuData.clt);
+    setBatt(EcuData.batt);
 }
 
 void Screen1View::setupScreen()
@@ -27,8 +28,8 @@ void Screen1View::tearDownScreen()
 
 void Screen1View::handleTickEvent()
 {
-    Screen1View::tempBox1_1.redraw();
-    tempBox1_1.invalidate();
+   //// Screen1View::tempBox1_1.redraw();
+    //tempBox1_1.invalidate();
     static int a = 0;
     if(tickCounter % 255 == 0)
     {
@@ -44,8 +45,37 @@ void Screen1View::handleTickEvent()
         }
         
     }
-    alertBar1.invalidate();
-    alertBar1.setText("12345678912345\n");
+    static uint16_t lastRPM=0;
+    if(EcuData.rpm != lastRPM)
+    {
+    setRPM(EcuData.rpm);
+    lastRPM=EcuData.rpm;
+   // if(EcuData.rpm <12000)
+    	gearArea.invalidate();
+    //setGear(2);
+    }
+    static uint8_t lastGear=0;
+    if(2!=lastGear)
+    {
+    	setGear(2);
+    	lastGear=2;
+    }
+    static float lastBatt=0.0f;
+    if (lastBatt != EcuData.batt*0.027f)
+    {
+    	setBatt(EcuData.batt*0.027f);
+    	lastBatt = EcuData.batt*0.027f;
+    }
+    static int16_t lastClt=0;
+       if (lastClt != EcuData.clt)
+       {
+       	setClt(EcuData.clt);
+       	lastClt = EcuData.clt;
+       }
+    //setClt(EcuData.clt);
+	//setBatt(EcuData.batt);
+    //alertBar1.invalidate();
+    //alertBar1.setText("12345678912345\n");
     tickCounter++;
 }
 
@@ -70,10 +100,10 @@ void Screen1View::setBatt(float inBatt)
     setText(battArea, battAreaBuffer, textBuffer);
 }
 
-void Screen1View::setClt(float inClt)
+void Screen1View::setClt(int16_t inClt)
 {
     char textBuffer[10];
-    sprintf(textBuffer, "%.1f", inClt);
+    sprintf(textBuffer, "%i", inClt);
     setText(cltArea, cltAreaBuffer, textBuffer);
 }
 

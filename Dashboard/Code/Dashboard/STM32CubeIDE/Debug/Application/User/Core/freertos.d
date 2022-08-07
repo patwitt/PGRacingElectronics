@@ -51,9 +51,11 @@ Application/User/Core/freertos.o: \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ ../../Core/Inc/adc.h ../../Core/Inc/main.h \
  ../../TouchGFX/App/app_touchgfx.h ../../Core/Inc/can.h \
- ../../Core/Inc/main.h ../../Core/Inc/tim.h \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/WS2812_driver.h
+ ../../Core/Inc/gpio.h ../../Core/Inc/tim.h \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/WS2812_driver.h \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -157,12 +159,18 @@ Application/User/Core/freertos.o: \
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 
+../../Core/Inc/adc.h:
+
+../../Core/Inc/main.h:
+
 ../../TouchGFX/App/app_touchgfx.h:
 
 ../../Core/Inc/can.h:
 
-../../Core/Inc/main.h:
+../../Core/Inc/gpio.h:
 
 ../../Core/Inc/tim.h:
 
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/WS2812_driver.h:
+
+F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h:

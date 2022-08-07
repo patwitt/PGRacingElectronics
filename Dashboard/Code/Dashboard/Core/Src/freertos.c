@@ -25,10 +25,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "adc.h"
 #include "app_touchgfx.h"
 #include "can.h"
+#include "gpio.h"
 #include "tim.h"
 #include "WS2812_driver.h"
+#include "ecumaster.h"
+#include <math.h>
 
 /* USER CODE END Includes */
 
@@ -152,19 +156,29 @@ void StartHardwareTask(void *argument)
 {
   /* USER CODE BEGIN StartHardwareTask */
 
-	MX_TIM3_Init();
+	/*MX_TIM3_Init();
 	MX_DMA_Init();
 	uint16_t rpm = 5000;
 	leds_init();
-	osDelay(1000);
+	osDelay(1000);*/
+	 //MX_CAN2_Init();
+	osDelay(10);
+
+	HAL_CAN_Start(&hcan2);
+	//HAL_CAN_Start(&hcan1);
+
+	osDelay(10);
+	HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
+	//HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	/* Infinite loop */
 	for (;;) {
-		light_leds(rpm,1);
+		/*light_leds(rpm,1);
 		rpm+=100;
 		if(rpm > 12000)
 		{
 			rpm = 4000;
-		}
+		}*/
+		//EcuData.rpm+=100;
 		osDelay(100);
 	}
   /* USER CODE END StartHardwareTask */
@@ -201,7 +215,8 @@ void StartInfoLed(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
+    osDelay(250);
+    HAL_GPIO_TogglePin(SIGNAL_LED_GPIO_Port, SIGNAL_LED_Pin);
    // HAL_IWDG_Refresh(&hiwdg);
   }
   /* USER CODE END StartInfoLed */
@@ -213,23 +228,44 @@ void StartInfoLed(void *argument)
 * @param argument: Not used
 * @retval None
 */
+uint16_t data2;
+float data3;
+float data4;
+uint8_t data;
 /* USER CODE END Header_StartDisplayBacklight */
 void StartDisplayBacklight(void *argument)
 {
   /* USER CODE BEGIN StartDisplayBacklight */
   /* Infinite loop */
-	uint8_t data =50;
-	MX_TIM4_Init();
-	osDelay(100);
+
+	//MX_TIM4_Init();
+	//MX_ADC1_Init();
+
+
+	uint8_t setPoint = 100;
 	// HAL_TIM_Base_Start(&htim4);
-	osDelay(100);
+
 	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
+	  osDelay(250);
   for(;;)
   {
+	  HAL_ADC_Start(&hadc1);
+
 	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, data);
+
 	 // data+=50;
 		//	  data%= 200;
-    osDelay(1000);
+	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+
+	  osDelay(100);
+	  data2 = HAL_ADC_GetValue(&hadc1);
+	  data3 = 3.3f * data2 /4095.0f;
+	  data4 = data3 / 5.1f * 1000.0f;
+
+	  data+= (int8_t)round((setPoint- data4)/ 10.0f);
+	  if(data>215)
+		  data = 215;
+
   }
   /* USER CODE END StartDisplayBacklight */
 }
