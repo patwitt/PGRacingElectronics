@@ -1,4 +1,4 @@
-19045709082325271
+19047407496621152
 AS4C1M16S-6TCN
 TSOP-II-50
 
@@ -48796,6 +48796,13 @@ THT ceramic resonator filter DSS6
 0
 3
 3
+DashboardConnector
+349126080
+34912-6080-4
+Connector
+0
+10
+10
 Diode_SMD
 D_0201_0603Metric
 Diode SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator
