@@ -19,7 +19,7 @@ static __IO uint32 timers[N_PROCESS];
 static __IO boolean hasElapsed = FALSE;
 
 static SchedulerStatsType combinedStats; /**< Single frame statistics */
-static SchedulerType* schedule_; /**< Pointer to list of tasks */
+static SchedulerType* schedule_ = NULL;  /**< Pointer to list of tasks */
 
 static void SchedulerInitStats(SchedulerStatsType* stats);
 static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t duration);
