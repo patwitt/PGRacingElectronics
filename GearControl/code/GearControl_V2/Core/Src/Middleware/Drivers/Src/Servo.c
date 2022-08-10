@@ -206,7 +206,7 @@ ErrorEnum Servo_Enable(const ServoEntityEnum servoEntity)
  * 
  * @return an error code.
  */
-ErrorEnum Servo_SetPos(const ServoEntityEnum servoEntity, const uint32_t deg)
+ErrorEnum Servo_SetPos(const ServoEntityEnum servoEntity, uint32_t deg)
 {
 	ErrorEnum err = ERROR_NOK;
 
@@ -219,7 +219,10 @@ ErrorEnum Servo_SetPos(const ServoEntityEnum servoEntity, const uint32_t deg)
 				(deg <= servo->config->limits.degMax)) {
 				/* Valid set pos request */
 				err = ERROR_OK;
-				if (deg < 90U) {
+				/* Check rotation direction config */
+				deg = (servo->config->direction == SERVO_DIR_CLOCKWISE) ? deg : (SERVO_DEG_MAX - deg);
+
+				if (deg < SERVO_DEG_MIDDLEPOS) {
 					/* 0-90 deg use floor */
 					*servo->pwm.PWM = (uint32)(floor((11.111111f * deg))) + (uint32)500U;
 				} else {

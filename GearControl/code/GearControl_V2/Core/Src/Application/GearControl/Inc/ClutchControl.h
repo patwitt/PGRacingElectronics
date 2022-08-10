@@ -19,13 +19,8 @@
 #define CLUTCH_UPSHIFT_SLIP_DEG (124U)
 #define CLUTCH_DOWNSHIFT_SLIP_DEG (124U)
 
-#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
-#define CLUTCH_UPSHIFT_DELAY_MS (20U)
-#define CLUTCH_DOWNSHIFT_DELAY_MS (20U)
-#else
-#define CLUTCH_UPSHIFT_DELAY_MS (0U)
-#define CLUTCH_DOWNSHIFT_DELAY_MS (0U)
-#endif
+#define CLUTCH_UPSHIFT_DELAY_MS (30U)
+#define CLUTCH_DOWNSHIFT_DELAY_MS (50U)
 
 typedef enum {
 	CLUTCH_DIR_UPSHIFT,
@@ -52,6 +47,6 @@ ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim);
 void ClutchControl_Process(void);
 void ClutchControl_SetControl(const ClutchControlStates clutchControl);
 bool_t ClutchControl_IsEngaged(void);
-void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction);
+ErrorEnum ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction);
 void ClutchControl_DisableSlip(void);
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_CLUTCHCONTROL_H_ */

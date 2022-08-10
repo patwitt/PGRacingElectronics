@@ -30,7 +30,8 @@ static const ServoConfig clutchServoConfig = {
 		     .degDefault = 18U,
 			 .degMax     = 162U
 		},
-		.pwmChannel = TIM_CHANNEL_1
+		.pwmChannel = TIM_CHANNEL_1,
+		.direction = SERVO_DIR_CLOCKWISE
 };
 
 //! Clutch Control handler struct
@@ -257,8 +258,10 @@ ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
  * @param slipDegrees The number of degrees to slip the clutch.
  * @param direction   CLUTCH_DIR_UP or CLUTCH_DIR_DOWN.
  */
-void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
+ErrorEnum ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
 {
+	ErrorEnum err = ERROR_NOK;
+
 	clutchCtrl.runningWdg = clutchWdgMap[direction];
 	clutchCtrl.savedCtrl = clutchCtrl.control;
 	clutchCtrl.engaged = TRUE;
@@ -266,10 +269,14 @@ void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDire
 #if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
 	if (direction < CLUTCH_DIR_COUNT) {
 		clutchCtrl.control = CLUTCH_CTRL_GEARCTRL;
-		(void)Servo_SetPos(clutchCtrl.servo, slipDegrees);
-		GearWatchdog_Start(clutchCtrl.runningWdg);
+		err = Servo_SetPos(clutchCtrl.servo, slipDegrees);
+		if (err == ERROR_OK) {
+			GearWatchdog_Start(clutchCtrl.runningWdg);
+		}
 	}
 #endif
+
+	return err;
 }
 
 bool_t ClutchControl_IsEngaged(void)

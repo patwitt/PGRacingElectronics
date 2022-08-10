@@ -114,14 +114,16 @@ static void PeriodicTask_1ms(void)
 {
 	/* Drive-By-Wire process */
 	DBW_Process();
+	/* MicroSwitch process */
+	MicroSwitch_Process();
 	/* Clutch Control process */
 	ClutchControl_Process();
 	/* Gear Sensor reading process */
 	GearSensor_Process();
 	/* Gear Control process */
 	GearControl_Process();
-	/* MicroSwitch process */
-	MicroSwitch_Process();
+	/* Shift rev matching process */
+	ShiftRevMatch_Process();
 }
 
 static void PeriodicTask_10ms(void)
@@ -132,9 +134,6 @@ static void PeriodicTask_10ms(void)
 	GearControlCAN_Process();
 	/* CAN Bus Tx Callback */
 	CAN_TxCallback();
-	/* Shift rev matching process */
-	/* May be moved to 1ms task - depends on CAN Rx msg frequency */
-	ShiftRevMatch_Process();
 }
 
 static void PeriodicTask_500ms(void)

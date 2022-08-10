@@ -11,22 +11,13 @@
 #include "Types.h"
 #include "stm32f4xx_hal.h"
 
-/* ---------------------------- */
-typedef struct {
-	const uint32_t degMin;
-	const uint32_t degDefault;
-	const uint32_t degMax;
-} ServoPositionLimits;
+#define SERVO_DEG_MAX (180U)
+#define SERVO_DEG_MIDDLEPOS (90U)
 
-typedef struct {
-	const uint32_t pwmChannel;
-	ServoPositionLimits limits;
-} ServoConfig;
-
-typedef struct {
-	TIM_HandleTypeDef *htim;
-	__IO uint32_t *PWM;
-} ServoPwmParams;
+typedef enum {
+	SERVO_DIR_CLOCKWISE,
+	SERVO_DIR_COUNTERCLOCKWISE
+} ServoDirection;
 
 typedef enum {
 	SERVO_GEAR_SHIFT = 0U,
@@ -41,11 +32,28 @@ typedef enum {
 	SERVO_FAILURE
 } ServoStateEnum;
 
+typedef struct {
+	const uint32_t degMin;
+	const uint32_t degDefault;
+	const uint32_t degMax;
+} ServoPositionLimits;
+
+typedef struct {
+	const uint32_t pwmChannel;
+	const ServoDirection direction;
+	ServoPositionLimits limits;
+} ServoConfig;
+
+typedef struct {
+	TIM_HandleTypeDef *htim;
+	__IO uint32_t *PWM;
+} ServoPwmParams;
+
 ErrorEnum Servo_Init(const ServoEntityEnum servoType, const ServoConfig *const config, ServoPwmParams pwmParams);
 ErrorEnum Servo_Enable(const ServoEntityEnum servoType);
 ErrorEnum Servo_EnableAndGoToDefaultPos(const ServoEntityEnum servoType);
 ErrorEnum Servo_Disable(const ServoEntityEnum servoType);
-ErrorEnum Servo_SetPos(const ServoEntityEnum servoType, const uint32_t deg);
+ErrorEnum Servo_SetPos(const ServoEntityEnum servoType, uint32_t deg);
 ErrorEnum Servo_SetDefaultPos(const ServoEntityEnum servoType);
 
 #endif /* SRC_MIDDLEWARE_DRIVERS_INC_SERVO_H_ */

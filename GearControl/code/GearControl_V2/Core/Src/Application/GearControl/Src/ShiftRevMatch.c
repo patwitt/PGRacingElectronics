@@ -103,21 +103,35 @@ static const table_1d *const WheelRpmGear_Map[GEAR_6 + 1U] = {
 };
 #endif // REVMATCH_FROM_WHEEL_RPM
 
+typedef void (*GetCANDataFuncPtr)(void);
+typedef RevMatchStates (*ThrottleBlipFuncPtr)(void);
+
 typedef struct {
-	bool_t clutchEngaged;
-	bool_t requested;
+	RevMatchStates state;
+	/* Data associate variables */
 	bool_t rpmDataNew;
 	bool_t wheelSpeedDataNew;
 	uint32_t rpmData;
 	uint32_t wheelSpeedData;
-	GearStates gear;
-	float targetRpm;
 	float targetThrottle;
+	GearStates gear;
+	/* Watchdog */
 	GearWatchdogType *const watchdog;
+	GetCANDataFuncPtr getCanDataFunc;
+	ThrottleBlipFuncPtr throttleBlipFunc;
 } ShiftRevMatchHandler;
 
 //! This must be before injectorsCutWdg declaration
 static void ShiftRevMatchWatchdogElapsedTrigger(void);
+
+//! This must be before shiftRevMatch_ declaration
+#if REVMATCH_FROM_ENGINE_RPM
+static inline void ShiftRevMatch_CAN_GetEngineRPM(void);
+static inline RevMatchStates ShiftRevMatch_ThrottleBlipEngineRPM(void);
+#elif REVMATCH_FROM_WHEEL_RPM
+static inline void ShiftRevMatch_CAN_GetWheelRPM(void);
+static inline RevMatchStates ShiftRevMatch_ThrottleBlipWheelRPM(void);
+#endif // REVMATCH_FROM_ENGINE_RPM
 
 //! Injectors Cut watchdog
 static GearWatchdogType revMatchWdg = {
@@ -127,35 +141,42 @@ static GearWatchdogType revMatchWdg = {
 };
 
 static ShiftRevMatchHandler shiftRevMatch_ = {
-	.clutchEngaged = FALSE,
-	.requested = FALSE,
+	.state = REVMATCH_INACTIVE,
+	/* Data associate variables */
 	.rpmDataNew = FALSE,
 	.wheelSpeedDataNew = FALSE,
 	.rpmData = 0U,
 	.wheelSpeedData = 0U,
+	.targetThrottle = 0.0f,
 	.gear = GEAR_UNKNOWN,
-	.watchdog = &revMatchWdg
+	/* Watchdog */
+	.watchdog = &revMatchWdg,
+#if REVMATCH_FROM_ENGINE_RPM
+	.getCanDataFunc = ShiftRevMatch_CAN_GetEngineRPM,
+	.throttleBlipFunc = ShiftRevMatch_ThrottleBlipEngineRPM
+#elif REVMATCH_FROM_WHEEL_RPM
+	.getCanDataFunc = ShiftRevMatch_CAN_GetWheelRPM,
+	.throttleBlipFunc = ShiftRevMatch_ThrottleBlipWheelRPM
+#endif
 };
 
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
-#if REVMATCH_FROM_ENGINE_RPM
-static void ShiftRevMatch_ThrottleBlipEngineRPM(void);
-static inline void ShiftRevMatch_CAN_GetEngineRPM(void);
-#endif // REVMATCH_FROM_ENGINE_RPM
+static inline bool_t ShiftRevMatch_TargetReached(void);
+static void ShiftRevMatch_StateMachine(void);
 
-#if REVMATCH_FROM_WHEEL_RPM
-static inline void ShiftRevMatch_CAN_GetWheelRPM(void);
-static void ShiftRevMatch_ThrottleBlipWheelRPM(void);
-#endif // REVMATCH_FROM_WHEEL_RPM
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
 static void ShiftRevMatchWatchdogElapsedTrigger(void)
 {
-	/* Restore normal DBW operation - from throttle pedal position */
-	DBW_RevMatchRestoreNormalOperation();
+	shiftRevMatch_.state = REVMATCH_FINISHED;
+}
+
+static inline bool_t ShiftRevMatch_TargetReached(void)
+{
+	return (DBW_GetTargetPositionAbsError() <= SHIFT_REVMATCH_ACCEPTABLE_POSITION_ERROR);
 }
 
 #if REVMATCH_FROM_ENGINE_RPM
@@ -164,7 +185,9 @@ static inline void ShiftRevMatch_CAN_GetEngineRPM(void)
 	uint8_t *const emuBlackMsgBuff = CAN_GetRxNewData(CAN_RX_MSG_EMU_BLACK);
 
 	/* Read CAN data engine RPM's only when buffer is valid and clutch is not engaged */
-	if ((emuBlackMsgBuff != NULL) && (!ClutchControl_IsEngaged())) {
+	if ((emuBlackMsgBuff != NULL) &&
+		(!ClutchControl_IsEngaged()) &&
+		(shiftRevMatch_.state != REVMATCH_THROTTLE_BLIP)) {
 		/* Get engine RPM from EMU Black */
 		const uint32_t engineRPM = (uint32_t)emuBlackMsgBuff[CAN_DATA_BYTE_0];
 
@@ -175,37 +198,47 @@ static inline void ShiftRevMatch_CAN_GetEngineRPM(void)
 	}
 }
 
-static void ShiftRevMatch_ThrottleBlipEngineRPM(void)
+static inline RevMatchStates ShiftRevMatch_ThrottleBlipEngineRPM(void)
 {
-	if ((shiftRevMatch_.rpmDataNew) &&
-		(shiftRevMatch_.gear < GEAR_6)) {
-		/* Get map Wheel RPM <- Gear */
-		const float rpmMultiplier = downshiftRpmMultiplier[shiftRevMatch_.gear];
+	RevMatchStates nextState = REVMATCH_THROTTLE_BLIP;
 
-		/* Neutral will result in 0.0, rest of gears are valid */
-		if (rpmMultiplier > 0.0f) {
-			/* Calculate target RPM for lower gear */
-			const float targetRPM = shiftRevMatch_.rpmData * rpmMultiplier;
-			/* Translate target throttle position <- target RPM from interpolation */
-			shiftRevMatch_.targetThrottle = Utils_interpolateTable1d(&RpmThrottleMap, targetRPM);
+	if (shiftRevMatch_.gear < GEAR_6) {
+		if (shiftRevMatch_.rpmDataNew) {
+			/* Get multiplier value from look-up table RPM Multiplier <- Gear */
+			const float rpmMultiplier = downshiftRpmMultiplier[shiftRevMatch_.gear];
 
-			/* Try to set Drive-By-Wire control from rev match */
-			if (DBW_RevMatchSetControl(&shiftRevMatch_.targetThrottle) == REV_MATCH_DBW_OK) {
-				/* DBW Control from rev match successful, start watchdog */
-				shiftRevMatch_.rpmDataNew = FALSE;
-				GearWatchdog_Start(shiftRevMatch_.watchdog);
+			/* Neutral will result in 0.0, rest of gears are valid */
+			if (rpmMultiplier > 0.0f) {
+				/* Calculate target RPM for lower gear */
+				const float targetRPM = shiftRevMatch_.rpmData * rpmMultiplier;
+				/* Translate target throttle position <- target RPM from interpolation */
+				shiftRevMatch_.targetThrottle = Utils_interpolateTable1d(&RpmThrottleMap, targetRPM);
+
+				/* Try to set Drive-By-Wire control from rev match */
+				if (DBW_RevMatchSetControl(&shiftRevMatch_.targetThrottle) == REV_MATCH_DBW_OK) {
+					/* DBW Control from rev match successful, start watchdog */
+					GearWatchdog_Start(shiftRevMatch_.watchdog);
+					/* Poll throttle target */
+					nextState = REVMATCH_POLL_TARGET;
+					/* Reset RPM data flag */
+					shiftRevMatch_.rpmDataNew = FALSE;
+				}
 			}
+		} else {
+			nextState = REVMATCH_INACTIVE;
 		}
+	} else {
+		nextState = REVMATCH_INACTIVE;
 	}
-}
-#endif // REVMATCH_FROM_ENGINE_RPM
 
-#if REVMATCH_FROM_WHEEL_RPM
+	return nextState;
+}
+#elif REVMATCH_FROM_WHEEL_RPM
 static inline void ShiftRevMatch_CAN_GetWheelRPM(void)
 {
 	uint8_t *const telemetryMsgBuff = CAN_GetRxNewData(CAN_RX_MSG_TELEMETRY);
 
-	if (telemetryMsgBuff != NULL) {
+	if ((telemetryMsgBuff != NULL) && (!shiftRevMatch_.throttleTriggered)) {
 		/* Get wheel RPM from telemetry */
 		const float wheelRPM = (float)telemetryMsgBuff[CAN_DATA_BYTE_0];
 
@@ -220,11 +253,40 @@ static void ShiftRevMatch_ThrottleBlipWheelRPM(void)
 {
 	/* TODO when telemetry stm works */
 }
-#endif // REVMATCH_FROM_WHEEL_RPM
+#endif // REVMATCH_FROM_ENGINE_RPM
+
+static void ShiftRevMatch_StateMachine(void)
+{
+	shiftRevMatch_.getCanDataFunc();
+
+	switch (shiftRevMatch_.state) {
+		case REVMATCH_THROTTLE_BLIP:
+			shiftRevMatch_.state = shiftRevMatch_.throttleBlipFunc();
+			break;
+
+		case REVMATCH_POLL_TARGET:
+			if (ShiftRevMatch_TargetReached()) {
+				shiftRevMatch_.state = REVMATCH_FINISHED;
+			}
+			break;
+
+		case REVMATCH_FINISHED:
+			/* Rev match finished - watchdog elapsed or throttle target reached */
+			ShiftRevMatch_Finish();
+			break;
+
+		case REVMATCH_INACTIVE:
+		default:
+			/* Ensure that DBW works in normal operation */
+			DBW_RevMatchRestoreNormalOperation();
+			break;
+	}
+}
 
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
 /**
  * @brief Initialization of the Shift Rev Match module.
  * 
@@ -240,36 +302,41 @@ ErrorEnum ShiftRevMatch_Init(void)
 	return err;
 }
 
+bool_t ShiftRevMatch_IsFinished(void)
+{
+	return ((shiftRevMatch_.state == REVMATCH_FINISHED) ||
+			(shiftRevMatch_.state == REVMATCH_INACTIVE));
+}
+
 void ShiftRevMatch_Trigger(const GearStates revMatchGear)
 {
+	shiftRevMatch_.gear = GEAR_UNKNOWN;
+
 	if (revMatchGear < GEAR_6) {
 		shiftRevMatch_.gear = revMatchGear;
-		shiftRevMatch_.requested = TRUE;
+		shiftRevMatch_.state = REVMATCH_THROTTLE_BLIP;
 	}
+}
+
+void ShiftRevMatch_Finish(void)
+{
+	/* Restore normal DBW operation - from throttle pedal position */
+	DBW_RevMatchRestoreNormalOperation();
+
+	/* Feed Watchdog */
+	GearWatchdog_Feed(shiftRevMatch_.watchdog);
+
+	/* Reset flags */
+	shiftRevMatch_.gear = GEAR_UNKNOWN;
 }
 
 void ShiftRevMatch_Process(void)
 {
-#if REVMATCH_FROM_ENGINE_RPM
-	/* Get Engine RPM from CAN (if selected from config) */
-	ShiftRevMatch_CAN_GetEngineRPM();
-
-	if (shiftRevMatch_.requested) {
-		ShiftRevMatch_ThrottleBlipEngineRPM();
-	}
-#endif // REVMATCH_FROM_ENGINE_RPM
-
-#if REVMATCH_FROM_WHEEL_RPM
-	/* Get Wheel RPM from CAN (if selected from config) */
-	ShiftRevMatch_CAN_GetWheelRPM();
-
-	if (shiftRevMatch_.requested) {
-		ShiftRevMatch_ThrottleBlipWheelRPM();
-	}
-#endif // REVMATCH_FROM_WHEEL_RPM
+	ShiftRevMatch_StateMachine();
 }
 #else
 void ShiftRevMatch_Trigger(const GearStates revMatchGear) { (void)revMatchGear; }
 void ShiftRevMatch_Process(void) {}
 ErrorEnum ShiftRevMatch_Init(void) { return ERROR_OK; }
+bool_t ShiftRevMatch_IsFinished(void) {return FALSE; }
 #endif // CONFIG_ENABLE_REV_MATCH

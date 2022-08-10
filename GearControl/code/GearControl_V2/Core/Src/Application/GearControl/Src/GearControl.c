@@ -62,6 +62,7 @@ typedef struct {
 	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
 	uint32_t delayTim;                              //!< Delay timer
+	uint32_t clutchTimeout;
 } GearControlHandler;
 
 //! Mapping of shift state <- CAN shift status signal
@@ -88,7 +89,8 @@ static const ServoConfig gearServoConfig = {
 		     .degDefault = DEG_DEFAULT,
 			 .degMax     = (DEG_DEFAULT + DEG_UP_MAX) //!< 80 deg up
 		},
-		.pwmChannel = TIM_CHANNEL_3
+		.pwmChannel = TIM_CHANNEL_3,
+		.direction = SERVO_DIR_COUNTERCLOCKWISE
 };
 
 //! Up shift clutch slip configuration
@@ -149,8 +151,8 @@ static inline void GearCtrl_ResetRequest(__IO GearShiftRequest *const request);
 static void GearControl_StateMachine(void);
 static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const request);
 static inline GearShiftStates GearCtrl_ShiftProcedureUp(void);
-static inline GearShiftStates GearCtrl_ShiftProcedureDown(void);
-static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request);
+static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest *const request);
+static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request);
 static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftRequest *const request);
 static inline GearShiftStates GearCtrl_ShiftSuccessful(void);
 
@@ -365,7 +367,13 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 	switch (upProcedureState) {
 		case SHIFT_PROCEDURE_UP_TRIGGERS:
 			/* Clutch Slip */
-			ClutchControl_TriggerSlip(gearCtrl.upShiftSlipCfg->slipDeg, gearCtrl.upShiftSlipCfg->direction);
+			if (ClutchControl_TriggerSlip(gearCtrl.upShiftSlipCfg->slipDeg,
+					                        gearCtrl.upShiftSlipCfg->direction) == ERROR_OK) {
+				gearCtrl.clutchTimeout = gearCtrl.upShiftSlipCfg->slipDelayMs;
+			} else {
+				gearCtrl.clutchTimeout = 0U;
+			}
+
 			/* Injectors Cut */
 			InjectorsCut_Trigger();
 			/* Go to delay */
@@ -378,11 +386,12 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 			SwTimerDelay_Tick(&gearCtrl.delayTim);
 
 			/* Check if both clutch slip delay and injectors cut delay has elapsed */
-			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.upShiftSlipCfg->slipDelayMs) &&
+			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.clutchTimeout) &&
 			    SwTimerDelay_Elapsed(&gearCtrl.delayTim, INJECTORS_CUT_TRIGGER_DELAY_MS)) {
 				upProcedureState = SHIFT_PROCEDURE_UP_TRIGGERS;
 				nextShiftState = SHIFT_EXEC;
 				gearCtrl.delayTim = 0U;
+				gearCtrl.clutchTimeout = 0U;
 			}
 			break;
 	}
@@ -402,12 +411,13 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
  * 
  * @return The next state of the state machine.
  */
-static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
+static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest *const request)
 {
 	/* Shift down procedure - TODO add rev match */
 	typedef enum {
 		SHIFT_PROCEDURE_DOWN_TRIGGERS,
-		SHIFT_PROCEDURE_DOWN_DELAY
+		SHIFT_PROCEDURE_DOWN_DELAY,
+		SHIFT_PROCEDURE_DOWN_REVMATCH
 	} ShiftProcedureDownStates;
 
 	static ShiftProcedureDownStates downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
@@ -418,22 +428,36 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
 	switch (downProcedureState) {
 		case SHIFT_PROCEDURE_DOWN_TRIGGERS:
 			/* Clutch Slip */
-			ClutchControl_TriggerSlip(gearCtrl.downShiftSlipCfg->slipDeg, gearCtrl.downShiftSlipCfg->direction);
-			/* Go to delay */
-			downProcedureState = SHIFT_PROCEDURE_DOWN_DELAY;
+			if (ClutchControl_TriggerSlip(gearCtrl.downShiftSlipCfg->slipDeg,
+					                      gearCtrl.downShiftSlipCfg->direction) == ERROR_OK) {
+				/* Go to delay */
+				downProcedureState = SHIFT_PROCEDURE_DOWN_DELAY;
+			} else {
+				/* Clutch slip fail, exec gear */
+				nextShiftState = SHIFT_EXEC;
+			}
 			break;
 
 		case SHIFT_PROCEDURE_DOWN_DELAY:
-		default:
 			/* Tick delay timer */
 			SwTimerDelay_Tick(&gearCtrl.delayTim);
 
 			/* Check if clutch slip delay has elapsed */
 			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.downShiftSlipCfg->slipDelayMs)) {
-				downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
-				nextShiftState = SHIFT_EXEC;
+				downProcedureState = SHIFT_PROCEDURE_DOWN_REVMATCH;
 				gearCtrl.delayTim = 0U;
 			}
+			break;
+
+		case SHIFT_PROCEDURE_DOWN_REVMATCH:
+			/* Trigger revmatch */
+			ShiftRevMatch_Trigger(request->expectedGear);
+			downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
+			nextShiftState = SHIFT_EXEC;
+			break;
+
+		default:
+			/* Do nothing */
 			break;
 	}
 
@@ -449,8 +473,9 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
  * @param gear             pointer to the current gear.
  * @param GearShiftRequest Gear shift request struct pointer.
  */
-static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
+static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
 {
+	GearShiftStates nextShiftState = SHIFT_VALIDATE;
 	const GearStates gearSens = (GearStates)GearSensor_GetState();
 
 	if (gearSens == request->expectedGear) {
@@ -461,15 +486,22 @@ static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO Ge
 		GearWatchdog_Feed(&gearWdg);
 		/* Disable Injectors Cut */
 		InjectorsCut_Finish();
-		/* Reset clutch slip */
-		ClutchControl_DisableSlip();
-		/* Change state to SUCCESS */
-		gearCtrl.shiftState = SHIFT_SUCCESS;
+		/* Reset request */
+		GearCtrl_ResetRequest(&gearCtrl.request);
+		/* Go to default position */
+		if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
+			/* Change state to SUCCESS */
+			nextShiftState = SHIFT_SUCCESS;
+		} else {
+			nextShiftState = GEAR_SERVO_FAILURE;
+		}
 	} else {
 		/* Gearshift still in progress.
 		 * If it takes too long, gear watchdog will
 		 * reset request and go back to IDLE */
 	}
+
+	return nextShiftState;
 }
 
 /**
@@ -481,14 +513,16 @@ static inline void GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO Ge
  */
 static inline GearShiftStates GearCtrl_ShiftSuccessful(void)
 {
-	GearShiftStates nextShiftState = SHIFT_IDLE;
+	GearShiftStates nextShiftState = SHIFT_SUCCESS;
 
-	/* Successful request, should go back to IDLE */
-	GearCtrl_ResetRequest(&gearCtrl.request);
+	/* MicroSwitches debounce LOW */
 	MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
 
-	if (Servo_SetDefaultPos(gearCtrl.servo) != ERROR_OK) {
-		nextShiftState = GEAR_SERVO_FAILURE;
+	if (ShiftRevMatch_IsFinished()) {
+		/* Reset clutch slip */
+		ClutchControl_DisableSlip();
+		/* Go to IDLE */
+		nextShiftState = SHIFT_IDLE;
 	}
 
 	return nextShiftState;
@@ -635,7 +669,7 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 
 		case SHIFT_PROCEDURE_DOWN:
 			/* Shifting DOWN procedure before engaging servo */
-			gearCtrl.shiftState = GearCtrl_ShiftProcedureDown();
+			gearCtrl.shiftState = GearCtrl_ShiftProcedureDown(&gearCtrl.request);
 			break;
 
 		case SHIFT_PROCEDURE_UP:

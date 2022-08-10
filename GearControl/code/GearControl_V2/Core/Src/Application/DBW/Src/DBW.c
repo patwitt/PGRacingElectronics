@@ -342,6 +342,13 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 }
 
 #if CONFIG_ENABLE_REV_MATCH
+float DBW_GetTargetPositionAbsError(void)
+{
+	const float targetErr = apps_.target - tps_.position;
+
+	return (targetErr > 0.0f) ? targetErr : (targetErr * (-1.0f));
+}
+
 /**
  * @brief Check if throttle target is in range.
  * 

@@ -26,6 +26,7 @@ typedef enum {
 	REV_MATCH_DBW_OK
 } DbwRevMatchStatus;
 
+float DBW_GetTargetPositionAbsError(void);
 DbwRevMatchStatus DBW_RevMatchSetControl(float *const target);
 void DBW_RevMatchRestoreNormalOperation(void);
 #endif // CONFIG_ENABLE_REV_MATCH
