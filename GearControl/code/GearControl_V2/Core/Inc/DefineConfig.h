@@ -17,7 +17,7 @@
 /* !Gear shifting ENABLE/DISABLE feature configs! */
 #define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_ENABLED) //!< Enable Clutch Slip on gearshifts
-#define CONFIG_ENABLE_REV_MATCH          (FEATURE_DISABLE) //!< Enable rev matching
+#define CONFIG_ENABLE_REV_MATCH          (FEATURE_ENABLED) //!< Enable rev matching
 
 /* GearControl configs */
 #define REVMATCH_FROM_ENGINE_RPM (TRUE)                      //!< Revmatching from Engine RPM's

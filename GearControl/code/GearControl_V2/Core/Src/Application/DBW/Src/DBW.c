@@ -342,6 +342,11 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 }
 
 #if CONFIG_ENABLE_REV_MATCH
+/**
+ * @brief Get absolute error between target and throttle position.
+ * 
+ * @return The absolute value of the difference between the target position and the current position.
+ */
 float DBW_GetTargetPositionAbsError(void)
 {
 	const float targetErr = apps_.target - tps_.position;
@@ -354,7 +359,7 @@ float DBW_GetTargetPositionAbsError(void)
  * 
  * @param target The throttle target value.
  * 
- * @return A boolean value.
+ * @return TRUE if throttle target is in range, FALSE otherwise.
  */
 static inline bool_t DBW_IsRevMatchTargetInRange(const float target)
 {

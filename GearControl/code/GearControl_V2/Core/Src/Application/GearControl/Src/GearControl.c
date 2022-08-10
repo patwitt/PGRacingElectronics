@@ -145,7 +145,10 @@ static __IO GearControlHandler gearCtrl = {
 static inline GearStates GearCtrlState_Init(void);
 static inline GearStates GearCtrlState_ShiftHandler(void);
 
-static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shiftProcedure);
+static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request,
+		                               const uint32_t servoDeg,
+									   const GearStates expectedGear,
+									   const GearShiftStates shiftProcedure);
 static inline void GearCtrl_ResetRequest(__IO GearShiftRequest *const request);
 
 static void GearControl_StateMachine(void);
@@ -188,7 +191,10 @@ static void GearWatchdogElapsedTrigger(void)
  * @param expectedGear     The gear that the gearbox should be in after the shift.
  * @param shiftProcedure   Shift procedure state (up/down) that will be executed.
  */
-static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request, const uint32_t servoDeg, const GearStates expectedGear, const GearShiftStates shiftProcedure)
+static inline void GearCtrl_SetRequest(__IO GearShiftRequest *const request,
+		                               const uint32_t servoDeg,
+									   const GearStates expectedGear,
+									   const GearShiftStates shiftProcedure)
 {
 	if (NULL_CHECK1(request)) {
 		request->requested = TRUE;
@@ -780,6 +786,7 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 	if (err == ERROR_OK) {
 		err = GearWatchdog_Init(gearCtrl.watchdog);
 	}
+
 	/* Initialize Rev match module */
 	if (err == ERROR_OK) {
 		err = ShiftRevMatch_Init();
@@ -824,7 +831,7 @@ void GearControl_Process(void)
 }
 
 /**
- * @brief This function returns the current gear state
+ * @brief This function returns the current gear state.
  * 
  * @return Current gear.
  */

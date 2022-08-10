@@ -71,7 +71,9 @@ typedef union {
 	};
 } ErrorFlags;
 
-static ErrorFlags errorFlags = {.errTotal = 0U};
+static ErrorFlags errorFlags = {
+	.errTotal = 0U
+};
 
 /* USER CODE END PM */
 
@@ -198,16 +200,14 @@ int main(void)
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_TIM2_Init();
-#if CONFIG_ENABLE_SCHEDULER_WATCHDOG
   MX_IWDG_Init();
-#endif // CONFIG_ENABLE_SCHEDULER_WATCHDOG
   /* USER CODE BEGIN 2 */
 
   /* Enable watchdog first - no return */
   Watchdog_Init(&hiwdg);
 
-  /* VAL x 100ms */
-  LED_indicateResetWithDelay(7U);
+  /* Indicate reset with LED blinking */
+  LED_indicateResetWithDelay(INDICATE_RESET_MS);
 /* -------------------------------------------- */
   if (!errorFlags.halErr) {
 	  /* Initialize CAN Bus */
@@ -507,7 +507,7 @@ static void MX_IWDG_Init(void)
 {
 
   /* USER CODE BEGIN IWDG_Init 0 */
-
+#if CONFIG_ENABLE_SCHEDULER_WATCHDOG
   /* USER CODE END IWDG_Init 0 */
 
   /* USER CODE BEGIN IWDG_Init 1 */
@@ -521,7 +521,7 @@ static void MX_IWDG_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN IWDG_Init 2 */
-
+#endif // CONFIG_ENABLE_SCHEDULER_WATCHDOG
   /* USER CODE END IWDG_Init 2 */
 
 }
