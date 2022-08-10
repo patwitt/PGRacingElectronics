@@ -6,8 +6,8 @@
  */
 
 #include "DBW.h"
+#if CONFIG_ENABLE_DBW
 #include "DCMotor.h"
-#include "DefineConfig.h"
 #include "Utils.h"
 #include "main.h"
 #include "stdlib.h"
@@ -150,6 +150,10 @@ typedef struct
 	AppsSensorType *const apps;
 	/* DBW state */
 	DBW_States state;
+#if CONFIG_ENABLE_REV_MATCH
+	bool_t revMatchControl;
+	float* revMatchTarget;
+#endif
 } DbwHandle;
 
 /* Plausibility */
@@ -213,6 +217,10 @@ static AppsSensorType apps_ = {
 static DbwHandle dbw = {
 	.tps = &tps_,
 	.apps = &apps_,
+#if CONFIG_ENABLE_REV_MATCH
+	.revMatchControl = FALSE,
+	.revMatchTarget = NULL,
+#endif
 	.state = DBW_DISABLED
 };
 
@@ -222,6 +230,13 @@ static DbwHandle dbw = {
 /* Convert raw ADC to Float */
 static inline float DBW_ConvertTpsRawValue(void);
 static inline float DBW_ConvertAppsRawValue(void);
+
+/* Set Target */
+static inline float DBW_SetTargetValue(void);
+
+#if CONFIG_ENABLE_REV_MATCH
+static inline bool_t DBW_IsRevMatchTargetInRange(const float target);
+#endif
 
 /* Process handlers */
 static void DBW_StateMachine(void);
@@ -326,6 +341,66 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 	return nextState;
 }
 
+#if CONFIG_ENABLE_REV_MATCH
+/**
+ * @brief Check if throttle target is in range.
+ * 
+ * @param target The throttle target value.
+ * 
+ * @return A boolean value.
+ */
+static inline bool_t DBW_IsRevMatchTargetInRange(const float target)
+{
+#define TARGET_REVMATCH_MIN (200.0f)
+#define TARGET_REVMATCH_MAX (1000.0f)
+	return ((target >= TARGET_REVMATCH_MIN) &&
+			(target <= TARGET_REVMATCH_MAX));
+}
+
+/**
+ * @brief Set RevMatch Control if possible.
+ * 
+ * If the DBW is running, the TPS and APPS are OK, and the target is in range,
+ * then set the target from revmatch module and enable the control.
+ * 
+ * @param target The throttle target value from rev match module.
+ * 
+ * @return a DbwRevMatchStatus enum.
+ */
+DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
+{
+	DbwRevMatchStatus revMatchStatus = REV_MATCH_DBW_OK;
+
+	if ((dbw.state == DBW_RUN) &&
+	    (tps_.error == ERROR_OK) &&
+	    (apps_.error == ERROR_OK)) {
+		if ((target != NULL) &&
+			DBW_IsRevMatchTargetInRange(*target)) {
+				dbw.revMatchTarget = target;
+				dbw.revMatchControl = TRUE;
+		} else {
+			revMatchStatus = REV_MATCH_TARGET_INVALID;
+		}
+	} else {
+		revMatchStatus = REV_MATCH_DBW_FAILURE;
+	}
+
+	return revMatchStatus;
+}
+
+/**
+ * @brief Restore normal Drive-by-Wire operation from throttle pedal position.
+ * 
+ * This is called after revmatching sequence is finished.
+ * 
+ */
+void DBW_RevMatchRestoreNormalOperation(void)
+{
+	dbw.revMatchControl = FALSE;
+	dbw.revMatchTarget = NULL;
+}
+#endif
+
 /**
  * @brief TPS sensor calibration sequence.
  * 
@@ -334,7 +409,7 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
  * values. If it isn't, it checks if the difference is within the range for a certain number of times.
  * If it is, it changes the direction of the motor. If it isn't, it stops the motor. If the minimum and
  * maximum values are within a certain range, it enables the motor and changes the state to DBW_RUN. If
- * they aren't, it changes the state to DBW_DISABLED
+ * they aren't, it changes the state to DBW_DISABLED.
  * 
  * @return The next state of the DBW_States enum.
  */
@@ -408,16 +483,46 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 }
 
 /**
+ * @brief Set DBW throttle target.
+ * 
+ * If rev match control is enabled, and the rev match target is not null, and the target is in range,
+ * then set the throttle target to the rev match target, otherwise set the target to the converted apps raw
+ * value.
+ * 
+ * @return The throttle target value.
+ */
+static inline float DBW_SetTargetValue(void)
+{
+	float throttleTarget = 0.0f;
+
+#if CONFIG_ENABLE_REV_MATCH
+	/* Check if Rev match control is enabled */
+	if ((dbw.revMatchControl) &&
+		(dbw.revMatchTarget != NULL) &&
+		(DBW_IsRevMatchTargetInRange(*dbw.revMatchTarget))) {
+		throttleTarget = *dbw.revMatchTarget;
+	} else {
+		throttleTarget = DBW_ConvertAppsRawValue();
+	}
+#else
+	throttleTarget = DBW_ConvertAppsRawValue();
+#endif
+
+	return throttleTarget;
+}
+
+/**
  * @brief Drive-By-Wire PID runner.
- * 
+ *
  * The function reads the raw values from the ADC, filters them, and then updates the PID controller.
- * 
+ *
  * @return DBW_RUN state.
  */
 static DBW_States DBW_HandlerRun(void)
 {
 	tps_.position = DBW_ConvertTpsRawValue();
-	apps_.target = DBW_ConvertAppsRawValue();
+	apps_.target = DBW_SetTargetValue();
+
 #if CONFIG_PID_ENABLE_RC_LPF
 	/* Low-Pass Filter on samples */
 	tps_.position = RCFilter_Update(&tps_.rcFilter, tps_.position);
@@ -426,7 +531,7 @@ static DBW_States DBW_HandlerRun(void)
 	tps_.position = IIRFilter_Update(&tps_.iirFilter, tps_.position);
 	apps_.target = IIRFilter_Update(&apps_.iirFilter, apps_.target);
 #endif
-	
+
 	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
 
 #if CONFIG_ADC_SHOW_MIN_MAX
@@ -559,6 +664,43 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
 	}
 }
 
+/**
+ * @brief Drive-By-Wire main state machine.
+ */
+static void DBW_StateMachine(void)
+{
+	switch (dbw.state) {
+		case DBW_INIT:
+			dbw.state = DBW_HandlerInit();
+			break;
+
+		case DBW_CALIBRATE_APPS:
+			dbw.state = DBW_HandlerCalibrateAPPS();
+			break;
+
+		case DBW_CALIBRATE_TPS:
+			dbw.state = DBW_HandlerCalibrateTPS();
+			break;
+
+		case DBW_RUN:
+			DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
+			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+
+			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
+				dbw.state = DBW_HandlerRun();
+			} else {
+				dbw.state = DBW_DISABLED;
+			}
+			break;
+
+		case DBW_DISABLED:
+		default:
+			DCMotor_Disable();
+			LED_SetStatus(LED_BLINK_1HZ);
+			break;
+	}
+}
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
@@ -619,43 +761,6 @@ ErrorEnum DBW_Init(void)
 }
 
 /**
- * @brief Drive-By-Wire main state machine.
- */
-static void DBW_StateMachine(void)
-{
-	switch (dbw.state) {
-		case DBW_INIT:
-			dbw.state = DBW_HandlerInit();
-			break;
-
-		case DBW_CALIBRATE_APPS:
-			dbw.state = DBW_HandlerCalibrateAPPS();
-			break;
-
-		case DBW_CALIBRATE_TPS:
-			dbw.state = DBW_HandlerCalibrateTPS();
-			break;
-
-		case DBW_RUN:
-			DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
-
-			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
-				dbw.state = DBW_HandlerRun();
-			} else {
-				dbw.state = DBW_DISABLED;
-			}
-			break;
-
-		case DBW_DISABLED:
-		default:
-			DCMotor_Disable();
-			LED_SetStatus(LED_BLINK_1HZ);
-			break;
-	}
-}
-
-/**
  * @brief Main process function that is called from the Scheduler.
  */
 void DBW_Process(void)
@@ -699,3 +804,9 @@ void DBW_Disable(boolean isError)
 	}
 	DCMotor_Disable();
 }
+#else
+ErrorEnum DBW_Init(void) { return ERROR_OK; }
+void DBW_Process(void) {}
+void DBW_RequestAppsCalibration(void) {}
+void DBW_Disable(boolean isError) { (void)isError; }
+#endif

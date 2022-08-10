@@ -5,6 +5,7 @@
  *      Author: Patryk Wittbrodt
  */
 #include "InjectorsCut.h"
+#if CONFIG_ENABLE_INJECTORS_CUT
 #include "GearWatchdog.h"
 #include "stm32f4xx_hal.h"
 #include "main.h"
@@ -66,9 +67,6 @@ static inline void InjectorsCut_DisableInjectors(void)
 	HAL_GPIO_WritePin(injectorsCut.gpioPort, injectorsCut.gpioPin, GPIO_PIN_RESET);
 }
 
-/* ---------------------------- */
-/*       Global functions       */
-/* ---------------------------- */
 /**
  * @brief Watchdog elapsed function.
  *
@@ -76,12 +74,15 @@ static inline void InjectorsCut_DisableInjectors(void)
  * 
  * The function is called by the watchdog timer interrupt
  */
-void InjectorsCutWatchdogElapsedTrigger(void)
+static void InjectorsCutWatchdogElapsedTrigger(void)
 {
 	/* Watchdog time elapsed */
 	/* Disable Injectors Cut, enable injectors again */
 	InjectorsCut_EnableInjectors();
 }
+/* ---------------------------- */
+/*       Global functions       */
+/* ---------------------------- */
 
 /**
  * @brief Initialization of the Injectors Cut module.
@@ -105,13 +106,11 @@ ErrorEnum InjectorsCut_Init(void)
  */
 void InjectorsCut_Trigger(void)
 {
-#if CONFIG_ENABLE_INJECTORS_CUT
 	/* Start Watchdog */
 	GearWatchdog_Start(injectorsCut.watchdog);
 
 	/* Trigger injectors cut, disable injectors */
 	InjectorsCut_DisableInjectors();
-#endif
 }
 
 /**
@@ -121,11 +120,14 @@ void InjectorsCut_Trigger(void)
  */
 void InjectorsCut_Finish(void)
 {
-#if CONFIG_ENABLE_INJECTORS_CUT
 	/* Feed watchdog, notice of successful shift on time */
 	GearWatchdog_Feed(injectorsCut.watchdog);
 
 	/* Disable Injectors Cut, enable injectors again */
 	InjectorsCut_EnableInjectors();
-#endif
 }
+#else
+void InjectorsCut_Trigger(void) {}
+void InjectorsCut_Finish(void) {}
+ErrorEnum InjectorsCut_Init(void) { return ERROR_OK; }
+#endif

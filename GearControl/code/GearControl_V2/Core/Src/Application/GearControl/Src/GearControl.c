@@ -9,6 +9,7 @@
 #include "GearControlMap.h"
 #include "GearControlCAN.h"
 #include "ClutchControl.h"
+#include "ShiftRevMatch.h"
 #include "InjectorsCut.h"
 #include "Utils.h"
 #include "GearRequest.h"
@@ -56,7 +57,7 @@ typedef struct {
 	GearStates gear;                                //!< Actual gear by estimation and sensor reading
 	GearShiftRequest request;                       //!< Gear shift request
 	GearShiftStates shiftState;                     //!< Shift state - describes dynamic behavior
-	const ServoEntityEnum servo;                      //!< Servo Type
+	const ServoEntityEnum servo;                    //!< Servo Entity Type
 	const CANShiftStatus *const canShiftStatusMap;  //!< CAN Bus shift mapping - CAN signal <- shift status
 	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
@@ -403,7 +404,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
  */
 static inline GearShiftStates GearCtrl_ShiftProcedureDown(void)
 {
-	/* Shift down procedure - TODO add rev match | throttle blip */
+	/* Shift down procedure - TODO add rev match */
 	typedef enum {
 		SHIFT_PROCEDURE_DOWN_TRIGGERS,
 		SHIFT_PROCEDURE_DOWN_DELAY
@@ -745,12 +746,16 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 	if (err == ERROR_OK) {
 		err = GearWatchdog_Init(gearCtrl.watchdog);
 	}
-#if CONFIG_ENABLE_INJECTORS_CUT
+	/* Initialize Rev match module */
+	if (err == ERROR_OK) {
+		err = ShiftRevMatch_Init();
+	}
+
 	/* Initialize injectors cut module */
 	if (err == ERROR_OK) {
 		err = InjectorsCut_Init();
 	}
-#endif
+
 	if (err == ERROR_OK) {
 		NULL_ERR_CHECK2(err, htim, htim->Instance);
 

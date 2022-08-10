@@ -7,12 +7,15 @@
 
 #include "Watchdog.h"
 #include "DefineConfig.h"
-
+#if CONFIG_ENABLE_SCHEDULER_WATCHDOG
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
 static __IO IWDG_HandleTypeDef* watchdog_ = NULL;
 
+/* ---------------------------- */
+/*       Global functions       */
+/* ---------------------------- */
 void Watchdog_Init(__IO IWDG_HandleTypeDef* const wdg)
 {
 	watchdog_ = wdg;
@@ -20,7 +23,9 @@ void Watchdog_Init(__IO IWDG_HandleTypeDef* const wdg)
 
 __IO void WatchdogFeed(void)
 {
-#if CONFIG_ENABLE_SCHEDULER_WATCHDOG
 	__HAL_IWDG_RELOAD_COUNTER(watchdog_);
-#endif
 }
+#else
+void Watchdog_Init(__IO IWDG_HandleTypeDef* const wdg) { (void)wdg; }
+__IO void WatchdogFeed(void) {}
+#endif

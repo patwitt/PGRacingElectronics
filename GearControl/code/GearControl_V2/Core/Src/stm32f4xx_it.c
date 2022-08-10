@@ -231,9 +231,7 @@ void CAN1_RX0_IRQHandler(void)
   /* USER CODE END CAN1_RX0_IRQn 0 */
   HAL_CAN_IRQHandler(&hcan1);
   /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
-#if CONFIG_ENABLE_CAN
   CAN_RxCallback();
-#endif
   /* USER CODE END CAN1_RX0_IRQn 1 */
 }
 
@@ -247,12 +245,10 @@ void DMA2_Stream2_IRQHandler(void)
   /* USER CODE END DMA2_Stream2_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc2);
   /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
-#if CONFIG_ENABLE_DBW
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_TPS_1].avgData, *adc2Channels[ADC_CHANNEL_TPS_1].raw);
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_TPS_2].avgData, *adc2Channels[ADC_CHANNEL_TPS_2].raw);
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_1].avgData, *adc2Channels[ADC_CHANNEL_APPS_1].raw);
   Utils_RollingAverage_U16(&adc2Channels[ADC_CHANNEL_APPS_2].avgData, *adc2Channels[ADC_CHANNEL_APPS_2].raw);
-#endif
 
 #if CONFIG_RUN_DEBUG
 /* For STMSTUDIO */
@@ -262,7 +258,7 @@ void DMA2_Stream2_IRQHandler(void)
   debugAdc2[ADC_CHANNEL_APPS_2] = *adc2Channels[ADC_CHANNEL_APPS_2].raw;
 #endif
 
-#if CONFIG_ADC_SHOW_MIN_MAX && CONFIG_ENABLE_DBW
+#if CONFIG_ADC_SHOW_MIN_MAX
   if (HAL_GetTick() > 100U) {
 	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_TPS_1].avgData.avg, &adc2Channels[ADC_CHANNEL_TPS_1].min, &adc2Channels[ADC_CHANNEL_TPS_1].max);
 	  Utils_UpdateMinMax_U16(adc2Channels[ADC_CHANNEL_TPS_2].avgData.avg, &adc2Channels[ADC_CHANNEL_TPS_2].min, &adc2Channels[ADC_CHANNEL_TPS_2].max);

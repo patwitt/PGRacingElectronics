@@ -24,7 +24,8 @@ typedef enum {
 	GEAR_WDG_INJECTORS_CUT    = 1U,
 	GEAR_WDG_UPSHIFT_CLUTCH   = 2U,
 	GEAR_WDG_DOWNSHIFT_CLUTCH = 3U,
-	GEAR_WDG_COUNT            = 4U
+	GEAR_WDG_REVMATCH         = 4U,
+	GEAR_WDG_COUNT            = 5U
 } GearWatchdogTypeEnum;
 
 typedef void (*WatchdogElapsedTrigger)(void);

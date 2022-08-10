@@ -5,8 +5,10 @@
  *      Author: Patryk Wittbrodt
  */
 
-#include "GearControl.h"
 #include "GearControlCAN.h"
+#include "DefineConfig.h"
+#if CONFIG_ENABLE_CAN
+#include "GearControl.h"
 #include "CAN.h"
 #include "SwTimer.h"
 
@@ -53,8 +55,8 @@ static CANReportHandler canReportCtrl = {
 		/* CAN config */
 		.timerMap = canStatusAlivenessMsMap,
 		.msgId = CAN_TX_MSG_STDID_GEARINFO,
-		.gearByte = CAN_DATA_BYTE_DATA_0,
-		.shiftStatusByte = CAN_DATA_BYTE_DATA_1
+		.gearByte = CAN_DATA_BYTE_0,
+		.shiftStatusByte = CAN_DATA_BYTE_1
 };
 
 /* ---------------------------- */
@@ -146,3 +148,8 @@ void GearControlCAN_Process(void)
 	/* Update shift status data */
 	GearControlCAN_ShiftStatusHandler();
 }
+#else
+ErrorEnum GearControlCAN_Init(void) { return ERROR_OK; }
+void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus) { (void)shiftStatus; }
+void GearControlCAN_Process(void) {}
+#endif

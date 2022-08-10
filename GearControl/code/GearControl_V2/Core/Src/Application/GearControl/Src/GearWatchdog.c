@@ -12,12 +12,7 @@
 /* ---------------------------- */
 
 //! An array of pointers to all watchdog entities.
-static GearWatchdogType* gearWdg[GEAR_WDG_COUNT] = {
-	[GEAR_WDG_SHIFT]            = NULL,
-	[GEAR_WDG_INJECTORS_CUT]    = NULL,
-	[GEAR_WDG_UPSHIFT_CLUTCH]   = NULL,
-	[GEAR_WDG_DOWNSHIFT_CLUTCH] = NULL
-};
+static GearWatchdogType* gearWdg[GEAR_WDG_COUNT] = {NULL, NULL, NULL, NULL, NULL};
 
 /* ---------------------------- */
 /*       Global functions       */

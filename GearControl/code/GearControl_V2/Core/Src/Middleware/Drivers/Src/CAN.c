@@ -6,6 +6,8 @@
  */
 
 #include "CAN.h"
+#include "DefineConfig.h"
+#if CONFIG_ENABLE_CAN
 #include "main.h"
 #include "Utils.h"
 #include <string.h>
@@ -37,16 +39,16 @@ static CAN_RxMsgType canRxMsgsConfig[CAN_RX_MSG_COUNT] = {
 
 /* TX messages */
 static CAN_TxMsgType canTxMsgsConfig[CAN_TX_MSG_COUNT] = {
-		[CAN_TX_MSG_GEARINFO] = {
-			.txHeader = {
-				.DLC = CAN_DATA_BYTES_COUNT,
-				.IDE = CAN_ID_STD,
-				.RTR = CAN_RTR_DATA,
-				.StdId = CAN_TX_MSG_STDID_GEARINFO
-			},
-			.error = HAL_OK,
-			.buffer = {0U}
-		}
+	[CAN_TX_MSG_GEARINFO] = {
+		.txHeader = {
+			.DLC = CAN_DATA_BYTES_COUNT,
+			.IDE = CAN_ID_STD,
+			.RTR = CAN_RTR_DATA,
+			.StdId = CAN_TX_MSG_STDID_GEARINFO
+		},
+		.error = HAL_OK,
+		.buffer = {0U}
+	}
 };
 
 /* CAN Handler */
@@ -257,6 +259,30 @@ ErrorEnum CAN_ValidateRxMsg(CAN_RxMsgType *const rxMsg)
 }
 
 /**
+ * @brief Get Rx message new data.
+ * 
+ * If the message is valid and has new data, return the data buffer and clear the new data flag.
+ * 
+ * @param rxMsgId The ID of the message you want to read.
+ * 
+ * @return A pointer to the buffer of the message.
+ */
+uint8_t* CAN_GetRxNewData(CAN_RxMsgEnum const rxMsgId)
+{
+	CAN_RxMsgType *const rxMsg = CAN_GetRxMsg(rxMsgId);
+	uint8_t* canDataBuff = NULL;
+
+	if (CAN_ValidateRxMsg(rxMsg) == ERROR_OK) {
+		if (rxMsg->newData) {
+			canDataBuff = rxMsg->buffer;
+			rxMsg->newData = FALSE;
+		}
+	}
+
+	return canDataBuff;
+}
+
+/**
  * @brief Get Rx message struct pointer.
  * 
  * @param rxMsgId The ID of the message to get.
@@ -285,8 +311,8 @@ void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, 
 {
 	if (txMsgId < CAN_TX_MSG_COUNT) {
 		if ((byte < canHandler_.txMsg[txMsgId].txHeader.DLC) &&
-			(byte >= CAN_DATA_BYTE_DATA_0) &&
-			(byte <= CAN_DATA_BYTE_DATA_5)) {
+			(byte >= CAN_DATA_BYTE_0) &&
+			(byte <= CAN_DATA_BYTE_5)) {
 			canHandler_.txMsg[txMsgId].buffer[byte] = data;
 		}
 	}
@@ -346,3 +372,13 @@ void CAN_TxCallback(void)
 		}
 	}
 }
+#else
+ErrorEnum CAN_Init(CAN_HandleTypeDef* hcan) { (void)hcan; return ERROR_OK; }
+ErrorEnum CAN_ValidateRxMsg(CAN_RxMsgType *const rxMsg) { (void) rxMsg; return ERROR_NULL; }
+uint8_t* CAN_GetRxNewData(CAN_RxMsgEnum const rxMsgId) { (void)rxMsgId; return NULL; }
+CAN_RxMsgType* CAN_GetRxMsg(CAN_RxMsgEnum const rxMsgId) { (void)rxMsgId; return NULL; }
+void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data) { (void)txMsgId; (void)byte; (void)data; }
+void CAN_TxUpdateStatus(const CAN_TxMsgEnum txMsgId, const CAN_MsgStatus status) { (void)txMsgId; (void)status; }
+void CAN_RxCallback(void) {}
+void CAN_TxCallback(void) {}
+#endif // CONFIG_ENABLE_CAN

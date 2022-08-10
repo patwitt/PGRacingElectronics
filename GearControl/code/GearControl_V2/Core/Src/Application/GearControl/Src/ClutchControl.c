@@ -5,8 +5,9 @@
  *      Author: Patryk Wittbrodt
  */
 
-#include "GearWatchdog.h"
 #include "ClutchControl.h"
+#if CONFIG_ENABLE_CLUTCH
+#include "GearWatchdog.h"
 #include "Servo.h"
 #include "CAN.h"
 #include "Utils.h"
@@ -22,16 +23,6 @@ typedef struct {
 	const uint32_t degMax;
 } ClutchPosLimits;
 
-//! Clutch Control handler struct
-typedef struct {
-	ClutchControlStates control;
-	ClutchControlStates savedCtrl;
-	GearWatchdogType *runningWdg;
-	const ServoEntityEnum servo;
-	const CAN_RxMsgEnum canRxMsg;
-	bool_t canAck;
-} ClutchControlHandler;
-
 //! Clutch servo configuration
 static const ServoConfig clutchServoConfig = {
 		.limits = {
@@ -41,6 +32,18 @@ static const ServoConfig clutchServoConfig = {
 		},
 		.pwmChannel = TIM_CHANNEL_1
 };
+
+//! Clutch Control handler struct
+typedef struct {
+	bool_t engaged;
+	ClutchControlStates control;
+	ClutchControlStates savedCtrl;
+	GearWatchdogType *runningWdg;
+	const ServoConfig *const servoConfig;
+	const ServoEntityEnum servo;
+	const CAN_RxMsgEnum canRxMsg;
+	bool_t canAck;
+} ClutchControlHandler;
 
 //! This must be before watchdogs structs declaration
 static void ClutchControl_WatchdogElapsedTrigger(void);
@@ -71,8 +74,10 @@ static ClutchControlHandler clutchCtrl = {
 		.control  = CLUTCH_CTRL_INIT_CAN_ACK,
 		.savedCtrl = CLUTCH_CTRL_INIT_CAN_ACK,
 		.servo    = SERVO_CLUTCH,
+		.servoConfig = &clutchServoConfig,
 		.canRxMsg = CAN_RX_MSG_CLUTCH,
 		.canAck   = FALSE,
+		.engaged = FALSE,
 		.runningWdg = NULL
 };
 
@@ -148,10 +153,14 @@ static void ClutchControl_CAN_NormalOperation(void)
 		if ((clutchRxMsg->newData) && (clutchCtrl.canAck)) {
 
 		/* Process clutch position from CAN */
-		const uint32_t clutchPosFromCan = (uint32_t)clutchRxMsg->buffer[CAN_DATA_BYTE_DATA_0];
+		const uint32_t clutchPosFromCan = (uint32_t)clutchRxMsg->buffer[CAN_DATA_BYTE_0];
 
 		/* Set received servo position */
-		if (Servo_SetPos(clutchCtrl.servo, clutchPosFromCan) != ERROR_OK) {
+		if (Servo_SetPos(clutchCtrl.servo, clutchPosFromCan) == ERROR_OK) {
+			/* Servo set position OK, set clutch engaged flag */
+			clutchCtrl.engaged = (clutchPosFromCan > clutchCtrl.servoConfig->limits.degDefault);
+		} else {
+			/* Servo Failure */
 			clutchCtrl.control = CLUTCH_CTRL_SERVO_DISABLED;
 		}
 
@@ -160,86 +169,6 @@ static void ClutchControl_CAN_NormalOperation(void)
 	} else {
 		clutchCtrl.control = CLUTCH_CTRL_CAN_ERROR;
 	}
-}
-
-/* ---------------------------- */
-/*       Global functions       */
-/* ---------------------------- */
-/**
- * @brief Initialization of the clutch control module.
- * 
- * @param htim pointer to the timer used for the clutch servo.
- * 
- * @return an error code.
- */
-ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
-{
-	ErrorEnum err = ERROR_OK;
-
-	NULL_ERR_CHECK2(err, htim, htim->Instance);
-
-	if (err == ERROR_OK) {
-		/* Clutch servo PWM parameters */
-		ServoPwmParams clutchServoPwmParams = {
-			.htim = htim,
-			.PWM = &htim->Instance->CCR1
-		};
-
-		/* Initialize Clutch servo */
-		err = Servo_Init(clutchCtrl.servo, &clutchServoConfig, clutchServoPwmParams);
-
-		/* Initialize watchdog for clutch slip upshifts */
-		if (err == ERROR_OK) {
-			err = GearWatchdog_Init(&upShiftClutchSlipWdg);
-		}
-
-		/* Initialize watchdog for clutch slip downshifts */
-		if (err == ERROR_OK) {
-			err = GearWatchdog_Init(&downShiftClutchSlipWdg);
-		}
-	}
-
-	return err;
-}
-
-/**
- * @brief Trigger the clutch slip procedure.
- *
- * It sets the clutch control to gear control, sets the servo position to the specified slip degrees,
- * and starts the watchdog.
- * 
- * @param slipDegrees The number of degrees to slip the clutch.
- * @param direction   CLUTCH_DIR_UP or CLUTCH_DIR_DOWN.
- */
-void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
-{
-	clutchCtrl.runningWdg = clutchWdgMap[direction];
-	clutchCtrl.savedCtrl = clutchCtrl.control;
-
-#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
-	if (direction < CLUTCH_DIR_COUNT) {
-		clutchCtrl.control = CLUTCH_CTRL_GEARCTRL;
-		(void)Servo_SetPos(clutchCtrl.servo, slipDegrees);
-		GearWatchdog_Start(clutchCtrl.runningWdg);
-	}
-#endif
-}
-
-/**
- * @brief Disable the clutch slip procedure.
- * 
- * If the clutch is enabled and the slip control is enabled, then set the servo to the default position
- * and feed the running watchdog. Set the running watchdog to NULL and set the control to the
- * saved control.
- */
-void ClutchControl_DisableSlip(void)
-{
-#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
-	(void)Servo_SetDefaultPos(clutchCtrl.servo);
-	GearWatchdog_Feed(clutchCtrl.runningWdg);
-#endif
-	clutchCtrl.runningWdg = NULL;
-	clutchCtrl.control = clutchCtrl.savedCtrl;
 }
 
 /**
@@ -279,6 +208,93 @@ static void ClutchControl_StateMachine(void)
 	}
 }
 
+/* ---------------------------- */
+/*       Global functions       */
+/* ---------------------------- */
+/**
+ * @brief Initialization of the clutch control module.
+ * 
+ * @param htim pointer to the timer used for the clutch servo.
+ * 
+ * @return an error code.
+ */
+ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim)
+{
+	ErrorEnum err = ERROR_OK;
+
+	NULL_ERR_CHECK2(err, htim, htim->Instance);
+
+	if (err == ERROR_OK) {
+		/* Clutch servo PWM parameters */
+		ServoPwmParams clutchServoPwmParams = {
+			.htim = htim,
+			.PWM = &htim->Instance->CCR1
+		};
+
+		/* Initialize Clutch servo */
+		err = Servo_Init(clutchCtrl.servo, clutchCtrl.servoConfig, clutchServoPwmParams);
+
+		/* Initialize watchdog for clutch slip upshifts */
+		if (err == ERROR_OK) {
+			err = GearWatchdog_Init(&upShiftClutchSlipWdg);
+		}
+
+		/* Initialize watchdog for clutch slip downshifts */
+		if (err == ERROR_OK) {
+			err = GearWatchdog_Init(&downShiftClutchSlipWdg);
+		}
+	}
+
+	return err;
+}
+
+/**
+ * @brief Trigger the clutch slip procedure.
+ *
+ * It sets the clutch control to gear control, sets the servo position to the specified slip degrees,
+ * and starts the watchdog.
+ * 
+ * @param slipDegrees The number of degrees to slip the clutch.
+ * @param direction   CLUTCH_DIR_UP or CLUTCH_DIR_DOWN.
+ */
+void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction)
+{
+	clutchCtrl.runningWdg = clutchWdgMap[direction];
+	clutchCtrl.savedCtrl = clutchCtrl.control;
+	clutchCtrl.engaged = TRUE;
+
+#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
+	if (direction < CLUTCH_DIR_COUNT) {
+		clutchCtrl.control = CLUTCH_CTRL_GEARCTRL;
+		(void)Servo_SetPos(clutchCtrl.servo, slipDegrees);
+		GearWatchdog_Start(clutchCtrl.runningWdg);
+	}
+#endif
+}
+
+bool_t ClutchControl_IsEngaged(void)
+{
+	return clutchCtrl.engaged;
+}
+
+/**
+ * @brief Disable the clutch slip procedure.
+ * 
+ * If the clutch is enabled and the slip control is enabled, then set the servo to the default position
+ * and feed the running watchdog. Set the running watchdog to NULL and set the control to the
+ * saved control.
+ */
+void ClutchControl_DisableSlip(void)
+{
+#if CONFIG_ENABLE_CLUTCH && CONFIG_ENABLE_CLUTCH_SLIP
+	(void)Servo_SetDefaultPos(clutchCtrl.servo);
+	GearWatchdog_Feed(clutchCtrl.runningWdg);
+#endif
+	clutchCtrl.engaged = FALSE;
+	clutchCtrl.runningWdg = NULL;
+	clutchCtrl.control = clutchCtrl.savedCtrl;
+}
+
 /**
  * @brief Main process function that is called from the Scheduler.
  */
@@ -286,3 +302,10 @@ void ClutchControl_Process(void)
 {
 	ClutchControl_StateMachine();
 }
+#else
+ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim) {(void)htim; return ERROR_OK; }
+void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction) { (void)slipDegrees; (void)direction; }
+bool_t ClutchControl_IsEngaged(void) { return FALSE; }
+void ClutchControl_DisableSlip(void) {}
+void ClutchControl_Process(void) {}
+#endif // CONFIG_ENABLE_CLUTCH

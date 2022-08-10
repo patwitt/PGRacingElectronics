@@ -13,12 +13,12 @@
 
 typedef enum {
 	CAN_BYTE_STATUS        = 0x00U,
-	CAN_DATA_BYTE_DATA_0   = 0x01U,
-	CAN_DATA_BYTE_DATA_1   = 0x02U,
-	CAN_DATA_BYTE_DATA_2   = 0x03U,
-	CAN_DATA_BYTE_DATA_3   = 0x04U,
-	CAN_DATA_BYTE_DATA_4   = 0x05U,
-	CAN_DATA_BYTE_DATA_5   = 0x06U,
+	CAN_DATA_BYTE_0        = 0x01U,
+	CAN_DATA_BYTE_1        = 0x02U,
+	CAN_DATA_BYTE_2        = 0x03U,
+	CAN_DATA_BYTE_3        = 0x04U,
+	CAN_DATA_BYTE_4        = 0x05U,
+	CAN_DATA_BYTE_5        = 0x06U,
 	CAN_DATA_BYTE_RESERVED = 0x07U, // CRC / TIMESTAMP
 	CAN_DATA_BYTES_COUNT   = 0x08U
 } CAN_MsgDataBytes;
@@ -85,5 +85,6 @@ void CAN_TxUpdateStatus(const CAN_TxMsgEnum txMsgId, const CAN_MsgStatus status)
 void CAN_RxCallback(void);
 CAN_RxMsgType* CAN_GetRxMsg(CAN_RxMsgEnum const rxMsgId);
 ErrorEnum CAN_ValidateRxMsg(CAN_RxMsgType *const rxMsg);
+uint8_t* CAN_GetRxNewData(CAN_RxMsgEnum const rxMsgId);
 
 #endif /* SRC_MIDDLEWARE_DRIVERS_INC_CAN_H_ */

@@ -51,7 +51,7 @@ typedef enum {
 ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim);
 void ClutchControl_Process(void);
 void ClutchControl_SetControl(const ClutchControlStates clutchControl);
-
+bool_t ClutchControl_IsEngaged(void);
 void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction);
 void ClutchControl_DisableSlip(void);
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_CLUTCHCONTROL_H_ */
