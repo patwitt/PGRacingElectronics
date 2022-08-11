@@ -8,21 +8,10 @@ extern "C" {
  
 #include "stm32f7xx.h"
  
-void leds_init();
+void WS2812_Init();
 
-void set_green(int num, bool light);
-void set_red(int num, bool light);
-void set_purple(int num, bool light);
-
-void set_all();
-void clear_all();
-void light_leds(int rpm, int mode);
-
-void set_leds(int rpm, int lowest);
-void set_one_green(int i);
-void set_one_red(int i);
-void set_one_purple(int i);
-void clear_one(int i);
+void setLed(uint8_t ledNumber, uint8_t red, uint8_t green, uint8_t blue);
+void updateLeds(int rpm, int mode);
 
 #ifdef __cplusplus
 }
