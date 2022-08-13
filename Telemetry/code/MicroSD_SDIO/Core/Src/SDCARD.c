@@ -16,6 +16,7 @@ extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
 extern GPSSensor gpsSensor;
 extern SensorStatus statusRegister;
+
 void sdDeInit(FATFS* fs)
 {
 	  if (f_mount(0,"",0) == FR_OK)
@@ -23,6 +24,7 @@ void sdDeInit(FATFS* fs)
 		  statusRegister.SDCARD = SENSOR_OFF;
 	  }
 }
+
 void sdInit(FATFS* fs)
 {
 	  if (f_mount(fs, "", 0) == FR_OK)
@@ -64,7 +66,7 @@ int createHeaders(FIL * file,char * path)
 	fres = f_write(file,"timestamp,",strlen("timestamp,"),&bytesWritten);
 	if(fres != FR_OK){
 		printf("Error while creating %s header",path);
-		return -1;
+		return SD_WRITE_ERROR;
 	}
 
 	if(strstr(path,"GYRO") != NULL){
@@ -86,17 +88,19 @@ int createHeaders(FIL * file,char * path)
 		fres = f_write(file, "ID,length\r\n", strlen("ID,length\r\n"), &bytesWritten);
 	}else if(strstr(path,"WHEEL")!= NULL){
 		fres = f_write(file, "ID,angle\r\n", strlen("ID,angle\r\n"), &bytesWritten);
+	}else if(strstr(path,"GPS")!= NULL){
+		fres = f_write(file, "LOG,utc,pos status,lat,lat dir,lon,lon dir,speed,,track,date,,mag var,var dir,mode ind,chs,ter\r\n", strlen("LOG,utc,pos status,lat,lat dir,lon,lon dir,speed,,track,date,,mag var,var dir,mode ind,chs,ter\r\n"), &bytesWritten);
 	}else
 	{
-		return -2;
+		return WRONG_PARAMETER;
 	}
 
 	if(fres != FR_OK){
 		printf("Error while creating %s header\n",path);
-		return -1;
+		return SD_WRITE_ERROR;
 	}
 	fres =  f_write(file, "\n", strlen("\n"), &bytesWritten);
-	return 1;
+	return SD_OK;
 
 }
 
@@ -108,14 +112,13 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 	if(fres == FR_OK)
 	{
-
 		fres = f_open(file, _TEXT(path), mode);
 		if(fres == FR_OK)
 		{
 			printf("Opening file: %s succeeded\n", path);
 		}else
 		{
-			return -1;
+			return SD_READ_ERROR;
 		}
 	}else if(fres == FR_NO_FILE)
 	{
@@ -123,7 +126,7 @@ int openFile(FIL * file, char * path, BYTE mode)
 		if(fres == FR_OK)
 		{
 			int res = createHeaders(file,path);
-			if(res != 1)
+			if(res != SD_OK)
 			{
 				return res;
 			}
@@ -132,11 +135,11 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 		}else
 		{
-			return -1;
+			return SD_READ_ERROR;
 		}
 	}
 	f_sync(file);
-	return 1;
+	return SD_OK;
 
 
 }
@@ -149,8 +152,6 @@ void gpsSaveData(GPSSensor * sens)
 	sprintf(dataBuffer, "%d,", HAL_GetTick());
 	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
-	sprintf(dataBuffer, "\r\n ");
-	status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	sens->dataReady = 0;
 	f_sync(sens->File);
 }
@@ -184,6 +185,7 @@ void gyroSaveData(GyroSensor* sens)
 	f_sync(sens->File);
 
 }
+
 void mlxSaveData(MLXSensor* mlx)
 {
 	char dataBuffer[255];
@@ -202,6 +204,7 @@ void mlxSaveData(MLXSensor* mlx)
 	f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(mlx->File);
 }
+
 void absSaveData(ABSSensor * sens)
 {
 	char dataBuffer[255];
@@ -210,9 +213,8 @@ void absSaveData(ABSSensor * sens)
 	sprintf(dataBuffer, "%d,%d,%f\r\n", HAL_GetTick(),sens->ID,calcData);
 	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(sens->File);
-
-
 }
+
 void adcSaveData(ADCSensor * sens)
 {
 	char dataBuffer[255];
@@ -222,6 +224,7 @@ void adcSaveData(ADCSensor * sens)
 	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(sens->File);
 }
+
 void sdMountFailHandler()
 {
 	printf("SDCard mount failed\n");

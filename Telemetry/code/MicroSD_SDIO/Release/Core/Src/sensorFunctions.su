@@ -1,0 +1,16 @@
+../Core/Src/sensorFunctions.c:32:5:calculateCSM	8	static
+../Core/Src/sensorFunctions.c:44:6:createCommand	264	static
+../Core/Src/sensorFunctions.c:77:6:GPSInit	32	static
+../Core/Src/sensorFunctions.c:107:6:adcInit	16	static
+../Core/Src/sensorFunctions.c:120:6:damperInit	24	static
+../Core/Src/sensorFunctions.c:142:6:steeringInit	24	static
+../Core/Src/sensorFunctions.c:153:6:ADC_SetActiveChannel	24	static
+../Core/Src/sensorFunctions.c:164:6:adcGetData	8	static
+../Core/Src/sensorFunctions.c:171:6:absInit	32	static
+../Core/Src/sensorFunctions.c:194:7:absCalculate	0	static
+../Core/Src/sensorFunctions.c:205:6:gyroInit	24	static
+../Core/Src/sensorFunctions.c:223:6:gyroConvertData	0	static
+../Core/Src/sensorFunctions.c:234:6:gyroGetData	32	static
+../Core/Src/sensorFunctions.c:248:5:mlxInit	1688	static
+../Core/Src/sensorFunctions.c:294:5:mlxGetData	1696	static
+../Core/Src/sensorFunctions.c:321:6:mlxPrintData	24	static

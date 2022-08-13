@@ -12,13 +12,14 @@
 #include "i2c.h"
 #include "sdmmc.h"
 #include "ff.h"
-
+#pragma once
 #define DEBUG 1 // Debug writing on/off
 
 
 
 
 typedef enum {
+
 	GPS = 0,
 	GYRO,
 	MLXLF,
@@ -28,7 +29,6 @@ typedef enum {
 	WHEEL,
 	DAMPERLF,
 	DAMPERRF,
-
 
 }SENSORS;
 
@@ -43,18 +43,24 @@ typedef enum{
 	SENSOR_ALL_CHECK_TIME = 10000,
 }SENSOR_STATUS;
 
-typedef struct SensorStatus{
-	unsigned int SDCARD : 3;
-	unsigned int GPS : 3;
-	unsigned int GYRO : 3;
-	unsigned int MLXLF : 3;
-	unsigned int MLXRF : 3;
-	unsigned int VSSLF : 3;
-	unsigned int VSSRF : 3;
-	unsigned int Steering : 3;
-	unsigned int DamperLF : 3;
-	unsigned int DamperRF : 3;
-	unsigned int TeleBack : 2;
+typedef struct {
+	union{
+		unsigned int status;
+		struct {
+		unsigned int SDCARD : 3;
+		unsigned int GPS : 3;
+		unsigned int GYRO : 3;
+		unsigned int MLXLF : 3;
+		unsigned int MLXRF : 3;
+		unsigned int VSSLF : 3;
+		unsigned int VSSRF : 3;
+		unsigned int Steering : 3;
+		unsigned int DamperLF : 3;
+		unsigned int DamperRF : 3;
+		unsigned int TeleBack : 2;
+		};
+	};
+
 	uint16_t checkTime;
 
 
@@ -102,10 +108,12 @@ void adcGetData(ADCSensor * sens);
 typedef struct GPS{
 	FIL *File; //GPS File to write
 	char path[20]; // path of file to write;
-	int dataReady; // flag to check if data is ready to read and write to file
+	uint8_t dataReady : 1; // flag to check if data is ready to read and write to file
+	uint8_t saveLock : 1; //Mutex to not copy data when saving to file
 	int saveRate;
 	uint8_t Rx_data;
 	char bufor[255];
+	uint8_t buforSize;
 	char data[255];
 	UART_HandleTypeDef * uart;
 }GPSSensor;

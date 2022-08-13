@@ -1,0 +1,11 @@
+../Core/Src/SDCARD.c:20:6:sdDeInit	8	static
+../Core/Src/SDCARD.c:28:6:sdInit	8	static
+../Core/Src/SDCARD.c:61:5:createHeaders	64	static
+../Core/Src/SDCARD.c:108:5:openFile	48	static
+../Core/Src/SDCARD.c:42:6:openAllFiles	8	static
+../Core/Src/SDCARD.c:146:6:gpsSaveData	280	static
+../Core/Src/SDCARD.c:158:6:gyroSaveData	296	static
+../Core/Src/SDCARD.c:189:6:mlxSaveData	288	static
+../Core/Src/SDCARD.c:208:6:absSaveData	288	static
+../Core/Src/SDCARD.c:218:6:adcSaveData	288	static
+../Core/Src/SDCARD.c:228:6:sdMountFailHandler	8	static

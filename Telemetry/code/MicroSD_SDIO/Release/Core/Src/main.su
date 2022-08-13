@@ -1,0 +1,13 @@
+../Core/Src/main.c:131:5:sendFileToUart.part.0	1032	static
+../Core/Src/main.c:93:5:statusToInt	0	static
+../Core/Src/main.c:108:6:printStatusRegister	16	static
+../Core/Src/main.c:131:5:sendFileToUart	16	static
+../Core/Src/main.c:155:5:sendAllFilesToUart	32	static
+../Core/Src/main.c:181:6:initSensors	16	static
+../Core/Src/main.c:195:6:HAL_TIM_PeriodElapsedCallback	8	static
+../Core/Src/main.c:244:5:getTime	16	static
+../Core/Src/main.c:253:6:HAL_TIM_IC_CaptureCallback	16	static
+../Core/Src/main.c:280:6:HAL_UART_RxCpltCallback	16	static
+../Core/Src/main.c:444:6:SystemClock_Config	232	static,ignoring_inline_asm
+../Core/Src/main.c:318:5:main	56	static
+../Core/Src/main.c:522:6:Error_Handler	0	static,ignoring_inline_asm

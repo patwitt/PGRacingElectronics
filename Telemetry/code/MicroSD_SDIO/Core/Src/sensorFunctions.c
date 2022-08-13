@@ -51,23 +51,22 @@ void createCommand(char * command)
 
 static void gpsReinitUart(GPSSensor * sens)
 {
-
   HAL_UART_Abort_IT(sens->uart);
   HAL_UART_DeInit(sens->uart);
   huart7.Instance = UART7;
-   huart7.Init.BaudRate = 115200;
-   huart7.Init.WordLength = UART_WORDLENGTH_8B;
-   huart7.Init.StopBits = UART_STOPBITS_1;
-   huart7.Init.Parity = UART_PARITY_NONE;
-   huart7.Init.Mode = UART_MODE_TX_RX;
-   huart7.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-   huart7.Init.OverSampling = UART_OVERSAMPLING_16;
-   huart7.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-   huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT;
-   huart7.AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
+  huart7.Init.BaudRate = 115200;
+  huart7.Init.WordLength = UART_WORDLENGTH_8B;
+  huart7.Init.StopBits = UART_STOPBITS_1;
+  huart7.Init.Parity = UART_PARITY_NONE;
+  huart7.Init.Mode = UART_MODE_TX_RX;
+  huart7.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart7.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart7.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT;
+  huart7.AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
   if (HAL_UART_Init(sens->uart) != HAL_OK)
   {
-    Error_Handler();
+	  Error_Handler();
   }
 
 
@@ -80,6 +79,8 @@ void GPSInit(GPSSensor * sens)
 	sens->File = (FIL*)malloc(sizeof(FIL));
 	sens->saveRate = GPS_ERROR_TIME;
 	sens->uart = &huart7;
+	sens->saveLock = 0;
+	sens->buforSize = 0;
 	RTC_DateTypeDef date;
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 	sprintf(sens->path,"GPS%02d%02d.csv",date.Date,date.Month);
@@ -311,7 +312,7 @@ int mlxGetData(MLXSensor* mlx){
 			printf("Error while getting frame 2: %d\n",status);
 		return status;
 	}
-	mlx->dataReady = 1;
+	//mlx->dataReady = 1;
 	MLX90640_CalculateTo(frame, &mlx->mlx90640, mlx->emissivity , mlx->ambientTemp, mlx->data);
 	return 0;
 }

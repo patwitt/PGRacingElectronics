@@ -37,9 +37,10 @@
 #include <stdarg.h>
 
 #include "basicFunctions.h"
-
+#include "handler.h"
 #include "SDCARD.h"
-
+#include "ecumaster.h"
+#pragma once
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -72,6 +73,8 @@ extern TIM_HandleTypeDef htim4;
 extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
 extern ADC_HandleTypeDef hadc3;
+extern EcumasterData EcuData;
+//extern sensorDataHandler dataHandler;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,12 +87,69 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 FATFS fileSystem;
 SensorStatus statusRegister;
-extern GyroSensor gyro;
-extern MLXSensor mlxLFSensor;
-extern MLXSensor mlxRFSensor;
-extern ABSSensor absLFSensor;
-extern ABSSensor absRFSensor;
-extern GPSSensor gpsSensor;
+
+sensorDataHandler _dataHandler[SENSORS_N] = {
+		{
+				.sensorType = GPS,
+				.sensorStruct = (void*)(&gpsSensor),
+				.getDataHandler = NULL,
+				.saveDataHandler = gpsSaveData,
+				.dataReady = 0,
+				.isOn = 1,
+		},
+		{
+				.sensorType = GYRO,
+				.sensorStruct = (void*)(&gyro),
+				.getDataHandler = gyroGetData,
+				.saveDataHandler = gyroSaveData,
+				.dataReady = 0,
+				.isOn = 1,
+		},
+		{
+				.sensorType = MLXLF,
+				.sensorStruct = (void*)(&mlxLFSensor),
+				.getDataHandler = mlxGetData,
+				.saveDataHandler = mlxSaveData,
+				.dataReady = 0,
+				.isOn = 1,
+		},
+		{
+				.sensorType = MLXRF,
+				.sensorStruct = (void*)(&mlxLFSensor),
+				.getDataHandler = mlxGetData,
+				.saveDataHandler = mlxSaveData,
+				.dataReady = 0,
+				.isOn = 1,
+		},
+		{
+				.sensorType = WHEEL,
+				.sensorStruct = (void*)(&sWheelSensor),
+				.getDataHandler = mlxGetData,
+				.saveDataHandler = mlxSaveData,
+				.dataReady = 0,
+				.isOn = 0,
+		},
+		{
+				.sensorType = DAMPERLF,
+				.sensorStruct = (void*)(NULL),
+				.getDataHandler = NULL,
+				.saveDataHandler = NULL,
+				.dataReady = 0,
+				.isOn = 0,
+		},
+		{
+				.sensorType = DAMPERRF,
+				.sensorStruct = (void*)(NULL),
+				.getDataHandler = NULL,
+				.saveDataHandler = NULL,
+				.dataReady = 0,
+				.isOn = 0,
+		},
+
+
+};
+
+
 
 int statusToInt()
 {	int fullRegister = statusRegister.TeleBack;
@@ -178,7 +238,7 @@ int sendAllFilesToUart()
 
 }
 
-ADCSensor sensord;
+ADCSensor sWheelSensor;
 void initSensors()
 {
 	  mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
@@ -186,7 +246,7 @@ void initSensors()
 	  gyroInit(&gyro);
 	  absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
 	  absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
-	  damperInit(&sensord, DAMPERRF, 0);
+	  steeringInit(&sWheelSensor);
 	  GPSInit(&gpsSensor);
 	  //res = res | mlxInit(&rightFWheelMLX);
 
@@ -204,7 +264,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		 sdDeInit();
 		 sdInit(&fileSystem);
 		 openAllFiles();
-	 }*/
+	 }
+	   	 */
 	 statusRegister.checkTime -= 25;
 	 if( statusRegister.checkTime <= 0)
 	 {
@@ -216,8 +277,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 mlxLFSensor.timeToNextRead -= 25;
 	 if(mlxLFSensor.timeToNextRead <= 0)
 	 {
-		 mlxLFSensor.dataReady = 1;
-		 mlxLFSensor.timeToNextRead = MLX_DATA_RATE;
+		mlxLFSensor.dataReady = 1;
+		mlxLFSensor.timeToNextRead = MLX_DATA_RATE;
+		HAL_UART_Transmit(&huart3, "\nKEEP ALIVE SIGNAL\n", strlen("\nKEEP ALIVE SIGNAL\n"), HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "), HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData), HAL_MAX_DELAY);
 	 }
 	 mlxRFSensor.timeToNextRead -= 25;
 	 if(mlxRFSensor.timeToNextRead <= 0)
@@ -262,15 +326,15 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         break;
     }
   }else if(htim == absRFSensor.timer) {
-        switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
-          case HAL_TIM_ACTIVE_CHANNEL_1:
-        	  absRFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-        	  absRFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
-        	  absRFSensor.dataReady = 1;
-            break;
-          default:
-            break;
-        }
+      switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
+        case HAL_TIM_ACTIVE_CHANNEL_1:
+        	absRFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+        	absRFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
+        	absRFSensor.dataReady = 1;
+          break;
+        default:
+          break;
+       }
   }
 }
 char received_command[255];
@@ -294,12 +358,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			}
 			received_command[0] = 0;
 		}*/
-		strncat(gpsSensor.bufor, &(gpsSensor.Rx_data), 1);
-		  if(gpsSensor.Rx_data == '\n')
+		gpsSensor.bufor[gpsSensor.buforSize] = gpsSensor.Rx_data;
+		gpsSensor.buforSize++;
+		  if(gpsSensor.Rx_data == '\n' && gpsSensor.saveLock == 0)
 		  {
-		    strcpy(gpsSensor.data,gpsSensor.bufor);
-		    gpsSensor.bufor[0]='\0';
-		    gpsSensor.dataReady = 1;
+				gpsSensor.dataReady =0;
+				strcpy(gpsSensor.data,gpsSensor.bufor);
+				gpsSensor.bufor[0]='\0';
+				gpsSensor.dataReady = 1;
 		  }
 		  HAL_UART_Receive_IT(gpsSensor.uart, &(gpsSensor.Rx_data), 1);
 	}
@@ -395,11 +461,13 @@ int main(void)
 
 	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
-		  if(gyro.dataReady)
+		  for(int i=0;i<SENSORS_N;i++)
+		  if( _dataHandler[GYRO].sensorStruct)
 		  {
-			  gyroGetData(&gyro);
+			  _dataHandler[GYRO].getDataHandler(_dataHandler[GPS].sensorStruct);
 			  gyroSaveData(&gyro);
 		  }
+		  /*
 		  if(mlxLFSensor.dataReady)
 		  {
 			  //mlxGetData(&mlxLFSensor);
@@ -419,11 +487,11 @@ int main(void)
 		  }
 		  if(gpsSensor.dataReady)
 		  {
-			  HAL_UART_Transmit(&huart3, (gpsSensor.data), strlen(gpsSensor.data), HAL_MAX_DELAY);
-			 gpsSaveData(&gpsSensor);
-		  }
+			 HAL_UART_Transmit(&huart3, (gpsSensor.data), strlen(gpsSensor.data), HAL_MAX_DELAY);
+			 handler[GPS].saveDataHandler(handler[GPS].sensorStruct);
+		  }*/
 	  }
-	  //adcGetData(&sensord);
+	  //adcGetData(&sWheelSensor);
 
 	}
 
@@ -459,11 +527,17 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 192;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV6;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLN = 216;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 5;
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Activate the Over-Drive mode
+  */
+  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -473,10 +547,10 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     Error_Handler();
   }
