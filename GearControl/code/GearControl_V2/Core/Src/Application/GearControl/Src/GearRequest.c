@@ -30,19 +30,115 @@ static const GearRequestEnum gearRequestLUT[MS_STATE_COUNT + 1U][MS_STATE_COUNT 
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
-static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request);
+static inline GearRequestEnum GearRequest_Gear1(const GearRequestEnum gear1Request);
+static inline GearRequestEnum GearRequest_Gears_N_to_5(const GearRequestEnum gearsNto5Request);
+static inline GearRequestEnum GearRequest_Gear6(const GearRequestEnum gear6Request);
 
+static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request);
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
 
 /**
+ * @brief Process requests on 1-st gear.
+ * 
+ * If the gear request is to shift up, then allow the shift to happen. 
+ * If the gear request is to shift down, then shift to neutral.
+ * 
+ * @param gear1Request The gear request from the MicroSwitch.
+ * 
+ * @return Gear request that will be processed.
+ */
+static inline GearRequestEnum GearRequest_Gear1(const GearRequestEnum gear1Request)
+{
+	GearRequestEnum ret = GEAR_REQUEST_NONE;
+
+	switch (gear1Request) {
+		case GEAR_REQUEST_SHIFT_UP:
+			/* Up-shift - allow shift 1 -> 2 */
+			ret = GEAR_REQUEST_SHIFT_UP;
+			break;
+
+		case GEAR_REQUEST_SHIFT_DOWN:
+			/* Down-shift - going to 1 -> N */
+			ret = GEAR_REQUEST_SHIFT_N;
+			break;
+
+		default:
+			/* Do nothing */
+			break;
+	}
+
+	return ret;
+}
+
+/**
+ * @brief Process requests on N, 1, 2, 3, 4 and 5 gears.
+ * 
+ * If the gear request is to shift up or down, then allow the shift to happen.
+ * 
+ * @param gearsNto5Request The gear request from the MicroSwitch.
+ * 
+ * @return Gear request that will be processed.
+ */
+static inline GearRequestEnum GearRequest_Gears_N_to_5(const GearRequestEnum gearsNto5Request)
+{
+	GearRequestEnum ret = GEAR_REQUEST_NONE;
+
+	switch (gearsNto5Request) {
+		case GEAR_REQUEST_SHIFT_UP:
+		case GEAR_REQUEST_SHIFT_DOWN:
+			/* Up-shift or Down-shift - allow going both ways */
+			ret = gearsNto5Request;
+			break;
+
+		default:
+			/* Do nothing */
+			break;
+	}
+
+	return ret;
+}
+
+/**
+ * @brief Process requests on 6-th gear.
+ * 
+ * If the gear request is to shift down, then allow the shift to happen.
+ * If the gear request is to shift up, then return invalid request.
+ *
+ * @param gear6Request The gear request from the MicroSwitch.
+ * 
+ * @return Gear request that will be processed.
+ */
+static inline GearRequestEnum GearRequest_Gear6(const GearRequestEnum gear6Request)
+{
+	GearRequestEnum ret = GEAR_REQUEST_NONE;
+
+	switch (gear6Request) {
+		case GEAR_REQUEST_SHIFT_UP:
+			/* Up-shift on gear 6 - invalid request */
+			ret = GEAR_REQUEST_INVALID;
+			break;
+
+		case GEAR_REQUEST_SHIFT_DOWN:
+			/* Down-shift - allow 6 -> 5 */
+			ret = GEAR_REQUEST_SHIFT_DOWN;
+			break;
+
+		default:
+			/* Do nothing */
+			break;
+	}
+
+	return ret;
+}
+
+/**
  * @brief Validation of the new gear request.
  * 
- * If the current gear is 1, then the only valid request is to shift up. If the current gear is 6,
- * then the only valid request is to shift up. If the current gear is N, then the only valid requests
- * are to shift up or down. If the current gear is 2, 3, 4, or 5, then the only valid requests are to
- * shift up or down
+ * If the current gear is 1, then the only valid request is to shift up or going to N.
+ * If the current gear is N, 2, 3, 4, or 5, then the valid requests are to shift up or down.
+ * If the current gear is 6, then the only valid request is to shift down.
  * 
  * @param request The requested gear change.
  * 
@@ -50,23 +146,15 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
  */
 static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request)
 {
+	/* Set request to NONE by default */
 	GearRequestEnum ret = GEAR_REQUEST_NONE;
+	/* Get current gear */
 	const GearStates currentGear = GearControl_GetGear();
 
 	switch (currentGear) {
 		case GEAR_1:
-			switch (request) {
-				case GEAR_REQUEST_SHIFT_UP:
-					ret = request;
-					break;
-
-				case GEAR_REQUEST_SHIFT_DOWN:
-					ret = GEAR_REQUEST_SHIFT_N;
-					break;
-
-				default:
-					break;
-			}
+			/* Process gear 1 request */
+			ret = GearRequest_Gear1(request);
 			break;
 
 		case GEAR_N:
@@ -74,32 +162,17 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 		case GEAR_3:
 		case GEAR_4:
 		case GEAR_5:
-			switch (request) {
-				case GEAR_REQUEST_SHIFT_UP:
-				case GEAR_REQUEST_SHIFT_DOWN:
-					ret = request;
-					break;
-				default:
-
-					break;
-			}
+			/* Process gears N to 5 request */
+			ret = GearRequest_Gears_N_to_5(request);
 			break;
 
 		case GEAR_6:
-			switch (request) {
-				case GEAR_REQUEST_SHIFT_UP:
-					ret = request;
-					break;
-
-				case GEAR_REQUEST_SHIFT_DOWN:
-					ret = GEAR_REQUEST_INVALID;
-					break;
-
-				default:
-					break;
-			}
+			/* Process gear 6 request */
+			ret = GearRequest_Gear6(request);
+			break;
 
 		default:
+			/* Do nothing */
 			break;
 	}
 
@@ -109,6 +182,7 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
 /**
  * @brief Initialization of the gear request module.
  * 

@@ -24,24 +24,24 @@
 
 //! Shift states - dynamic action of gear-shift
 typedef enum {
-	SHIFT_INIT                 = 0U,
-	SHIFT_IDLE                 = 1U,
-	SHIFT_PROCEDURE_UP         = 2U,
-	SHIFT_PROCEDURE_DOWN       = 3U,
-	SHIFT_EXEC                 = 4U,
-	SHIFT_VALIDATE             = 5U,
-	SHIFT_FAILURE_ELAPSED      = 6U,
-	SHIFT_SUCCESS              = 7U,
-	SHIFT_GEAR_UNKNOWN         = 8U,
-	SHIFT_GEARSENS_FAILURE     = 9U,
-	SHIFT_GEARSENS_IMPLAUSIBLE = 10U,
-	SHIFT_DISABLED             = 11U,
+	SHIFT_INIT                 = 0U,  //!< Shift initialization state
+	SHIFT_IDLE                 = 1U,  //!< Shift IDLE state - ready for new requests
+	SHIFT_PROCEDURE_UP         = 2U,  //!< Gear up-shift procedure state
+	SHIFT_PROCEDURE_DOWN       = 3U,  //!< Gear down-shift procedure state
+	SHIFT_EXEC                 = 4U,  //!< Execute gearshift state
+	SHIFT_VALIDATE             = 5U,  //!< Gear shift validation state - after gearshift execute
+	SHIFT_FAILURE_WDG_ELAPSED  = 6U,  //!< Gear watchdog elapsed state - gearshift exceeded 200ms
+	SHIFT_SUCCESS              = 7U,  //!< Gear shift successful state
+	SHIFT_GEAR_UNKNOWN         = 8U,  //!< Gear unknown state - sensor stuck between gears
+	SHIFT_GEARSENS_FAILURE     = 9U,  //!< Gear sensor failure state
+	SHIFT_GEARSENS_IMPLAUSIBLE = 10U, //!< Gear sensor is implausible state
+	SHIFT_DISABLED             = 11U, //!< Shifting is disabled state
 	SHIFT_STATES_COUNT         = 12U
 } GearShiftStates;
 
 //! Gear shift request
 typedef struct {
-	bool_t requested;               //!< New gearshift request flag
+	bool_t requested;               //!< New gear-shift request flag
 	uint32_t servoDeg;              //!< Servo degrees for gearshift
 	GearStates expectedGear;        //!< Expected next gear
 	GearShiftStates shiftProcedure; //!< Shifting procedure that will be executed after request is processed
@@ -59,7 +59,7 @@ typedef struct {
 	GearShiftStates shiftState;                     //!< Shift state - describes dynamic behavior
 	const ServoEntityEnum servo;                    //!< Servo Entity Type
 	const CANShiftStatus *const canShiftStatusMap;  //!< CAN Bus shift mapping - CAN signal <- shift status
-	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
+	const uint32_t gearSensDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
 	uint32_t delayTim;                              //!< Delay timer
 	uint32_t clutchTimeout;
@@ -73,7 +73,7 @@ static const CANShiftStatus shiftCanMap[SHIFT_STATES_COUNT + 1U] = {
 	[SHIFT_PROCEDURE_DOWN]       = CAN_SHIFT_EXEC,
 	[SHIFT_EXEC]                 = CAN_SHIFT_EXEC,
 	[SHIFT_VALIDATE]             = CAN_SHIFT_EXEC,
-	[SHIFT_FAILURE_ELAPSED]      = CAN_SHIFT_FAILURE_ELAPSED,
+	[SHIFT_FAILURE_WDG_ELAPSED]  = CAN_SHIFT_FAILURE_WDG_ELAPSED,
 	[SHIFT_SUCCESS]              = CAN_SHIFT_SUCCESS,
 	[SHIFT_GEAR_UNKNOWN]         = CAN_GEARSENS_UNKNOWN,
 	[SHIFT_GEARSENS_FAILURE]     = CAN_GEARSENS_FAILURE,
@@ -134,7 +134,7 @@ static __IO GearControlHandler gearCtrl = {
 				.shiftProcedure = SHIFT_IDLE
 		},
 		.debCnt = 0U,
-		.gearDebounceMs = 400U,
+		.gearSensDebounceMs = 400U,
 		.canShiftStatusMap = shiftCanMap,
 		.delayTim = 0U
 };
@@ -177,7 +177,7 @@ static void GearWatchdogElapsedTrigger(void)
 
 	/* Go back to default position and to failed gearshift state */
 	if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
-		gearCtrl.shiftState = SHIFT_FAILURE_ELAPSED;
+		gearCtrl.shiftState = SHIFT_FAILURE_WDG_ELAPSED;
 	} else {
 		gearCtrl.shiftState = GEAR_SERVO_FAILURE;
 	}
@@ -556,7 +556,7 @@ static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const 
 
 	const UtilsDebounceStatus debounce = Utils_Debounce(gearFailCondition,
 			                                            &gearCtrl.debCnt,
-											            gearCtrl.gearDebounceMs);
+											            gearCtrl.gearSensDebounceMs);
 
 	switch (debounce) {
 		case DEBOUNCE_CNT_ZERO:
@@ -657,7 +657,7 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 
 	switch (gearCtrl.shiftState) {
 		case SHIFT_INIT:
-		case SHIFT_FAILURE_ELAPSED:
+		case SHIFT_FAILURE_WDG_ELAPSED:
 			/* Nothing to do here, just go to IDLE */
 			gearCtrl.shiftState = SHIFT_IDLE;
 			break;
