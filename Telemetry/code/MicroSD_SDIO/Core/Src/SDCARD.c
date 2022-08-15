@@ -55,6 +55,7 @@ void openAllFiles()
 		if(statusRegister.DamperLF == SENSOR_OK){
 
 		}
+
 		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
 	}
 }

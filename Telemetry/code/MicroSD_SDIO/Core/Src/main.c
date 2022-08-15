@@ -74,7 +74,8 @@ extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
 extern ADC_HandleTypeDef hadc3;
 extern EcumasterData EcuData;
-//extern sensorDataHandler dataHandler;
+extern sensorDataHandler* _dataHandler;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,66 +89,6 @@ void SystemClock_Config(void);
 FATFS fileSystem;
 SensorStatus statusRegister;
 
-sensorDataHandler _dataHandler[SENSORS_N] = {
-		{
-				.sensorType = GPS,
-				.sensorStruct = (void*)(&gpsSensor),
-				.getDataHandler = NULL,
-				.saveDataHandler = gpsSaveData,
-				.dataReady = 0,
-				.isOn = 1,
-		},
-		{
-				.sensorType = GYRO,
-				.sensorStruct = (void*)(&gyro),
-				.getDataHandler = gyroGetData,
-				.saveDataHandler = gyroSaveData,
-				.dataReady = 0,
-				.isOn = 1,
-		},
-		{
-				.sensorType = MLXLF,
-				.sensorStruct = (void*)(&mlxLFSensor),
-				.getDataHandler = mlxGetData,
-				.saveDataHandler = mlxSaveData,
-				.dataReady = 0,
-				.isOn = 1,
-		},
-		{
-				.sensorType = MLXRF,
-				.sensorStruct = (void*)(&mlxLFSensor),
-				.getDataHandler = mlxGetData,
-				.saveDataHandler = mlxSaveData,
-				.dataReady = 0,
-				.isOn = 1,
-		},
-		{
-				.sensorType = WHEEL,
-				.sensorStruct = (void*)(&sWheelSensor),
-				.getDataHandler = mlxGetData,
-				.saveDataHandler = mlxSaveData,
-				.dataReady = 0,
-				.isOn = 0,
-		},
-		{
-				.sensorType = DAMPERLF,
-				.sensorStruct = (void*)(NULL),
-				.getDataHandler = NULL,
-				.saveDataHandler = NULL,
-				.dataReady = 0,
-				.isOn = 0,
-		},
-		{
-				.sensorType = DAMPERRF,
-				.sensorStruct = (void*)(NULL),
-				.getDataHandler = NULL,
-				.saveDataHandler = NULL,
-				.dataReady = 0,
-				.isOn = 0,
-		},
-
-
-};
 
 
 
@@ -241,12 +182,12 @@ int sendAllFilesToUart()
 ADCSensor sWheelSensor;
 void initSensors()
 {
-	  mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
+	  //mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
 	  //mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
 	  gyroInit(&gyro);
-	  absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
-	  absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
-	  steeringInit(&sWheelSensor);
+	  //absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
+	  //absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
+	  //steeringInit(&sWheelSensor);
 	  GPSInit(&gpsSensor);
 	  //res = res | mlxInit(&rightFWheelMLX);
 
@@ -279,9 +220,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 {
 		mlxLFSensor.dataReady = 1;
 		mlxLFSensor.timeToNextRead = MLX_DATA_RATE;
-		HAL_UART_Transmit(&huart3, "\nKEEP ALIVE SIGNAL\n", strlen("\nKEEP ALIVE SIGNAL\n"), HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart3, "KEEP ALIVE SIGNAL\n", strlen("KEEP ALIVE SIGNAL\n"), HAL_MAX_DELAY);
 		HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "), HAL_MAX_DELAY);
 		HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData), HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart3, "\r\n", strlen("\r\n"), HAL_MAX_DELAY);
 	 }
 	 mlxRFSensor.timeToNextRead -= 25;
 	 if(mlxRFSensor.timeToNextRead <= 0)
@@ -369,7 +311,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		  }
 		  HAL_UART_Receive_IT(gpsSensor.uart, &(gpsSensor.Rx_data), 1);
 	}
-	//HAL_UART_Receive_IT(&huart7, &bufor, 1);
 }
 
 /* USER CODE END 0 */
@@ -427,10 +368,11 @@ int main(void)
   RTC_TimeTypeDef time;
   RTC_DateTypeDef date;
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
-  HAL_TIM_Base_Start_IT(&htim14);
 
-
-
+  HAL_CAN_Start(&hcan2);
+  HAL_CAN_Start(&hcan1);
+  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
+  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
   HAL_Delay(200);
 
 
@@ -444,6 +386,9 @@ int main(void)
 
   openAllFiles();
 
+
+  //
+  HAL_TIM_Base_Start_IT(&htim14);
 
   HAL_TIM_Base_Start(&htim3);
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
@@ -462,34 +407,17 @@ int main(void)
 	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
 		  for(int i=0;i<SENSORS_N;i++)
-		  if( _dataHandler[GYRO].sensorStruct)
 		  {
-			  _dataHandler[GYRO].getDataHandler(_dataHandler[GPS].sensorStruct);
-			  gyroSaveData(&gyro);
+			  if( _dataHandler[i].isActive)
+			  {
+				  if(_dataHandler[i].getDataHandler != NULL)
+				  {
+					  _dataHandler[i].getDataHandler(_dataHandler[i].sensorStruct);
+				  }
+
+				  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
+			  }
 		  }
-		  /*
-		  if(mlxLFSensor.dataReady)
-		  {
-			  //mlxGetData(&mlxLFSensor);
-			  //mlxSaveData(&mlxLFSensor);
-		  }
-		  if(mlxRFSensor.dataReady)
-		  {
-			  //mlxGetData(&mlxRFSensor);
-			  //mlxSaveData(&mlxRFSensor);
-		  }
-		  if(absLFSensor.dataReady)
-		  {
-			  //absSaveData(&absLFSensor);
-		  }
-		  if(absRFSensor.dataReady){
-			  //absSaveData(&absRFSensor);
-		  }
-		  if(gpsSensor.dataReady)
-		  {
-			 HAL_UART_Transmit(&huart3, (gpsSensor.data), strlen(gpsSensor.data), HAL_MAX_DELAY);
-			 handler[GPS].saveDataHandler(handler[GPS].sensorStruct);
-		  }*/
 	  }
 	  //adcGetData(&sWheelSensor);
 

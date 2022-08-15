@@ -1,3 +1,8 @@
+connections/org.eclipse.remote.serial.core.connectionType/RFD/serial.baudRate=10
+connections/org.eclipse.remote.serial.core.connectionType/RFD/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/RFD/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/RFD/serial.portName=COM3
+connections/org.eclipse.remote.serial.core.connectionType/RFD/serial.stopBits=0
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.baudRate=11
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.byteSize=3
 connections/org.eclipse.remote.serial.core.connectionType/STM32F7/serial.parity=0

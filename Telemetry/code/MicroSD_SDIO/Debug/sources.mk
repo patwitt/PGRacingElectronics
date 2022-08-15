@@ -22,6 +22,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Src \
+Core/Src/sensors \
 Core/Startup \
 Drivers/STM32F7xx_HAL_Driver/Src \
 FATFS/App \

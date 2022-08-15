@@ -5,8 +5,10 @@
  *      Author: Patryk
  */
 #include "sensorFunctions.h"
-#pragma once
 #include "SDCARD.h"
+
+#pragma once
+
 extern GyroSensor gyro;
 extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
@@ -23,9 +25,11 @@ typedef struct
   getDataHander getDataHandler;
   getDataHander saveDataHandler;
   uint8_t dataReady : 1 ;
-  uint8_t isOn : 1;
+  uint8_t isActive : 1;
 
 } sensorDataHandler;
 
 #define SENSORS_N 9
+
+
 
