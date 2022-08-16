@@ -52,7 +52,7 @@ typedef enum {
 } CAN_RxMsgsStdIdEnum;
 
 typedef enum {
-	CAN_TX_MSG_STDID_GEARINFO = 0x00U,
+	CAN_TX_MSG_STDID_GEARINFO = 0x300U,
 	CAN_TX_MSG_STDID_COUNT   = 0x01U
 } CAN_TxMsgStdIdEnum;
 

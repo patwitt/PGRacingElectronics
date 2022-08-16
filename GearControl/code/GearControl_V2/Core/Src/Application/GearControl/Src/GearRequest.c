@@ -88,11 +88,11 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 		case GEAR_6:
 			switch (request) {
 				case GEAR_REQUEST_SHIFT_UP:
-					ret = request;
+					ret = GEAR_REQUEST_INVALID;
 					break;
 
 				case GEAR_REQUEST_SHIFT_DOWN:
-					ret = GEAR_REQUEST_INVALID;
+					ret = request;
 					break;
 
 				default:

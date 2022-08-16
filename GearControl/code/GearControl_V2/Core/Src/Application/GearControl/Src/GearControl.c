@@ -268,7 +268,9 @@ static inline GearStates GearCtrlState_Init(void)
 static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const request)
 {
 	/* Execute shift and go to validation step */
-	GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	// TODO
+	//GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	GearShiftStates nextShiftState = SHIFT_IDLE;
 
 	if ((NULL_CHECK1(request)) && (request->requested)) {
 		/* Set servo pos and go to DISABLED if error occurs */
@@ -481,7 +483,9 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
  */
 static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
 {
-	GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	// TODO
+	//GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	GearShiftStates nextShiftState = SHIFT_IDLE;
 	const GearStates gearSens = (GearStates)GearSensor_GetState();
 
 	if (gearSens == request->expectedGear) {

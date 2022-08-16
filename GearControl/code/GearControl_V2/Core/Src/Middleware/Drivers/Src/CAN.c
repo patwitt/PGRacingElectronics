@@ -360,7 +360,7 @@ void CAN_RxCallback(void)
  */
 void CAN_TxCallback(void)
 {
-	static uint32_t TxMailbox = 0U;
+	static uint32_t TxMailbox = 3U;
 
 	for (uint32_t canMsgId = 0U; canMsgId < CAN_TX_MSG_COUNT; ++canMsgId) {
 		CAN_TxMsgType *const txMsg = &canHandler_.txMsg[canMsgId];

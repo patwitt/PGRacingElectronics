@@ -13,7 +13,7 @@
 #define CONFIG_ENABLE_SCHEDULER_WATCHDOG (FEATURE_DISABLE) //!< Enable Scheduler Watchdog
 #define CONFIG_ENABLE_DBW                (FEATURE_ENABLED) //!< Enable Drive-By-Wire
 #define CONFIG_ENABLE_CLUTCH             (FEATURE_ENABLED) //!< Enable Clutch operations
-#define CONFIG_ENABLE_CAN                (FEATURE_DISABLE) //!< Enable CAN Bus
+#define CONFIG_ENABLE_CAN                (FEATURE_ENABLED) //!< Enable CAN Bus
 /* !Gear shifting ENABLE/DISABLE feature configs! */
 #define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_ENABLED) //!< Enable Clutch Slip on gearshifts
