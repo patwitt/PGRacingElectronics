@@ -15,17 +15,27 @@ void alertBar::setState(EBarState inState)
 {
     switch (inState)
     {
+    case EBarState::Blank:
+    	bgBox.setColor(colors::blue);
+    	setText("");
+    	break;
     case EBarState::Info:
-        bgBox.setColor(dataColors[0]);
+        bgBox.setColor(colors::green);
         break;
     case EBarState::Warning:
-        bgBox.setColor(dataColors[1]);
+        bgBox.setColor(colors::orange);
         break;
     case EBarState::Fault:
-        bgBox.setColor(dataColors[2]);
+        bgBox.setColor(colors::red);
         break;
+    case EBarState::Critical1:
+    	bgBox.setColor(colors::red);
+    	break;
+    case EBarState::Critical2:
+    	bgBox.setColor(colors::yellow);
+    	break;
     case EBarState::News:
-        bgBox.setColor(dataColors[3]);
+        bgBox.setColor(colors::blue);
         break;
 
     default:

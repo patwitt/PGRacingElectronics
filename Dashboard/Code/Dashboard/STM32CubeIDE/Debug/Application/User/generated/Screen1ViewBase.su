@@ -68,13 +68,13 @@ Box.hpp:29:7:touchgfx::Box::~Box()	16	static
 Box.hpp:29:7:virtual touchgfx::Box::~Box()	16	static
 alertBarBase.hpp:16:13:alertBarBase::~alertBarBase()	16	static
 alertBarBase.hpp:16:13:virtual alertBarBase::~alertBarBase()	16	static
-alertBar.hpp:20:13:alertBar::~alertBar()	16	static
-alertBar.hpp:20:13:virtual alertBar::~alertBar()	16	static
+alertBar.hpp:23:13:alertBar::~alertBar()	16	static
+alertBar.hpp:23:13:virtual alertBar::~alertBar()	16	static
 View.hpp:36:7:touchgfx::View<Screen1Presenter>::~View()	16	static
 View.hpp:36:7:virtual touchgfx::View<Screen1Presenter>::~View()	16	static
 Screen1ViewBase.hpp:21:13:Screen1ViewBase::~Screen1ViewBase()	16	static
 Screen1ViewBase.hpp:21:13:virtual Screen1ViewBase::~Screen1ViewBase()	16	static
-Screen1ViewBase.cpp:8:1:Screen1ViewBase::Screen1ViewBase()	280	static
+Screen1ViewBase.cpp:8:1:Screen1ViewBase::Screen1ViewBase()	272	static
 Screen1ViewBase.cpp:91:6:virtual void Screen1ViewBase::setupScreen()	16	static
 View.hpp:39:5:touchgfx::View<T>::View() [with T = Screen1Presenter]	16	static
 Line.hpp:95:10:void touchgfx::Line::setStart(T, T) [with T = int]	48	static

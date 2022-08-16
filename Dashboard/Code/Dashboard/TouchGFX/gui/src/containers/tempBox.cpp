@@ -6,7 +6,7 @@ tempBox::tempBox()
     for(int i=0; i < 220; i++)
     {
         lines[i].setPosition(0,0,220,60);
-        linesPainter[i].setColor(touchgfx::Color::getColorFromRGB(255 - i , i, i % 40));
+        linesPainter[i].setColor(touchgfx::Color::getColorFromRGB(10 ,255, 0));
         lines[i].setPainter(linesPainter[i]);
         lines[i].setStart(i,0);
         lines[i].setEnd(i,60);
@@ -20,12 +20,12 @@ tempBox::tempBox()
 void tempBox::initialize()
 {
     tempBoxBase::initialize();
-    tempValues[0] = 14;
-    tempValues[1] = 20;
-    tempValues[2] = 120;
-    tempValues[3] = 30;
-    tempValues[4] = 180;
-    tempValues[5]= 11;
+    tempValues[0] = 25;
+    tempValues[1] = 25;
+    tempValues[2] = 25;
+    tempValues[3] = 25;
+    tempValues[4] = 25;
+    tempValues[5]= 25;
     numberOfValues = 5;
 }
 

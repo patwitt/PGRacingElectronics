@@ -128,7 +128,7 @@
             "Name": "battArea",
             "X": 14,
             "Y": 82,
-            "Width": 259,
+            "Width": 240,
             "Height": 49,
             "Visible": true,
             "LockPosition": false,
@@ -150,15 +150,14 @@
             "AutoSize": false,
             "LineSpacing": 0,
             "Wildcard1": {
-              "TextId": "SingleUseId12",
               "UseBuffer": true,
               "BufferSize": 10
             },
-            "Name": "tcsArea",
-            "X": 652,
+            "Name": "oilPressArea",
+            "X": 544,
             "Y": 82,
-            "Width": 138,
-            "Height": 49,
+            "Width": 240,
+            "Height": 117,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -492,10 +491,6 @@
       },
       {
         "TextEntryId": "SingleUseId11",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId12",
         "IsResource": false
       },
       {

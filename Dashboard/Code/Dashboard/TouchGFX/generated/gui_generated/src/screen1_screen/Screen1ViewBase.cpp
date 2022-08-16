@@ -39,19 +39,19 @@ Screen1ViewBase::Screen1ViewBase()
     rpmArea.setWildcard(rpmAreaBuffer);
     rpmArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID2));
 
-    battArea.setPosition(14, 82, 259, 49);
+    battArea.setPosition(14, 82, 240, 49);
     battArea.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     battArea.setLinespacing(0);
     Unicode::snprintf(battAreaBuffer, BATTAREA_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID9).getText());
     battArea.setWildcard(battAreaBuffer);
     battArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID3));
 
-    tcsArea.setPosition(652, 82, 138, 49);
-    tcsArea.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    tcsArea.setLinespacing(0);
-    Unicode::snprintf(tcsAreaBuffer, TCSAREA_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID12).getText());
-    tcsArea.setWildcard(tcsAreaBuffer);
-    tcsArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID4));
+    oilPressArea.setPosition(544, 82, 240, 117);
+    oilPressArea.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    oilPressArea.setLinespacing(0);
+    oilPressAreaBuffer[0] = 0;
+    oilPressArea.setWildcard(oilPressAreaBuffer);
+    oilPressArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID4));
 
     tempBox1.setXY(11, 248);
 
@@ -78,7 +78,7 @@ Screen1ViewBase::Screen1ViewBase()
     add(line1);
     add(rpmArea);
     add(battArea);
-    add(tcsArea);
+    add(oilPressArea);
     add(tempBox1);
     add(tempBox1_1);
     add(tempBox1_2);

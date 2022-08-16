@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Application/User/Core/WS2812_driver.c \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Core/Src/adc.c \
+../Application/User/Core/alerts.c \
 ../Application/User/Core/at25sf128a.c \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Core/Src/can.c \
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/Core/Src/crc.c \
@@ -28,6 +29,7 @@ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard
 OBJS += \
 ./Application/User/Core/WS2812_driver.o \
 ./Application/User/Core/adc.o \
+./Application/User/Core/alerts.o \
 ./Application/User/Core/at25sf128a.o \
 ./Application/User/Core/can.o \
 ./Application/User/Core/crc.o \
@@ -49,6 +51,7 @@ OBJS += \
 C_DEPS += \
 ./Application/User/Core/WS2812_driver.d \
 ./Application/User/Core/adc.d \
+./Application/User/Core/alerts.d \
 ./Application/User/Core/at25sf128a.d \
 ./Application/User/Core/can.d \
 ./Application/User/Core/crc.d \
@@ -105,7 +108,7 @@ Application/User/Core/tim.o: F:/Marcin/Documents/Studia/PGRacing/PGRacingElectro
 clean: clean-Application-2f-User-2f-Core
 
 clean-Application-2f-User-2f-Core:
-	-$(RM) ./Application/User/Core/WS2812_driver.d ./Application/User/Core/WS2812_driver.o ./Application/User/Core/adc.d ./Application/User/Core/adc.o ./Application/User/Core/at25sf128a.d ./Application/User/Core/at25sf128a.o ./Application/User/Core/can.d ./Application/User/Core/can.o ./Application/User/Core/crc.d ./Application/User/Core/crc.o ./Application/User/Core/dma.d ./Application/User/Core/dma.o ./Application/User/Core/dma2d.d ./Application/User/Core/dma2d.o ./Application/User/Core/fmc.d ./Application/User/Core/fmc.o ./Application/User/Core/freertos.d ./Application/User/Core/freertos.o ./Application/User/Core/gpio.d ./Application/User/Core/gpio.o ./Application/User/Core/ltdc.d ./Application/User/Core/ltdc.o ./Application/User/Core/main.d ./Application/User/Core/main.o ./Application/User/Core/quadspi.d ./Application/User/Core/quadspi.o ./Application/User/Core/stm32f7xx_hal_msp.d ./Application/User/Core/stm32f7xx_hal_msp.o ./Application/User/Core/stm32f7xx_hal_timebase_tim.d ./Application/User/Core/stm32f7xx_hal_timebase_tim.o ./Application/User/Core/stm32f7xx_it.d ./Application/User/Core/stm32f7xx_it.o ./Application/User/Core/syscalls.d ./Application/User/Core/syscalls.o ./Application/User/Core/sysmem.d ./Application/User/Core/sysmem.o ./Application/User/Core/tim.d ./Application/User/Core/tim.o
+	-$(RM) ./Application/User/Core/WS2812_driver.d ./Application/User/Core/WS2812_driver.o ./Application/User/Core/adc.d ./Application/User/Core/adc.o ./Application/User/Core/alerts.d ./Application/User/Core/alerts.o ./Application/User/Core/at25sf128a.d ./Application/User/Core/at25sf128a.o ./Application/User/Core/can.d ./Application/User/Core/can.o ./Application/User/Core/crc.d ./Application/User/Core/crc.o ./Application/User/Core/dma.d ./Application/User/Core/dma.o ./Application/User/Core/dma2d.d ./Application/User/Core/dma2d.o ./Application/User/Core/fmc.d ./Application/User/Core/fmc.o ./Application/User/Core/freertos.d ./Application/User/Core/freertos.o ./Application/User/Core/gpio.d ./Application/User/Core/gpio.o ./Application/User/Core/ltdc.d ./Application/User/Core/ltdc.o ./Application/User/Core/main.d ./Application/User/Core/main.o ./Application/User/Core/quadspi.d ./Application/User/Core/quadspi.o ./Application/User/Core/stm32f7xx_hal_msp.d ./Application/User/Core/stm32f7xx_hal_msp.o ./Application/User/Core/stm32f7xx_hal_timebase_tim.d ./Application/User/Core/stm32f7xx_hal_timebase_tim.o ./Application/User/Core/stm32f7xx_it.d ./Application/User/Core/stm32f7xx_it.o ./Application/User/Core/syscalls.d ./Application/User/Core/syscalls.o ./Application/User/Core/sysmem.d ./Application/User/Core/sysmem.o ./Application/User/Core/tim.d ./Application/User/Core/tim.o
 
 .PHONY: clean-Application-2f-User-2f-Core
 

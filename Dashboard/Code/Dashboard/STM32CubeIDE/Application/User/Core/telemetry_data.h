@@ -17,7 +17,7 @@ typedef struct {
  uint8_t gear;
 }telemetryData_t;
 
-telemetryData_t telemetryData = {};
+telemetryData_t telemetryData;
 
 #ifdef __cplusplus
 }

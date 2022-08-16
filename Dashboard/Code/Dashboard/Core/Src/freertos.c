@@ -45,7 +45,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define PWM_CHANGE 5
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -59,24 +59,32 @@
 /* USER CODE END Variables */
 /* Definitions for hardwareTASK */
 osThreadId_t hardwareTASKHandle;
-const osThreadAttr_t hardwareTASK_attributes =
-{ .name = "hardwareTASK", .stack_size = 512 * 4, .priority =
-		(osPriority_t) osPriorityAboveNormal, };
+const osThreadAttr_t hardwareTASK_attributes = {
+  .name = "hardwareTASK",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityAboveNormal,
+};
 /* Definitions for touchGFXTask */
 osThreadId_t touchGFXTaskHandle;
-const osThreadAttr_t touchGFXTask_attributes =
-{ .name = "touchGFXTask", .stack_size = 32768 * 4, .priority =
-		(osPriority_t) osPriorityNormal, };
+const osThreadAttr_t touchGFXTask_attributes = {
+  .name = "touchGFXTask",
+  .stack_size = 32768 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for infoLed */
 osThreadId_t infoLedHandle;
-const osThreadAttr_t infoLed_attributes =
-{ .name = "infoLed", .stack_size = 128 * 4, .priority =
-		(osPriority_t) osPriorityLow, };
+const osThreadAttr_t infoLed_attributes = {
+  .name = "infoLed",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for displayBackligh */
 osThreadId_t displayBacklighHandle;
-const osThreadAttr_t displayBackligh_attributes =
-{ .name = "displayBackligh", .stack_size = 128 * 4, .priority =
-		(osPriority_t) osPriorityLow, };
+const osThreadAttr_t displayBackligh_attributes = {
+  .name = "displayBackligh",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -91,55 +99,51 @@ void StartDisplayBacklight(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
-void MX_FREERTOS_Init(void)
-{
-	/* USER CODE BEGIN Init */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
+void MX_FREERTOS_Init(void) {
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* creation of hardwareTASK */
-	hardwareTASKHandle = osThreadNew(StartHardwareTask, NULL,
-			&hardwareTASK_attributes);
+  /* Create the thread(s) */
+  /* creation of hardwareTASK */
+  hardwareTASKHandle = osThreadNew(StartHardwareTask, NULL, &hardwareTASK_attributes);
 
-	/* creation of touchGFXTask */
-	touchGFXTaskHandle = osThreadNew(StartTouchGFXTask, NULL,
-			&touchGFXTask_attributes);
+  /* creation of touchGFXTask */
+  touchGFXTaskHandle = osThreadNew(StartTouchGFXTask, NULL, &touchGFXTask_attributes);
 
-	/* creation of infoLed */
-	infoLedHandle = osThreadNew(StartInfoLed, NULL, &infoLed_attributes);
+  /* creation of infoLed */
+  infoLedHandle = osThreadNew(StartInfoLed, NULL, &infoLed_attributes);
 
-	/* creation of displayBackligh */
-	displayBacklighHandle = osThreadNew(StartDisplayBacklight, NULL,
-			&displayBackligh_attributes);
+  /* creation of displayBackligh */
+  displayBacklighHandle = osThreadNew(StartDisplayBacklight, NULL, &displayBackligh_attributes);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
-	/* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
 	/* add events, ... */
-	/* USER CODE END RTOS_EVENTS */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -152,9 +156,9 @@ void MX_FREERTOS_Init(void)
 /* USER CODE END Header_StartHardwareTask */
 void StartHardwareTask(void *argument)
 {
-	/* USER CODE BEGIN StartHardwareTask */
+  /* USER CODE BEGIN StartHardwareTask */
 	WS2812_Init();
-
+	ComputeOptimalPoints();
 	HAL_CAN_Start(&hcan2);
 	HAL_CAN_Start(&hcan1);
 
@@ -162,16 +166,28 @@ void StartHardwareTask(void *argument)
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 
 	uint8_t ledMode = displaySetup.ledBarMode;
+	telemetryData.gear =2;
 	/* Infinite loop */
 	for (;;)
 	{
 		ledMode = telemetryData.gear == 0 ? 1 : displaySetup.ledBarMode;
-
+		//EcuData.rpm += 100;
+		//if (EcuData.rpm >12000)
+		//	EcuData.rpm = 5000;
 		updateLeds(EcuData.rpm, ledMode);
+
+		if(telemetryData.gear == 0)
+		{
+			HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, SET);
+		}
+		else
+		{
+			HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, RESET);
+		}
 
 		osDelay(100);
 	}
-	/* USER CODE END StartHardwareTask */
+  /* USER CODE END StartHardwareTask */
 }
 
 /* USER CODE BEGIN Header_StartTouchGFXTask */
@@ -183,14 +199,14 @@ void StartHardwareTask(void *argument)
 /* USER CODE END Header_StartTouchGFXTask */
 void StartTouchGFXTask(void *argument)
 {
-	/* USER CODE BEGIN StartTouchGFXTask */
+  /* USER CODE BEGIN StartTouchGFXTask */
 	MX_TouchGFX_Process();
 	/* Infinite loop */
 	for (;;)
 	{
 		osDelay(1);
 	}
-	/* USER CODE END StartTouchGFXTask */
+  /* USER CODE END StartTouchGFXTask */
 }
 
 /* USER CODE BEGIN Header_StartInfoLed */
@@ -202,7 +218,7 @@ void StartTouchGFXTask(void *argument)
 /* USER CODE END Header_StartInfoLed */
 void StartInfoLed(void *argument)
 {
-	/* USER CODE BEGIN StartInfoLed */
+  /* USER CODE BEGIN StartInfoLed */
 	/* Infinite loop */
 	for (;;)
 	{
@@ -210,7 +226,7 @@ void StartInfoLed(void *argument)
 		HAL_GPIO_TogglePin(SIGNAL_LED_GPIO_Port, SIGNAL_LED_Pin);
 		// HAL_IWDG_Refresh(&hiwdg);
 	}
-	/* USER CODE END StartInfoLed */
+  /* USER CODE END StartInfoLed */
 }
 
 /* USER CODE BEGIN Header_StartDisplayBacklight */
@@ -222,7 +238,7 @@ void StartInfoLed(void *argument)
 /* USER CODE END Header_StartDisplayBacklight */
 void StartDisplayBacklight(void *argument)
 {
-	/* USER CODE BEGIN StartDisplayBacklight */
+  /* USER CODE BEGIN StartDisplayBacklight */
 
 	// current set point in mA
 	uint8_t setPoint = displaySetup.brightness * 1.5f;
@@ -245,27 +261,27 @@ void StartDisplayBacklight(void *argument)
 
 		PWM_PulseChange = (int8_t) round((setPoint - current) / 10.0f);
 		delay = 0;
-		if (PWM_PulseChange > 15)
+		if (PWM_PulseChange > 10)
 		{
 			while (PWM_PulseChange > 0)
 			{
-				PWM_Pulse += fmin(fmin(PWM_PulseChange, 10),215 - PWM_Pulse);
-				PWM_PulseChange -= fmin(PWM_PulseChange, 10);
+				PWM_Pulse += fmin(fmin(PWM_PulseChange, PWM_CHANGE),215 - PWM_Pulse);
+				PWM_PulseChange -= fmin(PWM_PulseChange, PWM_CHANGE);
 				__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, PWM_Pulse);
-				osDelay(10);
-				delay += 10;
+				osDelay(5);
+				delay += 5;
 			}
 
 		}
-		else if (PWM_PulseChange < -15)
+		else if (PWM_PulseChange < -10)
 		{
 			while (PWM_PulseChange < 0)
 			{
-				PWM_Pulse -= fmin(fmin(PWM_PulseChange, 10), PWM_Pulse);
-				PWM_PulseChange -= fmax(PWM_PulseChange, -10);
+				PWM_Pulse -= fmin(fmin(PWM_PulseChange, PWM_CHANGE), PWM_Pulse);
+				PWM_PulseChange -= fmax(PWM_PulseChange, -PWM_CHANGE);
 				__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, PWM_Pulse);
-				osDelay(10);
-				delay += 10;
+				osDelay(5);
+				delay += 5;
 			}
 		}
 		else
@@ -275,7 +291,7 @@ void StartDisplayBacklight(void *argument)
 		}
 	}
 	delay = fmax(delay, 100);
-	/* USER CODE END StartDisplayBacklight */
+  /* USER CODE END StartDisplayBacklight */
 }
 
 /* Private application code --------------------------------------------------*/

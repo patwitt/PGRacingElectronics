@@ -21,7 +21,7 @@ typedef struct EcumasterData_t{
 	uint16_t speed;						// Vehicle speed
 	uint8_t baro;						// Barometric pressure
 	uint8_t oilTemp;					// Oil temperature
-	uint8_t oilPress;					// Oil pressure
+	float oilPress;					// Oil pressure
 	int16_t clt;						// Engine coolant temperature
 	int8_t ignAngle;					// Ignition advance
 	uint8_t ignDwell;					// Ignition coil dwell
@@ -31,7 +31,7 @@ typedef struct EcumasterData_t{
 	uint16_t egt2;						// Exhaust gas temperature #2
 	uint8_t gear;						//
 	int8_t ecuTemp;						// ECU internal temperature
-	uint16_t batt;						// Battery voltage
+	float batt;						// Battery voltage
 	uint16_t errflag;					//
 	uint8_t flags1;						//
 	uint8_t DBWPosition;				//
@@ -55,6 +55,8 @@ enum EcumasterFrame{
 };
 
 EcumasterData EcuData;
+
+void validateData();
 
 #ifdef __cplusplus
 }

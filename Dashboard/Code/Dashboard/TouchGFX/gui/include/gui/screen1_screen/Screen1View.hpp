@@ -20,6 +20,7 @@ public:
     void setBatt(float inBatt);
     void setClt(int16_t inClt);
     void setGear(int inGear);
+    void setOilPress(float inOilPress);
 
 protected:
     int tickCounter = 0;

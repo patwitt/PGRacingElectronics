@@ -21,6 +21,8 @@ struct Typography
     static const touchgfx::FontId TYPOGRAPHY_02 = 5;
     static const touchgfx::FontId TYPOGRAPHY_03 = 6;
     static const touchgfx::FontId TYPOGRAPHY_04 = 7;
+    static const touchgfx::FontId TYPOGRAPHY_05 = 8;
+    static const touchgfx::FontId TYPOGRAPHY_06 = 9;
 };
 
 struct TypographyFontIndex
@@ -30,9 +32,11 @@ struct TypographyFontIndex
     static const touchgfx::FontId SMALL = 2;         // verdana_10_4bpp
     static const touchgfx::FontId TYPOGRAPHY_00 = 0; // verdana_20_4bpp
     static const touchgfx::FontId TYPOGRAPHY_01 = 3; // swisop3_300_4bpp
-    static const touchgfx::FontId TYPOGRAPHY_02 = 4; // swisop3_40_4bpp
-    static const touchgfx::FontId TYPOGRAPHY_03 = 5; // swisop3_60_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_02 = 4; // JetBrainsMono_Regular_40_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_03 = 5; // JetBrainsMono_Regular_60_4bpp
     static const touchgfx::FontId TYPOGRAPHY_04 = 6; // swisop3_50_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_05 = 5; // JetBrainsMono_Regular_60_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_06 = 0; // verdana_20_4bpp
     static const uint16_t NUMBER_OF_FONTS = 7;
 };
 

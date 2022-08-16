@@ -7,10 +7,13 @@
 
 enum class EBarState : int
 {
-    Info = 0,
-    Warning = 1, 
-    Fault = 2,
-    News = 3
+	Blank,
+    Info,
+    Warning,
+    Fault,
+	Critical1,
+	Critical2,
+    News
 };
 
 class alertBar : public alertBarBase

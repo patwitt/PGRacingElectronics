@@ -1,5 +1,6 @@
-WS2812_driver.c:17:6:HAL_TIM_PWM_PulseFinishedCallback	16	static
-WS2812_driver.c:22:6:WS2812_Init	16	static
-WS2812_driver.c:33:6:setLed	32	static
-WS2812_driver.c:46:6:updateLeds	40	static
-WS2812_driver.c:95:6:calculateOptimalShiftPoints	4	static
+WS2812_driver.c:31:6:HAL_TIM_PWM_PulseFinishedCallback	16	static
+WS2812_driver.c:36:6:WS2812_Init	16	static
+WS2812_driver.c:47:6:setLed	32	static
+WS2812_driver.c:60:6:updateLeds	40	static
+WS2812_driver.c:113:7:Lerp	24	static
+WS2812_driver.c:117:6:ComputeOptimalPoints	56	static

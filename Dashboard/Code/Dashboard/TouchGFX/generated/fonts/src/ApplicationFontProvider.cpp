@@ -25,14 +25,20 @@ touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId typography)
         // swisop3_300_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[3]);
     case Typography::TYPOGRAPHY_02:
-        // swisop3_40_4bpp
+        // JetBrainsMono_Regular_40_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[4]);
     case Typography::TYPOGRAPHY_03:
-        // swisop3_60_4bpp
+        // JetBrainsMono_Regular_60_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[5]);
     case Typography::TYPOGRAPHY_04:
         // swisop3_50_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[6]);
+    case Typography::TYPOGRAPHY_05:
+        // JetBrainsMono_Regular_60_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[5]);
+    case Typography::TYPOGRAPHY_06:
+        // verdana_20_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[0]);
     default:
         return 0;
     }

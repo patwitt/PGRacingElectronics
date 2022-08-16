@@ -9,8 +9,8 @@ extern touchgfx::GeneratedFont& getFont_verdana_20_4bpp();
 extern touchgfx::GeneratedFont& getFont_verdana_40_4bpp();
 extern touchgfx::GeneratedFont& getFont_verdana_10_4bpp();
 extern touchgfx::GeneratedFont& getFont_swisop3_300_4bpp();
-extern touchgfx::GeneratedFont& getFont_swisop3_40_4bpp();
-extern touchgfx::GeneratedFont& getFont_swisop3_60_4bpp();
+extern touchgfx::GeneratedFont& getFont_JetBrainsMono_Regular_40_4bpp();
+extern touchgfx::GeneratedFont& getFont_JetBrainsMono_Regular_60_4bpp();
 extern touchgfx::GeneratedFont& getFont_swisop3_50_4bpp();
 
 const touchgfx::Font* touchgfx_fonts[] = {
@@ -18,8 +18,8 @@ const touchgfx::Font* touchgfx_fonts[] = {
     &(getFont_verdana_40_4bpp()),
     &(getFont_verdana_10_4bpp()),
     &(getFont_swisop3_300_4bpp()),
-    &(getFont_swisop3_40_4bpp()),
-    &(getFont_swisop3_60_4bpp()),
+    &(getFont_JetBrainsMono_Regular_40_4bpp()),
+    &(getFont_JetBrainsMono_Regular_60_4bpp()),
     &(getFont_swisop3_50_4bpp())
 };
 
@@ -35,7 +35,6 @@ const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[] TEXT_LOCAT
     { 6, touchgfx::CENTER, touchgfx::TEXT_DIRECTION_LTR },
     { 6, touchgfx::CENTER, touchgfx::TEXT_DIRECTION_LTR },
     { 0, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
-    { 4, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 4, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 4, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 4, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
@@ -89,10 +88,10 @@ void resetFont(touchgfx::FontId fontId)
         touchgfx_fonts[3] = &(getFont_swisop3_300_4bpp());
         break;
     case 4:
-        touchgfx_fonts[4] = &(getFont_swisop3_40_4bpp());
+        touchgfx_fonts[4] = &(getFont_JetBrainsMono_Regular_40_4bpp());
         break;
     case 5:
-        touchgfx_fonts[5] = &(getFont_swisop3_60_4bpp());
+        touchgfx_fonts[5] = &(getFont_JetBrainsMono_Regular_60_4bpp());
         break;
     case 6:
         touchgfx_fonts[6] = &(getFont_swisop3_50_4bpp());

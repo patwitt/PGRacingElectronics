@@ -36,7 +36,7 @@ protected:
     touchgfx::PainterRGB888 line1Painter;
     touchgfx::TextAreaWithOneWildcard rpmArea;
     touchgfx::TextAreaWithOneWildcard battArea;
-    touchgfx::TextAreaWithOneWildcard tcsArea;
+    touchgfx::TextAreaWithOneWildcard oilPressArea;
     tempBox tempBox1;
     tempBox tempBox1_1;
     tempBox tempBox1_2;
@@ -54,8 +54,8 @@ protected:
     touchgfx::Unicode::UnicodeChar rpmAreaBuffer[RPMAREA_SIZE];
     static const uint16_t BATTAREA_SIZE = 10;
     touchgfx::Unicode::UnicodeChar battAreaBuffer[BATTAREA_SIZE];
-    static const uint16_t TCSAREA_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar tcsAreaBuffer[TCSAREA_SIZE];
+    static const uint16_t OILPRESSAREA_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar oilPressAreaBuffer[OILPRESSAREA_SIZE];
     static const uint16_t CLTAREA_SIZE = 10;
     touchgfx::Unicode::UnicodeChar cltAreaBuffer[CLTAREA_SIZE];
 

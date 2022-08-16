@@ -32,15 +32,15 @@ Container.hpp:40:7:touchgfx::Container::~Container()	16	static
 Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
 alertBarBase.hpp:16:13:alertBarBase::~alertBarBase()	16	static
 alertBarBase.hpp:16:13:virtual alertBarBase::~alertBarBase()	16	static
-alertBar.hpp:20:13:alertBar::~alertBar()	16	static
-alertBar.hpp:20:13:virtual alertBar::~alertBar()	16	static
+alertBar.hpp:23:13:alertBar::~alertBar()	16	static
+alertBar.hpp:23:13:virtual alertBar::~alertBar()	16	static
 alertBar.cpp:4:1:alertBar::alertBar()	16	static
 alertBar.cpp:8:6:virtual void alertBar::initialize()	16	static
 alertBar.cpp:14:6:void alertBar::setState(EBarState)	16	static
-alertBar.cpp:36:6:void alertBar::setText(const char*)	24	static
-alertBar.cpp:41:1:void __static_initialization_and_destruction_0(int, int)	80	static
+alertBar.cpp:46:6:void alertBar::setText(const char*)	24	static
+alertBar.cpp:51:1:void __static_initialization_and_destruction_0(int, int)	80	static
 BoxWithBorder.hpp:31:7:touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 BoxWithBorder.hpp:31:7:virtual touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 TextAreaWithWildcard.hpp:34:7:touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
 TextAreaWithWildcard.hpp:34:7:virtual touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
-alertBar.cpp:41:1:cpp)	8	static
+alertBar.cpp:51:1:cpp)	8	static

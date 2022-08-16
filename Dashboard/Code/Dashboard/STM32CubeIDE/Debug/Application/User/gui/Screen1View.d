@@ -68,7 +68,8 @@ Application/User/gui/Screen1View.o: \
  ../../TouchGFX/gui/include/gui/containers/alertBar.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/containers/alertBarBase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp \
- F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h \
+ F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/telemetry_data.h
 
 ../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:
 
@@ -207,3 +208,5 @@ Application/User/gui/Screen1View.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp:
 
 F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/ecumaster.h:
+
+F:/Marcin/Documents/Studia/PGRacing/PGRacingElectronics/Dashboard/Code/Dashboard/STM32CubeIDE/Application/User/Core/telemetry_data.h:

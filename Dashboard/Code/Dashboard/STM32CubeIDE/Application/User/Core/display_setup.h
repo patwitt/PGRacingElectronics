@@ -1,5 +1,5 @@
 /*
- * DisplaySetup.h
+ * displaySetup.h
  *
  *  Created on: Aug 10, 2022
  *      Author: Marcin
@@ -9,21 +9,23 @@
 #define APPLICATION_USER_CORE_DISPLAY_SETUP_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-typedef struct {
- uint8_t brightness; // display backlight brightness in %
- uint8_t ledBarMode;
-}displaySetup_t;
+typedef struct
+{
+	uint8_t brightness; // display backlight brightness in %
+	uint8_t ledBarMode;
+	uint8_t redLedBrightness;
+	uint8_t greenLedBrightness;
+	uint8_t blueLedBrightness;
+} displaySetup_t;
 
-displaySetup_t displaySetup = { 70 , 2 };
+extern displaySetup_t displaySetup;
 
 #ifdef __cplusplus
 }
 #endif
-
-
-
 
 #endif /* APPLICATION_USER_CORE_DISPLAY_SETUP_H_ */
