@@ -157,7 +157,7 @@
             "X": 544,
             "Y": 82,
             "Width": 240,
-            "Height": 117,
+            "Height": 49,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -276,6 +276,34 @@
             "X": 14,
             "Y": 150,
             "Width": 238,
+            "Height": 49,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId15",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": false,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "oilTempArea",
+            "X": 544,
+            "Y": 150,
+            "Width": 240,
             "Height": 49,
             "Visible": true,
             "LockPosition": false,
@@ -432,9 +460,9 @@
               "BufferSize": 0
             },
             "Name": "frontText",
-            "X": 263,
+            "X": 0,
             "Y": 0,
-            "Width": 302,
+            "Width": 800,
             "Height": 60,
             "Visible": true,
             "LockPosition": false,
@@ -499,6 +527,10 @@
       },
       {
         "TextEntryId": "SingleUseId14",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId15",
         "IsResource": false
       }
     ],

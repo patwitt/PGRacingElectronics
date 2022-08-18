@@ -309,7 +309,7 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 	}
 	else if (RxHeader.StdId == 768)
 	{
-		if (abs(telemetryData.gear - RxData[1]) == 1 || RxData[1] == 7)
+		//if (abs(telemetryData.gear - RxData[1]) == 1 || RxData[1] == 7)
 		{
 			telemetryData.gear = RxData[1];
 			if (telemetryData.gear == 0)
@@ -320,6 +320,8 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 			{
 				telemetryData.gear = 0;
 			}
+			//gear = RxData[1];
+			//EcuData.clt = RxData[0];
 		}
 	}
 }

@@ -14,7 +14,7 @@ alertBarBase::alertBarBase()
     bgBox.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     bgBox.setBorderSize(5);
 
-    frontText.setPosition(263, 0, 302, 60);
+    frontText.setPosition(0, 0, 800, 60);
     frontText.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     frontText.setLinespacing(0);
     frontText.setTypedText(touchgfx::TypedText(T_SINGLEUSEID7));

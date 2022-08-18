@@ -118,14 +118,22 @@ void Screen1View::setText(touchgfx::TextAreaWithOneWildcard textArea,
 void Screen1View::setRPM(int inRPM)
 {
 	char textBuffer[10];
-	sprintf(textBuffer, "%d", inRPM);
+	sprintf(textBuffer, "%d", (uint16_t)inRPM*1.2f);
 	setText(rpmArea, rpmAreaBuffer, textBuffer);
 }
 
 void Screen1View::setBatt(float inBatt)
 {
 	char textBuffer[10];
-	sprintf(textBuffer, "%.2f", inBatt);
+	if (inBatt < 10.0f)
+	{
+		sprintf(textBuffer, " %.1f", inBatt);
+	}
+	else
+	{
+		sprintf(textBuffer, "%.1f", inBatt);
+	}
+
 	setText(battArea, battAreaBuffer, textBuffer);
 }
 
@@ -149,11 +157,13 @@ void Screen1View::setGear(int inGear)
 	if (inGear == 0)
 	{
 		sprintf(textBuffer, "%s", "N");
+		setText(gearArea, gearAreaBuffer, textBuffer);
 	}
 	else if (inGear < 7)
 	{
 		sprintf(textBuffer, "%d", inGear);
+		setText(gearArea, gearAreaBuffer, textBuffer);
 	}
-	setText(gearArea, gearAreaBuffer, textBuffer);
+
 }
 

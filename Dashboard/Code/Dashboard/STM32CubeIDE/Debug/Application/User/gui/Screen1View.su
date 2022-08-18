@@ -65,10 +65,10 @@ TextArea.hpp:39:7:constexpr touchgfx::TextArea::TextArea(const touchgfx::TextAre
 TextAreaWithWildcard.hpp:34:7:constexpr touchgfx::TextAreaWithOneWildcard::TextAreaWithOneWildcard(const touchgfx::TextAreaWithOneWildcard&)	16	static
 Screen1View.cpp:118:6:void Screen1View::setRPM(int)	96	static
 Screen1View.cpp:125:6:void Screen1View::setBatt(float)	96	static
-Screen1View.cpp:132:6:void Screen1View::setOilPress(float)	96	static
-Screen1View.cpp:139:6:void Screen1View::setClt(int16_t)	96	static
-Screen1View.cpp:146:6:void Screen1View::setGear(int)	96	static
-Screen1View.cpp:158:1:void __static_initialization_and_destruction_0(int, int)	80	static
+Screen1View.cpp:140:6:void Screen1View::setOilPress(float)	96	static
+Screen1View.cpp:147:6:void Screen1View::setClt(int16_t)	96	static
+Screen1View.cpp:154:6:void Screen1View::setGear(int)	160	static
+Screen1View.cpp:168:1:void __static_initialization_and_destruction_0(int, int)	80	static
 CanvasWidget.hpp:33:7:touchgfx::CanvasWidget::~CanvasWidget()	16	static
 CanvasWidget.hpp:33:7:virtual touchgfx::CanvasWidget::~CanvasWidget()	16	static
 Line.hpp:50:7:touchgfx::Line::~Line()	16	static
@@ -79,4 +79,4 @@ BoxWithBorder.hpp:31:7:touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 BoxWithBorder.hpp:31:7:virtual touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 TextAreaWithWildcard.hpp:34:7:touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
 TextAreaWithWildcard.hpp:34:7:virtual touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
-Screen1View.cpp:158:1:cpp)	8	static
+Screen1View.cpp:168:1:cpp)	8	static

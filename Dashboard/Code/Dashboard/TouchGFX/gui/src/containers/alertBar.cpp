@@ -46,6 +46,6 @@ void alertBar::setState(EBarState inState)
 void alertBar::setText(const char inText[])
 {
     Unicode::snprintf(frontTextBuffer, strlen(inText) + 1, inText);
-    frontText.resizeToCurrentText();
+    //frontText.resizeToCurrentText();
     frontText.invalidate();
 }

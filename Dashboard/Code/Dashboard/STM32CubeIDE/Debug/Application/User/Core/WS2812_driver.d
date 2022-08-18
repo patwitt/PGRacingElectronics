@@ -41,7 +41,9 @@ Application/User/Core/WS2812_driver.o: \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim.h \
  ../../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../../Core/Inc/tim.h ../../Core/Inc/main.h \
- ../Application/User/Core/display_setup.h
+ ../Application/User/Core/display_setup.h \
+ ../Application/User/Core/telemetry_data.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 
 ../Application/User/Core/WS2812_driver.h:
 
@@ -128,3 +130,7 @@ Application/User/Core/WS2812_driver.o: \
 ../../Core/Inc/main.h:
 
 ../Application/User/Core/display_setup.h:
+
+../Application/User/Core/telemetry_data.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
