@@ -24,6 +24,8 @@
 #include "ecumaster.h"
 #include "telemetry_data.h"
 #include <stdlib.h>
+
+uint32_t TxMailbox;
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan1;
@@ -266,63 +268,70 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 {
-	if (RxHeader.StdId == Frame1)
+	switch (RxHeader.StdId)
 	{
+	case Frame1:
 		EcuData.rpm = LittleToBigEndian(&RxData[0]);
 		EcuData.tps = RxData[2];
 		EcuData.iat = RxData[3];
 		EcuData.map = LittleToBigEndian(&RxData[4]);
 		EcuData.injPW = LittleToBigEndian(&RxData[6]);
-	}
-	else if (RxHeader.StdId == Frame3)
-	{
+		break;
+	case Frame2:
+		break;
+	case Frame3:
 		EcuData.speed = LittleToBigEndian(&RxData[0]);
 		EcuData.oilTemp = RxData[3];
 		EcuData.oilPress = RxData[4] * 0.0625f;
 		EcuData.clt = LittleToBigEndian(&RxData[6]);
-	}
-	else if (RxHeader.StdId == Frame4)
-	{
+		break;
+	case Frame4:
 		EcuData.ignAngle = RxData[0];
 		EcuData.ignDwell = RxData[1];
 		EcuData.lambda = RxData[2];
 		EcuData.lambdaCorrection = RxData[3];
 		EcuData.egt1 = LittleToBigEndian(&RxData[4]);
 		EcuData.egt2 = LittleToBigEndian(&RxData[6]);
-	}
-	else if (RxHeader.StdId == Frame5)
-	{
+		break;
+	case Frame5:
 		EcuData.gear = RxData[0];
 		EcuData.ecuTemp = RxData[1];
 		EcuData.batt = LittleToBigEndian(&RxData[2]) * 0.027f;
 		EcuData.errflag = LittleToBigEndian(&RxData[5]);
 		EcuData.flags1 = RxData[7];
-	}
-	else if (RxHeader.StdId == Frame6)
-	{
+		break;
+	case Frame6:
 		EcuData.DBWPosition = RxData[0];
 		EcuData.DBWTrigger = RxData[1];
 		EcuData.TCDRPMRaw = LittleToBigEndian(&RxData[2]);
 		EcuData.TCDRPM = LittleToBigEndian(&RxData[4]);
 		EcuData.TCTorqueReduction = RxData[6];
 		EcuData.PitLimitTorqueReduction = RxData[7];
-	}
-	else if (RxHeader.StdId == 768)
-	{
-		//if (abs(telemetryData.gear - RxData[1]) == 1 || RxData[1] == 7)
+		break;
+
+	case 768:
+		telemetryData.gear = RxData[1];
+		if (telemetryData.gear == 0)
 		{
-			telemetryData.gear = RxData[1];
-			if (telemetryData.gear == 0)
-			{
-				telemetryData.gear = 1;
-			}
-			else if (telemetryData.gear == 1)
-			{
-				telemetryData.gear = 0;
-			}
-			//gear = RxData[1];
-			//EcuData.clt = RxData[0];
+			telemetryData.gear = 1;
 		}
+		else if (telemetryData.gear == 1)
+		{
+			telemetryData.gear = 0;
+		}
+
+
+
+		break;
+	default:
+		;
+// forward frame to internal can
+	CAN_TxHeaderTypeDef TxHeader;
+		TxHeader.DLC = RxHeader.DLC;
+		TxHeader.IDE = RxHeader.IDE;
+		TxHeader.RTR = RxHeader.RTR;
+		TxHeader.StdId = RxHeader.StdId;
+		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, RxData, &TxMailbox);
 	}
 }
 

@@ -181,6 +181,15 @@ void StartHardwareTask(void *argument)
 		updateLeds(EcuData.rpm, ledMode);
 
 		osDelay(100);
+		uint8_t RxData[2] =
+		{ 0xFF, 0xFF };
+		CAN_TxHeaderTypeDef TxHeader;
+		TxHeader.DLC = 2;
+		TxHeader.IDE = CAN_ID_STD;
+		TxHeader.RTR = CAN_RTR_DATA;
+		TxHeader.StdId = 520;
+
+		HAL_CAN_AddTxMessage(INTERNAL_CAN, &TxHeader, RxData, &TxMailbox);
 	}
 	/* USER CODE END StartHardwareTask */
 }

@@ -11,12 +11,14 @@ Screen1View::Screen1View()
 	cltArea.setWildcard(cltAreaBuffer);
 	battArea.setWildcard(battAreaBuffer);
 	oilPressArea.setWildcard(oilPressAreaBuffer);
+	oilTempArea.setWildcard(oilTempAreaBuffer);
 
 	setRPM(EcuData.rpm);
 	setGear(telemetryData.gear);
 	setClt(EcuData.clt);
 	setBatt(EcuData.batt);
 	setOilPress(EcuData.oilPress);
+	setOilTemp(EcuData.oilTemp);
 	alertBar1.setState(EBarState::Blank);
 	alertBar2.setState(EBarState::Blank);
 }
@@ -71,6 +73,13 @@ void Screen1View::handleTickEvent()
 		lastOilPressure = EcuData.oilPress;
 	}
 
+	static uint8_t lastOilTemperature = 0;
+		if (lastOilTemperature != EcuData.oilTemp)
+		{
+			setOilTemp(EcuData.oilTemp);
+			lastOilTemperature = EcuData.oilTemp;
+		}
+
 	if (EcuData.oilPress < 1.5f && EcuData.rpm > 1000)
 	{
 		static int lastChange = 0;
@@ -118,7 +127,7 @@ void Screen1View::setText(touchgfx::TextAreaWithOneWildcard textArea,
 void Screen1View::setRPM(int inRPM)
 {
 	char textBuffer[10];
-	sprintf(textBuffer, "%d", (uint16_t)inRPM*1.2f);
+	sprintf(textBuffer, "%d", inRPM);
 	setText(rpmArea, rpmAreaBuffer, textBuffer);
 }
 
@@ -140,8 +149,14 @@ void Screen1View::setBatt(float inBatt)
 void Screen1View::setOilPress(float inOilPress)
 {
 	char textBuffer[10];
-	sprintf(textBuffer, "%.2f", inOilPress);
-	setText(battArea, battAreaBuffer, textBuffer);
+	sprintf(textBuffer, "%.1f", inOilPress);
+	setText(oilPressArea, oilPressAreaBuffer, textBuffer);
+}
+void Screen1View::setOilTemp(uint8_t inOilTemp)
+{
+	char textBuffer[10];
+		sprintf(textBuffer, "%i", inOilTemp);
+		setText(oilTempArea, oilTempAreaBuffer, textBuffer);
 }
 
 void Screen1View::setClt(int16_t inClt)

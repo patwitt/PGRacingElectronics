@@ -44,6 +44,7 @@ protected:
     alertBar alertBar1;
     alertBar alertBar2;
     touchgfx::TextAreaWithOneWildcard cltArea;
+    touchgfx::TextAreaWithOneWildcard oilTempArea;
 
     /*
      * Wildcard Buffers
@@ -58,6 +59,8 @@ protected:
     touchgfx::Unicode::UnicodeChar oilPressAreaBuffer[OILPRESSAREA_SIZE];
     static const uint16_t CLTAREA_SIZE = 10;
     touchgfx::Unicode::UnicodeChar cltAreaBuffer[CLTAREA_SIZE];
+    static const uint16_t OILTEMPAREA_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar oilTempAreaBuffer[OILTEMPAREA_SIZE];
 
 private:
 

@@ -1,8 +1,8 @@
-can.c:33:6:MX_CAN1_Init	48	static
-can.c:78:6:MX_CAN2_Init	48	static
-can.c:126:6:HAL_CAN_MspInit	64	static
-can.c:197:6:HAL_CAN_MspDeInit	16	static
-can.c:249:6:HAL_CAN_RxFifo0MsgPendingCallback	80	static
-can.c:267:6:ComputeEcumasterFrame	8	static
-can.c:329:6:ComputeInternalFrame	8	static
-can.c:345:10:LittleToBigEndian	24	static
+can.c:35:6:MX_CAN1_Init	48	static
+can.c:80:6:MX_CAN2_Init	48	static
+can.c:128:6:HAL_CAN_MspInit	64	static
+can.c:199:6:HAL_CAN_MspDeInit	16	static
+can.c:251:6:HAL_CAN_RxFifo0MsgPendingCallback	80	static
+can.c:269:6:ComputeEcumasterFrame	32	static
+can.c:338:6:ComputeInternalFrame	8	static
+can.c:354:10:LittleToBigEndian	24	static

@@ -46,7 +46,7 @@ Screen1ViewBase::Screen1ViewBase()
     battArea.setWildcard(battAreaBuffer);
     battArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID3));
 
-    oilPressArea.setPosition(544, 82, 240, 117);
+    oilPressArea.setPosition(544, 82, 240, 49);
     oilPressArea.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     oilPressArea.setLinespacing(0);
     oilPressAreaBuffer[0] = 0;
@@ -72,6 +72,13 @@ Screen1ViewBase::Screen1ViewBase()
     cltArea.setWildcard(cltAreaBuffer);
     cltArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID8));
 
+    oilTempArea.setPosition(544, 150, 240, 49);
+    oilTempArea.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    oilTempArea.setLinespacing(0);
+    oilTempAreaBuffer[0] = 0;
+    oilTempArea.setWildcard(oilTempAreaBuffer);
+    oilTempArea.setTypedText(touchgfx::TypedText(T_SINGLEUSEID15));
+
     add(__background);
     add(box1);
     add(gearArea);
@@ -86,6 +93,7 @@ Screen1ViewBase::Screen1ViewBase()
     add(alertBar1);
     add(alertBar2);
     add(cltArea);
+    add(oilTempArea);
 }
 
 void Screen1ViewBase::setupScreen()

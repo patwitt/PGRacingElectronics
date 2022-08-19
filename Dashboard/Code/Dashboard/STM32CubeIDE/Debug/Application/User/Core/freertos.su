@@ -1,5 +1,5 @@
 freertos.c:98:6:MX_FREERTOS_Init	8	static
-freertos.c:153:6:StartHardwareTask	24	static
-freertos.c:195:6:StartTouchGFXTask	16	static
-freertos.c:214:6:StartInfoLed	16	static
-freertos.c:234:6:StartDisplayBacklight	40	static
+freertos.c:153:6:StartHardwareTask	48	static
+freertos.c:204:6:StartTouchGFXTask	16	static
+freertos.c:223:6:StartInfoLed	16	static
+freertos.c:243:6:StartDisplayBacklight	40	static

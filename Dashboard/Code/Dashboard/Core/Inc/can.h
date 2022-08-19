@@ -37,6 +37,10 @@ extern CAN_HandleTypeDef hcan2;
 
 /* USER CODE BEGIN Private defines */
 
+#define INTERNAL_CAN CAN1
+#define ECU_CAN CAN2
+extern uint32_t TxMailbox;
+
 /* USER CODE END Private defines */
 
 void MX_CAN1_Init(void);

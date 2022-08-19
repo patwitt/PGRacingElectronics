@@ -74,13 +74,13 @@ View.hpp:36:7:touchgfx::View<Screen1Presenter>::~View()	16	static
 View.hpp:36:7:virtual touchgfx::View<Screen1Presenter>::~View()	16	static
 Screen1ViewBase.hpp:21:13:Screen1ViewBase::~Screen1ViewBase()	16	static
 Screen1ViewBase.hpp:21:13:virtual Screen1ViewBase::~Screen1ViewBase()	16	static
-Screen1ViewBase.cpp:8:1:Screen1ViewBase::Screen1ViewBase()	272	static
-Screen1ViewBase.cpp:91:6:virtual void Screen1ViewBase::setupScreen()	16	static
+Screen1ViewBase.cpp:8:1:Screen1ViewBase::Screen1ViewBase()	304	static
+Screen1ViewBase.cpp:99:6:virtual void Screen1ViewBase::setupScreen()	16	static
 View.hpp:39:5:touchgfx::View<T>::View() [with T = Screen1Presenter]	16	static
 Line.hpp:95:10:void touchgfx::Line::setStart(T, T) [with T = int]	48	static
 Line.hpp:171:10:void touchgfx::Line::setEnd(T, T) [with T = int]	48	static
 Line.hpp:248:10:void touchgfx::Line::setLineWidth(T) [with T = int]	24	static
-Screen1ViewBase.cpp:99:1:void __static_initialization_and_destruction_0(int, int)	80	static
+Screen1ViewBase.cpp:107:1:void __static_initialization_and_destruction_0(int, int)	80	static
 CanvasWidget.hpp:33:7:touchgfx::CanvasWidget::~CanvasWidget()	16	static
 CanvasWidget.hpp:33:7:virtual touchgfx::CanvasWidget::~CanvasWidget()	16	static
 Line.hpp:50:7:touchgfx::Line::~Line()	16	static
@@ -91,4 +91,4 @@ BoxWithBorder.hpp:31:7:touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 BoxWithBorder.hpp:31:7:virtual touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 TextAreaWithWildcard.hpp:34:7:touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
 TextAreaWithWildcard.hpp:34:7:virtual touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
-Screen1ViewBase.cpp:99:1:cpp)	8	static
+Screen1ViewBase.cpp:107:1:cpp)	8	static

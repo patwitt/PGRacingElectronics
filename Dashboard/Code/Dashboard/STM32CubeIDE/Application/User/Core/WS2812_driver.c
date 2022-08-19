@@ -25,7 +25,7 @@ volatile uint16_t leds[RESET_LEN + 24 * LED_NUMBER];
 displaySetup_t displaySetup =
 { 70, 2, 110, 110, 110 };
 
-uint16_t OptimalShiftUpRPM[6];
+uint16_t optimalShiftUpRPM[6];
 static const float GearRatios[6] =
 { 2.615, 1.857, 1.565, 1.35, 1.238, 1.136 };
 // torque from 3000 rpm to 12000
@@ -161,8 +161,8 @@ void updateLeds(int rpm, int mode)
 			lastGear = telemetryData.gear;
 		}
 
-		minRPM = OptimalShiftUpRPM[lastGear - 1] - 2000;
-		maxRPM = OptimalShiftUpRPM[lastGear - 1];
+		minRPM = optimalShiftUpRPM[lastGear - 1] - 2000;
+		maxRPM = optimalShiftUpRPM[lastGear - 1];
 #else
 		minRPM = 9500;
 		maxRPM = 11500;
@@ -195,8 +195,8 @@ float lerp(float A, float B, float Alpha)
 void ComputeOptimalPoints()
 {
 // Calculation based on https://glennmessersmith.com/shiftpt.html
-	const uint16_t MinRPM = 3000;
-	const uint16_t MaxRPM = 12000;
+	const uint16_t minRPM = 3000;
+	const uint16_t maxRPM = 12000;
 	uint16_t UpRPM; // DownRPM;
 #ifdef MY_OPTIMAL_SHIFT_IMPLEMENTATION
 	for (int i = 0; i < GEAR_NUMBER- 1; i++)
@@ -204,15 +204,15 @@ void ComputeOptimalPoints()
 		float MinTorqueLoss = MAX_ENGINE_TORQUE *  GearRatios[i];
 		float CurrentGearRatio = GearRatios[i];
 		float NextGearRatio = GearRatios[i + 1];
-		UpRPM = MinRPM;
-		for (int j = MinRPM; j < MaxRPM; j += 50)
+		UpRPM = minRPM;
+		for (int j = minRPM; j < maxRPM; j += 50)
 		{
 			float EngineTorque = lerp(torque[(j-3000)/1000],torque[(j-2000)/1000], (j%1000)/1000.0f);
 			// calculate current torque on gearbox output
 			float CurrentGearTorque = EngineTorque * CurrentGearRatio;
 			// calculate engine RPM on next gear
 			uint16_t NextRPM = NextGearRatio * j / CurrentGearRatio;
-			if (NextRPM < MinRPM)
+			if (NextRPM < minRPM)
 			{
 				continue;
 			}
@@ -227,7 +227,7 @@ void ComputeOptimalPoints()
 				MinTorqueLoss = CurrentGearTorque - NextGearTorque;
 			}
 		}
-		OptimalShiftUpRPM[i]=UpRPM;
+		optimalShiftUpRPM[i]=UpRPM;
 		//OptimalGearDownRPM.Add(DownRPM);
 	}
 #else
@@ -236,8 +236,8 @@ void ComputeOptimalPoints()
 		float MinTorqueLoss = MAX_ENGINE_TORQUE * GearRatios[i];
 		float CurrentGearRatio = GearRatios[i];
 		float NextGearRatio = GearRatios[i + 1];
-		UpRPM = MaxRPM;
-		for (int j = MaxRPM; j > MinRPM; j -= 50)
+		UpRPM = maxRPM;
+		for (int j = maxRPM; j > minRPM; j -= 50)
 		{
 			float EngineTorque = lerp(torque[(j - 3000) / 1000],
 					torque[(j - 2000) / 1000], (j % 1000) / 1000.0f);
@@ -245,7 +245,7 @@ void ComputeOptimalPoints()
 			float CurrentGearTorque = EngineTorque * CurrentGearRatio;
 			// calculate engine RPM on next gear
 			uint16_t NextRPM = NextGearRatio * j / CurrentGearRatio;
-			if (NextRPM < MinRPM)
+			if (NextRPM < minRPM)
 			{
 				continue;
 			}
@@ -267,9 +267,10 @@ void ComputeOptimalPoints()
 				break;
 			}
 		}
-		OptimalShiftUpRPM[i] = UpRPM;
+		optimalShiftUpRPM[i] = UpRPM;
 		//OptimalGearDownRPM.Add(DownRPM);
 	}
 #endif
+	optimalShiftUpRPM[5] = 12000;
 }
 

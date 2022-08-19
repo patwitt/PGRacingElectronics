@@ -21,6 +21,7 @@ public:
     void setClt(int16_t inClt);
     void setGear(int inGear);
     void setOilPress(float inOilPress);
+    void setOilTemp(uint8_t inOilTemp);
 
 protected:
     int tickCounter = 0;
