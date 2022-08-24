@@ -12,10 +12,12 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/model/Model.hpp>
 
-#include <gui/screen1_screen/Screen1View.hpp>
-#include <gui/screen1_screen/Screen1Presenter.hpp>
-#include <gui/screen2_screen/Screen2View.hpp>
-#include <gui/screen2_screen/Screen2Presenter.hpp>
+#include <gui/main_screen/MainView.hpp>
+#include <gui/main_screen/MainPresenter.hpp>
+#include <gui/debuginfo_screen/DebugInfoView.hpp>
+#include <gui/debuginfo_screen/DebugInfoPresenter.hpp>
+#include <gui/lana_screen/LanaView.hpp>
+#include <gui/lana_screen/LanaPresenter.hpp>
 
 
 /**
@@ -38,9 +40,10 @@ public:
      * A list of all view types. Must end with meta::Nil.
      * @note All view types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< Screen1View,
-            touchgfx::meta::TypeList< Screen2View,
-            touchgfx::meta::Nil >
+    typedef touchgfx::meta::TypeList< MainView,
+            touchgfx::meta::TypeList< DebugInfoView,
+            touchgfx::meta::TypeList< LanaView,
+            touchgfx::meta::Nil > >
             > GeneratedViewTypes;
 
     /**
@@ -52,9 +55,10 @@ public:
      * A list of all presenter types. Must end with meta::Nil.
      * @note All presenter types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< Screen1Presenter,
-            touchgfx::meta::TypeList< Screen2Presenter,
-            touchgfx::meta::Nil >
+    typedef touchgfx::meta::TypeList< MainPresenter,
+            touchgfx::meta::TypeList< DebugInfoPresenter,
+            touchgfx::meta::TypeList< LanaPresenter,
+            touchgfx::meta::Nil > >
             > GeneratedPresenterTypes;
 
     /**
@@ -77,7 +81,7 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotoScreen1ScreenNoTransition();
+        app.gotoMainScreenNoTransition();
     }
 protected:
     FrontendHeapBase(touchgfx::AbstractPartition& presenters, touchgfx::AbstractPartition& views, touchgfx::AbstractPartition& transitions, FrontendApplication& app)

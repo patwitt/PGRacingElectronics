@@ -77,6 +77,11 @@ osThreadId_t displayBacklighHandle;
 const osThreadAttr_t displayBackligh_attributes =
 { .name = "displayBackligh", .stack_size = 128 * 4, .priority =
 		(osPriority_t) osPriorityLow, };
+/* Definitions for fuelConsumption */
+osThreadId_t fuelConsumptionHandle;
+const osThreadAttr_t fuelConsumption_attributes =
+{ .name = "fuelConsumption", .stack_size = 128 * 4, .priority =
+		(osPriority_t) osPriorityNormal, };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -87,6 +92,7 @@ void StartHardwareTask(void *argument);
 void StartTouchGFXTask(void *argument);
 void StartInfoLed(void *argument);
 void StartDisplayBacklight(void *argument);
+void StartComputeFuelConsumption(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -133,6 +139,10 @@ void MX_FREERTOS_Init(void)
 	displayBacklighHandle = osThreadNew(StartDisplayBacklight, NULL,
 			&displayBackligh_attributes);
 
+	/* creation of fuelConsumption */
+	fuelConsumptionHandle = osThreadNew(StartComputeFuelConsumption, NULL,
+			&fuelConsumption_attributes);
+
 	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
 	/* USER CODE END RTOS_THREADS */
@@ -168,28 +178,40 @@ void StartHardwareTask(void *argument)
 	for (;;)
 	{
 
+		telemetryData.oilPress = HAL_GPIO_ReadPin(OIL_SENSOR_GPIO_Port,
+				OIL_SENSOR_Pin);
 		if (telemetryData.gear == 0)
 		{
-			HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, SET);
+			////HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, SET);
 			ledMode = 0;
 		}
 		else
 		{
-			HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, RESET);
+			//HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, RESET);
 			ledMode = displaySetup.ledBarMode;
 		}
 		updateLeds(EcuData.rpm, ledMode);
 
 		osDelay(100);
-		uint8_t RxData[2] =
-		{ 0xFF, 0xFF };
-		CAN_TxHeaderTypeDef TxHeader;
-		TxHeader.DLC = 2;
-		TxHeader.IDE = CAN_ID_STD;
-		TxHeader.RTR = CAN_RTR_DATA;
-		TxHeader.StdId = 520;
+		/* BURNED FUEL TRANSMISSION */
+		uint16_t burnedFuel = (uint16_t)telemetryData.burnedFuel* 0x2000;
+		uint8_t RxData[2];
+		RxData[0] = burnedFuel%0xFF;
+		RxData[1] = burnedFuel / 0xFF;
+		 CAN_TxHeaderTypeDef TxHeader;
+		 TxHeader.DLC = 2;
+		 TxHeader.IDE = CAN_ID_STD;
+		 TxHeader.RTR = CAN_RTR_DATA;
+		 TxHeader.StdId = 0x1FE;
 
-		HAL_CAN_AddTxMessage(INTERNAL_CAN, &TxHeader, RxData, &TxMailbox);
+		// HAL_CAN_AddTxMessage(INTERNAL_CAN, &TxHeader, RxData, &TxMailbox);
+		 HAL_CAN_AddTxMessage(&hcan2, &TxHeader, RxData, &TxMailbox);
+		if (telemetryData.steeringWheelAttached == 1
+				&& HAL_GetTick() - telemetryData.steeringWheelAttachedTimestamp
+						> 2000)
+		{
+			telemetryData.steeringWheelAttached = 0;
+		}
 	}
 	/* USER CODE END StartHardwareTask */
 }
@@ -297,6 +319,30 @@ void StartDisplayBacklight(void *argument)
 	}
 	delay = fmax(delay, 100);
 	/* USER CODE END StartDisplayBacklight */
+}
+
+/* USER CODE BEGIN Header_StartComputeFuelConsumption */
+/**
+ * @brief Function implementing the fuelConsumption thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartComputeFuelConsumption */
+void StartComputeFuelConsumption(void *argument)
+{
+	/* USER CODE BEGIN StartComputeFuelConsumption */
+	const uint8_t injectorFuelFlow = 250; // cc / min
+	static uint32_t lastComputeTime = 0;
+	/* Infinite loop */
+	for (;;)
+	{
+		float fuelUsage = ((float) EcuData.rpm / 60 / 1000) * 3
+				* ((float) injectorFuelFlow / 60 / 1000) * EcuData.injPW * (lastComputeTime - HAL_GetTick());
+		lastComputeTime = HAL_GetTick();
+		telemetryData.burnedFuel += fuelUsage;
+		osDelay(10);
+	}
+	/* USER CODE END StartComputeFuelConsumption */
 }
 
 /* Private application code --------------------------------------------------*/

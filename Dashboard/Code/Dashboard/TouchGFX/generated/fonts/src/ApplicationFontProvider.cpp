@@ -37,6 +37,9 @@ touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId typography)
         // JetBrainsMono_Regular_60_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[5]);
     case Typography::TYPOGRAPHY_06:
+        // verdana_12_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[7]);
+    case Typography::TYPOGRAPHY_07:
         // verdana_20_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[0]);
     default:

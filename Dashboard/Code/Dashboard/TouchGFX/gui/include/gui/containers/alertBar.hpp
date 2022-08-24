@@ -26,16 +26,17 @@ public:
     void setState(EBarState inState);
 
     /* Color association with EBarState Enum */
-    colortype dataColors[4] = {
+    colortype dataColors[5] = {
         colors::blue,
         colors::orange,
         colors::red,
-        colors::yellow
+        colors::yellow,
+		colors::green
     };
 
     void setText(const char inText[]);
 
-    touchgfx::Unicode::UnicodeChar frontTextBuffer[20];
+    touchgfx::Unicode::UnicodeChar frontTextBuffer[30];
 
 protected:
 };

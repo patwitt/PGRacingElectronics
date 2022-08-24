@@ -60,8 +60,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SIGNAL_LED_Pin GPIO_PIN_2
 #define SIGNAL_LED_GPIO_Port GPIOE
-#define NEUTRAL_LED_Pin GPIO_PIN_10
-#define NEUTRAL_LED_GPIO_Port GPIOC
+#define OIL_SENSOR_Pin GPIO_PIN_10
+#define OIL_SENSOR_GPIO_Port GPIOC
 #define ESP_PD_Pin GPIO_PIN_11
 #define ESP_PD_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */

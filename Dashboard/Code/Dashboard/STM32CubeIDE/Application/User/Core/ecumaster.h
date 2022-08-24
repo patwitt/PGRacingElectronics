@@ -9,10 +9,12 @@
 #define APPLICATION_USER_CORE_ECUMASTER_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-typedef struct EcumasterData_t{
+typedef struct EcumasterData_t
+{
 	uint16_t rpm; 						// Engine RPM
 	uint8_t tps;						// Throttle position
 	uint8_t iat;						// Intake manifold temperature
@@ -40,21 +42,18 @@ typedef struct EcumasterData_t{
 	uint8_t TCDRPM;						// Traction Control Delta RPM
 	uint8_t TCTorqueReduction;			//
 	uint8_t PitLimitTorqueReduction;	//
+	float ain1;
+	float ain2;
+	float ain3;
+	float ain4;
+} EcumasterData;
 
-}EcumasterData;
-
-enum EcumasterFrame{
-	Frame1 = 0x600,
-	Frame2,
-	Frame3,
-	Frame4,
-	Frame5,
-	Frame6,
-	Frame7,
-	Frame8
+enum EcumasterFrame
+{
+	Frame1 = 0x600, Frame2, Frame3, Frame4, Frame5, Frame6, Frame7, Frame8
 };
 
-EcumasterData EcuData;
+extern EcumasterData EcuData;
 
 void validateData();
 

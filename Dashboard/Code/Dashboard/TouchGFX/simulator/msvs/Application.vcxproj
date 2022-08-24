@@ -24,14 +24,19 @@
     <ClCompile Include="..\..\generated\gui_generated\src\containers\alertBarBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\RoundBorderBox.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\RoundBorderBoxBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\screen1_screen\Screen1ViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\tempBox.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\tempBoxBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\screen2_screen\Screen2View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\screen2_screen\Screen2ViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\debugParameterBox.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\debugParameterBoxBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\debuginfo_screen\DebugInfoPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\debuginfo_screen\DebugInfoView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\debuginfo_screen\DebugInfoViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\lana_screen\LanaPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\lana_screen\LanaView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\lana_screen\LanaViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\main_screen\MainPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\main_screen\MainView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\main_screen\MainViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xlsx"/>
@@ -186,14 +191,19 @@
     <ClInclude Include="..\..\gui\include\gui\containers\ColorHelper.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\RoundBorderBox.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\RoundBorderBoxBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen1_screen\Screen1ViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\tempBox.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\tempBoxBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\screen2_screen\Screen2View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen2_screen\Screen2ViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\debugParameterBox.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\debugParameterBoxBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\debuginfo_screen\DebugInfoPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\debuginfo_screen\DebugInfoView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\debuginfo_screen\DebugInfoViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\lana_screen\LanaPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\lana_screen\LanaView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\lana_screen\LanaViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\main_screen\MainPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\main_screen\MainView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\main_screen\MainViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

@@ -1,4 +1,5 @@
 Types.hpp:91:5:touchgfx::colortype::colortype(uint32_t)	16	static
+Types.hpp:114:5:touchgfx::colortype::operator uint32_t() const	16	static
 Types.hpp:127:5:touchgfx::Rect::Rect()	16	static
 Drawable.hpp:48:5:touchgfx::Drawable::Drawable()	16	static
 Drawable.hpp:62:13:touchgfx::Drawable::~Drawable()	16	static
@@ -35,25 +36,59 @@ Widget.hpp:36:7:touchgfx::Widget::~Widget()	16	static
 Widget.hpp:36:7:virtual touchgfx::Widget::~Widget()	16	static
 Box.hpp:33:5:touchgfx::Box::Box()	16	static
 Box.hpp:63:10:void touchgfx::Box::setColor(touchgfx::colortype)	16	static
-Box.hpp:29:7:touchgfx::Box::~Box()	16	static
-Box.hpp:29:7:virtual touchgfx::Box::~Box()	16	static
-BoxWithBorder.hpp:34:5:touchgfx::BoxWithBorder::BoxWithBorder()	16	static
-BoxWithBorder.hpp:62:10:void touchgfx::BoxWithBorder::setBorderColor(touchgfx::colortype)	16	static
-BoxWithBorder.hpp:86:10:void touchgfx::BoxWithBorder::setBorderSize(uint16_t)	16	static
 TypedText.hpp:59:14:touchgfx::TypedText::TypedText(touchgfx::TypedTextId)	16	static
 TypedText.hpp:65:13:touchgfx::TypedText::~TypedText()	16	static
 TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	16	static
 TextArea.hpp:42:5:touchgfx::TextArea::TextArea()	16	static
-View.hpp:36:7:touchgfx::View<mainPresenter>::~View()	16	static
-View.hpp:36:7:virtual touchgfx::View<mainPresenter>::~View()	16	static
-mainViewBase.hpp:18:13:mainViewBase::~mainViewBase()	16	static
-mainViewBase.hpp:18:13:virtual mainViewBase::~mainViewBase()	16	static
-mainViewBase.cpp:8:1:mainViewBase::mainViewBase()	224	static
-mainViewBase.cpp:57:6:virtual void mainViewBase::setupScreen()	16	static
-View.hpp:39:5:touchgfx::View<T>::View() [with T = mainPresenter]	16	static
-Container.hpp:40:7:touchgfx::Container::~Container()	16	static
-Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
-BoxWithBorder.hpp:31:7:touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
-BoxWithBorder.hpp:31:7:virtual touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
 TextArea.hpp:39:7:touchgfx::TextArea::~TextArea()	16	static
 TextArea.hpp:39:7:virtual touchgfx::TextArea::~TextArea()	16	static
+TextAreaWithWildcard.hpp:37:5:touchgfx::TextAreaWithOneWildcard::TextAreaWithOneWildcard()	16	static
+TextAreaWithWildcard.hpp:58:10:void touchgfx::TextAreaWithOneWildcard::setWildcard(const UnicodeChar*)	16	static
+HAL.hpp:112:17:static touchgfx::HAL* touchgfx::HAL::getInstance()	4	static
+HAL.hpp:233:17:static touchgfx::LCD& touchgfx::HAL::lcd()	4	static
+HAL.hpp:1026:10:touchgfx::LCD* touchgfx::HAL::getAuxiliaryLCD()	16	static
+AbstractPainter.hpp:43:5:touchgfx::AbstractPainter::AbstractPainter()	16	static
+AbstractPainter.hpp:51:13:touchgfx::AbstractPainter::~AbstractPainter()	16	static
+AbstractPainter.hpp:51:13:virtual touchgfx::AbstractPainter::~AbstractPainter()	16	static
+CWRUtil.hpp:70:18:touchgfx::CWRUtil::Q5::Q5(int)	16	static
+CWRUtil.hpp:93:9:touchgfx::CWRUtil::Q5::operator int() const	16	static
+Line.hpp:262:10:void touchgfx::Line::setLineWidth(touchgfx::CWRUtil::Q5)	24	static
+AbstractPainterRGB888.hpp:37:5:touchgfx::AbstractPainterRGB888::AbstractPainterRGB888()	24	static
+AbstractPainterRGB888.hpp:34:7:touchgfx::AbstractPainterRGB888::~AbstractPainterRGB888()	16	static
+AbstractPainterRGB888.hpp:34:7:virtual touchgfx::AbstractPainterRGB888::~AbstractPainterRGB888()	16	static
+PainterRGB888.hpp:41:5:touchgfx::PainterRGB888::PainterRGB888(touchgfx::colortype)	16	static
+PainterRGB888.hpp:52:10:void touchgfx::PainterRGB888::setColor(touchgfx::colortype)	32	static
+Container.hpp:40:7:touchgfx::Container::~Container()	16	static
+Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
+tempBoxBase.hpp:17:13:tempBoxBase::~tempBoxBase()	16	static
+tempBoxBase.hpp:17:13:virtual tempBoxBase::~tempBoxBase()	16	static
+tempBox.hpp:13:13:tempBox::~tempBox()	24	static
+tempBox.hpp:13:13:virtual tempBox::~tempBox()	16	static
+Box.hpp:29:7:touchgfx::Box::~Box()	16	static
+Box.hpp:29:7:virtual touchgfx::Box::~Box()	16	static
+alertBarBase.hpp:16:13:alertBarBase::~alertBarBase()	16	static
+alertBarBase.hpp:16:13:virtual alertBarBase::~alertBarBase()	16	static
+alertBar.hpp:23:13:alertBar::~alertBar()	16	static
+alertBar.hpp:23:13:virtual alertBar::~alertBar()	16	static
+View.hpp:36:7:touchgfx::View<MainPresenter>::~View()	16	static
+View.hpp:36:7:virtual touchgfx::View<MainPresenter>::~View()	16	static
+MainViewBase.hpp:21:13:MainViewBase::~MainViewBase()	16	static
+MainViewBase.hpp:21:13:virtual MainViewBase::~MainViewBase()	16	static
+MainViewBase.cpp:8:1:MainViewBase::MainViewBase()	328	static
+MainViewBase.cpp:99:6:virtual void MainViewBase::setupScreen()	16	static
+View.hpp:39:5:touchgfx::View<T>::View() [with T = MainPresenter]	16	static
+Line.hpp:95:10:void touchgfx::Line::setStart(T, T) [with T = int]	48	static
+Line.hpp:171:10:void touchgfx::Line::setEnd(T, T) [with T = int]	48	static
+Line.hpp:248:10:void touchgfx::Line::setLineWidth(T) [with T = int]	24	static
+MainViewBase.cpp:107:1:void __static_initialization_and_destruction_0(int, int)	80	static
+CanvasWidget.hpp:33:7:touchgfx::CanvasWidget::~CanvasWidget()	16	static
+CanvasWidget.hpp:33:7:virtual touchgfx::CanvasWidget::~CanvasWidget()	16	static
+Line.hpp:50:7:touchgfx::Line::~Line()	16	static
+Line.hpp:50:7:virtual touchgfx::Line::~Line()	16	static
+PainterRGB888.hpp:33:7:touchgfx::PainterRGB888::~PainterRGB888()	16	static
+PainterRGB888.hpp:33:7:virtual touchgfx::PainterRGB888::~PainterRGB888()	16	static
+BoxWithBorder.hpp:31:7:touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
+BoxWithBorder.hpp:31:7:virtual touchgfx::BoxWithBorder::~BoxWithBorder()	16	static
+TextAreaWithWildcard.hpp:34:7:touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
+TextAreaWithWildcard.hpp:34:7:virtual touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	16	static
+MainViewBase.cpp:107:1:cpp)	8	static

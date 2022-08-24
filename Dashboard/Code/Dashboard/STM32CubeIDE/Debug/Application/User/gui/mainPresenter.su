@@ -1,3 +1,4 @@
+Types.hpp:91:5:touchgfx::colortype::colortype(uint32_t)	16	static
 Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	16	static
 Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	16	static
 Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	16	static
@@ -6,8 +7,10 @@ Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	16	static
 ModelListener.hpp:9:5:ModelListener::ModelListener()	16	static
 ModelListener.hpp:11:13:ModelListener::~ModelListener()	16	static
 ModelListener.hpp:11:13:virtual ModelListener::~ModelListener()	16	static
-mainPresenter.hpp:28:13:mainPresenter::~mainPresenter()	16	static
-mainPresenter.hpp:28:13:virtual mainPresenter::~mainPresenter()	16	static
-mainPresenter.cpp:4:1:mainPresenter::mainPresenter(mainView&)	16	static
-mainPresenter.cpp:10:6:virtual void mainPresenter::activate()	16	static
-mainPresenter.cpp:15:6:virtual void mainPresenter::deactivate()	16	static
+MainPresenter.hpp:28:13:MainPresenter::~MainPresenter()	16	static
+MainPresenter.hpp:28:13:virtual MainPresenter::~MainPresenter()	16	static
+MainPresenter.cpp:4:1:MainPresenter::MainPresenter(MainView&)	16	static
+MainPresenter.cpp:10:6:virtual void MainPresenter::activate()	16	static
+MainPresenter.cpp:15:6:virtual void MainPresenter::deactivate()	16	static
+MainPresenter.cpp:18:1:void __static_initialization_and_destruction_0(int, int)	80	static
+MainPresenter.cpp:18:1:cpp)	8	static

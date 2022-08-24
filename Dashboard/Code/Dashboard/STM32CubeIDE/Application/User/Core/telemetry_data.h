@@ -15,9 +15,15 @@ extern "C" {
 
 typedef struct {
  uint8_t gear;
+ uint8_t steeringWheelAttached;
+ uint32_t steeringWheelAttachedTimestamp;
+ uint8_t isIntercomActive;
+ uint8_t oilPress;
+ //float fuelConsumption;
+ float burnedFuel;
 }telemetryData_t;
 
-telemetryData_t telemetryData;
+extern telemetryData_t telemetryData;
 
 #ifdef __cplusplus
 }

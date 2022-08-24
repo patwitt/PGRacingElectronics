@@ -23,6 +23,7 @@ struct Typography
     static const touchgfx::FontId TYPOGRAPHY_04 = 7;
     static const touchgfx::FontId TYPOGRAPHY_05 = 8;
     static const touchgfx::FontId TYPOGRAPHY_06 = 9;
+    static const touchgfx::FontId TYPOGRAPHY_07 = 10;
 };
 
 struct TypographyFontIndex
@@ -36,8 +37,9 @@ struct TypographyFontIndex
     static const touchgfx::FontId TYPOGRAPHY_03 = 5; // JetBrainsMono_Regular_60_4bpp
     static const touchgfx::FontId TYPOGRAPHY_04 = 6; // swisop3_50_4bpp
     static const touchgfx::FontId TYPOGRAPHY_05 = 5; // JetBrainsMono_Regular_60_4bpp
-    static const touchgfx::FontId TYPOGRAPHY_06 = 0; // verdana_20_4bpp
-    static const uint16_t NUMBER_OF_FONTS = 7;
+    static const touchgfx::FontId TYPOGRAPHY_06 = 7; // verdana_12_4bpp
+    static const touchgfx::FontId TYPOGRAPHY_07 = 0; // verdana_20_4bpp
+    static const uint16_t NUMBER_OF_FONTS = 8;
 };
 
 class ApplicationFontProvider : public touchgfx::FontProvider

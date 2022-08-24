@@ -32,10 +32,10 @@ Application/User/generated/FrontendApplicationBase.o: \
  ../../Middlewares/ST/touchgfx/framework/include/common/Partition.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
- ../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp \
- ../../TouchGFX/generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp \
+ ../../TouchGFX/gui/include/gui/main_screen/MainView.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/MainViewBase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
- ../../TouchGFX/gui/include/gui/screen1_screen/Screen1Presenter.hpp \
+ ../../TouchGFX/gui/include/gui/main_screen/MainPresenter.hpp \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
@@ -73,9 +73,14 @@ Application/User/generated/FrontendApplicationBase.o: \
  ../../TouchGFX/gui/include/gui/containers/alertBar.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/containers/alertBarBase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp \
- ../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp \
- ../../TouchGFX/generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp \
- ../../TouchGFX/gui/include/gui/screen2_screen/Screen2Presenter.hpp \
+ ../../TouchGFX/gui/include/gui/debuginfo_screen/DebugInfoView.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/debuginfo_screen/DebugInfoViewBase.hpp \
+ ../../TouchGFX/gui/include/gui/debuginfo_screen/DebugInfoPresenter.hpp \
+ ../../TouchGFX/gui/include/gui/containers/debugParameterBox.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/containers/debugParameterBoxBase.hpp \
+ ../../TouchGFX/gui/include/gui/lana_screen/LanaView.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/lana_screen/LanaViewBase.hpp \
+ ../../TouchGFX/gui/include/gui/lana_screen/LanaPresenter.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
  ../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp \
@@ -146,13 +151,13 @@ Application/User/generated/FrontendApplicationBase.o: \
 
 ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp:
 
-../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:
+../../TouchGFX/gui/include/gui/main_screen/MainView.hpp:
 
-../../TouchGFX/generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp:
+../../TouchGFX/generated/gui_generated/include/gui_generated/main_screen/MainViewBase.hpp:
 
 ../../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
 
-../../TouchGFX/gui/include/gui/screen1_screen/Screen1Presenter.hpp:
+../../TouchGFX/gui/include/gui/main_screen/MainPresenter.hpp:
 
 ../../TouchGFX/gui/include/gui/model/ModelListener.hpp:
 
@@ -228,11 +233,21 @@ Application/User/generated/FrontendApplicationBase.o: \
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp:
 
-../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp:
+../../TouchGFX/gui/include/gui/debuginfo_screen/DebugInfoView.hpp:
 
-../../TouchGFX/generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp:
+../../TouchGFX/generated/gui_generated/include/gui_generated/debuginfo_screen/DebugInfoViewBase.hpp:
 
-../../TouchGFX/gui/include/gui/screen2_screen/Screen2Presenter.hpp:
+../../TouchGFX/gui/include/gui/debuginfo_screen/DebugInfoPresenter.hpp:
+
+../../TouchGFX/gui/include/gui/containers/debugParameterBox.hpp:
+
+../../TouchGFX/generated/gui_generated/include/gui_generated/containers/debugParameterBoxBase.hpp:
+
+../../TouchGFX/gui/include/gui/lana_screen/LanaView.hpp:
+
+../../TouchGFX/generated/gui_generated/include/gui_generated/lana_screen/LanaViewBase.hpp:
+
+../../TouchGFX/gui/include/gui/lana_screen/LanaPresenter.hpp:
 
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
 
