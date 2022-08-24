@@ -20,7 +20,7 @@ extern ADCSensor sWheelSensor;
 typedef void (*getDataHander)(void*);
 typedef struct
 {
-  SENSORS sensorType;
+  uint8_t sensorType;
   void* sensorStruct;
   getDataHander getDataHandler;
   getDataHander saveDataHandler;
@@ -29,7 +29,7 @@ typedef struct
 
 } sensorDataHandler;
 
-#define SENSORS_N 9
+#define SENSORS_N 7
 
 
 

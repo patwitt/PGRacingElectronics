@@ -41,7 +41,7 @@ typedef struct EcumasterData_t{
 	uint8_t TCDRPM;						// Traction Control Delta RPM
 	uint8_t TCTorqueReduction;			//
 	uint8_t PitLimitTorqueReduction;	//
-
+	float BurnedFuel;
 }EcumasterData;
 
 enum EcumasterFrame{

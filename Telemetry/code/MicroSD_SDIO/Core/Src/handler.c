@@ -18,7 +18,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = GYRO,
-				.sensorStruct = (void*)(&gyro),
+				.sensorStruct = (&gyro),
 				.getDataHandler = gyroGetData,
 				.saveDataHandler = gyroSaveData,
 				.dataReady = 0,

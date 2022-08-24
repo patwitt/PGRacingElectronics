@@ -40,7 +40,8 @@
 #include "handler.h"
 #include "SDCARD.h"
 #include "ecumaster.h"
-#pragma once
+#include "logger/transmitter.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,8 +75,10 @@ extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
 extern ADC_HandleTypeDef hadc3;
 extern EcumasterData EcuData;
-extern sensorDataHandler* _dataHandler;
-
+extern sensorDataHandler _dataHandler[];
+extern FIL* EcuFile;
+extern FIL* AlertFile;
+int saveAlert;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -193,7 +196,7 @@ void initSensors()
 
 
 }
-
+int packetsSend = 0;;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
@@ -219,11 +222,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 if(mlxLFSensor.timeToNextRead <= 0)
 	 {
 		mlxLFSensor.dataReady = 1;
-		mlxLFSensor.timeToNextRead = MLX_DATA_RATE;
-		HAL_UART_Transmit(&huart3, "KEEP ALIVE SIGNAL\n", strlen("KEEP ALIVE SIGNAL\n"), HAL_MAX_DELAY);
-		HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "), HAL_MAX_DELAY);
-		HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData), HAL_MAX_DELAY);
-		HAL_UART_Transmit(&huart3, "\r\n", strlen("\r\n"), HAL_MAX_DELAY);
+		mlxLFSensor.timeToNextRead = ECU_DATA_RATE;
+
+		//HAL_UART_Transmit(&huart3, "\r\n", strlen("\r\n"), HAL_MAX_DELAY);
 	 }
 	 mlxRFSensor.timeToNextRead -= 25;
 	 if(mlxRFSensor.timeToNextRead <= 0)
@@ -240,7 +241,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 }
 	 gyro.timeToNextRead -= 25;
 	 if(gyro.timeToNextRead <= 0)
-	 {
+	 {  _dataHandler[GYRO].dataReady = 1;
 		 gyro.dataReady = 1;
 		 gyro.timeToNextRead = GYRO_DATA_RATE;
 	 }
@@ -304,12 +305,28 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		gpsSensor.buforSize++;
 		  if(gpsSensor.Rx_data == '\n' && gpsSensor.saveLock == 0)
 		  {
-				gpsSensor.dataReady =0;
+			  _dataHandler[GPS].dataReady = 0;
+				gpsSensor.bufor[gpsSensor.buforSize]='\0';
 				strcpy(gpsSensor.data,gpsSensor.bufor);
 				gpsSensor.bufor[0]='\0';
 				gpsSensor.dataReady = 1;
+				_dataHandler[GPS].dataReady = 1;
+				gpsSensor.buforSize = 0;
+		  }
+		  if(gpsSensor.buforSize > 255){
+			  gpsSensor.bufor[0]='\0';
+			  gpsSensor.buforSize = 0;
 		  }
 		  HAL_UART_Receive_IT(gpsSensor.uart, &(gpsSensor.Rx_data), 1);
+	}else if(huart ==&huart3){
+		received_command[command_lenght] = bufor;
+		command_lenght++;
+		if(bufor == '\n'){
+			parseCommand(received_command);
+			command_lenght = 0;
+
+		}
+		HAL_UART_Receive_IT(&huart3, &(bufor), 1);
 	}
 }
 
@@ -363,10 +380,6 @@ int main(void)
   MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
 
-
-
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
 
   HAL_CAN_Start(&hcan2);
@@ -375,17 +388,18 @@ int main(void)
   HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
   HAL_Delay(200);
 
-
-  HAL_Delay(1000);
+  RTC_TimeTypeDef time;
+  RTC_DateTypeDef date;
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+
   initSensors();
   sdInit(&fileSystem);
   printStatusRegister();
-
-  openAllFiles();
-
+  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL){
+	  openAllFiles();
+  }
 
   //
   HAL_TIM_Base_Start_IT(&htim14);
@@ -394,6 +408,8 @@ int main(void)
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
   HAL_TIM_Base_Start(&htim4);
   HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_1);
+  int bw;
+  HAL_UART_Receive_IT(&huart3, &(bufor), 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -406,20 +422,35 @@ int main(void)
 
 	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
-		  for(int i=0;i<SENSORS_N;i++)
+		  for(int i=0;i<2;i++)
 		  {
 			  if( _dataHandler[i].isActive)
 			  {
 				  if(_dataHandler[i].getDataHandler != NULL)
 				  {
 					  _dataHandler[i].getDataHandler(_dataHandler[i].sensorStruct);
-				  }
 
-				  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
+				  }
+				  if(_dataHandler[i].dataReady == 1 && _dataHandler[i].saveDataHandler != NULL)
+				  {
+					  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
+					  _dataHandler[i].dataReady = 0;
+				  }
 			  }
 		  }
+
+		  if(mlxLFSensor.dataReady == 1)
+		  {
+				saveEcuData(EcuData);
+				sendEcuLogs(EcuData);
+				mlxLFSensor.dataReady = 0;
+		  }
+		  if(saveAlert == 1){
+			  f_write(AlertFile, received_command, strlen(received_command), &bw);
+			  f_sync(AlertFile);
+			  saveAlert = 0;
+		  }
 	  }
-	  //adcGetData(&sWheelSensor);
 
 	}
 

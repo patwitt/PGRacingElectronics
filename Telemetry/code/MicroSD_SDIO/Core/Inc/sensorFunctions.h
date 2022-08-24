@@ -71,11 +71,13 @@ typedef enum SensorsDeagultTimings{
 	GYRO_DATA_RATE = 250,
 	DAMPER_DATA_RATE = 50,
 	STEERING_DATA_RATE = 50,
+	ECU_DATA_RATE = 100,
 
 	ABS_ZERO_SPEED_TIME = 100,
 
 	GPS_ERROR_TIME = 1000,
 	ADC_ERROR_TIME = 1000,
+
 
 };
 void sensorsInit();

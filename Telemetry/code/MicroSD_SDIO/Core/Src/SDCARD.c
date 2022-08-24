@@ -6,7 +6,7 @@
  */
 #include "SDCARD.h"
 #include<stdio.h>
-
+#include "ecumaster.h"
 #define FILE_DEFAULT_MODE FA_WRITE | FA_OPEN_APPEND
 
 extern GyroSensor gyro;
@@ -27,22 +27,33 @@ void sdDeInit(FATFS* fs)
 
 void sdInit(FATFS* fs)
 {
-	  if (f_mount(fs, "", 0) == FR_OK)
+	  if (f_mount(fs, "", 1) == FR_OK)
 	  {
 		  statusRegister.SDCARD = SENSOR_OK;
-		  if (DEBUG)
+		  if(DEBUG)
 			  printf("SDCard mounting success!\n");
 
 	  }else
 	  {
 		  statusRegister.SDCARD = SENSOR_INIT_FAIL;
+		  printf("SDCard mounting fail!\n");
+
 		  //sdMountFailHandler();
 	  }
 }
+FIL *EcuFile;
+FIL *AlertFile;
+char ecuPath[] = "EcuData.csv";
 void openAllFiles()
 {
+
 	if(statusRegister.SDCARD == SENSOR_OK)
 	{
+		EcuFile = (FIL*)malloc(sizeof(FIL));
+		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
+		AlertFile = (FIL*)malloc(sizeof(FIL));
+		openFile(AlertFile,"Alert.txt",FILE_DEFAULT_MODE);
+		openFile(EcuFile,ecuPath,FILE_DEFAULT_MODE);
 		if(statusRegister.GYRO == SENSOR_OK){
 			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
 		}
@@ -56,7 +67,6 @@ void openAllFiles()
 
 		}
 
-		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
 	}
 }
 int createHeaders(FIL * file,char * path)
@@ -143,6 +153,21 @@ int openFile(FIL * file, char * path, BYTE mode)
 	return SD_OK;
 
 
+}
+void saveEcuData(EcumasterData ecu){
+	int bw;
+	char dataBuffer[255];
+	sprintf(dataBuffer, "%d,", HAL_GetTick());
+	f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
+	 for(int i = 0; i < sizeof(ecu); i++)
+	    {
+	        sprintf(dataBuffer,"%X",((char*)&ecu)[i]);
+	        f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
+	    }
+
+	//int res = f_write(EcuFile, &ecu, sizeof(ecu), &bw);
+	f_write(EcuFile, "\r\n", 2, &bw);
+	f_sync(EcuFile);
 }
 void gpsSaveData(GPSSensor * sens)
 {

@@ -90,15 +90,15 @@ void GPSInit(GPSSensor * sens)
 	HAL_Delay(100);
 	HAL_UART_Transmit(sens->uart, commands[0], strlen(commands[0]), HAL_MAX_DELAY);
 	HAL_Delay(100);
-	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+	//HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
 
 	HAL_UART_Transmit(sens->uart, commands[2], strlen(commands[2]), HAL_MAX_DELAY);
 	HAL_Delay(100);
-	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+	//HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
 
 	HAL_UART_Transmit(sens->uart, commands[3], strlen(commands[3]), HAL_MAX_DELAY);
 	HAL_Delay(100);
-	HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
+	//HAL_UART_Transmit(&huart3, (sens->data), strlen(sens->data), HAL_MAX_DELAY);
 }
 /* *******ADC SECTION  ********/
 extern ADC_HandleTypeDef hadc1;

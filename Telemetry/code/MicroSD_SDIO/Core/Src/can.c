@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "ecumaster.h"
+#include "fatfs.h"
 EcumasterData EcuData;
 /* USER CODE END 0 */
 
@@ -135,7 +136,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
     /* CAN1 interrupt Init */
-    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 2, 0);
     HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
 
@@ -167,7 +168,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* CAN2 interrupt Init */
-    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 3, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX0_IRQn);
   /* USER CODE BEGIN CAN2_MspInit 1 */
 
@@ -226,11 +227,13 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 }
 
 /* USER CODE BEGIN 1 */
+extern UART_HandleTypeDef huart3;
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	CAN_RxHeaderTypeDef RxHeader;
 	uint8_t RxData[8];
 
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+	//HAL_UART_Transmit(&huart3, "got frame\r\n", strlen("got frame\r\n"), 200);
 	if (hcan->Instance == CAN1) {
 		//ComputeEcumasterFrame(RxHeader, RxData);
 		ComputeInternalFrame(RxHeader, RxData);
@@ -239,8 +242,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 		ComputeEcumasterFrame(RxHeader, RxData);
 	}
 }
-
+extern FIL* EcuFile;
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
+
 	if (RxHeader.StdId == Frame1) {
 		EcuData.rpm = LittleToBigEndian(&RxData[0]);
 		EcuData.tps = RxData[2];
@@ -272,6 +276,17 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.TCDRPM = LittleToBigEndian(&RxData[4]);
 		EcuData.TCTorqueReduction = RxData[6];
 		EcuData.PitLimitTorqueReduction = RxData[7];
+	}else if (RxHeader.StdId == 768) {
+		int bw;
+		char dataBuffer[255];
+		sprintf(dataBuffer, "%d,", HAL_GetTick());
+		f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
+		f_write(EcuFile, "[768]", 5, &bw);
+		f_write(EcuFile, RxData, sizeof(RxData), &bw);
+		f_write(EcuFile, "\r\n", 2, &bw);
+		f_sync(EcuFile);
+	}else if (RxHeader.StdId == 0x1FE) {
+		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData[0]))/8192.0;
 	}
 }
 

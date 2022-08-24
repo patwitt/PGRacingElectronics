@@ -1,8 +1,0 @@
-../Core/Src/can.c:32:6:MX_CAN1_Init	48	static
-../Core/Src/can.c:76:6:MX_CAN2_Init	8	static
-../Core/Src/can.c:110:6:HAL_CAN_MspInit	64	static
-../Core/Src/can.c:178:6:HAL_CAN_MspDeInit	16	static
-../Core/Src/can.c:229:6:HAL_CAN_RxFifo0MsgPendingCallback	80	static
-../Core/Src/can.c:243:6:ComputeEcumasterFrame	8	static
-../Core/Src/can.c:278:6:ComputeInternalFrame	8	static
-../Core/Src/can.c:282:10:LittleToBigEndian	24	static

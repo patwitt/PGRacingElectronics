@@ -29,7 +29,7 @@ void EcuInit(EcumasterData* ecu)
 	ecu->egt2=0;
 	ecu->gear=0;
 	ecu->ecuTemp=0;
-	ecu->batt=0;
+	ecu->batt=490;
 	ecu->errflag=0;
 	ecu->flags1=0;
 	ecu->DBWPosition=0;
@@ -38,4 +38,5 @@ void EcuInit(EcumasterData* ecu)
 	ecu->TCDRPM =0;
 	ecu->TCTorqueReduction=0;
 	ecu->PitLimitTorqueReduction=0;
+	ecu->BurnedFuel = 0;
 }
