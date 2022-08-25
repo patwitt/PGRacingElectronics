@@ -20,7 +20,7 @@ typedef struct {
 
 /* Degrees values wrapped in macros for mapping */
 /* Servo degrees limits */
-#define DEG_DEFAULT    (85U)         //!< Default position
+#define DEG_DEFAULT    (99U)         //!< Default position
 #define DEG_UP_MAX     (80U)         //!< Degrees UP max. in relation to DEFAULT pos
 #define DEG_DOWN_MAX   (80U)         //!< Degrees DOWN max. in relation to DEFAULT pos
 #define DEG_PROHIBITED (DEG_DEFAULT) //!< Prohibited action e.g. 6 -> UP. Will just stay in DEFAULT position

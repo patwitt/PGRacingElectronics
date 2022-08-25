@@ -82,12 +82,12 @@ static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 },
 	 [GEAR_SENS_5] = {
 		 .adcExpectedReading = 1100U,
-		 .adcResolution = 80U,
+		 .adcResolution = 40U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
 	     .adcExpectedReading = 520U,
-		 .adcResolution = 80U,
+		 .adcResolution = 40U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_IN_PROG] = {

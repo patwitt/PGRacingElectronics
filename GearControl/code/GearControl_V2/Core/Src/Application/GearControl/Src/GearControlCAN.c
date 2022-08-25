@@ -85,7 +85,7 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
 				canReportCtrl.reportingState = CAN_REPORTING_IDLE;
 			} else {
 				/* Update shift status */
-				CAN_TxUpdateData(canReportCtrl.msgId, canReportCtrl.gearByte, (uint8_t)canReportCtrl.shiftStatus);
+				CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
 			}
 			break;
 
@@ -143,7 +143,7 @@ void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus)
 void GearControlCAN_Process(void)
 {
 	/* Update gear data */
-	CAN_TxUpdateData(canReportCtrl.msgId, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
 
 	/* Update shift status data */
 	GearControlCAN_ShiftStatusHandler();

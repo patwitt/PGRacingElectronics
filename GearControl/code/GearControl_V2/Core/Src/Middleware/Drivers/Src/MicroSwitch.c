@@ -11,8 +11,8 @@
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
-#define DEBOUNCE_10MS   (10U)
-#define DEBOUNCE_20MS   (20U)
+#define DEBOUNCE_10MS   (50U)
+#define DEBOUNCE_20MS   (50U)
 
 static MicroSwitchInternal microSwitchUp = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_1};
 static MicroSwitchInternal microSwitchDown = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_2};
