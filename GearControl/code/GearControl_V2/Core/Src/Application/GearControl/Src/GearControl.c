@@ -59,7 +59,7 @@ typedef struct {
 	GearShiftStates shiftState;                     //!< Shift state - describes dynamic behavior
 	const ServoEntityEnum servo;                    //!< Servo Entity Type
 	const CANShiftStatus *const canShiftStatusMap;  //!< CAN Bus shift mapping - CAN signal <- shift status
-	const uint32_t gearSensDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
+	const uint32_t gearSensDebounceMs;              //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
 	uint32_t delayTim;                              //!< Delay timer
 	uint32_t clutchTimeout;
@@ -134,7 +134,7 @@ static __IO GearControlHandler gearCtrl = {
 				.shiftProcedure = SHIFT_IDLE
 		},
 		.debCnt = 0U,
-		.gearSensDebounceMs = 400U,
+		.gearSensDebounceMs = 10U,
 		.canShiftStatusMap = shiftCanMap,
 		.delayTim = 0U
 };
@@ -236,7 +236,7 @@ static inline GearStates GearCtrlState_Init(void)
 		const GearSensorStatesEnum gearSens = GearSensor_GetState();
 
 		/* Initialization will continue only if gear sensor gives valid reading */
-		if (gearSens <= GEAR_SENS_UNKNOWN) {
+		if (gearSens <= GEAR_SENS_6) {
 			/* Enable gear shifting servo */
 			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
 				/* Gear sensor reading OK, proceed with normal operation */
@@ -604,10 +604,8 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 	/* Keep old shifting state */
 	GearShiftStates nextShiftState = gearCtrl.shiftState;
 
-	const GearSensorStatesEnum gearSensReading = GearSensor_GetState();
-
 	/* Check if reading is not unknown */
-	if (gearSensReading != GEAR_SENS_UNKNOWN) {
+	if (GearSensor_GetState() != GEAR_SENS_UNKNOWN) {
 		/* Check gear sensor reading plausibility */
 		const GearSensorPlausibilityEnum gearSensPlaus = GearSensor_GetPlausibility();
 
