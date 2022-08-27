@@ -398,5 +398,5 @@ void ShiftRevMatch_Process(void)
 void ShiftRevMatch_Trigger(const GearStates revMatchGear) { (void)revMatchGear; }
 void ShiftRevMatch_Process(void) {}
 ErrorEnum ShiftRevMatch_Init(void) { return ERROR_OK; }
-bool_t ShiftRevMatch_IsFinished(void) {return FALSE; }
+bool_t ShiftRevMatch_IsFinished(void) {return TRUE; }
 #endif // CONFIG_ENABLE_REV_MATCH

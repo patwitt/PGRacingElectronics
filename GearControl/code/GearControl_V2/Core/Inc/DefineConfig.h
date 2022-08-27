@@ -19,6 +19,10 @@
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_DISABLE) //!< Enable Clutch Slip on gearshifts
 #define CONFIG_ENABLE_REV_MATCH          (FEATURE_DISABLE) //!< Enable rev matching
 
+/* Injectors Cut configs */
+#define INJECTORS_CUT_OG  (FALSE)
+#define INJECTORS_CUT_ECU (!INJECTORS_CUT_OG)
+
 /* GearControl configs */
 #define REVMATCH_FROM_ENGINE_RPM (TRUE)                      //!< Revmatching from Engine RPM's
 #define REVMATCH_FROM_WHEEL_RPM  (!REVMATCH_FROM_ENGINE_RPM) //!< Revmatching from Wheel RPM's

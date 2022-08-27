@@ -136,7 +136,6 @@ static void PeriodicTask_10ms(void)
 	GearControlCAN_Process();
 	/* CAN Bus Tx Callback */
 	CAN_TxCallback();
-	CAN_RxCallback();
 }
 
 static void PeriodicTask_500ms(void)

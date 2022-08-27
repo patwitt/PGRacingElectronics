@@ -7,12 +7,14 @@
 
 #include "MicroSwitch.h"
 #include "main.h"
+#include "GearWatchdog.h"
 
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
 #define DEBOUNCE_10MS   (10U)
 #define DEBOUNCE_20MS   (20U)
+#define MICROSWITCH_TIMEOUT_MS (300U)
 
 static MicroSwitchInternal microSwitchUp = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_1};
 static MicroSwitchInternal microSwitchDown = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_2};
@@ -22,7 +24,16 @@ static __IO MicroSwitch microSwitches[MS_COUNT] = {
 	{.internal = &microSwitchUp}
 };
 
-static MicroSwitchControlType microSwitchControl = MS_CONTROL_DEBOUNCE_LOW;
+typedef struct {
+	MicroSwitchControlType control;
+	GearWatchdogType *const wdg;
+	uint32_t tim;
+} MicroSwitchHandler;
+
+static MicroSwitchHandler msHandler = {
+	.control = MS_CONTROL_DEBOUNCE_LOW,
+	.tim = 0U
+};
 
 /* ---------------------------- */
 /* Local function declarations  */
@@ -30,6 +41,7 @@ static MicroSwitchControlType microSwitchControl = MS_CONTROL_DEBOUNCE_LOW;
 static void MicroSwitch_StateMachine(void);
 static void MicroSwitch_DebounceLow(void);
 static void MicroSwitch_NormalOperation(void);
+static void MicroSwitch_Monitoring(void);
 
 /* ---------------------------- */
 /*        Local functions       */
@@ -53,7 +65,7 @@ static void MicroSwitch_DebounceLow(void)
 		if (lowDebCnt > DEBOUNCE_20MS)
 		{
 			lowDebCnt = 0U;
-			microSwitchControl = MS_CONTROL_ENABLED;
+			msHandler.control = MS_CONTROL_ENABLED;
 		}
 	} else {
 		lowDebCnt = 0U;
@@ -88,6 +100,29 @@ static void MicroSwitch_NormalOperation(void)
 	}
 }
 
+static void MicroSwitch_Monitoring(void)
+{
+	switch (msHandler.control) {
+		case MS_CONTROL_ENABLED:
+			/* Reset timer, microswitches are enabled */
+			msHandler.tim = 0U;
+			break;
+
+		case MS_CONTROL_DEBOUNCE_LOW:
+		case MS_CONTROL_DISABLED:
+		default:
+			/* Tick timer */
+			SwTimerDelay_Tick(&msHandler.tim);
+
+			/* Enable MicroSwitches again */
+			if (SwTimerDelay_Elapsed(&msHandler.tim, MICROSWITCH_TIMEOUT_MS)) {
+				msHandler.control = MS_CONTROL_ENABLED;
+				msHandler.tim = 0U;
+			}
+			break;
+	}
+}
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
@@ -111,7 +146,9 @@ void MicroSwitch_Init(void)
  */
 static void MicroSwitch_StateMachine(void)
 {
-	switch (microSwitchControl) {
+	MicroSwitch_Monitoring();
+
+	switch (msHandler.control) {
 		case MS_CONTROL_DEBOUNCE_LOW:
 			MicroSwitch_DebounceLow();
 			break;
@@ -125,6 +162,7 @@ static void MicroSwitch_StateMachine(void)
 			microSwitches[MS_G_DOWN].state = MS_STATE_DEBOUNCING;
 
 		default:
+			/* Do nothing */
 			break;
 	}
 }
@@ -167,7 +205,7 @@ __IO MicroSwitch* MicroSwitch_Get(MicroSwitchTypeEnum microswitch)
  */
 void MicroSwitch_SetControl(MicroSwitchControlType control)
 {
-	microSwitchControl = control;
+	msHandler.control = control;
 }
 
 /**
@@ -177,5 +215,5 @@ void MicroSwitch_SetControl(MicroSwitchControlType control)
  */
 MicroSwitchControlType MicroSwitch_GetControl(void)
 {
-	return microSwitchControl;
+	return msHandler.control;
 }

@@ -41,7 +41,8 @@ typedef enum {
 
 typedef enum {
 	CAN_TX_MSG_GEARINFO = 0x00U,
-	CAN_TX_MSG_COUNT   = 0x01U
+	CAN_TX_MSG_INJ_CUT  = 0x01U,
+	CAN_TX_MSG_COUNT    = 0x02U
 } CAN_TxMsgEnum;
 
 typedef enum {
@@ -53,7 +54,7 @@ typedef enum {
 
 typedef enum {
 	CAN_TX_MSG_STDID_GEARINFO = 0x300U,
-	CAN_TX_MSG_STDID_COUNT   = 0x01U
+	CAN_TX_MSG_INJECTORS_CUT  = 0x666U
 } CAN_TxMsgStdIdEnum;
 
 /* Rx Message Type */
@@ -80,6 +81,7 @@ ErrorEnum CAN_Init(CAN_HandleTypeDef* hcan);
 void CAN_TxCallback(void);
 void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data);
 void CAN_TxUpdateStatus(const CAN_TxMsgEnum txMsgId, const CAN_MsgStatus status);
+void CAN_TxUpdateAndSchedule(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data);
 
 /* RX functions */
 void CAN_RxCallback(void);

@@ -62,6 +62,7 @@ typedef struct {
 	const uint32_t gearDebounceMs;                  //!< Gear validation debouncing against sensor reading in ms
 	uint32_t debCnt;                                //!< Debounce counter
 	uint32_t delayTim;                              //!< Delay timer
+	uint32_t shiftTim;                              //!< Shift monitoring timer
 	uint32_t clutchTimeout;
 } GearControlHandler;
 
@@ -162,6 +163,7 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void);
 static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const establishedGear);
 static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establishedGear);
 
+static inline void ShiftHandler_Monitoring(void);
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
@@ -268,9 +270,7 @@ static inline GearStates GearCtrlState_Init(void)
 static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const request)
 {
 	/* Execute shift and go to validation step */
-	// TODO
 	GearShiftStates nextShiftState = SHIFT_VALIDATE;
-	//GearShiftStates nextShiftState = SHIFT_IDLE;
 
 	if ((NULL_CHECK1(request)) && (request->requested)) {
 		/* Set servo pos and go to DISABLED if error occurs */
@@ -282,6 +282,8 @@ static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const
 			nextShiftState = SHIFT_DISABLED;
 			gearCtrl.gear = GEAR_SERVO_FAILURE;
 		}
+	} else {
+		nextShiftState = SHIFT_IDLE;
 	}
 
 	return nextShiftState;
@@ -304,7 +306,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 	GearStates expectedGear = GEAR_DISABLED;
 	GearShiftStates nextShiftState = SHIFT_IDLE;
 
-	if ((NULL_CHECK1(request)) && (!request->requested)) {
+	if (NULL_CHECK1(request)) {
 		const GearRequestEnum newRequest = GearRequest_Get();
 
 		switch (newRequest) {
@@ -332,6 +334,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 			case GEAR_REQUEST_NONE:
 			case GEAR_REQUEST_INVALID:
 			default:
+				GearCtrl_ResetRequest(request);
 				/* Anything else is irrelevant, just ignore */
 				break;
 		}
@@ -374,6 +377,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 
 	switch (upProcedureState) {
 		case SHIFT_PROCEDURE_UP_TRIGGERS:
+#if 0
 			/* Clutch Slip */
 			if (ClutchControl_TriggerSlip(gearCtrl.upShiftSlipCfg->slipDeg,
 					                        gearCtrl.upShiftSlipCfg->direction) == ERROR_OK) {
@@ -381,7 +385,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 			} else {
 				gearCtrl.clutchTimeout = 0U;
 			}
-
+#endif
 			/* Injectors Cut */
 			InjectorsCut_Trigger();
 			/* Go to delay */
@@ -394,12 +398,15 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 			SwTimerDelay_Tick(&gearCtrl.delayTim);
 
 			/* Check if both clutch slip delay and injectors cut delay has elapsed */
+#if 0
 			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.clutchTimeout) &&
 			    SwTimerDelay_Elapsed(&gearCtrl.delayTim, INJECTORS_CUT_TRIGGER_DELAY_MS)) {
+#endif
+			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, INJECTORS_CUT_TRIGGER_DELAY_MS)) {
 				upProcedureState = SHIFT_PROCEDURE_UP_TRIGGERS;
 				nextShiftState = SHIFT_EXEC;
 				gearCtrl.delayTim = 0U;
-				gearCtrl.clutchTimeout = 0U;
+				//gearCtrl.clutchTimeout = 0U;
 			}
 			break;
 	}
@@ -483,9 +490,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
  */
 static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
 {
-	// TODO
 	GearShiftStates nextShiftState = SHIFT_VALIDATE;
-	//GearShiftStates nextShiftState = SHIFT_IDLE;
 	const GearStates gearSens = (GearStates)GearSensor_GetState();
 
 		/* Successful gear shift */
@@ -528,9 +533,9 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void)
 	/* MicroSwitches debounce LOW */
 	MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
 
-	if (TRUE) {
+	if (ShiftRevMatch_IsFinished()) {
 		/* Reset clutch slip */
-		//ClutchControl_DisableSlip();
+		ClutchControl_DisableSlip();
 		/* Go to IDLE */
 		nextShiftState = SHIFT_IDLE;
 	}
@@ -570,8 +575,8 @@ static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const 
 			break;
 
 		case DEBOUNCE_EXCEEDED:
-			/* Gear sensor reading is different than established gear */
-			/* Something went wrong - recover by
+			/* Gear sensor reading is different than established gear.
+			 * Something went wrong - recover by
 			 * setting gear from gear sensor reading and going to IDLE */
 			*establishedGear = gearSensReading;
 			nextShiftState = SHIFT_IDLE;
@@ -609,10 +614,8 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 	/* Keep old shifting state */
 	GearShiftStates nextShiftState = gearCtrl.shiftState;
 
-	const GearSensorStatesEnum gearSensReading = GearSensor_GetState();
-
 	/* Check if reading is not unknown */
-	if (gearSensReading != GEAR_SENS_UNKNOWN) {
+	if (GearSensor_GetState() != GEAR_SENS_UNKNOWN) {
 		/* Check gear sensor reading plausibility */
 		const GearSensorPlausibilityEnum gearSensPlaus = GearSensor_GetPlausibility();
 
@@ -643,6 +646,31 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 	return nextShiftState;
 }
 
+static inline void ShiftHandler_Monitoring(void)
+{
+#define SHIFT_TIMEOUT_MS (420U)
+
+	switch (gearCtrl.shiftState) {
+		case SHIFT_IDLE:
+			/* Reset timer, microswitches are enabled */
+			gearCtrl.shiftTim = 0U;
+			break;
+
+		default:
+			/* Tick timer */
+			SwTimerDelay_Tick(&gearCtrl.shiftTim);
+
+			/* Enable MicroSwitches again */
+			if (SwTimerDelay_Elapsed(&gearCtrl.shiftTim, SHIFT_TIMEOUT_MS)) {
+				GearCtrl_ResetRequest(&gearCtrl.request);
+				MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
+				gearCtrl.shiftState = SHIFT_IDLE;
+				gearCtrl.shiftTim = 0U;
+			}
+			break;
+	}
+}
+
 /**
  * @brief State machine that handles gear shifting.
  * 
@@ -651,6 +679,8 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 static inline GearStates GearCtrlState_ShiftHandler(void)
 {
 	GearStates nextGear = gearCtrl.gear;
+
+	ShiftHandler_Monitoring();
 
 	switch (gearCtrl.shiftState) {
 		case SHIFT_INIT:
