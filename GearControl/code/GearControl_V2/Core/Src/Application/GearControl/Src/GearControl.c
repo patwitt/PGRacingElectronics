@@ -680,6 +680,7 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 {
 	GearStates nextGear = gearCtrl.gear;
 
+	/* Monitor shift state to prevent freeze */
 	ShiftHandler_Monitoring();
 
 	switch (gearCtrl.shiftState) {

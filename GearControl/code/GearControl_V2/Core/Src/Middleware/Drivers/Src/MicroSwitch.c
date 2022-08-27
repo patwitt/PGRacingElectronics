@@ -104,7 +104,7 @@ static void MicroSwitch_Monitoring(void)
 {
 	switch (msHandler.control) {
 		case MS_CONTROL_ENABLED:
-			/* Reset timer, microswitches are enabled */
+			/* Restart timer */
 			msHandler.tim = 0U;
 			break;
 
@@ -146,6 +146,7 @@ void MicroSwitch_Init(void)
  */
 static void MicroSwitch_StateMachine(void)
 {
+	/* Monitor microswitch state to prevent freeze */
 	MicroSwitch_Monitoring();
 
 	switch (msHandler.control) {
