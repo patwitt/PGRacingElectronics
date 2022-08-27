@@ -81,7 +81,8 @@ ErrorEnum CAN_Init(CAN_HandleTypeDef* hcan);
 void CAN_TxCallback(void);
 void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data);
 void CAN_TxUpdateStatus(const CAN_TxMsgEnum txMsgId, const CAN_MsgStatus status);
-void CAN_TxUpdateAndSchedule(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data);
+void CAN_TxScheduleMsg(const CAN_TxMsgEnum txMsgId);
+void CAN_TxUpdateAllBytes(const CAN_TxMsgEnum txMsgId, const uint32_t value);
 
 /* RX functions */
 void CAN_RxCallback(void);

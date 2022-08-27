@@ -65,7 +65,8 @@ static inline void InjectorsCut_EnableInjectors(void)
 #if INJECTORS_CUT_OG
 	HAL_GPIO_WritePin(injectorsCut.gpioPort, injectorsCut.gpioPin, GPIO_PIN_SET);
 #elif INJECTORS_CUT_ECU
-	CAN_TxUpdateAndSchedule(injectorsCut.canMsgId, injectorsCut.canByte, CAN_BYTE_INJECTORS_RESTORE);
+	CAN_TxUpdateAllBytes(injectorsCut.canMsgId, CAN_BYTE_INJECTORS_RESTORE);
+	CAN_TxScheduleMsg(injectorsCut.canMsgId);
 #endif
 }
 
@@ -79,7 +80,8 @@ static inline void InjectorsCut_DisableInjectors(void)
 #if INJECTORS_CUT_OG
 	HAL_GPIO_WritePin(injectorsCut.gpioPort, injectorsCut.gpioPin, GPIO_PIN_RESET);
 #elif INJECTORS_CUT_ECU
-	CAN_TxUpdateAndSchedule(injectorsCut.canMsgId, injectorsCut.canByte, CAN_BYTE_INJECTORS_TRIGGER);
+	CAN_TxUpdateAllBytes(injectorsCut.canMsgId, CAN_BYTE_INJECTORS_TRIGGER);
+	CAN_TxScheduleMsg(injectorsCut.canMsgId);
 #endif
 }
 

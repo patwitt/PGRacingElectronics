@@ -9,6 +9,7 @@
 #define SRC_APPLICATION_GEARCONTROL_SRC_GEARCONTROL_CAN_H_
 
 #include "Types.h"
+#include "SwTimer.h"
 
 typedef enum {
 	CAN_SHIFT_INIT            = 0x00U,
@@ -23,7 +24,7 @@ typedef enum {
 	CAN_SHIFT_STATUS_COUNT    = 0x09U
 } CANShiftStatus;
 
-ErrorEnum GearControlCAN_Init(void);
+ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats);
 void GearControlCAN_Process(void);
 void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus);
 

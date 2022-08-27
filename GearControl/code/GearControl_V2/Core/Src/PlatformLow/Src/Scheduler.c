@@ -18,11 +18,8 @@
 static __IO uint32 timers[N_PROCESS];
 static __IO boolean hasElapsed = FALSE;
 
-static SchedulerStatsType combinedStats; /**< Single frame statistics */
+static SwTimerStats combinedStats; /**< Single frame statistics */
 static SchedulerType* schedule_ = NULL;  /**< Pointer to list of tasks */
-
-static void SchedulerInitStats(SchedulerStatsType* stats);
-static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t duration);
 
 static void SchedulerExecuteTasks(void);
 static void SchedulerTimeBase(void);
@@ -52,29 +49,17 @@ ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const 
 		/* Assign scheduler timer to stop watch - no return */
 		StopWatchInit(timer);
 
-	   SchedulerInitStats(&combinedStats);
+		SwTimerInitStats(&combinedStats, UINT32_MAX);
 
 	   for (uint32_t i = 0U; i < N_PROCESS; ++i)
 	   {
-		  SchedulerInitStats(&schedule_[i].stats);
+		   SwTimerInitStats(&schedule_[i].stats, UINT32_MAX);
 	   }
 
 	   WatchdogFeed();
    	}
 
    	return err;
-}
-
-/**
- * @brief Initialize the scheduler statistics.
- * 
- * @param stats A pointer to the statistics structure.
- */
-static void SchedulerInitStats(SchedulerStatsType* stats)
-{
-   stats->lastDuration = 0U;
-   stats->maxDuration = 0U;
-   stats->minDuration = UINT32_MAX;
 }
 
 /**
@@ -133,38 +118,18 @@ static void SchedulerExecuteTasks(void)
          if (timers[i] >= schedule_[i].period) {
             TimerStopWatchStartLap(&taskStopWatch);
             schedule_[i].handler();
-            SchedulerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
+            SwTimerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
             timers[i] = 0U;
          }
    }
 
    const uint32_t frameDuration = TimerStopWatchCaptureDuration(&frameStopWatch);
-   SchedulerUpdateStats(&combinedStats, frameDuration);
+   SwTimerUpdateStats(&combinedStats, frameDuration);
 
    //SchedulerUpdateCpuLoadStats(frameDuration);
    WatchdogFeed();
 }
 
-/**
- * @brief Update scheduler stats.
- * 
- * It updates the statistics for a given task.
- * 
- * @param stats    A pointer to the statistics structure for the task.
- * @param duration The time it took to execute the task.
- */
-static void SchedulerUpdateStats(SchedulerStatsType* stats, const uint32_t duration)
-{
-   if (duration > stats->maxDuration) {
-      stats->maxDuration = duration;
-   }
-
-   if (duration < stats->minDuration) {
-      stats->minDuration = duration;
-   }
-
-   stats->lastDuration = duration;
-}
 #if 0
 static void SchedulerUpdateCpuLoadStats(const uint32_t lastDuration)
 {

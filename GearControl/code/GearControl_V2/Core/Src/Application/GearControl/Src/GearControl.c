@@ -22,6 +22,8 @@
 /*          Local data          */
 /* ---------------------------- */
 
+#define SHIFT_TIME_STATS_MAX (0xFFU)
+
 //! Shift states - dynamic action of gear-shift
 typedef enum {
 	SHIFT_INIT                 = 0U,
@@ -64,6 +66,8 @@ typedef struct {
 	uint32_t delayTim;                              //!< Delay timer
 	uint32_t shiftTim;                              //!< Shift monitoring timer
 	uint32_t clutchTimeout;
+	uint32_t gearTickStart;
+	SwTimerStats timStats;
 } GearControlHandler;
 
 //! Mapping of shift state <- CAN shift status signal
@@ -176,6 +180,8 @@ static void GearWatchdogElapsedTrigger(void)
 	/* Reset request and debounce microswitches LOW */
 	GearCtrl_ResetRequest(&gearCtrl.request);
 	MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
+
+	SwTimerUpdateStats(&gearCtrl.timStats, SHIFT_TIME_STATS_MAX);
 
 	/* Go back to default position and to failed gearshift state */
 	if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
@@ -321,7 +327,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				/* Set new request for up-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesUp;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearUp;
-				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
+				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_UP);
 				break;
 
 			case GEAR_REQUEST_SHIFT_N:
@@ -341,6 +347,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 
 		/* requested flag updated by SetRequest() function if request is valid */
 		if (request->requested) {
+			gearCtrl.gearTickStart = SwTimerGetUptime();
 			/* Go to next selected shift state on valid request */
 			nextShiftState = request->shiftProcedure;
 			/* Disable MicroSwitches - shift is being processed */
@@ -505,6 +512,9 @@ static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const ge
 		GearCtrl_ResetRequest(&gearCtrl.request);
 		/* Go to default position */
 		if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
+			/* Measure shift duration */
+			const uint32_t shiftDuration = SwTimerGetUptime() - gearCtrl.gearTickStart;
+			SwTimerUpdateStats(&gearCtrl.timStats, shiftDuration);
 			/* Change state to SUCCESS */
 			nextShiftState = SHIFT_SUCCESS;
 		} else {
@@ -802,12 +812,15 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 {
 	ErrorEnum err = ERROR_OK;
 
+	/* Initialize statistics */
+	SwTimerInitStats(&gearCtrl.timStats, SHIFT_TIME_STATS_MAX);
+
 	/* Initialize Gear Requests module */
 	err = GearRequest_Init();
 
 	/* Initialize CAN reporting module */
 	if (err == ERROR_OK) {
-		err = GearControlCAN_Init();
+		err = GearControlCAN_Init(&gearCtrl.timStats);
 	}
 
 	/* Initialize Gear Watchdog */

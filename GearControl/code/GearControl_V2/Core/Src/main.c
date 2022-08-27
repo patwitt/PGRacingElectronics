@@ -126,6 +126,8 @@ static void PeriodicTask_1ms(void)
 	GearControl_Process();
 	/* Shift rev matching process */
 	ShiftRevMatch_Process();
+	/* Tick SW Timer */
+	SwTimerTick1ms();
 }
 
 static void PeriodicTask_10ms(void)

@@ -328,13 +328,20 @@ void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, 
 	}
 }
 
-void CAN_TxUpdateAndSchedule(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, const uint8_t data)
+void CAN_TxUpdateAllBytes(const CAN_TxMsgEnum txMsgId, const uint32_t value)
 {
-	static uint32_t TxMailbox = 3U;
+	if (txMsgId < CAN_TX_MSG_COUNT) {
+		for (uint32_t canByte = 0U; canByte < 8U; ++canByte) {
+			canHandler_.txMsg[txMsgId].buffer[canByte] = value;
+		}
+	}
+}
+
+void CAN_TxScheduleMsg(const CAN_TxMsgEnum txMsgId)
+{
+	static uint32_t TxMailbox = 0U;
 
 	if (txMsgId < CAN_TX_MSG_COUNT) {
-		CAN_TxUpdateData(txMsgId, byte, data);
-
 		CAN_TxMsgType *const txMsg = &canHandler_.txMsg[txMsgId];
 
 		txMsg->error = HAL_CAN_AddTxMessage(canHandler_.hcan, &txMsg->txHeader, txMsg->buffer, &TxMailbox);

@@ -45,6 +45,7 @@ typedef struct {
 	const CAN_MsgDataBytes gearByte;
 	const CAN_MsgDataBytes shiftStatusByte;
 	const CAN_TxMsgStdIdEnum msgId;
+	SwTimerStats *gearTimStats;
 } CANReportHandler;
 
 //! CAN Reporting handler
@@ -56,7 +57,8 @@ static CANReportHandler canReportCtrl = {
 		.timerMap = canStatusAlivenessMsMap,
 		.msgId = CAN_TX_MSG_STDID_GEARINFO,
 		.gearByte = CAN_DATA_BYTE_0,
-		.shiftStatusByte = CAN_DATA_BYTE_1
+		.shiftStatusByte = CAN_DATA_BYTE_1,
+		.gearTimStats = NULL
 };
 
 /* ---------------------------- */
@@ -115,11 +117,17 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
  * 
  * @return an error code.
  */
-ErrorEnum GearControlCAN_Init(void)
+ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats)
 {
 	ErrorEnum err = ERROR_OK;
 
 	err = SwTimerRegister(&canReportCtrl.timer);
+
+	if (gearTimStats != NULL) {
+		canReportCtrl.gearTimStats = gearTimStats;
+	} else {
+		err = ERROR_NULL;
+	}
 
 	return err;
 }
