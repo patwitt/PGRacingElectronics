@@ -134,7 +134,7 @@ static __IO GearControlHandler gearCtrl = {
 				.shiftProcedure = SHIFT_IDLE
 		},
 		.debCnt = 0U,
-		.gearDebounceMs = 400U,
+		.gearDebounceMs = 10U,
 		.canShiftStatusMap = shiftCanMap,
 		.delayTim = 0U
 };
@@ -236,7 +236,7 @@ static inline GearStates GearCtrlState_Init(void)
 		const GearSensorStatesEnum gearSens = GearSensor_GetState();
 
 		/* Initialization will continue only if gear sensor gives valid reading */
-		if (gearSens <= GEAR_SENS_UNKNOWN) {
+		if (gearSens <= GEAR_SENS_6) {
 			/* Enable gear shifting servo */
 			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
 				/* Gear sensor reading OK, proceed with normal operation */
@@ -269,8 +269,8 @@ static inline GearShiftStates GearCtrl_ShiftExecute(__IO GearShiftRequest *const
 {
 	/* Execute shift and go to validation step */
 	// TODO
-	//GearShiftStates nextShiftState = SHIFT_VALIDATE;
-	GearShiftStates nextShiftState = SHIFT_IDLE;
+	GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	//GearShiftStates nextShiftState = SHIFT_IDLE;
 
 	if ((NULL_CHECK1(request)) && (request->requested)) {
 		/* Set servo pos and go to DISABLED if error occurs */
@@ -312,14 +312,14 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				/* Set new request for down-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesDown;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearDown;
-				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_DOWN);
+				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
 				break;
 
 			case GEAR_REQUEST_SHIFT_UP:
 				/* Set new request for up-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesUp;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearUp;
-				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_UP);
+				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
 				break;
 
 			case GEAR_REQUEST_SHIFT_N:
@@ -484,12 +484,12 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
 static inline GearShiftStates GearCtrl_ShiftValidateSetGear(GearStates *const gear, __IO GearShiftRequest *const request)
 {
 	// TODO
-	//GearShiftStates nextShiftState = SHIFT_VALIDATE;
-	GearShiftStates nextShiftState = SHIFT_IDLE;
+	GearShiftStates nextShiftState = SHIFT_VALIDATE;
+	//GearShiftStates nextShiftState = SHIFT_IDLE;
 	const GearStates gearSens = (GearStates)GearSensor_GetState();
 
-	if (gearSens == request->expectedGear) {
 		/* Successful gear shift */
+	if (gearSens == request->expectedGear) {
 		/* Set current gear to expected one */
 		*gear = request->expectedGear;
 		/* Feed Gear Watchdog */
@@ -528,9 +528,9 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void)
 	/* MicroSwitches debounce LOW */
 	MicroSwitch_SetControl(MS_CONTROL_DEBOUNCE_LOW);
 
-	if (ShiftRevMatch_IsFinished()) {
+	if (TRUE) {
 		/* Reset clutch slip */
-		ClutchControl_DisableSlip();
+		//ClutchControl_DisableSlip();
 		/* Go to IDLE */
 		nextShiftState = SHIFT_IDLE;
 	}
@@ -571,17 +571,10 @@ static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const 
 
 		case DEBOUNCE_EXCEEDED:
 			/* Gear sensor reading is different than established gear */
-			if (nextShiftState == SHIFT_IDLE) {
-				/* Go to failure state first to inform system about it */
-				nextShiftState = SHIFT_GEARSENS_FAILURE;
-				*establishedGear = GEAR_SENS_FAILURE;
-				gearCtrl.debCnt = 0U;
-			} else {
-				/* Something went wrong - recover by
-				 * setting gear from gear sensor reading and going to IDLE */
-				*establishedGear = gearSensReading;
-				nextShiftState = SHIFT_IDLE;
-			}
+			/* Something went wrong - recover by
+			 * setting gear from gear sensor reading and going to IDLE */
+			*establishedGear = gearSensReading;
+			nextShiftState = SHIFT_IDLE;
 			break;
 
 		case DEBOUNCE_STATUS_CNT:
@@ -661,7 +654,6 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 
 	switch (gearCtrl.shiftState) {
 		case SHIFT_INIT:
-		case SHIFT_FAILURE_ELAPSED:
 			/* Nothing to do here, just go to IDLE */
 			gearCtrl.shiftState = SHIFT_IDLE;
 			break;
@@ -694,7 +686,7 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 
 		case SHIFT_VALIDATE:
 			/* Validate gearshift, feed watchdog */
-			GearCtrl_ShiftValidateSetGear(&nextGear, &gearCtrl.request);
+			gearCtrl.shiftState = GearCtrl_ShiftValidateSetGear(&nextGear, &gearCtrl.request);
 			break;
 
 		case SHIFT_SUCCESS:
@@ -702,6 +694,7 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
 			gearCtrl.shiftState = GearCtrl_ShiftSuccessful();
 			break;
 
+		case SHIFT_FAILURE_ELAPSED:
 		case SHIFT_GEAR_UNKNOWN:
 		case SHIFT_GEARSENS_IMPLAUSIBLE:
 		case SHIFT_GEARSENS_FAILURE:

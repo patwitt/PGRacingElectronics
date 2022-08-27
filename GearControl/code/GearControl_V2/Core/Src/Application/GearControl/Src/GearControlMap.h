@@ -28,13 +28,13 @@ typedef struct {
 /* Servo degrees values */
 /* UPSHIFTS */
 #define DEG_1_2_UP (DEG_DEFAULT + DEG_UP_MAX)   //!< Degrees for up-shift 1 -> 2
-#define DEG_UP     (DEG_DEFAULT + 70U)          //!< Degrees for up-shifts (gears 2, 3, 4, 5)
+#define DEG_UP     (DEG_DEFAULT + 78U)          //!< Degrees for up-shifts (gears 2, 3, 4, 5)
 #define DEG_N_2_UP (DEG_DEFAULT + 50U)          //!< Degrees for up-shift N -> 2
 #define DEG_1_N    (DEG_DEFAULT + 33U)          //!< Degrees for shift 1 -> N @NOTE: !This is only option for going to NEUTRAL (DOWNSHIFT)!
 
 /* DOWNSHIFTS */
 #define DEG_2_1_D  (DEG_DEFAULT - DEG_DOWN_MAX) //!< Degrees for down-shift 2 -> 1
-#define DEG_DOWN   (DEG_DEFAULT - 70U)          //!< Degrees for down-shifts (gears 3, 4, 5, 6)
+#define DEG_DOWN   (DEG_DEFAULT - 78U)          //!< Degrees for down-shifts (gears 3, 4, 5, 6)
 #define DEG_N_1_D  (DEG_DEFAULT - 50U)          //!< Degrees for down-shift N -> 1
 
 static const GearServoDegData GearShiftDegMap[GEAR_COUNT] = {

@@ -311,7 +311,7 @@ void ClutchControl_Process(void)
 }
 #else
 ErrorEnum ClutchControl_Init(TIM_HandleTypeDef *const htim) {(void)htim; return ERROR_OK; }
-void ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction) { (void)slipDegrees; (void)direction; }
+ErrorEnum ClutchControl_TriggerSlip(const uint32_t slipDegrees, const ClutchShiftDirection direction) { (void)slipDegrees; (void)direction; return ERROR_NOK;}
 bool_t ClutchControl_IsEngaged(void) { return FALSE; }
 void ClutchControl_DisableSlip(void) {}
 void ClutchControl_Process(void) {}

@@ -11,8 +11,8 @@
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
-#define DEBOUNCE_10MS   (50U)
-#define DEBOUNCE_20MS   (50U)
+#define DEBOUNCE_10MS   (10U)
+#define DEBOUNCE_20MS   (20U)
 
 static MicroSwitchInternal microSwitchUp = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_1};
 static MicroSwitchInternal microSwitchDown = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_2};
@@ -71,7 +71,7 @@ static void MicroSwitch_NormalOperation(void)
 	for (uint32_t i = 0U; i < MS_COUNT; ++i) {
 		__IO MicroSwitch *const microswitch = &microSwitches[i];
 
-		if (microswitch->internal->debCnt <= DEBOUNCE_10MS) {
+		if (microswitch->internal->debCnt <= DEBOUNCE_20MS) {
 			microswitch->state = MS_STATE_DEBOUNCING;
 
 			++microswitch->internal->debCnt;
@@ -81,7 +81,7 @@ static void MicroSwitch_NormalOperation(void)
 				microswitch->internal->validCnt = 0U;
 			}
 		} else {
-			microswitch->state = (microswitch->internal->validCnt >= DEBOUNCE_10MS) ? MS_STATE_HIGH : MS_STATE_LOW;
+			microswitch->state = (microswitch->internal->validCnt >= DEBOUNCE_20MS) ? MS_STATE_HIGH : MS_STATE_LOW;
 			microswitch->internal->debCnt = 0U;
 			microswitch->internal->validCnt = 0U;
 		}

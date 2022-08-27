@@ -82,12 +82,12 @@ static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 },
 	 [GEAR_SENS_5] = {
 		 .adcExpectedReading = 1100U,
-		 .adcResolution = 40U,
+		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
 	     .adcExpectedReading = 520U,
-		 .adcResolution = 40U,
+		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_IN_PROG] = {
@@ -112,7 +112,7 @@ static GearSensorHandler gearSens = {
 		.unknownReadingCnt = 0U,
 		.plausibility = GEAR_SENS_PLAUSIBILITY_IN_PROGRESS,
 	    .nChecks = 3U,
-	    .plausibilityDebounceMs = 180U,
+	    .plausibilityDebounceMs = 20U,
 		.unknownDebounceMs = 5U,
 		.plausibilityMap = plausibilityDebounceMap
 };
