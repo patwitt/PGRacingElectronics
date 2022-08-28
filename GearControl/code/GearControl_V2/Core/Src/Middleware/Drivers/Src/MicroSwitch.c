@@ -16,8 +16,17 @@
 #define DEBOUNCE_20MS   (20U)
 #define MICROSWITCH_TIMEOUT_MS (300U)
 
-static MicroSwitchInternal microSwitchUp = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_1};
-static MicroSwitchInternal microSwitchDown = {.debCnt = 0U, .validCnt = 0U, .GPIO = GPIO_PIN_2};
+static MicroSwitchInternal microSwitchUp = {
+	.debCnt = 0U,
+	.validCnt = 0U,
+	.GPIO = GPIO_PIN_1
+
+};
+static MicroSwitchInternal microSwitchDown = {
+	.debCnt = 0U,
+	.validCnt = 0U,
+	.GPIO = GPIO_PIN_2
+};
 
 static __IO MicroSwitch microSwitches[MS_COUNT] = {
 	{.internal = &microSwitchDown},
@@ -75,7 +84,7 @@ static void MicroSwitch_DebounceLow(void)
 /**
  * @brief MicroSwitches normal operation.
  * 
- * Debounces microswitches for 10ms and if any is detected to be HIGH,
+ * Debounces microswitches for 20ms and if any is detected to be HIGH,
  * changes state of that microswitch to HIGH. Otherwise it's set to LOW.
  */
 static void MicroSwitch_NormalOperation(void)
@@ -100,6 +109,13 @@ static void MicroSwitch_NormalOperation(void)
 	}
 }
 
+/**
+ * @brief MicroSwitch state monitoring.
+ * 
+ * If the microswitch is enabled, restart the timer. If the microswitch is disabled or in debounce
+ * mode, tick the timer and enable the microswitch again if the timer has elapsed.
+ * This will prevent system from freezing in non-idle state.
+ */
 static void MicroSwitch_Monitoring(void)
 {
 	switch (msHandler.control) {

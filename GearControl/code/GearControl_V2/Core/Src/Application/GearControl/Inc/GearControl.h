@@ -11,8 +11,6 @@
 #include "Types.h"
 #include "stm32f4xx_hal.h"
 
-#define GEAR_SHIFT_TIMEOUT_MS (300U)
-
 typedef enum {
 	/* ! This order must be unchanged ! begin */
 	GEAR_1                = 0U,

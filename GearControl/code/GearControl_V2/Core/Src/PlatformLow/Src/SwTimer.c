@@ -26,7 +26,7 @@
 #include "Types.h"
 #include "main.h"
 
-#define SW_TIMERS_MAX (10U) /**< Maximum number of SW Timers that can be registered*/
+#define SW_TIMERS_MAX (20U) /**< Maximum number of SW Timers that can be registered */
 #define DEFAULT_COUNT (0U) /**< Default value of sw timer's counter  */
 
 static SwTimerType* timers_[SW_TIMERS_MAX] = {0}; /**< Array of pointers to registered SW timers*/
@@ -68,7 +68,7 @@ static void SwTimerInit(SwTimerType* timer);
  */
 void SwTimerExecute(void)
 {
-   for (uint32 i = 0; i < timersCount_; i++) {
+   for (uint32 i = 0U; i < timersCount_; i++) {
       SwTimerProcessSwTimer(timers_[i]);
    }
 }
@@ -141,10 +141,12 @@ uint32 SwTimerGetUptime(void)
  */
 void SwTimerInitStats(__IO SwTimerStats *const stats, const uint32_t maxLimit)
 {
-   stats->lastT = 0U;
-   stats->maxT = 0U;
-   stats->minT = maxLimit;
-   stats->maxLimit = maxLimit;
+   if (NULL_CHECK1(stats)) {
+	   stats->lastT = 0U;
+	   stats->maxT = 0U;
+	   stats->minT = maxLimit;
+	   stats->maxLimit = maxLimit;
+   }
 }
 
 /**
@@ -157,17 +159,19 @@ void SwTimerInitStats(__IO SwTimerStats *const stats, const uint32_t maxLimit)
  */
 void SwTimerUpdateStats(__IO SwTimerStats* stats, uint32_t duration)
 {
-   duration = CLAMP_MAX(duration, stats->maxLimit);
+	if (NULL_CHECK1(stats)) {
+	   duration = CLAMP_MAX(duration, stats->maxLimit);
 
-   if (duration > stats->maxT) {
-      stats->maxT = duration;
-   }
+	   if (duration > stats->maxT) {
+		  stats->maxT = duration;
+	   }
 
-   if (duration < stats->minT) {
-      stats->minT = duration;
-   }
+	   if (duration < stats->minT) {
+		  stats->minT = duration;
+	   }
 
-   stats->lastT = duration;
+	   stats->lastT = duration;
+	}
 }
 
 static void SwTimerDeactivate(SwTimerType* timer)

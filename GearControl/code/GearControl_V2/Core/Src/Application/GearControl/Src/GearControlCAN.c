@@ -24,15 +24,15 @@ typedef enum {
 
 //! Mapping of CAN signal <- time of reporting in ms
 static const uint32_t canStatusAlivenessMsMap[CAN_SHIFT_DISABLED + 1U] = {
-	[CAN_SHIFT_INIT]            = 500U,
-	[CAN_SHIFT_IDLE]            = 20U,
-	[CAN_SHIFT_EXEC]            = 30U,
+	[CAN_SHIFT_INIT]                = 500U,
+	[CAN_SHIFT_IDLE]                = 20U,
+	[CAN_SHIFT_EXEC]                = 30U,
 	[CAN_SHIFT_FAILURE_WDG_ELAPSED] = 200U,
-	[CAN_SHIFT_SUCCESS]         = 200U,
-	[CAN_GEARSENS_FAILURE]      = 400U,
-	[CAN_GEARSENS_UNKNOWN]      = 400U,
-	[CAN_GEARSENS_IMPLAUSIBLE]  = 400U,
-	[CAN_SHIFT_DISABLED]        = 500U
+	[CAN_SHIFT_SUCCESS]             = 200U,
+	[CAN_GEARSENS_FAILURE]          = 400U,
+	[CAN_GEARSENS_UNKNOWN]          = 400U,
+	[CAN_GEARSENS_IMPLAUSIBLE]      = 400U,
+	[CAN_SHIFT_DISABLED]            = 500U
 };
 
 //! CAN reporting handler struct
@@ -48,7 +48,7 @@ typedef struct {
 	const CAN_MsgDataBytes lastTimByte;
 	const CAN_MsgDataBytes maxTimByte;
 	const CAN_TxMsgStdIdEnum msgId;
-	SwTimerStats *gearTimStats;
+	__IO SwTimerStats *gearTimStats;
 } CANReportHandler;
 
 //! CAN Reporting handler
@@ -123,7 +123,7 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
  * 
  * @return an error code.
  */
-ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats)
+ErrorEnum GearControlCAN_Init(__IO SwTimerStats *const gearTimStats)
 {
 	ErrorEnum err = ERROR_OK;
 

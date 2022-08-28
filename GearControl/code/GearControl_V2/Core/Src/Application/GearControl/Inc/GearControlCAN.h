@@ -24,7 +24,7 @@ typedef enum {
 	CAN_SHIFT_STATUS_COUNT        = 0x09U
 } CANShiftStatus;
 
-ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats);
+ErrorEnum GearControlCAN_Init(__IO SwTimerStats *const gearTimStats);
 void GearControlCAN_Process(void);
 void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus);
 
