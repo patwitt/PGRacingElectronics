@@ -48,7 +48,17 @@ static CAN_TxMsgType canTxMsgsConfig[CAN_TX_MSG_COUNT] = {
 		},
 		.error = HAL_OK,
 		.buffer = {0U}
-	}
+	},
+	[CAN_TX_MSG_INJ_CUT] = {
+			.txHeader = {
+				.DLC = CAN_DATA_BYTES_COUNT,
+				.IDE = CAN_ID_STD,
+				.RTR = CAN_RTR_DATA,
+				.StdId = CAN_TX_MSG_INJECTORS_CUT
+			},
+			.error = HAL_OK,
+			.buffer = {0U}
+		}
 };
 
 /* CAN Handler */
@@ -318,6 +328,30 @@ void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, 
 	}
 }
 
+void CAN_TxUpdateAllBytes(const CAN_TxMsgEnum txMsgId, const uint32_t value)
+{
+	if (txMsgId < CAN_TX_MSG_COUNT) {
+		for (uint32_t canByte = 0U; canByte < 8U; ++canByte) {
+			canHandler_.txMsg[txMsgId].buffer[canByte] = value;
+		}
+	}
+}
+
+void CAN_TxScheduleMsg(const CAN_TxMsgEnum txMsgId)
+{
+	static uint32_t TxMailbox = 0U;
+
+	if (txMsgId < CAN_TX_MSG_COUNT) {
+		CAN_TxMsgType *const txMsg = &canHandler_.txMsg[txMsgId];
+
+		txMsg->error = HAL_CAN_AddTxMessage(canHandler_.hcan, &txMsg->txHeader, txMsg->buffer, &TxMailbox);
+
+		if (txMsg->error != HAL_OK) {
+			CAN_TxUpdateStatus(txMsgId, CAN_STATUS_ERROR);
+		}
+	}
+}
+
 /**
  * @brief Update the status of a CAN message.
  * 
@@ -360,7 +394,7 @@ void CAN_RxCallback(void)
  */
 void CAN_TxCallback(void)
 {
-	static uint32_t TxMailbox = 0U;
+	static uint32_t TxMailbox = 3U;
 
 	for (uint32_t canMsgId = 0U; canMsgId < CAN_TX_MSG_COUNT; ++canMsgId) {
 		CAN_TxMsgType *const txMsg = &canHandler_.txMsg[canMsgId];

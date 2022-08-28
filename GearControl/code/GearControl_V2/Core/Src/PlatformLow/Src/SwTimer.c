@@ -68,11 +68,14 @@ static void SwTimerInit(SwTimerType* timer);
  */
 void SwTimerExecute(void)
 {
-   ++uptime_;
-
    for (uint32 i = 0; i < timersCount_; i++) {
       SwTimerProcessSwTimer(timers_[i]);
    }
+}
+
+void SwTimerTick1ms(void)
+{
+	++uptime_;
 }
 
 /**
@@ -131,6 +134,40 @@ bool_t SwTimerHasElapsed(const SwTimerType* timer)
 uint32 SwTimerGetUptime(void)
 {
    return uptime_;
+}
+
+/**
+ * @param stats A pointer to the statistics structure.
+ */
+void SwTimerInitStats(__IO SwTimerStats *const stats, const uint32_t maxLimit)
+{
+   stats->lastT = 0U;
+   stats->maxT = 0U;
+   stats->minT = maxLimit;
+   stats->maxLimit = maxLimit;
+}
+
+/**
+ * @brief Update Sw Timer stats.
+ *
+ * It updates the statistics for a given task.
+ *
+ * @param stats    A pointer to the statistics structure for the task.
+ * @param duration The time it took to execute the task.
+ */
+void SwTimerUpdateStats(__IO SwTimerStats* stats, uint32_t duration)
+{
+   duration = CLAMP_MAX(duration, stats->maxLimit);
+
+   if (duration > stats->maxT) {
+      stats->maxT = duration;
+   }
+
+   if (duration < stats->minT) {
+      stats->minT = duration;
+   }
+
+   stats->lastT = duration;
 }
 
 static void SwTimerDeactivate(SwTimerType* timer)

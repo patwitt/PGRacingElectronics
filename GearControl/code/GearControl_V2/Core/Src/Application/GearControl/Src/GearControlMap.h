@@ -20,21 +20,21 @@ typedef struct {
 
 /* Degrees values wrapped in macros for mapping */
 /* Servo degrees limits */
-#define DEG_DEFAULT    (90U)         //!< Default position
-#define DEG_UP_MAX     (80U)         //!< Degrees UP max. in relation to DEFAULT pos
-#define DEG_DOWN_MAX   (80U)         //!< Degrees DOWN max. in relation to DEFAULT pos
+#define DEG_DEFAULT    (99U)         //!< Default position
+#define DEG_UP_MAX     (84U)         //!< Degrees UP max. in relation to DEFAULT pos
+#define DEG_DOWN_MAX   (84U)         //!< Degrees DOWN max. in relation to DEFAULT pos
 #define DEG_PROHIBITED (DEG_DEFAULT) //!< Prohibited action e.g. 6 -> UP. Will just stay in DEFAULT position
 
 /* Servo degrees values */
 /* UPSHIFTS */
 #define DEG_1_2_UP (DEG_DEFAULT + DEG_UP_MAX)   //!< Degrees for up-shift 1 -> 2
-#define DEG_UP     (DEG_DEFAULT + 79U)          //!< Degrees for up-shifts (gears 2, 3, 4, 5)
+#define DEG_UP     (DEG_DEFAULT + 80U)          //!< Degrees for up-shifts (gears 2, 3, 4, 5)
 #define DEG_N_2_UP (DEG_DEFAULT + 50U)          //!< Degrees for up-shift N -> 2
-#define DEG_1_N    (DEG_DEFAULT + 33U)          //!< Degrees for shift 1 -> N @NOTE: !This is only option for going to NEUTRAL (DOWNSHIFT)!
+#define DEG_1_N    (DEG_DEFAULT + 27U)          //!< Degrees for shift 1 -> N @NOTE: !This is only option for going to NEUTRAL (DOWNSHIFT)!
 
 /* DOWNSHIFTS */
 #define DEG_2_1_D  (DEG_DEFAULT - DEG_DOWN_MAX) //!< Degrees for down-shift 2 -> 1
-#define DEG_DOWN   (DEG_DEFAULT - 79U)          //!< Degrees for down-shifts (gears 3, 4, 5, 6)
+#define DEG_DOWN   (DEG_DEFAULT - 80U)          //!< Degrees for down-shifts (gears 3, 4, 5, 6)
 #define DEG_N_1_D  (DEG_DEFAULT - 50U)          //!< Degrees for down-shift N -> 1
 
 static const GearServoDegData GearShiftDegMap[GEAR_COUNT] = {

@@ -1,0 +1,9 @@
+*.o
+*.su
+*.mk
+*.d
+*.o
+*.log
+*.hex
+*.list
+*.map

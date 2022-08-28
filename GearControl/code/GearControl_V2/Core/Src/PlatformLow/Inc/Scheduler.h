@@ -10,23 +10,11 @@
 
 #include "Types.h"
 #include "stm32f4xx_hal.h"
+#include "SwTimer.h"
 
 #define N_PROCESS (3U)
 
 typedef void (*handleType)(void);
-
-/**
-* @brief Describes a statistics for the Scheduler.
-*
-* Structure used to collect statistics of each task
-*
-*/
-typedef struct
-{
-	 uint32 lastDuration; /**< Last duration of task  */
-	 uint32 minDuration;  /**< Minimal duration of task */
-	 uint32 maxDuration;  /**< Maximum duration of task */
-} SchedulerStatsType;
 
 /**
 * @brief Describes a task for the Scheduler.
@@ -38,7 +26,7 @@ typedef struct
 {
   handleType handler; /**< Pointer to handler/execute function of task */
   uint32 period;
-  SchedulerStatsType stats;  /**< Stores the task's statistics */
+  SwTimerStats stats;  /**< Stores the task's statistics */
 } SchedulerType;
 
 ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const timer);

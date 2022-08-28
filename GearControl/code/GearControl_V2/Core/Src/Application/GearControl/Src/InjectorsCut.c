@@ -9,16 +9,22 @@
 #include "GearWatchdog.h"
 #include "stm32f4xx_hal.h"
 #include "main.h"
+#include "CAN.h"
 
 /* ---------------------------- */
 /*         Local data           */
 /* ---------------------------- */
+
+#define CAN_BYTE_INJECTORS_TRIGGER (0xFFU)
+#define CAN_BYTE_INJECTORS_RESTORE (0x00U)
 
 //! Injectors Cut handler struct
 typedef struct {
 	GearWatchdogType *const watchdog;
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
+	const CAN_MsgDataBytes canByte;
+	const CAN_TxMsgEnum canMsgId;
 } InjectorsCutHandler;
 
 //! This must be before injectorsCutWdg declaration
@@ -35,7 +41,9 @@ static GearWatchdogType injectorsCutWdg = {
 static InjectorsCutHandler injectorsCut = {
 	.watchdog = &injectorsCutWdg,
     .gpioPort = GEAR_CUT_GPIO_Port,
-	.gpioPin  = GEAR_CUT_Pin
+	.gpioPin  = GEAR_CUT_Pin,
+	.canByte = CAN_DATA_BYTE_5,
+	.canMsgId = CAN_TX_MSG_INJ_CUT
 };
 
 /* ---------------------------- */
@@ -54,7 +62,12 @@ static inline void InjectorsCut_DisableInjectors(void);
  */
 static inline void InjectorsCut_EnableInjectors(void)
 {
+#if INJECTORS_CUT_OG
 	HAL_GPIO_WritePin(injectorsCut.gpioPort, injectorsCut.gpioPin, GPIO_PIN_SET);
+#elif INJECTORS_CUT_ECU
+	CAN_TxUpdateAllBytes(injectorsCut.canMsgId, CAN_BYTE_INJECTORS_RESTORE);
+	CAN_TxScheduleMsg(injectorsCut.canMsgId);
+#endif
 }
 
 /**
@@ -64,7 +77,12 @@ static inline void InjectorsCut_EnableInjectors(void)
  */
 static inline void InjectorsCut_DisableInjectors(void)
 {
+#if INJECTORS_CUT_OG
 	HAL_GPIO_WritePin(injectorsCut.gpioPort, injectorsCut.gpioPin, GPIO_PIN_RESET);
+#elif INJECTORS_CUT_ECU
+	CAN_TxUpdateAllBytes(injectorsCut.canMsgId, CAN_BYTE_INJECTORS_TRIGGER);
+	CAN_TxScheduleMsg(injectorsCut.canMsgId);
+#endif
 }
 
 /**
@@ -108,7 +126,6 @@ void InjectorsCut_Trigger(void)
 {
 	/* Start Watchdog */
 	GearWatchdog_Start(injectorsCut.watchdog);
-
 	/* Trigger injectors cut, disable injectors */
 	InjectorsCut_DisableInjectors();
 }

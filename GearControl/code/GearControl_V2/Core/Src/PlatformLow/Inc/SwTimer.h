@@ -22,10 +22,19 @@ typedef struct
    bool_t endlessCount; /**< If true, this timer will repeat counting after expiration */
 } SwTimerType;
 
+typedef struct {
+	uint32_t lastT;
+	uint32_t minT;
+	uint32_t maxT;
+	uint32_t maxLimit;
+} SwTimerStats;
+
 #define SYSTICK_RESOLUTION_IN_MS (10U) /**< Systick's resolution value in milliseconds */
 
 void SwTimerExecute(void);
-
+void SwTimerTick1ms(void);
+void SwTimerInitStats(__IO SwTimerStats *const stats, const uint32_t maxLimit);
+void SwTimerUpdateStats(__IO SwTimerStats* stats, uint32_t duration);
 /**
  * @brief Register a given software timer
  *

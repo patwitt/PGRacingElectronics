@@ -44,7 +44,11 @@ typedef struct {
 	const uint32_t *const timerMap;
 	const CAN_MsgDataBytes gearByte;
 	const CAN_MsgDataBytes shiftStatusByte;
+	const CAN_MsgDataBytes minTimByte;
+	const CAN_MsgDataBytes lastTimByte;
+	const CAN_MsgDataBytes maxTimByte;
 	const CAN_TxMsgStdIdEnum msgId;
+	SwTimerStats *gearTimStats;
 } CANReportHandler;
 
 //! CAN Reporting handler
@@ -55,8 +59,12 @@ static CANReportHandler canReportCtrl = {
 		/* CAN config */
 		.timerMap = canStatusAlivenessMsMap,
 		.msgId = CAN_TX_MSG_STDID_GEARINFO,
-		.gearByte = CAN_DATA_BYTE_0,
-		.shiftStatusByte = CAN_DATA_BYTE_1
+		.gearByte        = CAN_DATA_BYTE_0,
+		.shiftStatusByte = CAN_DATA_BYTE_1,
+		.minTimByte      = CAN_DATA_BYTE_2,
+		.lastTimByte     = CAN_DATA_BYTE_3,
+		.maxTimByte      = CAN_DATA_BYTE_4,
+		.gearTimStats = NULL
 };
 
 /* ---------------------------- */
@@ -85,7 +93,7 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
 				canReportCtrl.reportingState = CAN_REPORTING_IDLE;
 			} else {
 				/* Update shift status */
-				CAN_TxUpdateData(canReportCtrl.msgId, canReportCtrl.shiftStatusByte, (uint8_t)canReportCtrl.shiftStatus);
+				CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.shiftStatusByte, (uint8_t)canReportCtrl.shiftStatus);
 			}
 			break;
 
@@ -115,11 +123,17 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
  * 
  * @return an error code.
  */
-ErrorEnum GearControlCAN_Init(void)
+ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats)
 {
 	ErrorEnum err = ERROR_OK;
 
 	err = SwTimerRegister(&canReportCtrl.timer);
+
+	if (gearTimStats != NULL) {
+		canReportCtrl.gearTimStats = gearTimStats;
+	} else {
+		err = ERROR_NULL;
+	}
 
 	return err;
 }
@@ -143,7 +157,12 @@ void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus)
 void GearControlCAN_Process(void)
 {
 	/* Update gear data */
-	CAN_TxUpdateData(canReportCtrl.msgId, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
+
+	/* Update stats */
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.minTimByte, canReportCtrl.gearTimStats->minT);
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.lastTimByte, canReportCtrl.gearTimStats->lastT);
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.maxTimByte, canReportCtrl.gearTimStats->maxT);
 
 	/* Update shift status data */
 	GearControlCAN_ShiftStatusHandler();

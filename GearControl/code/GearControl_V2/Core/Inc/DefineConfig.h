@@ -14,10 +14,15 @@
 #define CONFIG_ENABLE_DBW                (FEATURE_DISABLE) //!< Enable Drive-By-Wire
 #define CONFIG_ENABLE_CLUTCH             (FEATURE_DISABLE) //!< Enable Clutch operations
 #define CONFIG_ENABLE_CAN                (FEATURE_ENABLED) //!< Enable CAN Bus
+
 /* !Gear shifting ENABLE/DISABLE feature configs! */
-#define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_DISABLE) //!< Enable Injectors Cut on gearshifts
+#define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_DISABLE) //!< Enable Clutch Slip on gearshifts
 #define CONFIG_ENABLE_REV_MATCH          (FEATURE_DISABLE) //!< Enable rev matching
+
+/* Injectors Cut configs */
+#define INJECTORS_CUT_OG  (FALSE)
+#define INJECTORS_CUT_ECU (!INJECTORS_CUT_OG)
 
 /* GearControl configs */
 #define REVMATCH_FROM_ENGINE_RPM (TRUE)                      //!< Revmatching from Engine RPM's
