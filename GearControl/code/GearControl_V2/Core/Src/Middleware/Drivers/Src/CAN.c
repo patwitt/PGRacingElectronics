@@ -401,9 +401,10 @@ void CAN_TxCallback(void)
 
 		txMsg->error = HAL_CAN_AddTxMessage(canHandler_.hcan, &txMsg->txHeader, txMsg->buffer, &TxMailbox);
 
-		if (txMsg->error != HAL_OK) {
-			CAN_TxUpdateStatus(canMsgId, CAN_STATUS_ERROR);
-		}
+		/* Set status */
+		*txMsg->status = (txMsg->error != HAL_OK) ? CAN_STATUS_ERROR : CAN_STATUS_OK;
+
+		CAN_TxUpdateStatus(canMsgId, *txMsg->status);
 	}
 }
 #else

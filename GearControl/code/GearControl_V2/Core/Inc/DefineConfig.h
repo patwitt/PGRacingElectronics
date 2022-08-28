@@ -14,6 +14,7 @@
 #define CONFIG_ENABLE_DBW                (FEATURE_DISABLE) //!< Enable Drive-By-Wire
 #define CONFIG_ENABLE_CLUTCH             (FEATURE_DISABLE) //!< Enable Clutch operations
 #define CONFIG_ENABLE_CAN                (FEATURE_ENABLED) //!< Enable CAN Bus
+
 /* !Gear shifting ENABLE/DISABLE feature configs! */
 #define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_DISABLE) //!< Enable Clutch Slip on gearshifts

@@ -82,12 +82,12 @@ static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 },
 	 [GEAR_SENS_5] = {
 		 .adcExpectedReading = 1100U,
-		 .adcResolution = 80U,
+		 .adcResolution = 50U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
 	     .adcExpectedReading = 520U,
-		 .adcResolution = 80U,
+		 .adcResolution = 50U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_IN_PROG] = {
@@ -240,6 +240,7 @@ static inline GearSensorStatesEnum GearSensor_GetStateBySensorAdc(void)
 											                       gearSens.unknownDebounceMs);
 
 	switch (unknownGearDebounce) {
+
 		case DEBOUNCE_EXCEEDED:
 		case DEBOUNCE_IN_PROGRESS:
 			/* Unknown gear - gear sensor positioned between gears */
@@ -328,7 +329,7 @@ GearSensorPlausibilityEnum GearSensor_GetPlausibility(void)
  */
 void GearSensor_Process(void)
 {
-	GearSensorStatesEnum sensorReading = GearSensor_GetStateBySensorAdc();
+	const GearSensorStatesEnum sensorReading = GearSensor_GetStateBySensorAdc();
 
 	if (sensorReading != GEAR_SENS_IN_PROG) {
 		gearSens.state = sensorReading;
