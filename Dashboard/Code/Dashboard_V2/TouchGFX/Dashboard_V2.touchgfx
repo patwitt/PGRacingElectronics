@@ -1,0 +1,876 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Main",
+        "CanvasBufferSize": 12000,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 805,
+            "Height": 480
+          },
+          {
+            "Type": "TextArea",
+            "Name": "gearArea",
+            "X": 331,
+            "Y": 60,
+            "Width": 147,
+            "Height": 363,
+            "TextId": "__SingleUse_T6XW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_CBCX",
+              "UseBuffer": true,
+              "BufferSize": 2
+            }
+          },
+          {
+            "Type": "Line",
+            "Name": "line1",
+            "X": 329,
+            "Y": 140,
+            "Width": 152,
+            "Height": 20,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "EndX": 150.0,
+            "LineWidth": 4.0,
+            "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "rpmArea",
+            "X": 298,
+            "Y": 71,
+            "Width": 212,
+            "Height": 69,
+            "TextId": "__SingleUse_W8VI",
+            "TextRotation": "0",
+            "Color": {
+              "Green": 102,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_BKZT",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "battArea",
+            "X": 14,
+            "Y": 82,
+            "Width": 240,
+            "Height": 49,
+            "TextId": "__SingleUse_X1RQ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_YJO6",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "oilPressArea",
+            "X": 544,
+            "Y": 82,
+            "Width": 240,
+            "Height": 49,
+            "TextId": "__SingleUse_52EE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_R4GH",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1",
+            "X": 11,
+            "Y": 248,
+            "Width": 220,
+            "Height": 60,
+            "CustomContainerDefinitionName": "tempBox"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_1",
+            "X": 11,
+            "Y": 329,
+            "Width": 220,
+            "Height": 60,
+            "CustomContainerDefinitionName": "tempBox"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_2",
+            "X": 570,
+            "Y": 248,
+            "Width": 220,
+            "Height": 60,
+            "CustomContainerDefinitionName": "tempBox"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "tempBox1_3",
+            "X": 570,
+            "Y": 329,
+            "Width": 220,
+            "Height": 60,
+            "CustomContainerDefinitionName": "tempBox"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "alertBar1",
+            "Width": 800,
+            "Height": 60,
+            "CustomContainerDefinitionName": "alertBar"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "alertBar2",
+            "Y": 420,
+            "Width": 800,
+            "Height": 60,
+            "CustomContainerDefinitionName": "alertBar"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "cltArea",
+            "X": 14,
+            "Y": 150,
+            "Width": 238,
+            "Height": 49,
+            "TextId": "__SingleUse_8EGU",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_A40Q",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "oilTempArea",
+            "X": 544,
+            "Y": 150,
+            "Width": 240,
+            "Height": 49,
+            "TextId": "__SingleUse_ILXZ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_7JNZ",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerPhysicalButtonClicked",
+              "ButtonKey": 56
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "function1"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "DebugInfo",
+        "Components": [
+          {
+            "Type": "Container",
+            "Name": "container1",
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_1",
+            "Y": 60,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_1",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_1",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_1",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_1",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_1",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_1",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_2",
+            "Y": 120,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_2",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_2",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_2",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_2",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_2",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_2",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_3",
+            "Y": 180,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_3",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_3",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_3",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_3",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_3",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_3",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_4",
+            "Y": 240,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_4",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_4",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_4",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_4",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_4",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_4",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_5",
+            "Y": 300,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_5",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_5",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_5",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_5",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_5",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_5",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_6",
+            "Y": 360,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_6",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_6",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_6",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_6",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_6",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_6",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          },
+          {
+            "Type": "Container",
+            "Name": "container1_7",
+            "Y": 420,
+            "Width": 800,
+            "Height": 60,
+            "Components": [
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox1_7",
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox2_7",
+                "X": 133,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox3_7",
+                "X": 266,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox4_7",
+                "X": 399,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox5_7",
+                "X": 532,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              },
+              {
+                "Type": "CustomContainerInstance",
+                "Name": "debugParameterBox6_7",
+                "X": 665,
+                "Width": 133,
+                "Height": 60,
+                "CustomContainerDefinitionName": "debugParameterBox"
+              }
+            ]
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Lana",
+        "Components": [
+          {
+            "Type": "ScalableImage",
+            "Name": "scalableImage1",
+            "Width": 800,
+            "Height": 480,
+            "Filename": "splash_lana_minified.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "RoundBorderBox",
+        "Width": 250,
+        "Height": 250,
+        "Components": [],
+        "Interactions": []
+      },
+      {
+        "Name": "alertBar",
+        "Width": 800,
+        "Height": 60,
+        "Components": [
+          {
+            "Type": "BoxWithBorder",
+            "Name": "bgBox",
+            "Width": 800,
+            "Height": 60,
+            "Color": {
+              "Red": 255
+            },
+            "BorderSize": 5
+          },
+          {
+            "Type": "TextArea",
+            "Name": "frontText",
+            "Width": 800,
+            "Height": 60,
+            "TextId": "__SingleUse_94W5",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {}
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "tempBox",
+        "Width": 220,
+        "Height": 60,
+        "Components": [
+          {
+            "Type": "Line",
+            "Name": "line1",
+            "Width": 100,
+            "Height": 60,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "EndY": 220.0,
+            "LineWidth": 1.0,
+            "LineEndingStyle": "Round"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "Width": 220,
+            "Height": 60,
+            "TextId": "__SingleUse_VVN0",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "LineSpacing": 2
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "debugParameterBox",
+        "Width": 133,
+        "Height": 60,
+        "Components": [
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder1",
+            "Width": 133,
+            "Height": 60,
+            "BorderColor": {
+              "Red": 32,
+              "Green": 32,
+              "Blue": 32
+            },
+            "BorderSize": 3
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 5,
+            "Y": 3,
+            "Width": 73,
+            "Height": 15,
+            "TextId": "__SingleUse_K2XR",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 30,
+            "Y": 7,
+            "Width": 72,
+            "Height": 53,
+            "TextId": "__SingleUse_1BUN",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "Name": "BolideScreen",
+    "Resolution": {
+      "Width": 800,
+      "Height": 480
+    },
+    "SelectedColorDepth": 32,
+    "StartupScreenName": "Main",
+    "SelectedStartupLanguage": "GB",
+    "Skin": "Blue",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "ApplicationTemplateName": "Simulator",
+    "ApplicationTemplateVersion": "2.0.0",
+    "ApplicationTemplateDescription": "Simulator Application Template",
+    "AvailableColorDepths": [
+      32
+    ],
+    "AvailableLCDs": {
+      "1": "LCD1bpp",
+      "2": "LCD2bpp",
+      "4": "LCD4bpp",
+      "8": "LCD8bpp_ARGB2222",
+      "16": "LCD16bpp",
+      "24": "LCD24bpp",
+      "32": "LCD32bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 800,
+        "Height": 480
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD32bpp": {
+        "Id": "LCD32bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommand": "",
+    "FlashTargetCommand": "",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape",
+    "Family": "STM32F7",
+    "Platform": "m7",
+    "ProjectFile": "../Dashboard_V2.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": []
+  },
+  "Version": "4.20.0",
+  "CreatedBy": "4.17.0"
+}

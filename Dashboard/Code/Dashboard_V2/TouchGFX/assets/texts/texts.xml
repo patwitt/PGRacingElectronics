@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.20.0">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1">
+      <Text Id="__SingleUse_T6XW" Alignment="Center" TypographyId="Typography_01">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_W8VI" Alignment="Center" TypographyId="Typography_05">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_X1RQ" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">BATT: &lt;value&gt; V</Translation>
+      </Text>
+      <Text Id="__SingleUse_52EE" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">OIL P: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_VVN0" Alignment="Center" TypographyId="Typography_04">
+        <Translation Language="GB">26C</Translation>
+      </Text>
+      <Text Id="__SingleUse_94W5" Alignment="Center" TypographyId="Typography_04">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="ResourceId1" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">TESTOWY</Translation>
+      </Text>
+      <Text Id="__SingleUse_8EGU" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">CLT:  &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_YJO6" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">12.45</Translation>
+      </Text>
+      <Text Id="__SingleUse_A40Q" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">80</Translation>
+      </Text>
+      <Text Id="__SingleUse_BKZT" Alignment="Left" TypographyId="Typography_05">
+        <Translation Language="GB">12345</Translation>
+      </Text>
+      <Text Id="__SingleUse_CBCX" Alignment="Left" TypographyId="Typography_01">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="__SingleUse_ILXZ" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">OIL T: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_R4GH" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">0.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_7JNZ" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_K2XR" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_1BUN" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_NVQA" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_CYCK" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_63X7" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_18XX" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_RRC3" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_DG81" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_RAFJ" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_XH2A" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_RZKX" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_4WW3" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_25KE" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_VP8M" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_E9AJ" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_80KG" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_WZTB" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_S2XY" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_BWQC" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_YA24" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_5IBH" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_53FB" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_C3EX" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_GSC0" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_PDAF" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_DVL9" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_HWD8" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_86XE" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_GGO0" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_YCK2" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_TR8Z" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_X9RS" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_U0XV" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_9W1J" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_7CAJ" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_0HDG" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_FAQA" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_EMBM" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_2HWV" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_WWMI" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_EVNI" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_JCFT" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_PE2W" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_CBCM" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_O2TX" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_SROI" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_YK22" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_AFWK" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z1FF" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_347D" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_46V9" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_TOK1" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_FJH4" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_DYZW" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_HFT8" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_KMTK" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_RR7K" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_67TT" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_4P2V" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_6OYK" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_9AX1" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_82HB" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_CS7X" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_L83S" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_NLRB" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_RA5H" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_0XAX" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_6D02" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_QJ9J" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z1LZ" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_K6HN" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_95I6" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_WKIV" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_6W29" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_FPAK" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_2UE9" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_1FHB" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_9T2V" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_921V" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_2RI5" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_ODAV" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_5F53" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_Q9EK" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_1B7Z" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+      <Text Id="__SingleUse_1IW3" Alignment="Left" TypographyId="Typography_06">
+        <Translation Language="GB">PARAMETER</Translation>
+      </Text>
+      <Text Id="__SingleUse_YH6D" Alignment="Left" TypographyId="Typography_02">
+        <Translation Language="GB">val</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Typography_01" Font="swisop3.ttf" Size="300" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Typography_05" Font="JetBrainsMono-Regular.ttf" Size="60" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Typography_02" Font="JetBrainsMono-Regular.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Typography_04" Font="swisop3.ttf" Size="50" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacters="' '" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Typography_06" Font="verdana.ttf" Size="12" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Typography_00" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Typography_03" Font="JetBrainsMono-Regular.ttf" Size="60" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Typography_07" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>
