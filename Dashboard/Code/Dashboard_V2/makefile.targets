@@ -1,0 +1,10 @@
+internal.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary --remove-section=ExtFlashSection  $(EXECUTABLES) "Internal.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+external.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary --only-section=ExtFlashSection $(EXECUTABLES) "External.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+	
+main-build: internal.bin external.bin

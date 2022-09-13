@@ -56,11 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern CAN_HandleTypeDef hcan1;
-extern CAN_HandleTypeDef hcan2;
-extern DMA2D_HandleTypeDef hdma2d;
 extern LTDC_HandleTypeDef hltdc;
-extern QSPI_HandleTypeDef hqspi;
 extern DMA_HandleTypeDef hdma_tim3_ch1_trig;
 extern DMA_HandleTypeDef hdma_tim4_ch1;
 extern TIM_HandleTypeDef htim6;
@@ -196,20 +192,6 @@ void DMA1_Stream4_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles CAN1 RX0 interrupts.
-  */
-void CAN1_RX0_IRQHandler(void)
-{
-  /* USER CODE BEGIN CAN1_RX0_IRQn 0 */
-
-  /* USER CODE END CAN1_RX0_IRQn 0 */
-  HAL_CAN_IRQHandler(&hcan1);
-  /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
-
-  /* USER CODE END CAN1_RX0_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
   */
 void TIM6_DAC_IRQHandler(void)
@@ -221,20 +203,6 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
-}
-
-/**
-  * @brief This function handles CAN2 RX0 interrupts.
-  */
-void CAN2_RX0_IRQHandler(void)
-{
-  /* USER CODE BEGIN CAN2_RX0_IRQn 0 */
-
-  /* USER CODE END CAN2_RX0_IRQn 0 */
-  HAL_CAN_IRQHandler(&hcan2);
-  /* USER CODE BEGIN CAN2_RX0_IRQn 1 */
-
-  /* USER CODE END CAN2_RX0_IRQn 1 */
 }
 
 /**
@@ -251,35 +219,6 @@ void LTDC_IRQHandler(void)
   /* USER CODE END LTDC_IRQn 1 */
 }
 
-/**
-  * @brief This function handles DMA2D global interrupt.
-  */
-void DMA2D_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA2D_IRQn 0 */
-
-  /* USER CODE END DMA2D_IRQn 0 */
-  HAL_DMA2D_IRQHandler(&hdma2d);
-  /* USER CODE BEGIN DMA2D_IRQn 1 */
-
-  /* USER CODE END DMA2D_IRQn 1 */
-}
-
-/**
-  * @brief This function handles QUADSPI global interrupt.
-  */
-void QUADSPI_IRQHandler(void)
-{
-  /* USER CODE BEGIN QUADSPI_IRQn 0 */
-
-  /* USER CODE END QUADSPI_IRQn 0 */
-  HAL_QSPI_IRQHandler(&hqspi);
-  /* USER CODE BEGIN QUADSPI_IRQn 1 */
-
-  /* USER CODE END QUADSPI_IRQn 1 */
-}
-
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-

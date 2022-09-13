@@ -58,12 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SIGNAL_LED_Pin GPIO_PIN_2
-#define SIGNAL_LED_GPIO_Port GPIOE
-#define OIL_SENSOR_Pin GPIO_PIN_10
-#define OIL_SENSOR_GPIO_Port GPIOC
-#define ESP_PD_Pin GPIO_PIN_11
-#define ESP_PD_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

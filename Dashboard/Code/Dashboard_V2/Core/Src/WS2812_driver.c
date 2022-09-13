@@ -1,8 +1,8 @@
 #include "WS2812_driver.h"
 #include "tim.h"
 #include "math.h"
-#include "display_setup.h"
-#include "telemetry_data.h"
+#include "structs/display_setup.h"
+#include "structs/telemetry_data.h"
 #include "cmsis_os2.h"
 
 #define GEAR_NUMBER 6
@@ -39,6 +39,11 @@ static float lerp(float A, float B, float Alpha);
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
 	HAL_TIM_PWM_Stop_DMA(htim, TIM_CHANNEL_1);
+}
+
+void StartRPMLed()
+{
+	WS2812_Init();
 }
 
 void WS2812_Init(void)

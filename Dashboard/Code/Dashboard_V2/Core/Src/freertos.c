@@ -31,9 +31,9 @@
 #include "gpio.h"
 #include "tim.h"
 #include "WS2812_driver.h"
-#include "ecumaster.h"
-#include "display_setup.h"
-#include "telemetry_data.h"
+#include "structs/ecumaster.h"
+#include "structs/display_setup.h"
+#include "structs/telemetry_data.h"
 #include <math.h>
 
 /* USER CODE END Includes */
@@ -57,31 +57,34 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-/* Definitions for hardwareTASK */
-osThreadId_t hardwareTASKHandle;
-const osThreadAttr_t hardwareTASK_attributes =
-{ .name = "hardwareTASK", .stack_size = 512 * 4, .priority =
-		(osPriority_t) osPriorityAboveNormal, };
+/* Definitions for hardwareTask */
+osThreadId_t hardwareTaskHandle;
+const osThreadAttr_t hardwareTask_attributes = {
+  .name = "hardwareTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for RPMLed */
+osThreadId_t RPMLedHandle;
+const osThreadAttr_t RPMLed_attributes = {
+  .name = "RPMLed",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for touchGFXTask */
 osThreadId_t touchGFXTaskHandle;
-const osThreadAttr_t touchGFXTask_attributes =
-{ .name = "touchGFXTask", .stack_size = 32768 * 4, .priority =
-		(osPriority_t) osPriorityNormal, };
-/* Definitions for infoLed */
-osThreadId_t infoLedHandle;
-const osThreadAttr_t infoLed_attributes =
-{ .name = "infoLed", .stack_size = 128 * 4, .priority =
-		(osPriority_t) osPriorityLow, };
-/* Definitions for displayBackligh */
-osThreadId_t displayBacklighHandle;
-const osThreadAttr_t displayBackligh_attributes =
-{ .name = "displayBackligh", .stack_size = 128 * 4, .priority =
-		(osPriority_t) osPriorityLow, };
-/* Definitions for fuelConsumption */
-osThreadId_t fuelConsumptionHandle;
-const osThreadAttr_t fuelConsumption_attributes =
-{ .name = "fuelConsumption", .stack_size = 128 * 4, .priority =
-		(osPriority_t) osPriorityNormal, };
+const osThreadAttr_t touchGFXTask_attributes = {
+  .name = "touchGFXTask",
+  .stack_size = 32768 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for statusLedTask */
+osThreadId_t statusLedTaskHandle;
+const osThreadAttr_t statusLedTask_attributes = {
+  .name = "statusLedTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -89,261 +92,131 @@ const osThreadAttr_t fuelConsumption_attributes =
 /* USER CODE END FunctionPrototypes */
 
 void StartHardwareTask(void *argument);
-void StartTouchGFXTask(void *argument);
-void StartInfoLed(void *argument);
-void StartDisplayBacklight(void *argument);
-void StartComputeFuelConsumption(void *argument);
+void startRPMLed(void *argument);
+void startTouchGFXTask(void *argument);
+void startStatusLedTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
-void MX_FREERTOS_Init(void)
-{
-	/* USER CODE BEGIN Init */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
+void MX_FREERTOS_Init(void) {
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
-	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
-	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
-	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
-	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* creation of hardwareTASK */
-	hardwareTASKHandle = osThreadNew(StartHardwareTask, NULL,
-			&hardwareTASK_attributes);
+  /* Create the thread(s) */
+  /* creation of hardwareTask */
+  hardwareTaskHandle = osThreadNew(StartHardwareTask, NULL, &hardwareTask_attributes);
 
-	/* creation of touchGFXTask */
-	touchGFXTaskHandle = osThreadNew(StartTouchGFXTask, NULL,
-			&touchGFXTask_attributes);
+  /* creation of RPMLed */
+  RPMLedHandle = osThreadNew(startRPMLed, NULL, &RPMLed_attributes);
 
-	/* creation of infoLed */
-	infoLedHandle = osThreadNew(StartInfoLed, NULL, &infoLed_attributes);
+  /* creation of touchGFXTask */
+  touchGFXTaskHandle = osThreadNew(startTouchGFXTask, NULL, &touchGFXTask_attributes);
 
-	/* creation of displayBackligh */
-	displayBacklighHandle = osThreadNew(StartDisplayBacklight, NULL,
-			&displayBackligh_attributes);
+  /* creation of statusLedTask */
+  statusLedTaskHandle = osThreadNew(startStatusLedTask, NULL, &statusLedTask_attributes);
 
-	/* creation of fuelConsumption */
-	fuelConsumptionHandle = osThreadNew(StartComputeFuelConsumption, NULL,
-			&fuelConsumption_attributes);
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
 
-	/* USER CODE BEGIN RTOS_THREADS */
-	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
-
-	/* USER CODE BEGIN RTOS_EVENTS */
-	/* add events, ... */
-	/* USER CODE END RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
 /* USER CODE BEGIN Header_StartHardwareTask */
 /**
- * @brief  Function implementing the hardwareTASK thread.
- * @param  argument: Not used
- * @retval None
- */
+  * @brief  Function implementing the hardwareTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
 /* USER CODE END Header_StartHardwareTask */
 void StartHardwareTask(void *argument)
 {
-	/* USER CODE BEGIN StartHardwareTask */
-	HAL_CAN_Start(&hcan2);
-	HAL_CAN_Start(&hcan1);
-
-	HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
-	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-
-	WS2812_Init();
-	ComputeOptimalPoints();
-
-	osDelay(150);
-	uint8_t ledMode = displaySetup.ledBarMode;
-	/* Infinite loop */
-	for (;;)
-	{
-
-		//telemetryData.oilPress = HAL_GPIO_ReadPin(OIL_SENSOR_GPIO_Port,
-		//OIL_SENSOR_Pin);
-		if (telemetryData.gear == 0)
-		{
-			////HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, SET);
-			ledMode = 0;
-		}
-		else
-		{
-			//HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, RESET);
-			ledMode = displaySetup.ledBarMode;
-		}
-		updateLeds(EcuData.rpm, ledMode);
-
-		osDelay(100);
-		/* BURNED FUEL TRANSMISSION */
-		uint16_t burnedFuel = (uint16_t) telemetryData.burnedFuel * 0x2000;
-		uint8_t RxData[2];
-		RxData[0] = burnedFuel % 0xFF;
-		RxData[1] = burnedFuel / 0xFF;
-		CAN_TxHeaderTypeDef TxHeader;
-		TxHeader.DLC = 2;
-		TxHeader.IDE = CAN_ID_STD;
-		TxHeader.RTR = CAN_RTR_DATA;
-		TxHeader.StdId = 0x1FE;
-
-		// HAL_CAN_AddTxMessage(INTERNAL_CAN, &TxHeader, RxData, &TxMailbox);
-		HAL_CAN_AddTxMessage(&hcan2, &TxHeader, RxData, &TxMailbox);
-		if (telemetryData.steeringWheelAttached == 1
-				&& HAL_GetTick() - telemetryData.steeringWheelAttachedTimestamp
-						> 2000)
-		{
-			telemetryData.steeringWheelAttached = 0;
-		}
-	}
-	/* USER CODE END StartHardwareTask */
+  /* USER CODE BEGIN StartHardwareTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartHardwareTask */
 }
 
-/* USER CODE BEGIN Header_StartTouchGFXTask */
+/* USER CODE BEGIN Header_startRPMLed */
 /**
- * @brief Function implementing the touchGFXTask thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartTouchGFXTask */
-void StartTouchGFXTask(void *argument)
+* @brief Function implementing the RPMLed thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_startRPMLed */
+void startRPMLed(void *argument)
 {
-	/* USER CODE BEGIN StartTouchGFXTask */
-	MX_TouchGFX_Process();
-	/* Infinite loop */
-	for (;;)
-	{
-		osDelay(1);
-	}
-	/* USER CODE END StartTouchGFXTask */
+  /* USER CODE BEGIN startRPMLed */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END startRPMLed */
 }
 
-/* USER CODE BEGIN Header_StartInfoLed */
+/* USER CODE BEGIN Header_startTouchGFXTask */
 /**
- * @brief Function implementing the infoLed thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartInfoLed */
-void StartInfoLed(void *argument)
+* @brief Function implementing the touchGFXTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_startTouchGFXTask */
+void startTouchGFXTask(void *argument)
 {
-	/* USER CODE BEGIN StartInfoLed */
-	/* Infinite loop */
-	for (;;)
-	{
-		osDelay(250);
-		HAL_GPIO_TogglePin(SIGNAL_LED_GPIO_Port, SIGNAL_LED_Pin);
-		// HAL_IWDG_Refresh(&hiwdg);
-	}
-	/* USER CODE END StartInfoLed */
+  /* USER CODE BEGIN startTouchGFXTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END startTouchGFXTask */
 }
 
-/* USER CODE BEGIN Header_StartDisplayBacklight */
+/* USER CODE BEGIN Header_startStatusLedTask */
 /**
- * @brief Function implementing the displayBackligh thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartDisplayBacklight */
-void StartDisplayBacklight(void *argument)
+* @brief Function implementing the statusLedTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_startStatusLedTask */
+void startStatusLedTask(void *argument)
 {
-	/* USER CODE BEGIN StartDisplayBacklight */
-
-	// current set point in mA
-	uint8_t setPoint = displaySetup.brightness * 1.5f;
-	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
-	uint8_t PWM_Pulse = 0;
-	uint8_t PWM_PulseChange = 0;
-	float voltage = 0.0f;
-	float current = 0.0f;
-	uint8_t delay = 0;
-	osDelay(250);
-	/* Infinite loop */
-	for (;;)
-	{
-		HAL_ADC_Start(&hadc1);
-		HAL_ADC_PollForConversion(&hadc1, 10);
-
-		osDelay(100 - delay);
-		voltage = HAL_ADC_GetValue(&hadc1) * 3.3f / 4095.0f;
-		current = voltage / 5.1f * 1000.0f;
-
-		PWM_PulseChange = (int8_t) round((setPoint - current) / 10.0f);
-		delay = 0;
-		if (PWM_PulseChange > 10)
-		{
-			while (PWM_PulseChange > 0)
-			{
-				PWM_Pulse += fmin(fmin(PWM_PulseChange, PWM_CHANGE),
-						215 - PWM_Pulse);
-				PWM_PulseChange -= fmin(PWM_PulseChange, PWM_CHANGE);
-				__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, PWM_Pulse);
-				osDelay(5);
-				delay += 5;
-			}
-
-		}
-		else if (PWM_PulseChange < -10)
-		{
-			while (PWM_PulseChange < 0)
-			{
-				PWM_Pulse -= fmin(fmin(PWM_PulseChange, PWM_CHANGE), PWM_Pulse);
-				PWM_PulseChange -= fmax(PWM_PulseChange, -PWM_CHANGE);
-				__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, PWM_Pulse);
-				osDelay(5);
-				delay += 5;
-			}
-		}
-		else
-		{
-			PWM_Pulse += PWM_PulseChange;
-			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, PWM_Pulse);
-		}
-	}
-	delay = fmax(delay, 100);
-	/* USER CODE END StartDisplayBacklight */
-}
-
-/* USER CODE BEGIN Header_StartComputeFuelConsumption */
-/**
- * @brief Function implementing the fuelConsumption thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartComputeFuelConsumption */
-void StartComputeFuelConsumption(void *argument)
-{
-	/* USER CODE BEGIN StartComputeFuelConsumption */
-	const uint8_t injectorFuelFlow = 250; // cc / min
-	static uint32_t lastComputeTime = 0;
-	/* Infinite loop */
-	for (;;)
-	{
-		float fuelUsage = ((float) EcuData.rpm / 60.0f / 1000.0f) * 3.0f
-				* ((float) injectorFuelFlow / 60.0f / 1000.0f /1000.0f) * EcuData.injPW
-				* (lastComputeTime - HAL_GetTick());
-		lastComputeTime = HAL_GetTick();
-		telemetryData.burnedFuel += fuelUsage;
-		osDelay(10);
-	}
-	/* USER CODE END StartComputeFuelConsumption */
+  /* USER CODE BEGIN startStatusLedTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END startStatusLedTask */
 }
 
 /* Private application code --------------------------------------------------*/
