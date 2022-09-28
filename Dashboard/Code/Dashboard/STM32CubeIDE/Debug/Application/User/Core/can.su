@@ -4,5 +4,5 @@ can.c:131:6:HAL_CAN_MspInit	64	static
 can.c:199:6:HAL_CAN_MspDeInit	16	static
 can.c:250:6:HAL_CAN_RxFifo0MsgPendingCallback	80	static
 can.c:268:6:ComputeEcumasterFrame	32	static
-can.c:342:6:ComputeInternalFrame	8	static
-can.c:355:10:LittleToBigEndian	24	static
+can.c:346:6:ComputeInternalFrame	8	static
+can.c:359:10:LittleToBigEndian	24	static

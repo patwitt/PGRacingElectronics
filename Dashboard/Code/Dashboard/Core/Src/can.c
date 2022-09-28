@@ -317,9 +317,13 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 		break;
 	case 768:
 		telemetryData.gear = RxData[1];
+		telemetryData.minGearChangeTime =RxData[2];
+		telemetryData.gearChangeTime =RxData[3];
+		telemetryData.maxGearChangeTime =RxData[4];
 		if (telemetryData.gear == 0)
 		{
 			telemetryData.gear = 1;
+
 		}
 		else if (telemetryData.gear == 1)
 		{
@@ -343,7 +347,7 @@ void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 {
 	if (RxHeader.StdId == 0x520)
 	{
-		telemetryData.isIntercomActive = RxData[0] & 1;
+		telemetryData.isIntercomActive = RxData[0] & 0x8 ? 1: 0;
 	}
 	else if (RxHeader.StdId == 0x500)
 	{

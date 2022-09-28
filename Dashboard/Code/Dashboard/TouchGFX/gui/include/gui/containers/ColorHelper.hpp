@@ -14,8 +14,8 @@ namespace colors
     using namespace touchgfx;
     const colortype black = Color::getColorFrom24BitRGB(0, 0, 0);
     const colortype red = Color::getColorFrom24BitRGB(255, 0, 0);
-    const colortype green = Color::getColorFrom24BitRGB(0, 255, 0);
-    const colortype blue = Color::getColorFrom24BitRGB(0, 0, 255);
+    const colortype green = Color::getColorFrom24BitRGB(0, 192, 0);
+    const colortype blue = Color::getColorFrom24BitRGB(0, 0, 192);
     const colortype orange = Color::getColorFrom24BitRGB(247, 76, 2);
     const colortype yellow = Color::getColorFrom24BitRGB(247, 210, 2);
 }

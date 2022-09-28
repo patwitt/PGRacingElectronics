@@ -3,6 +3,7 @@
 #include <cstring>
 #include <ecumaster.h>
 #include <telemetry_data.h>
+#include <main.h>
 
 MainView::MainView()
 {
@@ -49,10 +50,16 @@ void MainView::handleTickEvent()
 		//setGear(2);
 	}
 	static uint8_t lastGear = 0;
+	static uint32_t lastGearUpdateTime =0;
 	if (telemetryData.gear != lastGear)
 	{
 		setGear(telemetryData.gear);
 		lastGear = telemetryData.gear;
+		lastGearUpdateTime = HAL_GetTick();
+		char buffer[30];
+		sprintf(buffer, "GEAR CHANGE TIME: %u", telemetryData.gearChangeTime);
+		alertBar2.setText(buffer);
+		alertBar2.setState(EBarState::Info);
 	}
 	static float lastBatt = 0.0f;
 	if (lastBatt != EcuData.batt)
@@ -121,10 +128,14 @@ void MainView::handleTickEvent()
 		alertBar1.setState(EBarState::Blank);
 	}
 
+
 	if (telemetryData.isIntercomActive == 1)
 	{
 		alertBar2.setState(EBarState::Info);
 		alertBar2.setText("INTERCOM ACTIVE");
+	}else if(HAL_GetTick()-lastGearUpdateTime>750)
+	{
+		alertBar2.setState(EBarState::Blank);
 	}
 
 	//setClt(EcuData.clt);

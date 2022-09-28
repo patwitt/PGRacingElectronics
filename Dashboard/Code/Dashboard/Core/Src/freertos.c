@@ -178,8 +178,8 @@ void StartHardwareTask(void *argument)
 	for (;;)
 	{
 
-		telemetryData.oilPress = HAL_GPIO_ReadPin(OIL_SENSOR_GPIO_Port,
-				OIL_SENSOR_Pin);
+		//telemetryData.oilPress = HAL_GPIO_ReadPin(OIL_SENSOR_GPIO_Port,
+		//OIL_SENSOR_Pin);
 		if (telemetryData.gear == 0)
 		{
 			////HAL_GPIO_WritePin(NEUTRAL_LED_GPIO_Port, NEUTRAL_LED_Pin, SET);
@@ -194,18 +194,18 @@ void StartHardwareTask(void *argument)
 
 		osDelay(100);
 		/* BURNED FUEL TRANSMISSION */
-		uint16_t burnedFuel = (uint16_t)telemetryData.burnedFuel* 0x2000;
+		uint16_t burnedFuel = (uint16_t) telemetryData.burnedFuel * 0x2000;
 		uint8_t RxData[2];
-		RxData[0] = burnedFuel%0xFF;
+		RxData[0] = burnedFuel % 0xFF;
 		RxData[1] = burnedFuel / 0xFF;
-		 CAN_TxHeaderTypeDef TxHeader;
-		 TxHeader.DLC = 2;
-		 TxHeader.IDE = CAN_ID_STD;
-		 TxHeader.RTR = CAN_RTR_DATA;
-		 TxHeader.StdId = 0x1FE;
+		CAN_TxHeaderTypeDef TxHeader;
+		TxHeader.DLC = 2;
+		TxHeader.IDE = CAN_ID_STD;
+		TxHeader.RTR = CAN_RTR_DATA;
+		TxHeader.StdId = 0x1FE;
 
 		// HAL_CAN_AddTxMessage(INTERNAL_CAN, &TxHeader, RxData, &TxMailbox);
-		 HAL_CAN_AddTxMessage(&hcan2, &TxHeader, RxData, &TxMailbox);
+		HAL_CAN_AddTxMessage(&hcan2, &TxHeader, RxData, &TxMailbox);
 		if (telemetryData.steeringWheelAttached == 1
 				&& HAL_GetTick() - telemetryData.steeringWheelAttachedTimestamp
 						> 2000)
@@ -336,8 +336,9 @@ void StartComputeFuelConsumption(void *argument)
 	/* Infinite loop */
 	for (;;)
 	{
-		float fuelUsage = ((float) EcuData.rpm / 60 / 1000) * 3
-				* ((float) injectorFuelFlow / 60 / 1000) * EcuData.injPW * (lastComputeTime - HAL_GetTick());
+		float fuelUsage = ((float) EcuData.rpm / 60.0f / 1000.0f) * 3.0f
+				* ((float) injectorFuelFlow / 60.0f / 1000.0f /1000.0f) * EcuData.injPW
+				* (lastComputeTime - HAL_GetTick());
 		lastComputeTime = HAL_GetTick();
 		telemetryData.burnedFuel += fuelUsage;
 		osDelay(10);

@@ -15,6 +15,9 @@ extern "C" {
 
 typedef struct {
  uint8_t gear;
+ uint8_t gearChangeTime;
+ uint8_t minGearChangeTime;
+ uint8_t maxGearChangeTime;
  uint8_t steeringWheelAttached;
  uint32_t steeringWheelAttachedTimestamp;
  uint8_t isIntercomActive;
