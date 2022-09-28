@@ -41,3 +41,8 @@
 *.su
 *.idb
 *.pdb
+
+#makefile
+*.mk
+
+version.h
