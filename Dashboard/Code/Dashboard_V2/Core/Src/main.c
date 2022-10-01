@@ -38,6 +38,7 @@
 #include "at25sf128a.h"
 #include "structs/ecumaster.h"
 #include "WS2812_driver.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

@@ -22,6 +22,13 @@ typedef struct
 	uint8_t blueLedBrightness;
 } displaySetup_t;
 
+enum DisplayCANFrames{
+	GIT_BUILD_TAG = 0x100,
+	GIT_COMMIT,
+	BUILD_DATE
+
+};
+
 extern displaySetup_t displaySetup;
 
 #ifdef __cplusplus

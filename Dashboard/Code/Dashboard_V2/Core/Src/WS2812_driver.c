@@ -1,9 +1,10 @@
 #include "WS2812_driver.h"
-#include "tim.h"
-#include "math.h"
-#include "structs/display_setup.h"
-#include "structs/telemetry_data.h"
+
 #include "cmsis_os2.h"
+#include "math.h"
+#include "structs/display_data.h"
+#include "structs/telemetry_data.h"
+#include "tim.h"
 
 #define GEAR_NUMBER 6
 #define MAX_ENGINE_TORQUE 70

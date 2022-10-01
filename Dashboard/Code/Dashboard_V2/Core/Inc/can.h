@@ -42,12 +42,15 @@ extern CAN_HandleTypeDef hcan2;
 #define ECU_CAN CAN2
 extern uint32_t TxMailbox;
 
+
+
 /* USER CODE END Private defines */
 
 void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void CanCommunicationInit();
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);
 void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);

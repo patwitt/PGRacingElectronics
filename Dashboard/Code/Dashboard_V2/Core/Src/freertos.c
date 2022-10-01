@@ -29,12 +29,13 @@
 #include "app_touchgfx.h"
 #include "can.h"
 #include "gpio.h"
+#include "structs/ecumaster.h"
+#include "structs/display_data.h"
+#include "structs/telemetry_data.h"
 #include "tim.h"
 #include "WS2812_driver.h"
-#include "structs/ecumaster.h"
-#include "structs/display_setup.h"
-#include "structs/telemetry_data.h"
 #include <math.h>
+
 
 /* USER CODE END Includes */
 
@@ -157,6 +158,7 @@ void MX_FREERTOS_Init(void) {
 void StartHardwareTask(void *argument)
 {
   /* USER CODE BEGIN StartHardwareTask */
+	CanCommunicationInit();
   /* Infinite loop */
   for(;;)
   {
