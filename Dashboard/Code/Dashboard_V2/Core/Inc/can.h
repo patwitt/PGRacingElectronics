@@ -38,8 +38,10 @@ extern CAN_HandleTypeDef hcan2;
 
 /* USER CODE BEGIN Private defines */
 
-#define INTERNAL_CAN CAN1
-#define ECU_CAN CAN2
+#define EMU_CAN 				CAN2
+#define INTERNAL_CAN 			CAN1
+#define EMU_CAN_HANDLE			hcan2
+#define INTERNAL_CAN_HANDLE		hcan1
 extern uint32_t TxMailbox;
 
 

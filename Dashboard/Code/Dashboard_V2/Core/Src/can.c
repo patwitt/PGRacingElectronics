@@ -32,15 +32,9 @@
 #include <string.h>
 #include <time.h>
 
-#define EMU_CAN 				CAN2
-#define INTERNAL_CAN 			CAN1
-#define EMU_CAN_HANDLE			hcan2
-#define INTERNAL_CAN_HANDLE		hcan1
-
 uint32_t TxMailbox;
 
-EcumasterData EcuData;
-telemetryData_t telemetryData;
+
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan1;
@@ -333,46 +327,46 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 	switch (RxHeader.StdId)
 	{
 	case Frame1:
-		EcuData.rpm = LittleToBigEndian(&RxData[0]);
-		EcuData.tps = RxData[2];
-		EcuData.iat = RxData[3];
-		EcuData.map = LittleToBigEndian(&RxData[4]);
-		EcuData.injPW = LittleToBigEndian(&RxData[6]);
+		ecumasterData.rpm = LittleToBigEndian(&RxData[0]);
+		ecumasterData.tps = RxData[2];
+		ecumasterData.iat = RxData[3];
+		ecumasterData.map = LittleToBigEndian(&RxData[4]);
+		ecumasterData.injPW = LittleToBigEndian(&RxData[6]);
 		break;
 	case Frame2:
-		EcuData.ain1 = LittleToBigEndian(&RxData[0]) * 0.0048828125f;
-		EcuData.ain2 = LittleToBigEndian(&RxData[2]) * 0.0048828125f;
-		EcuData.ain3 = LittleToBigEndian(&RxData[4]) * 0.0048828125f;
-		EcuData.ain4 = LittleToBigEndian(&RxData[6]) * 0.0048828125f;
+		ecumasterData.ain1 = LittleToBigEndian(&RxData[0]) * 0.0048828125f;
+		ecumasterData.ain2 = LittleToBigEndian(&RxData[2]) * 0.0048828125f;
+		ecumasterData.ain3 = LittleToBigEndian(&RxData[4]) * 0.0048828125f;
+		ecumasterData.ain4 = LittleToBigEndian(&RxData[6]) * 0.0048828125f;
 		break;
 	case Frame3:
-		EcuData.speed = LittleToBigEndian(&RxData[0]);
-		EcuData.oilTemp = RxData[3];
-		EcuData.oilPress = RxData[4] * 0.0625f;
-		EcuData.clt = LittleToBigEndian(&RxData[6]);
+		ecumasterData.speed = LittleToBigEndian(&RxData[0]);
+		ecumasterData.oilTemp = RxData[3];
+		ecumasterData.oilPress = RxData[4] * 0.0625f;
+		ecumasterData.clt = LittleToBigEndian(&RxData[6]);
 		break;
 	case Frame4:
-		EcuData.ignAngle = RxData[0];
-		EcuData.ignDwell = RxData[1];
-		EcuData.lambda = RxData[2];
-		EcuData.lambdaCorrection = RxData[3];
-		EcuData.egt1 = LittleToBigEndian(&RxData[4]);
-		EcuData.egt2 = LittleToBigEndian(&RxData[6]);
+		ecumasterData.ignAngle = RxData[0];
+		ecumasterData.ignDwell = RxData[1];
+		ecumasterData.lambda = RxData[2];
+		ecumasterData.lambdaCorrection = RxData[3];
+		ecumasterData.egt1 = LittleToBigEndian(&RxData[4]);
+		ecumasterData.egt2 = LittleToBigEndian(&RxData[6]);
 		break;
 	case Frame5:
-		EcuData.gear = RxData[0];
-		EcuData.ecuTemp = RxData[1];
-		EcuData.batt = LittleToBigEndian(&RxData[2]) * 0.027f;
-		EcuData.errflag = LittleToBigEndian(&RxData[5]);
-		EcuData.flags1 = RxData[7];
+		ecumasterData.gear = RxData[0];
+		ecumasterData.ecuTemp = RxData[1];
+		ecumasterData.batt = LittleToBigEndian(&RxData[2]) * 0.027f;
+		ecumasterData.errflag = LittleToBigEndian(&RxData[5]);
+		ecumasterData.flags1 = RxData[7];
 		break;
 	case Frame6:
-		EcuData.DBWPosition = RxData[0];
-		EcuData.DBWTrigger = RxData[1];
-		EcuData.TCDRPMRaw = LittleToBigEndian(&RxData[2]);
-		EcuData.TCDRPM = LittleToBigEndian(&RxData[4]);
-		EcuData.TCTorqueReduction = RxData[6];
-		EcuData.PitLimitTorqueReduction = RxData[7];
+		ecumasterData.DBWPosition = RxData[0];
+		ecumasterData.DBWTrigger = RxData[1];
+		ecumasterData.TCDRPMRaw = LittleToBigEndian(&RxData[2]);
+		ecumasterData.TCDRPM = LittleToBigEndian(&RxData[4]);
+		ecumasterData.TCTorqueReduction = RxData[6];
+		ecumasterData.PitLimitTorqueReduction = RxData[7];
 		break;
 	case Frame7:
 		break;
@@ -421,7 +415,7 @@ void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData)
 
 uint16_t LittleToBigEndian(uint8_t *data)
 {
-	uint16_t returnData = data[0] + data[1] * 0xFF;
+	uint16_t returnData = data[0] + (data[1] << 8);
 	return returnData;
 }
 

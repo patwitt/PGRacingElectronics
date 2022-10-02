@@ -20,7 +20,7 @@ typedef struct
 	uint8_t redLedBrightness;
 	uint8_t greenLedBrightness;
 	uint8_t blueLedBrightness;
-} displaySetup_t;
+} DisplaySetup_t;
 
 enum DisplayCANFrames{
 	GIT_BUILD_TAG = 0x100,
@@ -29,7 +29,7 @@ enum DisplayCANFrames{
 
 };
 
-extern displaySetup_t displaySetup;
+extern DisplaySetup_t displaySetup;
 
 #ifdef __cplusplus
 }

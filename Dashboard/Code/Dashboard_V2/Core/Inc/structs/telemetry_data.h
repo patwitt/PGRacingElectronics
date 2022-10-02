@@ -25,9 +25,9 @@ typedef struct
 	uint8_t oilPress;
 	//float fuelConsumption;
 	float burnedFuel;
-} telemetryData_t;
+} TelemetryData_t;
 
-extern telemetryData_t telemetryData;
+extern TelemetryData_t telemetryData;
 
 #ifdef __cplusplus
 }

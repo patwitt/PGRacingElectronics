@@ -6,27 +6,9 @@
 #include "structs/telemetry_data.h"
 #include "tim.h"
 
-#define GEAR_NUMBER 6
-#define MAX_ENGINE_TORQUE 70
-#define USE_OPTIMAL_SHIFT_RPM
-//#define MY_OPTIMAL_SHIFT_IMPLEMENTATION
-
-//extern displaySetup_t displaySetup;
-//extern TIM_HandleTypeDef htim3;
-//extern DMA_HandleTypeDef hdma_tim3_ch1_trig;
-
-#define BIT_0_TIME		43
-#define BIT_1_TIME		86
-
-#define RESET_LEN		40
-#define LED_NUMBER		15
-
 volatile uint16_t leds[RESET_LEN + 24 * LED_NUMBER];
 
-displaySetup_t displaySetup =
-{ 70, 2, 110, 110, 110 };
-
-uint16_t optimalShiftUpRPM[6];
+static uint16_t optimalShiftUpRPM[6];
 static const float GearRatios[6] =
 { 2.615, 1.857, 1.565, 1.35, 1.238, 1.136 };
 // torque from 3000 rpm to 12000
@@ -42,11 +24,6 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 	HAL_TIM_PWM_Stop_DMA(htim, TIM_CHANNEL_1);
 }
 
-void StartRPMLed()
-{
-	WS2812_Init();
-}
-
 void WS2812_Init(void)
 {
 	for (int i = 0; i < 24 * LED_NUMBER; i++)
@@ -55,7 +32,6 @@ void WS2812_Init(void)
 	for (int i = 0; i < RESET_LEN; i++)
 		leds[i + LED_NUMBER * 24] = 0;
 
-	//__DSB();
 	HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_1, (uint32_t*) leds,
 	RESET_LEN + 24 * LED_NUMBER);
 	for (uint8_t i = 1; i <= LED_NUMBER; i++)
@@ -143,7 +119,7 @@ void updateLedsType_1(int8_t activeLeds)
 	RESET_LEN + 24 * LED_NUMBER);
 }
 
-void updateLeds(int rpm, int mode)
+void updateLeds(uint16_t rpm, uint8_t mode)
 {
 	uint16_t minRPM;
 	uint16_t maxRPM;

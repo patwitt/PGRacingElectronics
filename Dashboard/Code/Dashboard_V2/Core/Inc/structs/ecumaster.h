@@ -46,14 +46,14 @@ typedef struct EcumasterData_t
 	float ain2;
 	float ain3;
 	float ain4;
-} EcumasterData;
+} EcumasterData_t;
 
 enum EcumasterFrame
 {
 	Frame1 = 0x600, Frame2, Frame3, Frame4, Frame5, Frame6, Frame7, Frame8
 };
 
-extern EcumasterData EcuData;
+extern EcumasterData_t ecumasterData;
 
 void validateData();
 
