@@ -113,6 +113,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_DMA_Init();
+  MX_TIM8_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
