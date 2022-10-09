@@ -48,7 +48,7 @@ typedef struct {
 	const CAN_MsgDataBytes lastTimByte;
 	const CAN_MsgDataBytes maxTimByte;
 	const CAN_TxMsgStdIdEnum msgId;
-	SwTimerStats *gearTimStats;
+	__IO SwTimerStats *gearTimStats;
 } CANReportHandler;
 
 //! CAN Reporting handler
@@ -123,7 +123,7 @@ static inline void GearControlCAN_ShiftStatusHandler(void)
  * 
  * @return an error code.
  */
-ErrorEnum GearControlCAN_Init(SwTimerStats *const gearTimStats)
+ErrorEnum GearControlCAN_Init(__IO SwTimerStats *const gearTimStats)
 {
 	ErrorEnum err = ERROR_OK;
 

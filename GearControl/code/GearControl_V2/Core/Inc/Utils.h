@@ -106,20 +106,22 @@ static inline float Utils_CalcSlope(Slope *const slope, const float div)
 
 static inline void Utils_RollingAverage_U16(__IO AvgBuffer_U16 *const avgData, const uint16_t newSample)
 {
-	/* Store new sample in buffer */
-	avgData->avgBuff[avgData->index] = newSample;
+	if NULL_CHECK1(avgData) {
+		/* Store new sample in buffer */
+		avgData->avgBuff[avgData->index] = newSample;
 
-	/* Add newest sample */
-	avgData->sum += newSample;
+		/* Add newest sample */
+		avgData->sum += newSample;
 
-	/* Calculate new index */
-	avgData->index = (avgData->index + 1U) % avgData->nSamples;
+		/* Calculate new index */
+		avgData->index = (avgData->index + 1U) % avgData->nSamples;
 
-	/* Delete oldest sample */
-	avgData->sum -= avgData->avgBuff[avgData->index];
+		/* Delete oldest sample */
+		avgData->sum -= avgData->avgBuff[avgData->index];
 
-	/* Calculate average */
-	avgData->avg = avgData->sum / (avgData->nSamples - 1U);
+		/* Calculate average */
+		avgData->avg = avgData->sum / (avgData->nSamples - 1U);
+	}
 }
 
 static inline void Utils_RollingAverage_F(__IO AvgBuffer_F *const avgData, const float newSample)
