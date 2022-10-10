@@ -21,7 +21,7 @@ typedef struct ABS{
 
 //	int dataReady; // flag to check if data is ready to read and write to file
 //	int saveRate;
-	int data;
+	volatile uint32_t data;
 	int ID;
 	int timeToZeroSpeed; //after that time if not new input we assume car is not moving
 	TIM_HandleTypeDef * timer;

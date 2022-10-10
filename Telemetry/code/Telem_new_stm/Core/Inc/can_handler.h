@@ -46,6 +46,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 /* CAN BREAK PRESSURE SENDING functions */
 HAL_StatusTypeDef Break_pressure_over_can(float BP[2]);
 
+/* CAN VSS SENDING functions */
+HAL_StatusTypeDef VSS_over_can(float VSS[2]);
 
-
+/* CAN DAMPER SENDING functions */
+HAL_StatusTypeDef Damper_over_can(float damper[2]);
 #endif /* INC_CAN_PGR_H_ */

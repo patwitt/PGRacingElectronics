@@ -119,8 +119,8 @@ int main(void)
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
-  absInit(&absRRSensor, 0x01, &htim2, 1); // RIGHT REAR
-  absInit(&absLRSensor, 0x02, &htim3, 1); // LEFT REAR
+  absInit(&absRRSensor, 0x01, &htim2, TIM_CHANNEL_1); // RIGHT REAR
+  absInit(&absLRSensor, 0x02, &htim3, TIM_CHANNEL_1); // LEFT REAR
 
  // HAL_ADC_Start(&hadc1);
   /* USER CODE END 2 */
@@ -147,13 +147,13 @@ int main(void)
 	}
 
 	  //ABS
-					if(flag==0x01)
+	if(flag==0x01)
 	{
-		wheel_speed[0]=absCalculate(absRRSensor.data);
+		wheel_speed[0]=absCalculate(absLRSensor.data);
 	}
 	else if(flag==0x02)
 	{
-		wheel_speed[1]=absCalculate(absLRSensor.data);
+		wheel_speed[1]=absCalculate(absRRSensor.data);
 	}
 
 	//AMORKI

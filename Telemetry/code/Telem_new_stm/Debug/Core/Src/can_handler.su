@@ -2,4 +2,5 @@
 ../Core/Src/can_handler.c:65:19:CAN_TxSendData	24	static
 ../Core/Src/can_handler.c:72:19:CAN_GetRxData	16	static
 ../Core/Src/can_handler.c:87:19:Break_pressure_over_can	16	static
-../Core/Src/can_handler.c:102:6:HAL_CAN_RxFifo0MsgPendingCallback	16	static
+../Core/Src/can_handler.c:101:19:VSS_pressure_over_can	16	static
+../Core/Src/can_handler.c:116:6:HAL_CAN_RxFifo0MsgPendingCallback	16	static

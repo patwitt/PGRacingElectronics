@@ -47,7 +47,7 @@ uint16_t Amorki_GetData(ADC_HandleTypeDef* adc , uint16_t val[2])
 float AmorkiCalculate(int data)
 {
 	float Amr_voltage=data*3.3/4096;	 //ADC TO VOLTAGE
-	float res=(Amr_voltage)*20; 		 //VOLTAGE TO DISPLACEMENT
+	float res=(Amr_voltage)*30.3; 		 //VOLTAGE TO DISPLACEMENT
 	return res;
 }
 

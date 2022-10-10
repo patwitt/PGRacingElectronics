@@ -98,6 +98,34 @@ HAL_StatusTypeDef Break_pressure_over_can(float BP[2])
     return can_status;
 }
 
+HAL_StatusTypeDef VSS_pressure_over_can(float VSS[2])
+{
+    TxHeader.DLC = 4;  // data length
+    TxHeader.IDE = CAN_ID_STD;
+    TxHeader.RTR = CAN_RTR_DATA;
+    TxHeader.StdId = TELEM_ADDRESS;  // ID
+
+    TX_frame.buffer[0] = VSS[0];
+    TX_frame.buffer[1] = VSS[1];
+    TX_frame.TxMailbox = CAN_TX_MAILBOX;
+    can_status= HAL_CAN_AddTxMessage(hcan, &TxHeader, TX_frame.buffer, &TX_frame.TxMailbox);
+    return can_status;
+}
+
+HAL_StatusTypeDef VSS_pressure_over_can(float Damper[2])
+{
+    TxHeader.DLC = 4;  // data length
+    TxHeader.IDE = CAN_ID_STD;
+    TxHeader.RTR = CAN_RTR_DATA;
+    TxHeader.StdId = TELEM_ADDRESS;  // ID
+
+    TX_frame.buffer[0] = Damper[0];
+    TX_frame.buffer[1] = Damper[1];
+    TX_frame.TxMailbox = CAN_TX_MAILBOX;
+    can_status= HAL_CAN_AddTxMessage(hcan, &TxHeader, TX_frame.buffer, &TX_frame.TxMailbox);
+    return can_status;
+}
+
 /* RX Callback functions */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 
