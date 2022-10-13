@@ -22,8 +22,11 @@
 
 /* USER CODE BEGIN 0 */
 #include "ecumaster.h"
+#include "sensorFunctions.h"
 #include "fatfs.h"
+#include "handler.h"
 EcumasterData EcuData;
+extern sensorDataHandler _dataHandler[];
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan1;
@@ -69,7 +72,7 @@ void MX_CAN1_Init(void)
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
   canfilterconfig.SlaveStartFilterBank = 10;
   HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
-  EcuInit(&EcuData);
+
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -244,7 +247,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 }
 extern FIL* EcuFile;
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
-
+	_dataHandler[ECU].dataReady = 1;
 	if (RxHeader.StdId == Frame1) {
 		EcuData.rpm = LittleToBigEndian(&RxData[0]);
 		EcuData.tps = RxData[2];
@@ -278,13 +281,13 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.PitLimitTorqueReduction = RxData[7];
 	}else if (RxHeader.StdId == 768) {
 		int bw;
-		char dataBuffer[255];
-		sprintf(dataBuffer, "%d,", HAL_GetTick());
-		f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
+		//char dataBuffer[255];
+		//sprintf(dataBuffer, "%d,", HAL_GetTick());
+		/*f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
 		f_write(EcuFile, "[768]", 5, &bw);
 		f_write(EcuFile, RxData, sizeof(RxData), &bw);
 		f_write(EcuFile, "\r\n", 2, &bw);
-		f_sync(EcuFile);
+		f_sync(EcuFile);*/
 	}else if (RxHeader.StdId == 0x1FE) {
 		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData[0]))/8192.0;
 	}

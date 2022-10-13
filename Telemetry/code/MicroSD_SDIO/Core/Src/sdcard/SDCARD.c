@@ -4,9 +4,11 @@
  *  Created on: 27 cze 2022
  *      Author: Patryk
  */
-#include "SDCARD.h"
+#include "sdcard/SDCARD.h"
+
 #include<stdio.h>
 #include "ecumaster.h"
+#include "string.h"
 #define FILE_DEFAULT_MODE FA_WRITE | FA_OPEN_APPEND
 
 extern GyroSensor gyro;
@@ -14,8 +16,14 @@ extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
 extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
+extern ADCSensor damperLFSensor;
+extern ADCSensor damperRFSensor;
 extern GPSSensor gpsSensor;
 extern SensorStatus statusRegister;
+
+
+const char GYRO_HEADER[] = "gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n";
+
 
 void sdDeInit(FATFS* fs)
 {
@@ -51,8 +59,8 @@ void openAllFiles()
 	{
 		EcuFile = (FIL*)malloc(sizeof(FIL));
 		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
-		AlertFile = (FIL*)malloc(sizeof(FIL));
-		openFile(AlertFile,"Alert.txt",FILE_DEFAULT_MODE);
+		//AlertFile = (FIL*)malloc(sizeof(FIL));
+		//openFile(AlertFile,"Alert.txt",FILE_DEFAULT_MODE);
 		openFile(EcuFile,ecuPath,FILE_DEFAULT_MODE);
 		if(statusRegister.GYRO == SENSOR_OK){
 			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
@@ -64,7 +72,7 @@ void openAllFiles()
 			openFile(absLFSensor.File, absLFSensor.path, FILE_DEFAULT_MODE);
 		}
 		if(statusRegister.DamperLF == SENSOR_OK){
-
+			openFile(damperLFSensor.File, damperLFSensor.path, FILE_DEFAULT_MODE);
 		}
 
 	}
@@ -81,22 +89,21 @@ int createHeaders(FIL * file,char * path)
 	}
 
 	if(strstr(path,"GYRO") != NULL){
-		fres = f_write(file, "gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n", strlen("gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n"), &bytesWritten);
-
+		fres = f_write(file, GYRO_HEADER, strlen(GYRO_HEADER), &bytesWritten);
 	}else if(strstr(path,"MLX")!= NULL){
-		char headerData[25];
+		char headerText[25];
 		fres =  f_write(file, "ID,", strlen("ID,"), &bytesWritten);
 		for(int i=0;i<784;i++){
-			sprintf(headerData,"float_%d,", i);
-			fres = fres | f_write(file, headerData, strlen(headerData), &bytesWritten);
-			sprintf(headerData,"id,");
-			fres =  fres | f_write(file, headerData, strlen(headerData), &bytesWritten);
+			sprintf(headerText,"float_%d,", i);
+			fres = fres | f_write(file, headerText, strlen(headerText), &bytesWritten);
+			sprintf(headerText,"id,");
+			fres =  fres | f_write(file, headerText, strlen(headerText), &bytesWritten);
 		}
 
 	}else if(strstr(path,"ABS")!= NULL){
 		fres = f_write(file, "ID,speed\r\n", strlen("ID,speed\r\n"), &bytesWritten);
 	}else if(strstr(path,"DAMP")!= NULL){
-		fres = f_write(file, "ID,length\r\n", strlen("ID,length\r\n"), &bytesWritten);
+		fres = f_write(file, "ID,delta\r\n", strlen("ID,delta\r\n"), &bytesWritten);
 	}else if(strstr(path,"WHEEL")!= NULL){
 		fres = f_write(file, "ID,angle\r\n", strlen("ID,angle\r\n"), &bytesWritten);
 	}else if(strstr(path,"GPS")!= NULL){
@@ -124,6 +131,8 @@ int openFile(FIL * file, char * path, BYTE mode)
 	if(fres == FR_OK)
 	{
 		fres = f_open(file, _TEXT(path), mode);
+		int bw;
+		fres |= f_write(file,"---------------Restart------------------\r\n",strlen("---------------Restart------------------\r\n"),&bw);
 		if(fres == FR_OK)
 		{
 			printf("Opening file: %s succeeded\n", path);
@@ -131,6 +140,7 @@ int openFile(FIL * file, char * path, BYTE mode)
 		{
 			return SD_READ_ERROR;
 		}
+
 	}else if(fres == FR_NO_FILE)
 	{
 		fres = f_open(file, _TEXT(path), mode);
@@ -154,17 +164,16 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 
 }
-void saveEcuData(EcumasterData ecu){
+void ecuSaveData(EcumasterData ecu){
 	int bw;
 	char dataBuffer[255];
-	sprintf(dataBuffer, "%d,", HAL_GetTick());
+	sprintf(dataBuffer, "%u,", HAL_GetTick());
 	f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
 	 for(int i = 0; i < sizeof(ecu); i++)
 	    {
 	        sprintf(dataBuffer,"%X",((char*)&ecu)[i]);
 	        f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
 	    }
-
 	//int res = f_write(EcuFile, &ecu, sizeof(ecu), &bw);
 	f_write(EcuFile, "\r\n", 2, &bw);
 	f_sync(EcuFile);
@@ -245,8 +254,7 @@ void adcSaveData(ADCSensor * sens)
 {
 	char dataBuffer[255];
 	int writedBytes;
-	float calcData = absCalculate(sens->data);
-	sprintf(dataBuffer, "%d,%f\r\n", HAL_GetTick(),calcData);
+	sprintf(dataBuffer, "%d,%d,%d\r\n", HAL_GetTick(), sens->ID,sens->data);
 	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	f_sync(sens->File);
 }

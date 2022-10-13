@@ -18,7 +18,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "sdmmc.h"
+#include "sdcard/sdmmc.h"
 
 /* USER CODE BEGIN 0 */
 

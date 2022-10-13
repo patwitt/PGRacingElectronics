@@ -5,8 +5,12 @@
  *      Author: Patryk
  */
 #include "sensorFunctions.h"
-#include "SDCARD.h"
-
+#include "sdcard/SDCARD.h"
+#include "sensors/ABS.h"
+#include "sensors/ADCSensor.h"
+#include "sensors/GPS.h"
+#include "sensors/GYRO.h"
+#include "sensors/MLX.h"
 #pragma once
 
 extern GyroSensor gyro;
@@ -20,7 +24,7 @@ extern ADCSensor sWheelSensor;
 typedef void (*getDataHander)(void*);
 typedef struct
 {
-  uint8_t sensorType;
+  SENSORS sensorType;
   void* sensorStruct;
   getDataHander getDataHandler;
   getDataHander saveDataHandler;
@@ -29,7 +33,7 @@ typedef struct
 
 } sensorDataHandler;
 
-#define SENSORS_N 7
+
 
 
 

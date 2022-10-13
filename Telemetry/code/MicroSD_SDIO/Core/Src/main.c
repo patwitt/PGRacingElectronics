@@ -25,7 +25,7 @@
 #include "fatfs.h"
 #include "i2c.h"
 #include "rtc.h"
-#include "sdmmc.h"
+
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -38,7 +38,7 @@
 
 #include "basicFunctions.h"
 #include "handler.h"
-#include "SDCARD.h"
+#include "sdcard/SDCARD.h"
 #include "ecumaster.h"
 #include "logger/transmitter.h"
 
@@ -54,7 +54,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define TRUE 1
+#define FALSE 0
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,17 +66,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern I2C_HandleTypeDef hi2c1;
-extern I2C_HandleTypeDef hi2c2;
-extern I2C_HandleTypeDef hi2c3;
-extern I2C_HandleTypeDef hi2c4;
-extern TIM_HandleTypeDef htim3;
-extern TIM_HandleTypeDef htim4;
-extern ADC_HandleTypeDef hadc1;
-extern ADC_HandleTypeDef hadc2;
-extern ADC_HandleTypeDef hadc3;
+
 extern EcumasterData EcuData;
 extern sensorDataHandler _dataHandler[];
+extern SensorStatus statusRegister;
 extern FIL* EcuFile;
 extern FIL* AlertFile;
 int saveAlert;
@@ -90,48 +84,6 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 FATFS fileSystem;
-SensorStatus statusRegister;
-
-
-
-
-int statusToInt()
-{	int fullRegister = statusRegister.TeleBack;
-	fullRegister = fullRegister << 2;
-	fullRegister =  (fullRegister  |statusRegister.DamperRF) << 3;
-	fullRegister =  (fullRegister  |statusRegister.DamperLF) << 3;
-	fullRegister =  (fullRegister  |statusRegister.Steering) << 3;
-	fullRegister =  (fullRegister  |statusRegister.VSSRF) << 3;
-	fullRegister =  (fullRegister  |statusRegister.VSSLF) << 3;
-	fullRegister =  (fullRegister  |statusRegister.MLXRF) << 3;
-	fullRegister =  (fullRegister  |statusRegister.MLXLF) << 3;
-	fullRegister = (fullRegister  | statusRegister.GYRO) << 3;
-	fullRegister = (fullRegister  | statusRegister.GPS) << 3;
-	fullRegister =  (fullRegister  |statusRegister.SDCARD);
-	return fullRegister;
-}
-void printStatusRegister()
-{
-	int fullRegister = statusToInt();
-	int b =0;
-	for(int i=31;i>=0;i--)
-	{
-		b = fullRegister >> i;
-		if(b & 1)
-		{
-			printf("1");
-		}else
-		{
-			printf("0");
-		}
-		if(i%3 == 0)
-		{
-			printf(" ");
-		}
-
-	}
-	printf("\n");
-};
 
 int sendFileToUart(FIL * f,char * path)
 {
@@ -182,34 +134,15 @@ int sendAllFilesToUart()
 
 }
 
-ADCSensor sWheelSensor;
-void initSensors()
-{
-	  //mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
-	  //mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
-	  gyroInit(&gyro);
-	  //absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
-	  //absInit(&absRFSensor, ABSLF, &htim4, TIM_CHANNEL_1, 0);
-	  //steeringInit(&sWheelSensor);
-	  GPSInit(&gpsSensor);
-	  //res = res | mlxInit(&rightFWheelMLX);
 
 
-}
 int packetsSend = 0;;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
   if (htim == &htim14 )
   {
-	  /*
-	 if(statusRegister.SDCARD == SENSOR_FAIL || statusRegister.SDCARD == SENSOR_INIT_FAIL)
-	 {
-		 sdDeInit();
-		 sdInit(&fileSystem);
-		 openAllFiles();
-	 }
-	   	 */
+
 	 statusRegister.checkTime -= 25;
 	 if( statusRegister.checkTime <= 0)
 	 {
@@ -223,8 +156,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 {
 		mlxLFSensor.dataReady = 1;
 		mlxLFSensor.timeToNextRead = ECU_DATA_RATE;
-
-		//HAL_UART_Transmit(&huart3, "\r\n", strlen("\r\n"), HAL_MAX_DELAY);
 	 }
 	 mlxRFSensor.timeToNextRead -= 25;
 	 if(mlxRFSensor.timeToNextRead <= 0)
@@ -258,27 +189,7 @@ int getTime(RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
 //ABS
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim == absLFSensor.timer) {
-    switch (HAL_TIM_GetActiveChannel(absLFSensor.timer)) {
-      case HAL_TIM_ACTIVE_CHANNEL_1:
-    	  absLFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-    	  absLFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
-    	  absLFSensor.dataReady = 1;
-        break;
-      default:
-        break;
-    }
-  }else if(htim == absRFSensor.timer) {
-      switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
-        case HAL_TIM_ACTIVE_CHANNEL_1:
-        	absRFSensor.data = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-        	absRFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
-        	absRFSensor.dataReady = 1;
-          break;
-        default:
-          break;
-       }
-  }
+	ABSCallbackHandler(htim);
 }
 char received_command[255];
 int command_lenght = 0;
@@ -286,42 +197,16 @@ uint8_t bufor;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 
-	if(huart==&huart7)
+	if(huart==gpsSensor.uart)
 	{
-		/*
-		received_command[command_lenght] = bufor;
-		command_lenght++;
-		if(bufor == '\n'){
-			command_lenght = 0;
+		GPSCallbackHandler();
 
-			if(strcmp(received_command, "download\n") == 0)
-			{
-				sendAllFilesToUart();
-				openAllFiles();
-			}
-			received_command[0] = 0;
-		}*/
-		gpsSensor.bufor[gpsSensor.buforSize] = gpsSensor.Rx_data;
-		gpsSensor.buforSize++;
-		  if(gpsSensor.Rx_data == '\n' && gpsSensor.saveLock == 0)
-		  {
-			  _dataHandler[GPS].dataReady = 0;
-				gpsSensor.bufor[gpsSensor.buforSize]='\0';
-				strcpy(gpsSensor.data,gpsSensor.bufor);
-				gpsSensor.bufor[0]='\0';
-				gpsSensor.dataReady = 1;
-				_dataHandler[GPS].dataReady = 1;
-				gpsSensor.buforSize = 0;
-		  }
-		  if(gpsSensor.buforSize > 255){
-			  gpsSensor.bufor[0]='\0';
-			  gpsSensor.buforSize = 0;
-		  }
-		  HAL_UART_Receive_IT(gpsSensor.uart, &(gpsSensor.Rx_data), 1);
-	}else if(huart ==&huart3){
+	}else if(huart ==&huart3)
+	{
 		received_command[command_lenght] = bufor;
 		command_lenght++;
 		if(bufor == '\n'){
+			received_command[command_lenght] = 0;
 			parseCommand(received_command);
 			command_lenght = 0;
 
@@ -381,35 +266,32 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
-
-  HAL_CAN_Start(&hcan2);
-  HAL_CAN_Start(&hcan1);
-  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
-  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-  HAL_Delay(200);
-
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
-  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
-
   initSensors();
+
+  HAL_TIM_Base_Start_IT(&htim14);
+
+
+
+  HAL_UART_Receive_IT(&huart3, &(bufor), 1);
   sdInit(&fileSystem);
   printStatusRegister();
   if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL){
 	  openAllFiles();
   }
 
-  //
-  HAL_TIM_Base_Start_IT(&htim14);
+  HAL_Delay(200);
+/*
+  RTC_TimeTypeDef time;
+  RTC_DateTypeDef date;
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+*/
 
-  HAL_TIM_Base_Start(&htim3);
-  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_Base_Start(&htim4);
-  HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_1);
-  int bw;
-  HAL_UART_Receive_IT(&huart3, &(bufor), 1);
+
+
+  //
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -422,7 +304,7 @@ int main(void)
 
 	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
-		  for(int i=0;i<2;i++)
+		  for(SENSORS i=0;i<SENSORS_N;i++)
 		  {
 			  if( _dataHandler[i].isActive)
 			  {
@@ -435,10 +317,11 @@ int main(void)
 				  {
 					  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
 					  _dataHandler[i].dataReady = 0;
+						 sendEcuLogs(EcuData);
 				  }
 			  }
 		  }
-
+		  /*
 		  if(mlxLFSensor.dataReady == 1)
 		  {
 				saveEcuData(EcuData);
@@ -449,7 +332,7 @@ int main(void)
 			  f_write(AlertFile, received_command, strlen(received_command), &bw);
 			  f_sync(AlertFile);
 			  saveAlert = 0;
-		  }
+		  }*/
 	  }
 
 	}

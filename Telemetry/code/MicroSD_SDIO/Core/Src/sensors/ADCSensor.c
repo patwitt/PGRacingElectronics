@@ -1,0 +1,81 @@
+/*
+ * ADCSensor.c
+ *
+ *  Created on: 28 wrz 2022
+ *      Author: Patryk
+ */
+#include "sensors/ADCSensor.h"
+#include "handler.h"
+/* *******ADC SECTION  ********/
+
+extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
+extern ADC_HandleTypeDef hadc3;
+extern RTC_HandleTypeDef hrtc;
+extern sensorDataHandler _dataHandler[];
+extern SensorStatus statusRegister;
+
+void adcInit(ADCSensor* sens,ADC_HandleTypeDef * adc,int channel,FIL* f)
+{
+	if(f == 0)
+	{
+		sens->File = (FIL*)malloc(sizeof(FIL));
+	}else
+	{
+		sens->File = f;
+	}
+	sens->adcChannel = channel;
+	sens->adc = adc;
+	sens->timeFromLastSuccRead = 0;
+}
+void damperInit(ADCSensor* sens,SENSORS id,FIL * f){
+	switch(id){
+	case DAMPERLF:
+		adcInit(sens,&hadc3,12,f);
+		statusRegister.DamperLF = SENSOR_OK;
+		break;
+	case DAMPERRF:
+		adcInit(sens,&hadc3,13,f);
+		statusRegister.DamperRF = SENSOR_OK;
+		break;
+	default:
+		break;
+	}
+	sens->dataReady = 0;
+	RTC_DateTypeDef date;
+	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+	sprintf(sens->path,"DAMP%02d%02d.csv",date.Date,date.Month);
+	sens->ID = id;
+	sens->adcType = damper;
+	sens->timeToNextRead = DAMPER_DATA_RATE;
+
+}
+void steeringInit(ADCSensor* sens){
+
+	adcInit(sens,&hadc1,0,0);
+	statusRegister.Steering = SENSOR_OK;
+	sens->ID = WHEEL;
+	RTC_DateTypeDef date;
+	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+	sprintf(sens->path,"WHEEl%02d%02d.csv",date.Date,date.Month);
+	sens->adcType = steeringWheel;
+	sens->timeToNextRead = STEERING_DATA_RATE;
+}
+void ADC_SetActiveChannel(ADCSensor* sens)
+{
+  ADC_ChannelConfTypeDef sConfig = {0};
+  sConfig.Channel = sens->adcChannel;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
+  if (HAL_ADC_ConfigChannel(sens->adc, &sConfig) != HAL_OK)
+  {
+   Error_Handler();
+  }
+}
+void adcGetData(ADCSensor * sens){
+	ADC_SetActiveChannel(sens);
+	HAL_ADC_Start(sens->adc);
+	HAL_ADC_PollForConversion(sens->adc, HAL_MAX_DELAY);
+	sens->data = HAL_ADC_GetValue(sens->adc);
+	_dataHandler[sens->ID].dataReady = 1;
+}

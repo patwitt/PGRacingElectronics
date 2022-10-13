@@ -9,13 +9,21 @@
 #define INC_SDCARD_H_
 
 #include "sensorFunctions.h"
+#include "sensors/ABS.h"
+#include "sensors/ADCSensor.h"
+#include "sensors/GPS.h"
+#include "sensors/GYRO.h"
+#include "sensors/MLX.h"
+#include "ecumaster.h"
+
+#pragma once
 typedef enum{
 	SD_OK = 1,
 	SD_WRITE_ERROR = -1,
 	SD_READ_ERROR = -2,
 	WRONG_PARAMETER = -3,
 	SD_OPEN_ERROR = -4,
-};
+}SD_STATUS;
 
 void sdInit(FATFS* fs);
 
@@ -25,6 +33,7 @@ int createHeaders(FIL * file,char * path);
 
 int openFile(FIL * file, char * path, BYTE mode);
 
+void ecuSaveData(EcumasterData ecu);
 
 void gyroSaveData(GyroSensor* sens);
 

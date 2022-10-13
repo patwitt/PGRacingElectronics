@@ -5,7 +5,7 @@
  *      Author: Desert
  */
 
-#include "MPU9250.h"
+#include "sensors/MPU9250.h"
 
 const uint8_t READWRITE_CMD = 0x80;
 const uint8_t MULTIPLEBYTE_CMD = 0x40;

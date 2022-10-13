@@ -5,8 +5,12 @@
  *      Author: Patryk
  */
 #include "handler.h"
+#include "ecumaster.h"
 
+extern EcumasterData EcuData;
+extern ADCSensor damperRFSensor;
 
+extern ADCSensor damperLFSensor;
 sensorDataHandler _dataHandler[SENSORS_N] = {
 		{
 				.sensorType = GPS,
@@ -26,7 +30,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = MLXLF,
-				.sensorStruct = (void*)(&mlxLFSensor),
+				.sensorStruct = (void*)(&mlxFSensor),
 				.getDataHandler = mlxGetData,
 				.saveDataHandler = mlxSaveData,
 				.dataReady = 0,
@@ -34,35 +38,59 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = MLXRF,
-				.sensorStruct = (void*)(&mlxLFSensor),
+				.sensorStruct = (void*)(&mlxRFSensor),
 				.getDataHandler = mlxGetData,
 				.saveDataHandler = mlxSaveData,
 				.dataReady = 0,
 				.isActive = 0,
 		},
 		{
+				.sensorType = ABSLF,
+				.sensorStruct = (void*)(&absLFSensor),
+				.getDataHandler = NULL,
+				.saveDataHandler = absSaveData,
+				.dataReady = 0,
+				.isActive = 1,
+		},
+		{
+				.sensorType = ABSRF,
+				.sensorStruct = (void*)(&absRFSensor),
+				.getDataHandler = NULL,
+				.saveDataHandler = absSaveData,
+				.dataReady = 0,
+				.isActive = 1,
+		},
+		{
 				.sensorType = WHEEL,
 				.sensorStruct = (void*)(&sWheelSensor),
-				.getDataHandler = mlxGetData,
-				.saveDataHandler = mlxSaveData,
+				.getDataHandler = adcGetData,
+				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
 				.isActive = 0,
 		},
 		{
 				.sensorType = DAMPERLF,
-				.sensorStruct = (void*)(NULL),
-				.getDataHandler = NULL,
-				.saveDataHandler = NULL,
+				.sensorStruct = (void*)(&damperLFSensor),
+				.getDataHandler = adcGetData,
+				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
-				.isActive = 0,
+				.isActive = 1,
 		},
 		{
 				.sensorType = DAMPERRF,
-				.sensorStruct = (void*)(NULL),
-				.getDataHandler = NULL,
-				.saveDataHandler = NULL,
+				.sensorStruct = (void*)(&damperRFSensor),
+				.getDataHandler = adcGetData,
+				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
-				.isActive = 0,
+				.isActive = 1,
+		},
+		{
+				.sensorType = ECU,
+				.sensorStruct = (void*)(&EcuData),
+				.getDataHandler = NULL,
+				.saveDataHandler = ecuSaveData,
+				.dataReady = 0,
+				.isActive = 1,
 		},
 
 
