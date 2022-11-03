@@ -243,13 +243,24 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 
 /* USER CODE BEGIN 1 */
 extern UART_HandleTypeDef huart3;
+void sendWheelSpeedbyCan(int id){
+	 uint32_t* TxMailBox = 0;
+	CAN_TxHeaderTypeDef pHeader;
+	pHeader.DLC = 2;
+	pHeader.IDE = CAN_ID_STD;
+	pHeader.StdId = 0x560 + id;
+	pHeader.RTR = CAN_RTR_DATA;
+	HAL_CAN_AddTxMessage(&hcan2, &pHeader,(uint8_t*)&absLFSensor.data , TxMailBox);
+}
+
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	CAN_RxHeaderTypeDef RxHeader;
 	uint8_t RxData[8];
 
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
-	//HAL_UART_Transmit(&huart3, "got frame\r\n", strlen("got frame\r\n"), 200);
+	//
 	if (hcan->Instance == CAN1) {
+		HAL_UART_Transmit(&huart3, "got internal frame\r\n", strlen("got internal frame\r\n"), 200);
 		//ComputeEcumasterFrame(RxHeader, RxData);
 		ComputeInternalFrame(RxHeader, RxData);
 	} else {
@@ -292,7 +303,7 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.TCTorqueReduction = RxData[6];
 		EcuData.PitLimitTorqueReduction = RxData[7];
 	}else if (RxHeader.StdId == 0x1FE) {
-		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData[0]))/8192.0;
+		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData))/8192.0;
 	}
 }
 

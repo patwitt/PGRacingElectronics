@@ -33,7 +33,31 @@ ADCSensor sWheelSensor;
 ADCSensor damperLFSensor;
 ADCSensor damperRFSensor;
 
+void enumToSensor(char *buf,SENSORS sensor){
+	switch(sensor){
+	case GPS:
+		strcpy(buf,"GPS");
+	case GYRO:
+		strcpy(buf,"GYRO");
+	case MLXLF:
+		strcpy(buf,"MLXLF");
+	case MLXRF:
+		strcpy(buf,"MLXRF");
+	case ABSLF:
+		strcpy(buf,"ABSLF");
+	case ABSRF:
+		strcpy(buf,"ABSRF");
+	case WHEEL:
+		strcpy(buf,"STEER");
+	case DAMPERLF:
+		strcpy(buf,"DAMPLF");
+	case DAMPERRF:
+		strcpy(buf,"DAMPRF");
+	case ECU:
+		strcpy(buf,"ECU");
 
+	}
+}
 
 void initSensors()
 {
@@ -62,7 +86,7 @@ void initSensors()
 		absInit(&absRFSensor, ABSRF, &htim4, TIM_CHANNEL_1, absLFSensor.File);
 	}
 	if(_dataHandler[WHEEL].isActive){
-		//steeringInit(&sWheelSensor);
+		steeringInit(&sWheelSensor);
 	}
 	if(_dataHandler[DAMPERLF].isActive){
 		damperInit(&damperLFSensor, DAMPERLF, 0);

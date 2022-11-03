@@ -14,6 +14,7 @@
 
 #pragma once
 #define DEBUG 1 // Debug writing on/off
+#define SENSORS_N 10
 
 typedef enum{
 
@@ -30,7 +31,7 @@ typedef enum{
 
 }SENSORS;
 
-#define SENSORS_N 10
+
 
 typedef enum{
 	SENSOR_OFF = 0b000,
@@ -83,9 +84,10 @@ typedef enum SensorsDeafultTimings{
 
 void sensorsInit();
 
+void enumToSensor(char *buf,SENSORS sensor);
 
+int statusToInt();
 
-
-
+void printStatusRegister();
 
 

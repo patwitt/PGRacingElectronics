@@ -73,7 +73,7 @@ extern ADCSensor damperRFSensor;
 extern ADCSensor damperLFSensor;
 extern FIL* EcuFile;
 extern FIL* StatsFile;
- uint32_t* TxMailBox;
+extern char ecuPath[];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,7 +102,7 @@ int sendFileToUart(FIL * f,char * path)
 	 while (res == FR_OK && !f_eof(f)) {
 
 	        res = f_read(f, buff, 1000, &dmy);
-	        HAL_UART_Transmit(&huart7, buff, dmy, HAL_MAX_DELAY);
+	        HAL_UART_Transmit(&huart7, buff, dmy,HAL_MAX_DELAY);
 	 }
 	 HAL_Delay(1000);
 	 HAL_UART_Transmit(&huart7, "\n", 1, HAL_MAX_DELAY);
@@ -128,7 +128,14 @@ int sendAllFilesToUart()
 	{
 		sendFileToUart(gyro.File, gyro.path);
 	}
-
+	if(f_stat(gpsSensor.path, &f)==FR_OK)
+	{
+		sendFileToUart(gpsSensor.File, gpsSensor.path);
+	}
+	if(f_stat(ecuPath, &f)==FR_OK)
+	{
+		sendFileToUart(EcuFile, ecuPath);
+	}
 	HAL_Delay(1000);
 	HAL_UART_Transmit(&huart7, "BORBA\n", 6, HAL_MAX_DELAY);
 	return 0;
@@ -138,8 +145,6 @@ int measureTime(uint32_t startTime){
 	return HAL_GetTick()- startTime;
 }
 
-
-int packetsSend = 0;;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
@@ -168,14 +173,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 absLFSensor.timeToZeroSpeed -= 25;
 	 if(absLFSensor.timeToZeroSpeed <= 0)
 	 {
-			CAN_TxHeaderTypeDef pHeader;
-			pHeader.DLC = 4;
-			pHeader.IDE = CAN_ID_STD;
-			pHeader.StdId = 0x563;
-			pHeader.RTR = CAN_RTR_DATA;
-			HAL_CAN_AddTxMessage(&hcan2, &pHeader,absLFSensor.data , TxMailBox);
 		 _dataHandler[ABSLF].dataReady = 1;
-			absLFSensor.dataReady = 1;
+		 _dataHandler[ABSRF].dataReady = 1;
 		 absLFSensor.timeToZeroSpeed = 50;
 	 }
   }

@@ -10,8 +10,6 @@
 #include "usart.h"
 #include "basicFunctions.h"
 #pragma once
-extern int packetsSend;
-extern int saveAlert;
 ecuLogRegister _ecuLog = {
 	.cltOn = 1,
 	.oilTempOn = 1,
@@ -33,7 +31,6 @@ void sendEcuLogs(EcumasterData EcuData)
 {
 	HAL_UART_Transmit_IT(&huart3, "ECU DATA: ", strlen("ECU DATA: "));
 	HAL_UART_Transmit_IT(&huart3, &EcuData, sizeof(EcuData));
-	packetsSend++;
 	int tick = HAL_GetTick();
 
 	//printf("[%d], %s\n",packetsSend, EcuData);

@@ -48,9 +48,7 @@ void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	    switch (HAL_TIM_GetActiveChannel(absLFSensor.timer)) {
 	      case HAL_TIM_ACTIVE_CHANNEL_1:
 	    	  absLFSensor.data++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-	    	  absLFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
 	    	  _dataHandler[ABSLF].dataReady = 1;
-	    	  absLFSensor.dataReady = 1;
 	        break;
 	      default:
 	        break;
@@ -59,9 +57,7 @@ void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	      switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
 	        case HAL_TIM_ACTIVE_CHANNEL_1:
 	        	absRFSensor.data++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-	        	absRFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
 	        	_dataHandler[ABSRF].dataReady = 1;
-	        	absRFSensor.dataReady = 1;
 	          break;
 	        default:
 	          break;
