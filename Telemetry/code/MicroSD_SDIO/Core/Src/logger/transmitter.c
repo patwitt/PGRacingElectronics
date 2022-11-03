@@ -27,15 +27,12 @@ void parseCommand(char * command){
 		   if(p){
 			  _ecuLog.flags = atoi(p);
 		   }
-
-	}else if(strstr(command,"ALERT")){
-		saveAlert = 1;
 	}
 }
 void sendEcuLogs(EcumasterData EcuData)
 {
-	HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "), HAL_MAX_DELAY);
-	HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData), HAL_MAX_DELAY);
+	HAL_UART_Transmit_IT(&huart3, "ECU DATA: ", strlen("ECU DATA: "));
+	HAL_UART_Transmit_IT(&huart3, &EcuData, sizeof(EcuData));
 	packetsSend++;
 	int tick = HAL_GetTick();
 

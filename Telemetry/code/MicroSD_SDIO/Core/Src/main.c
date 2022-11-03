@@ -25,7 +25,6 @@
 #include "fatfs.h"
 #include "i2c.h"
 #include "rtc.h"
-
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -70,9 +69,11 @@
 extern EcumasterData EcuData;
 extern sensorDataHandler _dataHandler[];
 extern SensorStatus statusRegister;
+extern ADCSensor damperRFSensor;
+extern ADCSensor damperLFSensor;
 extern FIL* EcuFile;
-extern FIL* AlertFile;
-int saveAlert;
+extern FIL* StatsFile;
+ uint32_t* TxMailBox;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -133,7 +134,9 @@ int sendAllFilesToUart()
 	return 0;
 
 }
-
+int measureTime(uint32_t startTime){
+	return HAL_GetTick()- startTime;
+}
 
 
 int packetsSend = 0;;
@@ -151,30 +154,29 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		 printStatusRegister();
 
 	 }
-	 mlxLFSensor.timeToNextRead -= 25;
-	 if(mlxLFSensor.timeToNextRead <= 0)
-	 {
-		mlxLFSensor.dataReady = 1;
-		mlxLFSensor.timeToNextRead = ECU_DATA_RATE;
-	 }
-	 mlxRFSensor.timeToNextRead -= 25;
-	 if(mlxRFSensor.timeToNextRead <= 0)
-	 {
-	 	mlxRFSensor.dataReady = 1;
-	    mlxRFSensor.timeToNextRead = MLX_DATA_RATE;
+	 gyro.timeToNextRead -= 25;
+		 if(gyro.timeToNextRead <= 0){
+			 _dataHandler[GYRO].dataReady = 1;
+			 gyro.timeToNextRead = 250;
+		 }
+	 damperLFSensor.timeToNextRead -= 25;
+	 if(damperLFSensor.timeToNextRead <= 0){
+		 _dataHandler[DAMPERRF].dataReady = 1;
+		 _dataHandler[DAMPERLF].dataReady = 1;
+		 damperLFSensor.timeToNextRead = 50;
 	 }
 	 absLFSensor.timeToZeroSpeed -= 25;
 	 if(absLFSensor.timeToZeroSpeed <= 0)
 	 {
-		 absLFSensor.data = 0;
-		 absLFSensor.dataReady = 1;
-		 absLFSensor.timeToZeroSpeed = ABS_ZERO_SPEED_TIME;
-	 }
-	 gyro.timeToNextRead -= 25;
-	 if(gyro.timeToNextRead <= 0)
-	 {  _dataHandler[GYRO].dataReady = 1;
-		 gyro.dataReady = 1;
-		 gyro.timeToNextRead = GYRO_DATA_RATE;
+			CAN_TxHeaderTypeDef pHeader;
+			pHeader.DLC = 4;
+			pHeader.IDE = CAN_ID_STD;
+			pHeader.StdId = 0x563;
+			pHeader.RTR = CAN_RTR_DATA;
+			HAL_CAN_AddTxMessage(&hcan2, &pHeader,absLFSensor.data , TxMailBox);
+		 _dataHandler[ABSLF].dataReady = 1;
+			absLFSensor.dataReady = 1;
+		 absLFSensor.timeToZeroSpeed = 50;
 	 }
   }
 }
@@ -269,10 +271,8 @@ int main(void)
   initSensors();
 
   HAL_TIM_Base_Start_IT(&htim14);
-
-
-
   HAL_UART_Receive_IT(&huart3, &(bufor), 1);
+
   sdInit(&fileSystem);
   printStatusRegister();
   if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL){
@@ -304,35 +304,34 @@ int main(void)
 
 	  if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
 	  {
+		  int startTime = 0;
 		  for(SENSORS i=0;i<SENSORS_N;i++)
 		  {
 			  if( _dataHandler[i].isActive)
 			  {
 				  if(_dataHandler[i].getDataHandler != NULL)
 				  {
-					  _dataHandler[i].getDataHandler(_dataHandler[i].sensorStruct);
+					  startTime = HAL_GetTick();
+					   _dataHandler[i].getDataHandler(_dataHandler[i].sensorStruct);
+					  statsSave(0, startTime, i);
 
 				  }
 				  if(_dataHandler[i].dataReady == 1 && _dataHandler[i].saveDataHandler != NULL)
 				  {
+					  startTime = HAL_GetTick();
 					  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
 					  _dataHandler[i].dataReady = 0;
-						 sendEcuLogs(EcuData);
+					  statsSave(1, startTime, i);
 				  }
+
 			  }
 		  }
-		  /*
-		  if(mlxLFSensor.dataReady == 1)
-		  {
-				saveEcuData(EcuData);
-				sendEcuLogs(EcuData);
-				mlxLFSensor.dataReady = 0;
-		  }
-		  if(saveAlert == 1){
-			  f_write(AlertFile, received_command, strlen(received_command), &bw);
-			  f_sync(AlertFile);
-			  saveAlert = 0;
-		  }*/
+		  startTime = HAL_GetTick();
+		  sendEcuLogs(EcuData);
+		  sdFlush();
+		  statsSave(2, startTime, 9);
+
+		  //Add sd flush here to decrease number of syncing files
 	  }
 
 	}

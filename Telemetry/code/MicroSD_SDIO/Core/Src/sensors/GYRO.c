@@ -6,8 +6,10 @@
  */
 #include "sensors/GYRO.h"
 
+
 extern RTC_HandleTypeDef hrtc;
 extern SensorStatus statusRegister;
+
 /* *******GYRO SECTION  ********/
 
 //GYRO FUNCS
@@ -45,5 +47,5 @@ void gyroGetData(GyroSensor * sens)
 	gyroData imu_9dof_data;
     MPU9250_GetData(imu_9dof_data.acc_data, imu_9dof_data.mag_data, imu_9dof_data.gyro_data);
     gyroConvertData(&imu_9dof_data, &sens->data);
-    sens->dataReady = 0;
+
 }

@@ -32,3 +32,4 @@ typedef struct ABS{
 }ABSSensor;
 
 void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef * tim,int channel,FIL* f);
+float absCalculate(int time);

@@ -62,7 +62,7 @@ void initSensors()
 		absInit(&absRFSensor, ABSRF, &htim4, TIM_CHANNEL_1, absLFSensor.File);
 	}
 	if(_dataHandler[WHEEL].isActive){
-		steeringInit(&sWheelSensor);
+		//steeringInit(&sWheelSensor);
 	}
 	if(_dataHandler[DAMPERLF].isActive){
 		damperInit(&damperLFSensor, DAMPERLF, 0);

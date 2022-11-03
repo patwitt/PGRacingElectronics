@@ -50,17 +50,18 @@ void sdInit(FATFS* fs)
 	  }
 }
 FIL *EcuFile;
-FIL *AlertFile;
+FIL *StatsFile;
 char ecuPath[] = "EcuData.csv";
 void openAllFiles()
 {
 
 	if(statusRegister.SDCARD == SENSOR_OK)
 	{
-		EcuFile = (FIL*)malloc(sizeof(FIL));
 		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
-		//AlertFile = (FIL*)malloc(sizeof(FIL));
-		//openFile(AlertFile,"Alert.txt",FILE_DEFAULT_MODE);
+		EcuFile = (FIL*)malloc(sizeof(FIL));
+
+		StatsFile = (FIL*)malloc(sizeof(FIL));
+		openFile(StatsFile,"Stats.txt",FILE_DEFAULT_MODE);
 		openFile(EcuFile,ecuPath,FILE_DEFAULT_MODE);
 		if(statusRegister.GYRO == SENSOR_OK){
 			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
@@ -131,7 +132,7 @@ int openFile(FIL * file, char * path, BYTE mode)
 	if(fres == FR_OK)
 	{
 		fres = f_open(file, _TEXT(path), mode);
-		int bw;
+		UINT bw;
 		fres |= f_write(file,"---------------Restart------------------\r\n",strlen("---------------Restart------------------\r\n"),&bw);
 		if(fres == FR_OK)
 		{
@@ -164,50 +165,59 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 
 }
-void ecuSaveData(EcumasterData ecu){
-	int bw;
+
+void statsSave(int operation, int time, int sensor){
+	UINT bw;
 	char dataBuffer[255];
-	sprintf(dataBuffer, "%u,", HAL_GetTick());
-	f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
-	 for(int i = 0; i < sizeof(ecu); i++)
-	    {
-	        sprintf(dataBuffer,"%X",((char*)&ecu)[i]);
-	        f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
-	    }
+	int duration = HAL_GetTick()-time;
+	int dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %d took time: %d\r\n",time,operation,sensor,duration);
+	f_write(StatsFile, dataBuffer,dataLength,&bw);
+	f_sync(StatsFile);
+}
+void ecuSaveData(EcumasterData ecu){
+	UINT bw;
+	char dataBuffer[255];
+	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
+	f_write(EcuFile, dataBuffer, dataLength, &bw);
+	for(int i = 0; i < sizeof(ecu); i++)
+	 {
+		dataLength = sprintf(dataBuffer,"%X",((char*)&ecu)[i]);
+	        f_write(EcuFile, dataBuffer, dataLength, &bw);
+	 }
 	//int res = f_write(EcuFile, &ecu, sizeof(ecu), &bw);
 	f_write(EcuFile, "\r\n", 2, &bw);
-	f_sync(EcuFile);
+	//f_sync(EcuFile);
 }
 void gpsSaveData(GPSSensor * sens)
 {
 	char dataBuffer[255];
-	int writedBytes;
+	UINT writedBytes;
 	FRESULT status = 0;
 	//Save time stamp
-	sprintf(dataBuffer, "%d,", HAL_GetTick());
-	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
+	status = f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
 	sens->dataReady = 0;
-	f_sync(sens->File);
+	//f_sync(sens->File);
 }
 void gyroSaveData(GyroSensor* sens)
 {
 	char dataBuffer[255];
-	int writedBytes;
+	UINT writedBytes;
 	FRESULT status = 0;
 	//Save time stamp
-	sprintf(dataBuffer, "%d,", HAL_GetTick());
+	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
 	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	for (int i = 0; i < 3; i++)
 	{
-		sprintf(dataBuffer, "%f,", sens->data.gyro_data_calc[i]);
-		status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+		dataLength = sprintf(dataBuffer, "%f,", sens->data.gyro_data_calc[i]);
+		status = status | f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		sprintf(dataBuffer, "%f,", sens->data.acc_data_calc[i]);
-		status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+		dataLength = sprintf(dataBuffer, "%f,", sens->data.acc_data_calc[i]);
+		status = status | f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	}
 
 	sprintf(dataBuffer, "\r\n ");
@@ -217,48 +227,59 @@ void gyroSaveData(GyroSensor* sens)
 	{
 		statusRegister.SDCARD += 1;
 	}
-	f_sync(sens->File);
+//	f_sync(sens->File);
 
 }
 
 void mlxSaveData(MLXSensor* mlx)
 {
 	char dataBuffer[255];
-	int writedBytes;
+	UINT writedBytes;
 	//Save time stamp and mlx ID
-	sprintf(dataBuffer, "%d,%d", HAL_GetTick(),mlx->ID);
-	int fres = f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	int dataLength = sprintf(dataBuffer, "%lu,%d", HAL_GetTick(),mlx->ID);
+	int fres = f_write(mlx->File, dataBuffer, dataLength, &writedBytes);
 
 	for(int i=0;i<784;i++)
 	{
-		sprintf(dataBuffer,"%2.2f,", mlx->data[i]);
-		fres = fres | f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+		dataLength =sprintf(dataBuffer,"%2.2f,", mlx->data[i]);
+		fres = fres | f_write(mlx->File, dataBuffer, dataLength, &writedBytes);
 	}
 
 	sprintf(dataBuffer, "\r\n ");
-	f_write(mlx->File, dataBuffer, strlen(dataBuffer), &writedBytes);
-	f_sync(mlx->File);
+	f_write(mlx->File, dataBuffer, 2, &writedBytes);
+	//f_sync(mlx->File);
 }
+extern CAN_HandleTypeDef hcan2;
 
 void absSaveData(ABSSensor * sens)
 {
 	char dataBuffer[255];
-	int writedBytes;
-	float calcData = absCalculate(sens->data);
-	sprintf(dataBuffer, "%d,%d,%f\r\n", HAL_GetTick(),sens->ID,calcData);
-	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
-	f_sync(sens->File);
+	UINT writedBytes;
+	//float calcData = absCalculate(sens->data);
+	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", HAL_GetTick(),sens->ID,sens->data);
+	sens->data = 0;
+	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+
+
+	//f_sync(sens->File);
 }
 
 void adcSaveData(ADCSensor * sens)
 {
 	char dataBuffer[255];
-	int writedBytes;
-	sprintf(dataBuffer, "%d,%d,%d\r\n", HAL_GetTick(), sens->ID,sens->data);
-	int fres = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
-	f_sync(sens->File);
+	UINT writedBytes;
+	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", HAL_GetTick(), sens->ID,sens->data);
+	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+	//f_sync(sens->File);
+	//printf(dataBuffer);
 }
-
+void sdFlush(){
+	f_sync(gyro.File);
+	f_sync(absLFSensor.File);
+	f_sync(gpsSensor.File);
+	f_sync(damperLFSensor.File);
+	f_sync(EcuFile);
+}
 void sdMountFailHandler()
 {
 	printf("SDCard mount failed\n");

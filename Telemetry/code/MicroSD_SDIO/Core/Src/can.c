@@ -60,6 +60,7 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  /*
   CAN_FilterTypeDef canfilterconfig;
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
@@ -72,7 +73,7 @@ void MX_CAN1_Init(void)
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
   canfilterconfig.SlaveStartFilterBank = 10;
   HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
-
+*/
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -104,7 +105,18 @@ void MX_CAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN2_Init 2 */
-
+  CAN_FilterTypeDef canfilterconfig;
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
+  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  canfilterconfig.FilterIdHigh = 0;
+  canfilterconfig.FilterIdLow = 0;
+  canfilterconfig.FilterMaskIdHigh = 0;
+  canfilterconfig.FilterMaskIdLow = 0;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 10;
+  HAL_CAN_ConfigFilter(&hcan2, &canfilterconfig);
   /* USER CODE END CAN2_Init 2 */
 
 }
@@ -279,15 +291,6 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.TCDRPM = LittleToBigEndian(&RxData[4]);
 		EcuData.TCTorqueReduction = RxData[6];
 		EcuData.PitLimitTorqueReduction = RxData[7];
-	}else if (RxHeader.StdId == 768) {
-		int bw;
-		//char dataBuffer[255];
-		//sprintf(dataBuffer, "%d,", HAL_GetTick());
-		/*f_write(EcuFile, dataBuffer, strlen(dataBuffer), &bw);
-		f_write(EcuFile, "[768]", 5, &bw);
-		f_write(EcuFile, RxData, sizeof(RxData), &bw);
-		f_write(EcuFile, "\r\n", 2, &bw);
-		f_sync(EcuFile);*/
 	}else if (RxHeader.StdId == 0x1FE) {
 		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData[0]))/8192.0;
 	}

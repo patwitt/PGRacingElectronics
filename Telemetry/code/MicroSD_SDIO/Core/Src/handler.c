@@ -30,7 +30,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = MLXLF,
-				.sensorStruct = (void*)(&mlxFSensor),
+				//.sensorStruct = (void*)(&mlxFSensor),
 				.getDataHandler = mlxGetData,
 				.saveDataHandler = mlxSaveData,
 				.dataReady = 0,
@@ -71,7 +71,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		{
 				.sensorType = DAMPERLF,
 				.sensorStruct = (void*)(&damperLFSensor),
-				.getDataHandler = adcGetData,
+				.getDataHandler = 0,//adcGetData,
 				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
 				.isActive = 1,
@@ -79,7 +79,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		{
 				.sensorType = DAMPERRF,
 				.sensorStruct = (void*)(&damperRFSensor),
-				.getDataHandler = adcGetData,
+				.getDataHandler = 0,//adcGetData,
 				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
 				.isActive = 1,

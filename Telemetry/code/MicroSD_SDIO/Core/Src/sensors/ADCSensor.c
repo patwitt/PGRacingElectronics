@@ -27,20 +27,23 @@ void adcInit(ADCSensor* sens,ADC_HandleTypeDef * adc,int channel,FIL* f)
 	sens->adcChannel = channel;
 	sens->adc = adc;
 	sens->timeFromLastSuccRead = 0;
+	ADC_SetActiveChannel(sens);
+	HAL_ADC_Start_DMA(adc, &sens->data, 1);
 }
 void damperInit(ADCSensor* sens,SENSORS id,FIL * f){
 	switch(id){
 	case DAMPERLF:
-		adcInit(sens,&hadc3,12,f);
+		adcInit(sens,&hadc1,ADC_CHANNEL_0,f);
 		statusRegister.DamperLF = SENSOR_OK;
 		break;
 	case DAMPERRF:
-		adcInit(sens,&hadc3,13,f);
+		adcInit(sens,&hadc2,ADC_CHANNEL_1,f);
 		statusRegister.DamperRF = SENSOR_OK;
 		break;
 	default:
 		break;
 	}
+
 	sens->dataReady = 0;
 	RTC_DateTypeDef date;
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
@@ -78,4 +81,8 @@ void adcGetData(ADCSensor * sens){
 	HAL_ADC_PollForConversion(sens->adc, HAL_MAX_DELAY);
 	sens->data = HAL_ADC_GetValue(sens->adc);
 	_dataHandler[sens->ID].dataReady = 1;
+}
+void adcSendData(ADCSensor * sens)
+{
+	printf("[%d] ADC: %f", HAL_GetTick(), sens->data);
 }

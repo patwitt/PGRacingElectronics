@@ -33,6 +33,8 @@ int createHeaders(FIL * file,char * path);
 
 int openFile(FIL * file, char * path, BYTE mode);
 
+void statsSave(int operation, int time, int sensor);
+
 void ecuSaveData(EcumasterData ecu);
 
 void gyroSaveData(GyroSensor* sens);
