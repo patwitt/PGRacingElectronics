@@ -29,8 +29,8 @@ void parseCommand(char * command){
 }
 void sendEcuLogs(EcumasterData EcuData)
 {
-	HAL_UART_Transmit_IT(&huart3, "ECU DATA: ", strlen("ECU DATA: "));
-	HAL_UART_Transmit_IT(&huart3, &EcuData, sizeof(EcuData));
+	HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "),HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData),HAL_MAX_DELAY);
 	int tick = HAL_GetTick();
 
 	//printf("[%d], %s\n",packetsSend, EcuData);

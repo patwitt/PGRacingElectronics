@@ -51,9 +51,9 @@ int _write(int file, char *ptr, int len)
 int __io_putchar(int ch){
 	if(ch == '\n')
 	{
-		HAL_UART_Transmit_IT(&uartDef, (uint8_t*)"\r", 1);
+		HAL_UART_Transmit(&uartDef, (uint8_t*)"\r", 1,HAL_MAX_DELAY);
 	}
-	HAL_UART_Transmit_IT(&uartDef, (uint8_t*)&ch, 1);
+	HAL_UART_Transmit(&uartDef, (uint8_t*)&ch, 1,HAL_MAX_DELAY);
 	return 1;
 }
 #endif /* BASICFUNCTIONS_H_ */
