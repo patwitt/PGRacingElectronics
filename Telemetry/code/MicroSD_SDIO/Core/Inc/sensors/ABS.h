@@ -23,12 +23,15 @@ typedef struct ABS{
 	char path[20]; // path of file to write;
 	int dataReady; // flag to check if data is ready to read and write to file
 	int saveRate;
-	uint16_t data;
+	float data;
 	int ID;
 	//ABS data asynchronous
 	int timeToZeroSpeed; //after that time if not new input we assume car is not moving
 	TIM_HandleTypeDef * timer;
 	int timerChannel;
+	uint8_t raw[10];
+	uint8_t counter;
+
 }ABSSensor;
 
 void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef * tim,int channel,FIL* f);

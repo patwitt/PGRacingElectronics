@@ -47,5 +47,7 @@ void adcSaveData(ADCSensor* sens);
 
 void gpsSaveData(GPSSensor * sens);
 
+void sdFlush();
+
 void sdMountFailHandler();
 #endif /* INC_SDCARD_H_ */

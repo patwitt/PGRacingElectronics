@@ -17,6 +17,7 @@
 #include "can.h"
 #include "ecumaster.h"
 #include "handler.h"
+#include "string.h"
 extern UART_HandleTypeDef huart7;
 
 /* *******GLOBAL VARIABLES ********/

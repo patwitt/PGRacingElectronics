@@ -18,6 +18,9 @@ void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef* tim,int channel,FIL 
 	if(f == 0)
 	{
 		sens->File = (FIL*)malloc(sizeof(FIL));
+	}else
+	{
+		sens->File = f;
 	}
 	switch(id){
 	case ABSLF:
@@ -35,6 +38,11 @@ void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef* tim,int channel,FIL 
 	sprintf(sens->path,"ABS%02d%02d.csv",date.Date,date.Month);
 	sens->timer = tim;
 	sens->timerChannel = channel;
+	for(int i=0;i<10;i++){
+		sens->raw[i] = 0;
+	}
+	sens->counter = 0;
+	sens->data = 0;
 }
 
 float absCalculate(int time)
@@ -47,8 +55,8 @@ void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	if (htim == absLFSensor.timer) {
 	    switch (HAL_TIM_GetActiveChannel(absLFSensor.timer)) {
 	      case HAL_TIM_ACTIVE_CHANNEL_1:
-	    	  absLFSensor.data++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-	    	  _dataHandler[ABSLF].dataReady = 1;
+	    	  absLFSensor.raw[absLFSensor.counter]++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+	    	 // _dataHandler[ABSLF].dataReady = 1;
 	        break;
 	      default:
 	        break;
@@ -56,8 +64,8 @@ void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	  }else if(htim == absRFSensor.timer) {
 	      switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
 	        case HAL_TIM_ACTIVE_CHANNEL_1:
-	        	absRFSensor.data++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-	        	_dataHandler[ABSRF].dataReady = 1;
+	        	absRFSensor.raw[absRFSensor.counter];//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+	        	//_dataHandler[ABSRF].dataReady = 1;
 	          break;
 	        default:
 	          break;

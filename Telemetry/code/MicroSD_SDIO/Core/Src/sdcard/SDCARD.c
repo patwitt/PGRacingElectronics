@@ -169,15 +169,17 @@ int openFile(FIL * file, char * path, BYTE mode)
 void statsSave(int operation, int time, int sensor){
 	UINT bw;
 	char dataBuffer[255];
-	int duration = HAL_GetTick()-time;
-	int dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %d took time: %d\r\n",time,operation,sensor,duration);
+	char sensorBuffer[15];
+	enumToSensor(sensorBuffer, sensor);
+	int duration = measureTime(time);
+	int dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %s took time: %d\r\n",getSeconds(),operation,sensorBuffer,duration);
 	f_write(StatsFile, dataBuffer,dataLength,&bw);
 	f_sync(StatsFile);
 }
 void ecuSaveData(EcumasterData ecu){
 	UINT bw;
 	char dataBuffer[255];
-	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
+	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	f_write(EcuFile, dataBuffer, dataLength, &bw);
 	for(int i = 0; i < sizeof(ecu); i++)
 	 {
@@ -194,7 +196,7 @@ void gpsSaveData(GPSSensor * sens)
 	UINT writedBytes;
 	FRESULT status = 0;
 	//Save time stamp
-	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
+	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	status = f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
 	sens->dataReady = 0;
@@ -206,7 +208,7 @@ void gyroSaveData(GyroSensor* sens)
 	UINT writedBytes;
 	FRESULT status = 0;
 	//Save time stamp
-	int dataLength = sprintf(dataBuffer, "%lu,", HAL_GetTick());
+	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	for (int i = 0; i < 3; i++)
 	{
@@ -236,7 +238,7 @@ void mlxSaveData(MLXSensor* mlx)
 	char dataBuffer[255];
 	UINT writedBytes;
 	//Save time stamp and mlx ID
-	int dataLength = sprintf(dataBuffer, "%lu,%d", HAL_GetTick(),mlx->ID);
+	int dataLength = sprintf(dataBuffer, "%lu,%d", getSeconds(),mlx->ID);
 	int fres = f_write(mlx->File, dataBuffer, dataLength, &writedBytes);
 
 	for(int i=0;i<784;i++)
@@ -256,8 +258,8 @@ void absSaveData(ABSSensor * sens)
 	char dataBuffer[255];
 	UINT writedBytes;
 	//float calcData = absCalculate(sens->data);
-	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", HAL_GetTick(),sens->ID,sens->data);
-	sens->data = 0;
+	int dataLength = sprintf(dataBuffer, "%lu,%d,%f\r\n", getSeconds(),sens->ID,sens->data);
+
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 
 
@@ -268,7 +270,7 @@ void adcSaveData(ADCSensor * sens)
 {
 	char dataBuffer[255];
 	UINT writedBytes;
-	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", HAL_GetTick(), sens->ID,sens->data);
+	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", getSeconds(), sens->ID,sens->data);
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	//f_sync(sens->File);
 	//printf(dataBuffer);

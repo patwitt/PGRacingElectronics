@@ -175,7 +175,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	 {
 		 _dataHandler[ABSLF].dataReady = 1;
 		 _dataHandler[ABSRF].dataReady = 1;
-		 absLFSensor.timeToZeroSpeed = 50;
+		 absLFSensor.data = 0;
+		 for(int i=0;i<10;i++)
+		 {
+			 absLFSensor.data += absLFSensor.raw[i];
+		 }
+		 absLFSensor.data *= 0.9454;
+		 absLFSensor.counter++;
+		 if(absLFSensor.counter>=10){
+			 absLFSensor.counter = 0;
+		 }
+		 absLFSensor.raw[absLFSensor.counter] = 0;
+
+		 absLFSensor.timeToZeroSpeed = 25;
+		 sendWheelSpeedbyCan(ABSLF);
+
 	 }
   }
 }
@@ -185,7 +199,14 @@ int getTime(RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
     HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
     return ((time->SecondFraction-time->SubSeconds)/((float)time->SecondFraction+1) * 1000);
 }
+int getSeconds(){
+	RTC_TimeTypeDef time;
+	RTC_DateTypeDef date;
 
+	int sub = getTime(&time,&date);
+	return (time.Hours*60*60+time.Minutes*60+time.Seconds)*1000+sub;
+
+}
 
 //ABS
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
@@ -279,13 +300,13 @@ int main(void)
   }
 
   HAL_Delay(200);
-/*
+
   RTC_TimeTypeDef time;
   RTC_DateTypeDef date;
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
-*/
 
 
 
@@ -331,6 +352,8 @@ int main(void)
 		  statsSave(2, startTime, 9);
 
 		  //Add sd flush here to decrease number of syncing files
+	  }else{
+		  printf("SDCard not initialized\r\n");
 	  }
 
 	}

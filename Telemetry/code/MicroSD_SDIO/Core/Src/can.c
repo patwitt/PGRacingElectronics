@@ -250,7 +250,8 @@ void sendWheelSpeedbyCan(int id){
 	pHeader.IDE = CAN_ID_STD;
 	pHeader.StdId = 0x560 + id;
 	pHeader.RTR = CAN_RTR_DATA;
-	HAL_CAN_AddTxMessage(&hcan2, &pHeader,(uint8_t*)&absLFSensor.data , TxMailBox);
+	uint16_t data = (uint16_t)absLFSensor.data;
+	HAL_CAN_AddTxMessage(&hcan2, &pHeader,&data , TxMailBox);
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
@@ -260,7 +261,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
 	//
 	if (hcan->Instance == CAN1) {
-		HAL_UART_Transmit(&huart3, "got internal frame\r\n", strlen("got internal frame\r\n"), 200);
+		HAL_UART_Transmit(&huart3,(uint8_t*) "got internal frame\r\n", 20, 200);
 		//ComputeEcumasterFrame(RxHeader, RxData);
 		ComputeInternalFrame(RxHeader, RxData);
 	} else {

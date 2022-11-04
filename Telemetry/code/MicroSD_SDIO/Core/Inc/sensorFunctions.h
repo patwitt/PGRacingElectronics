@@ -82,7 +82,7 @@ typedef enum SensorsDeafultTimings{
 
 }SensorsDeafultTimings;
 
-void sensorsInit();
+void initSensors();
 
 void enumToSensor(char *buf,SENSORS sensor);
 
