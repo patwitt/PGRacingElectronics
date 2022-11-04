@@ -305,6 +305,9 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.PitLimitTorqueReduction = RxData[7];
 	}else if (RxHeader.StdId == 0x1FE) {
 		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData))/8192.0;
+	}else
+	{
+		printf("%d,%d,%d %d %d %d",getSeconds(),RxHeader.StdId,RxData[0],RxData[1],RxData[2],RxData[3]);
 	}
 }
 

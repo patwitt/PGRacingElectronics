@@ -199,6 +199,7 @@ void gpsSaveData(GPSSensor * sens)
 	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	status = f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
+	printf("%s,$s\r\n",dataBuffer,sens->data);
 	sens->dataReady = 0;
 	//f_sync(sens->File);
 }
@@ -210,25 +211,25 @@ void gyroSaveData(GyroSensor* sens)
 	//Save time stamp
 	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
+	printf(dataBuffer);
 	for (int i = 0; i < 3; i++)
 	{
 		dataLength = sprintf(dataBuffer, "%f,", sens->data.gyro_data_calc[i]);
 		status = status | f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+		printf(dataBuffer);
 
 	}
 	for (int i = 0; i < 3; i++)
 	{
 		dataLength = sprintf(dataBuffer, "%f,", sens->data.acc_data_calc[i]);
 		status = status | f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+		printf(dataBuffer);
 	}
 
 	sprintf(dataBuffer, "\r\n ");
-
+	printf(dataBuffer);
 	status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
-	if(status != 0 && statusRegister.SDCARD < SENSOR_FAIL && statusRegister.SDCARD > SENSOR_OFF)
-	{
-		statusRegister.SDCARD += 1;
-	}
+
 //	f_sync(sens->File);
 
 }
@@ -261,7 +262,7 @@ void absSaveData(ABSSensor * sens)
 	int dataLength = sprintf(dataBuffer, "%lu,%d,%f\r\n", getSeconds(),sens->ID,sens->data);
 
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
-
+	printf(dataBuffer);
 
 	//f_sync(sens->File);
 }
@@ -273,7 +274,7 @@ void adcSaveData(ADCSensor * sens)
 	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", getSeconds(), sens->ID,sens->data);
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	//f_sync(sens->File);
-	//printf(dataBuffer);
+	printf(dataBuffer);
 }
 void sdFlush(){
 	f_sync(gyro.File);
