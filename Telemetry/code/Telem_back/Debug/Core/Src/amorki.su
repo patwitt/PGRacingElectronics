@@ -1,0 +1,6 @@
+../Core/Src/amorki.c:15:6:ADC_Select_CH5	40	static
+../Core/Src/amorki.c:29:6:ADC_Select_CH6	40	static
+../Core/Src/amorki.c:65:6:DampInit	24	static
+../Core/Src/amorki.c:71:6:ADC_SelectChannel	40	static
+../Core/Src/amorki.c:87:6:Amorki_GetData	16	static
+../Core/Src/amorki.c:111:7:AmorkiCalculate	24	static

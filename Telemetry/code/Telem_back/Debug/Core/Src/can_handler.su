@@ -1,0 +1,10 @@
+../Core/Src/can_handler.c:25:19:CAN_Init	24	static
+../Core/Src/can_handler.c:64:19:CAN_TxSendData	24	static
+../Core/Src/can_handler.c:71:19:CAN_GetRxData	16	static
+../Core/Src/can_handler.c:115:19:BP_F_over_can	24	static
+../Core/Src/can_handler.c:126:19:BP_R_over_can	24	static
+../Core/Src/can_handler.c:137:19:VSS_LR_over_can	24	static
+../Core/Src/can_handler.c:149:19:VSS_RR_over_can	24	static
+../Core/Src/can_handler.c:162:19:Damper_RR_over_can	24	static
+../Core/Src/can_handler.c:172:19:Damper_LR_over_can	24	static
+../Core/Src/can_handler.c:183:6:HAL_CAN_RxFifo0MsgPendingCallback	16	static
