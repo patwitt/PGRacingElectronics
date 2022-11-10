@@ -199,9 +199,7 @@ void gpsSaveData(GPSSensor * sens)
 	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
 	status = f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
-	printf("%s,$s\r\n",dataBuffer,sens->data);
-	sens->dataReady = 0;
-	//f_sync(sens->File);
+	printf("%s,%s\n",dataBuffer,sens->data);
 }
 void gyroSaveData(GyroSensor* sens)
 {
@@ -226,11 +224,9 @@ void gyroSaveData(GyroSensor* sens)
 		printf(dataBuffer);
 	}
 
-	sprintf(dataBuffer, "\r\n ");
+	sprintf(dataBuffer, "\r\n");
 	printf(dataBuffer);
 	status = status | f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
-
-//	f_sync(sens->File);
 
 }
 
@@ -250,7 +246,7 @@ void mlxSaveData(MLXSensor* mlx)
 
 	sprintf(dataBuffer, "\r\n ");
 	f_write(mlx->File, dataBuffer, 2, &writedBytes);
-	//f_sync(mlx->File);
+	f_sync(mlx->File);
 }
 extern CAN_HandleTypeDef hcan2;
 
@@ -258,13 +254,10 @@ void absSaveData(ABSSensor * sens)
 {
 	char dataBuffer[255];
 	UINT writedBytes;
-	//float calcData = absCalculate(sens->data);
 	int dataLength = sprintf(dataBuffer, "%lu,%d,%f\r\n", getSeconds(),sens->ID,sens->data);
 
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	printf(dataBuffer);
-
-	//f_sync(sens->File);
 }
 
 void adcSaveData(ADCSensor * sens)
@@ -273,7 +266,6 @@ void adcSaveData(ADCSensor * sens)
 	UINT writedBytes;
 	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", getSeconds(), sens->ID,sens->data);
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
-	//f_sync(sens->File);
 	printf(dataBuffer);
 }
 void sdFlush(){

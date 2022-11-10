@@ -31,10 +31,12 @@ void sendEcuLogs(EcumasterData EcuData)
 {
 	HAL_UART_Transmit(&huart3, "ECU DATA: ", strlen("ECU DATA: "),HAL_MAX_DELAY);
 	HAL_UART_Transmit(&huart3, &EcuData, sizeof(EcuData),HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart3, "\r\n", 2,HAL_MAX_DELAY);
+
 	int tick = HAL_GetTick();
 
 	//printf("[%d], %s\n",packetsSend, EcuData);
-	printf("\n");
+	//printf("\r\n");
 	if(_ecuLog.battOn){
 
 		double bat = ((double)EcuData.batt*(0.027));

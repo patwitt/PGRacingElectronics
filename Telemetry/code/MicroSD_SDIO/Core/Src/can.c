@@ -243,7 +243,7 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 
 /* USER CODE BEGIN 1 */
 extern UART_HandleTypeDef huart3;
-void sendWheelSpeedbyCan(int id){
+void sendWheelSpeedByCan(int id){
 	 uint32_t* TxMailBox = 0;
 	CAN_TxHeaderTypeDef pHeader;
 	pHeader.DLC = 2;
@@ -307,11 +307,11 @@ void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
 		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData))/8192.0;
 	}else
 	{
-		printf("%d,%d,",getSeconds(),RxHeader.StdId);
-		for(int i=0; i< RxHeader.DLC;i++){
-			printf(" %d",RxData[i]);
-		}
-		printf("\n");
+		//printf("%d,%lu,",getSeconds(),RxHeader.StdId);
+		//for(int i=0; i< RxHeader.DLC;i++){
+		//	printf(" %d",RxData[i]);
+		//}
+		//printf("\n");
 	}
 }
 

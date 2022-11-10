@@ -38,24 +38,37 @@ void enumToSensor(char *buf,SENSORS sensor){
 	switch(sensor){
 	case GPS:
 		strcpy(buf,"GPS");
+		break;
 	case GYRO:
 		strcpy(buf,"GYRO");
+		break;
 	case MLXLF:
 		strcpy(buf,"MLXLF");
+		break;
 	case MLXRF:
 		strcpy(buf,"MLXRF");
+		break;
 	case ABSLF:
 		strcpy(buf,"ABSLF");
+		break;
 	case ABSRF:
 		strcpy(buf,"ABSRF");
+		break;
 	case WHEEL:
 		strcpy(buf,"STEER");
+		break;
 	case DAMPERLF:
 		strcpy(buf,"DAMPLF");
+		break;
 	case DAMPERRF:
 		strcpy(buf,"DAMPRF");
+		break;
 	case ECU:
 		strcpy(buf,"ECU");
+		break;
+	default:
+		itoa(sensor,buf,10);
+		break;
 
 	}
 }
@@ -84,7 +97,8 @@ void initSensors()
 	if(_dataHandler[ABSRF].isActive){
 	    HAL_TIM_Base_Start(&htim4);
 		HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_1);
-		absInit(&absRFSensor, ABSRF, &htim4, TIM_CHANNEL_1, absLFSensor.File);
+
+
 	}
 	if(_dataHandler[WHEEL].isActive){
 		steeringInit(&sWheelSensor);

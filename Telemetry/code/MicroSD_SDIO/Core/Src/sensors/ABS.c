@@ -45,11 +45,22 @@ void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef* tim,int channel,FIL 
 	sens->data = 0;
 }
 
-float absCalculate(int time)
+void absCalculate(ABSSensor * sens)
 {
-//Prędkośc = czas * (średnica*kąt*PI)
-	float res = (1.0/22)*1.43*(float)(time)*M_PI;
-	return res;
+	sens->data = 0;
+	 for(int i=0;i<10;i++)
+	 {
+		 sens->data += sens->raw[i];
+	 }
+	 sens->data *= 0.9454;
+	 sens->counter++;
+	 if(sens->counter>=10){
+		 sens->counter = 0;
+	 }
+	 sens->raw[sens->counter] = 0;
+
+
+	 sendWheelSpeedByCan(ABSLF);
 }
 void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	if (htim == absLFSensor.timer) {
