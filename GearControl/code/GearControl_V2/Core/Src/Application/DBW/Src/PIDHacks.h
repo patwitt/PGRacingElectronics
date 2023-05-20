@@ -41,7 +41,7 @@ static inline void PIDHacks_ApplyBrake(PIDController *const pid, float *const ta
 {
 	/* This should brake for too big overshoot */
 	if ((pid->slope.val > SLOPE_MIN_TO_APPLY_BRAKE_GOING_UP) && (*target < TARGET_MAX_TO_APPLY_BRAKE_GOING_UP)) {
-		pid->out = CLAMP_MAX(pid->out, TARGET_CLAMP_BRAKE_GOING_UP);
+		//pid->out = CLAMP_MAX(pid->out, TARGET_CLAMP_BRAKE_GOING_UP);
 	}
 
 	/* This should brake for too big undershoot */

@@ -137,6 +137,7 @@ typedef struct {
 	PlausibilityParamType *const plausibility;
 	SensorLimitsType *const limits;
 	float target; /* Target position 0-1000 -> 0.1% of max range (around 50deg) */
+	float interpolatedTarget; /* Interpolated target position */
 	SwTimerType timer;
 	RCFilter rcFilter;
 	IIRFilter iirFilter;
@@ -223,6 +224,12 @@ static DbwHandle dbw = {
 #endif
 	.state = DBW_DISABLED
 };
+
+/* APPS interpolation */
+#define APPS_INTERPOLATION_CNT (12U)
+static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 300.0f, 400.0f, 500.0f, 600.0f, 700.0f, 800.0f, 900.0f, 950.0f, 1000.0f};
+static const float APPS_pos_Y[APPS_INTERPOLATION_CNT]     = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
+static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
 /* ---------------------------- */
 /* Local function declarations  */
@@ -556,8 +563,15 @@ static DBW_States DBW_HandlerRun(void)
 		Utils_UpdateMinMax_F(tps_.position, &tps_.posMin, &tps_.posMax);
 	}
 #endif
+
+#if CONFIG_DBW_APPS_INTERPOLATION
+	apps_.interpolatedTarget = Utils_interpolateTable1d(&table1d_APPS, apps_.target);
+	/* Update PID output with interpolated target */
+	float pidOut = PID_Update(&apps_.interpolatedTarget, tps_.position);
+#else
 	/* Update PID output */
 	float pidOut = PID_Update(&apps_.target, tps_.position);
+#endif
 
 	/* Direction */
 	bool_t direction = (pidOut >= 0.0f);

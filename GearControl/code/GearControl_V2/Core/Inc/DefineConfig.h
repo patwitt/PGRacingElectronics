@@ -11,11 +11,11 @@
 
 /* !ENABLE/DISABLE feature configs! */
 #define CONFIG_ENABLE_SCHEDULER_WATCHDOG (FEATURE_DISABLE) //!< Enable Scheduler Watchdog
-#define CONFIG_ENABLE_DBW                (FEATURE_DISABLE) //!< Enable Drive-By-Wire
+#define CONFIG_ENABLE_DBW                (FEATURE_ENABLED) //!< Enable Drive-By-Wire
 #define CONFIG_ENABLE_CLUTCH             (FEATURE_DISABLE) //!< Enable Clutch operations
 #define CONFIG_ENABLE_CAN                (FEATURE_ENABLED) //!< Enable CAN Bus
 /* !Gear shifting ENABLE/DISABLE feature configs! */
-#define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
+#define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_DISABLE) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_DISABLE) //!< Enable Clutch Slip on gearshifts
 #define CONFIG_ENABLE_REV_MATCH          (FEATURE_DISABLE) //!< Enable rev matching
 
@@ -39,5 +39,5 @@
 #define CONFIG_PID_ENABLE_IIR            (TRUE)  //!< Enable IIR Filter for PID Inputs
 #define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE) //!< Interpolate PID constants over 1D Table
 #define CONFIG_PID_APPLY_BRAKE           (TRUE)  //!< Apply PID Brake. Should be enabled for good performance
-
+#define CONFIG_DBW_APPS_INTERPOLATION    (FALSE)  //!< Interpolate pedal position -> target
 #endif // INC_DEFINE_CONFIG_H

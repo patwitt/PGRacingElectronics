@@ -41,6 +41,23 @@ typedef enum {
 	SHIFT_STATES_COUNT         = 12U
 } GearShiftStates;
 
+//! Mapping of shift state <- CAN shift status signal
+static const CANShiftStatus shiftCanMap[SHIFT_STATES_COUNT + 1U] = {
+	[SHIFT_INIT]                 = CAN_SHIFT_INIT,
+	[SHIFT_IDLE]                 = CAN_SHIFT_IDLE,
+	[SHIFT_PROCEDURE_UP]         = CAN_SHIFT_EXEC,
+	[SHIFT_PROCEDURE_DOWN]       = CAN_SHIFT_EXEC,
+	[SHIFT_EXEC]                 = CAN_SHIFT_EXEC,
+	[SHIFT_VALIDATE]             = CAN_SHIFT_EXEC,
+	[SHIFT_FAILURE_ELAPSED]      = CAN_SHIFT_FAILURE_ELAPSED,
+	[SHIFT_SUCCESS]              = CAN_SHIFT_SUCCESS,
+	[SHIFT_GEAR_UNKNOWN]         = CAN_GEARSENS_UNKNOWN,
+	[SHIFT_GEARSENS_FAILURE]     = CAN_GEARSENS_FAILURE,
+	[SHIFT_GEARSENS_IMPLAUSIBLE] = CAN_GEARSENS_IMPLAUSIBLE,
+	[SHIFT_DISABLED]             = CAN_SHIFT_DISABLED,
+	[SHIFT_STATES_COUNT]         = CAN_SHIFT_DISABLED
+};
+
 //! Gear shift request
 typedef struct {
 	bool_t requested;               //!< New gearshift request flag
@@ -69,23 +86,6 @@ typedef struct {
 	uint32_t gearTickStart;
 	SwTimerStats timStats;
 } GearControlHandler;
-
-//! Mapping of shift state <- CAN shift status signal
-static const CANShiftStatus shiftCanMap[SHIFT_STATES_COUNT + 1U] = {
-	[SHIFT_INIT]                 = CAN_SHIFT_INIT,
-	[SHIFT_IDLE]                 = CAN_SHIFT_IDLE,
-	[SHIFT_PROCEDURE_UP]         = CAN_SHIFT_EXEC,
-	[SHIFT_PROCEDURE_DOWN]       = CAN_SHIFT_EXEC,
-	[SHIFT_EXEC]                 = CAN_SHIFT_EXEC,
-	[SHIFT_VALIDATE]             = CAN_SHIFT_EXEC,
-	[SHIFT_FAILURE_ELAPSED]      = CAN_SHIFT_FAILURE_ELAPSED,
-	[SHIFT_SUCCESS]              = CAN_SHIFT_SUCCESS,
-	[SHIFT_GEAR_UNKNOWN]         = CAN_GEARSENS_UNKNOWN,
-	[SHIFT_GEARSENS_FAILURE]     = CAN_GEARSENS_FAILURE,
-	[SHIFT_GEARSENS_IMPLAUSIBLE] = CAN_GEARSENS_IMPLAUSIBLE,
-	[SHIFT_DISABLED]             = CAN_SHIFT_DISABLED,
-	[SHIFT_STATES_COUNT]         = CAN_SHIFT_DISABLED
-};
 
 //! Gear servo configuration
 static const ServoConfig gearServoConfig = {

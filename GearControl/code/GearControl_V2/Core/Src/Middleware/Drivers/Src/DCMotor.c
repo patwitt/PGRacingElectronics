@@ -52,8 +52,7 @@ static __IO uint32 DCMotor_ConvertTargetToPwm(float target) {
 	float pwmF = target * PWM_MULTIPLIER;
 	pwmF = CLAMP_MAX(pwmF, PWM_DUTY_CYCLE_MAX);
 	pwmF = CLAMP_MIN(pwmF, PWM_DUTY_CYCLE_MIN);
-	uint32 pwm_ = (uint32)pwmF;
-	return pwm_;
+	return (uint32)pwmF;
 }
 
 /* ---------------------------- */

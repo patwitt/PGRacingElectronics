@@ -3,8 +3,6 @@
  *
  * @brief Public header for software timer
  */
-
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef INC_SW_TIMER_H
 #define INC_SW_TIMER_H
 

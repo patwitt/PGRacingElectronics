@@ -185,6 +185,7 @@ static inline float Utils_interpolateSegment(const float x0, const float y0, con
 
     return y0 + interp1d * (y1 - y0);
 }
+
 /* 1D Table lookup with interpolation */
 static inline float Utils_interpolateTable1d(const table_1d *const LUT, const float interpolatedVal)
 {

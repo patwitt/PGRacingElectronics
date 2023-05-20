@@ -7,7 +7,7 @@
 
 #include "MicroSwitch.h"
 #include "main.h"
-#include "GearWatchdog.h"
+#include "SwTimer.h"
 
 /* ---------------------------- */
 /*          Local data          */
@@ -26,7 +26,6 @@ static __IO MicroSwitch microSwitches[MS_COUNT] = {
 
 typedef struct {
 	MicroSwitchControlType control;
-	GearWatchdogType *const wdg;
 	uint32_t tim;
 } MicroSwitchHandler;
 

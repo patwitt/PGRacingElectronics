@@ -14,6 +14,7 @@
 /* ---------------------------- */
 
 #define GEAR_SENS_ADC_READING_UNKNOWN_THRESHOLD (10U)
+#define GEAR_SENSOR_ADC_RESOLUTION (220U)
 
 typedef enum {
 	GEAR_SENS_STATUS_NOT_IN_RANGE,
@@ -56,38 +57,38 @@ static const GearSensorPlausibilityEnum plausibilityDebounceMap[DEBOUNCE_STATUS_
 //! Gear Sensor configuration
 static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 [GEAR_SENS_1] = {
-		 .adcExpectedReading = 3350U,
-		 .adcResolution = 80U,
+		 .adcExpectedReading = 3270U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_N] = {
-		 .adcExpectedReading = 4000U,
-		 .adcResolution = 200U,
+		 .adcExpectedReading = 4020U,
+		 .adcResolution = 420U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_2] = {
-	     .adcExpectedReading = 2780U,
-		 .adcResolution = 80U,
+	     .adcExpectedReading = 2715U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_3] = {
-		 .adcExpectedReading = 2240U,
-		 .adcResolution = 80U,
+		 .adcExpectedReading = 2235U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_4] = {
-	     .adcExpectedReading = 1640U,
-		 .adcResolution = 80U,
+	     .adcExpectedReading = 1618U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_5] = {
-		 .adcExpectedReading = 1100U,
-		 .adcResolution = 80U,
+		 .adcExpectedReading = 1079U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
 	     .adcExpectedReading = 520U,
-		 .adcResolution = 80U,
+		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_IN_PROG] = {

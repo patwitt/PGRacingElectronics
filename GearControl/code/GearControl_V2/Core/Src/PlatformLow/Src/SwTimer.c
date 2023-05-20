@@ -1,20 +1,3 @@
-// <BEGIN COPYRIGHT HEADER>
-// * ===========================    Boeing AvionX    =========================== *
-// * UNCLASSIFIED                                                                *
-// * FOR OFFICIAL USE ONLY                                                       *
-// * =========================================================================== *
-// * BOEING PROPRIETARY.                                                         *
-// * Copyright (c) 2021-2022 The Boeing Company.                                 *
-// * All Rights Reserved.                                                        *
-// * =========================================================================== *
-// * EXPORT CONTROLLED - This technology or software is subject to the U.S.      *
-// * Export Administration Regulations (EAR), (15 C.F.R. Parts 730-774). No      *
-// * authorization from the U.S. Department of Commerce is required for export,  *
-// * re-export, in-country transfer, or access EXCEPT to country group E:1 or    *
-// * E:2 countries/persons per Supp.1 to Part 740 of the EAR. ECCN: 7D994        *
-// * =========================================================================== *
-// <END COPYRIGHT HEADER>
-
 /**
  * @file SwTimer.c
  *
