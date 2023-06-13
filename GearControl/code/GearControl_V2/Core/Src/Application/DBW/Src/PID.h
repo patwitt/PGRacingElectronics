@@ -37,12 +37,13 @@ typedef struct
 	float differentiator;
 	float prevMeas; //! For differentiator
 	float prevTarget;
-
+	float addOffset;
 	float deltaMeas;
 	float deltaTarget;
 	float deltaErr;
 	Slope slope;
 	AvgBuffer_F avgSlopeData;
+	uint32_t applyBrake;
 	/* Output */
 	float out;
 } PIDController;

@@ -12,7 +12,7 @@
 #include "DefineConfig.h"
 
 #define TPS_BIAS_OFFSET (14.0f)
-#define TPS_IDLE (50.0f + TPS_BIAS_OFFSET) // 6%
+#define TPS_IDLE (10.0f + TPS_BIAS_OFFSET) // 6%
 
 ErrorEnum DBW_Init(void);
 void DBW_Process(void);

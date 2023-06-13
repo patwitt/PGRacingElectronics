@@ -16,13 +16,14 @@
 /*         Local data           */
 /* ---------------------------- */
 
-#define PID_OUTPUT_SPRING_BIAS (120.0f)
+#define PID_OUTPUT_SPRING_BIAS (150.0f)
 
+// .Kp = 6.66f, .Ki = 11.89f, .Kd = 15.69f
 #if CONFIG_PID_INTERPOLATE_CONSTANTS
 static const PID_InterpolationTableEnum currentTable = PID_INTEPROLATE_WORKING_TABLE;
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 0.0f, .Ki = 0.0f, .Kd = 0.0f, .differentiator = 0.0f};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 0.0f, .Ki = 0.0f, .Kd = 0.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #else
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 6.66f, .Ki = 11.89f, .Kd = 15.69f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 7.0f, .Ki = 11.89f, .Kd = 15.69f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #endif
 
 /* ---------------------------- */
@@ -46,7 +47,7 @@ float PID_Update(float *target, const float measurement)
 
 #if CONFIG_PID_APPLY_BRAKE
 	PIDHacks_UpdateSlope(&pid, &sampleCnt, measurement);
-	PIDHacks_SlowDownSequence(&pid, target, measurement);
+	PIDHacks_DetectSlowDownSequence(&pid, target, measurement);
 #endif
 
 	/* Error signal */
@@ -89,12 +90,12 @@ float PID_Update(float *target, const float measurement)
 	pid.out = proportional + pid.integrator + pid.differentiator;
 
 	/* Spring BIAS */
-	if (pid.out > 0.0f) {
-		pid.out += PID_OUTPUT_SPRING_BIAS;
-	}
+	//if (pid.out > 0.0f) {
+	pid.out += PID_OUTPUT_SPRING_BIAS;
+	//}
 
 #if CONFIG_PID_APPLY_BRAKE
-	PIDHacks_ApplyBrake(&pid, target);
+	PIDHacks_ApplyBrake(&pid, measurement, target);
 #endif
 
 	/* Clamp output */
