@@ -10,6 +10,7 @@
 #include "DCMotor.h"
 #include "Utils.h"
 #include "main.h"
+#include "stm32f4xx_hal.h"
 #include "stdlib.h"
 #include "PID.h"
 #include "Adc.h"
@@ -44,13 +45,11 @@
 #define TPS_INIT_DELAY_MS (100U)
 #define TPS_INIT_CALIBRATION_MS (500U)
 
-#define APPS_MIN_MEASURED (720U) // 723
-#define APPS_MAX_MEASURED (3500U) // 3196
-
 #define APPS_FEASIBLE_MIN (800U)
 #define APPS_FEASIBLE_MAX (3000U)
-#define APPS_MIN_MEASURED_F (720.0f)
-#define APPS_MAX_MEASURED_F (3200.0f)
+#define APPS_MIN_MEASURED_F (1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (3200.0f) //(3200.0f)
+
 #define APPS_POS_MAX_F (1000.0f)
 #define APPS_POS_MIN_F (0.0f)
 #define APPS_DIVISOR_F(min, max) (APPS_POS_MAX_F / (max - min))
@@ -145,12 +144,20 @@ typedef struct {
 	float posMax;
 } AppsSensorType;
 
+typedef struct {
+	GPIO_TypeDef *const gpioPort;
+	const uint16_t gpioPin;
+	uint32_t safety_cnt;
+	boolean status;
+} SafetyTriggerHandler;
+
 typedef struct
 {
 	TpsSensorType *const tps;
 	AppsSensorType *const apps;
 	/* DBW state */
 	DBW_States state;
+	SafetyTriggerHandler *const safety_trigger;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
 	float* revMatchTarget;
@@ -214,6 +221,13 @@ static AppsSensorType apps_ = {
 	.posMax = 0.0f
 };
 
+static SafetyTriggerHandler safety_trigger_ = {
+	    .gpioPort = GEAR_CUT_GPIO_Port,
+		.gpioPin  = GEAR_CUT_Pin,
+		.safety_cnt = 0U,
+		.status = true
+};
+
 /* DBW */
 static DbwHandle dbw = {
 	.tps = &tps_,
@@ -222,7 +236,8 @@ static DbwHandle dbw = {
 	.revMatchControl = FALSE,
 	.revMatchTarget = NULL,
 #endif
-	.state = DBW_DISABLED
+	.state = DBW_DISABLED,
+	.safety_trigger = &safety_trigger_
 };
 
 /* APPS interpolation */
@@ -231,6 +246,10 @@ static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 3
 static const float APPS_pos_Y[APPS_INTERPOLATION_CNT]     = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
 static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
+
+
+#define SAFETY_MAX_TARGET_TO_POSITION_DIFF (500U)
+#define SAFETY_TRIGGER_MS (1000U)
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
@@ -260,6 +279,41 @@ static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
+
+static inline void DBW_TurnOffSafetyLine(void)
+{
+	HAL_GPIO_WritePin(dbw.safety_trigger->gpioPort, dbw.safety_trigger->gpioPin, GPIO_PIN_RESET);
+	dbw.safety_trigger->status = false;
+}
+
+static inline void DBW_TurnOnSafetyLine(void)
+{
+	HAL_GPIO_WritePin(dbw.safety_trigger->gpioPort, dbw.safety_trigger->gpioPin, GPIO_PIN_SET);
+	dbw.safety_trigger->status = true;
+}
+
+static void DBW_SafetyCheck(void)
+{
+	if (abs(dbw.tps->position - dbw.apps->target) < SAFETY_MAX_TARGET_TO_POSITION_DIFF) {
+		if (dbw.safety_trigger->safety_cnt > 0U) {
+			--dbw.safety_trigger->safety_cnt;
+		}
+	} else {
+		if (dbw.safety_trigger->safety_cnt <= SAFETY_TRIGGER_MS) {
+		++dbw.safety_trigger->safety_cnt;
+		}
+	}
+
+	if (dbw.safety_trigger->safety_cnt >= SAFETY_TRIGGER_MS) {
+		// Turn off safety line
+		DBW_TurnOffSafetyLine();
+	} else if (dbw.safety_trigger->safety_cnt == 0U) {
+		// Target is OK for at least 1s
+		DBW_TurnOnSafetyLine();
+	} else {
+		// Do nothing
+	}
+}
 
 /**
  * @brief Drive-By-Wire Initialization state.
@@ -714,6 +768,8 @@ static void DBW_StateMachine(void)
 
 			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
 				dbw.state = DBW_HandlerRun();
+
+				DBW_SafetyCheck();
 			} else {
 				dbw.state = DBW_DISABLED;
 			}
