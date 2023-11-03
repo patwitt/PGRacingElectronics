@@ -5,7 +5,7 @@
  *      Author: Patryk
  */
 #include "sensors/GYRO.h"
-
+#include "sensorFunctions.h"
 
 extern RTC_HandleTypeDef hrtc;
 extern SensorStatus statusRegister;
@@ -13,7 +13,7 @@ extern SensorStatus statusRegister;
 /* *******GYRO SECTION  ********/
 
 //GYRO FUNCS
-void gyroInit(GyroSensor * sens)
+void IMUInit(IMUSensor * sens)
 {
 	int result = MPU9250_Init();
 	if(result == 0)
@@ -28,10 +28,9 @@ void gyroInit(GyroSensor * sens)
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 	sprintf(sens->path,"GYRO%02d%02d.csv",date.Date,date.Month);
 	sens->dataReady = 0;
-	sens->saveRate = GYRO_DATA_RATE;
-	sens->timeToNextRead = GYRO_DATA_RATE;
+	sens->timeToNextRead = IMU_DATA_RATE;
 }
-void gyroConvertData(struct gyroData * input, struct gyroDataCalc * output)
+void IMUConvertData(struct IMURawData * input, struct IMUCalculatedData * output)
 {
 	output->acc_data_calc[0] = (double) input->acc_data[0] / 16384;
 	output->acc_data_calc[1] = (double) input->acc_data[1] / 16384;
@@ -42,10 +41,10 @@ void gyroConvertData(struct gyroData * input, struct gyroDataCalc * output)
 
 }
 
-void gyroGetData(GyroSensor * sens)
+void IMUGetData(IMUSensor * sens)
 {
-	gyroData imu_9dof_data;
+	IMUData imu_9dof_data;
     MPU9250_GetData(imu_9dof_data.acc_data, imu_9dof_data.mag_data, imu_9dof_data.gyro_data);
-    gyroConvertData(&imu_9dof_data, &sens->data);
-
+    IMUConvertData(&imu_9dof_data, &sens->data);
+    sens->timestamp = getSeconds();
 }

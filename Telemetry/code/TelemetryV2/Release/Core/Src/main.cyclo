@@ -1,0 +1,13 @@
+main.c:104:5:sendFileToUart.part.0	3
+main.c:104:5:sendFileToUart	2
+main.c:128:5:sendAllFilesToUart	6
+main.c:210:6:getUTCTimeFormat	1
+main.c:219:5:getTime	1
+main.c:225:5:getSeconds	1
+main.c:159:5:measureTime	1
+main.c:163:6:HAL_TIM_PeriodElapsedCallback	8
+main.c:233:6:HAL_TIM_IC_CaptureCallback	1
+main.c:240:6:HAL_UART_RxCpltCallback	2
+main.c:457:6:Error_Handler	2
+main.c:395:6:SystemClock_Config	3
+main.c:269:5:main	9

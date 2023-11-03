@@ -1,0 +1,23 @@
+# ninja log v5
+28	201	7079308539791393	CMakeFiles/TelemetryV2.dir/Core/Startup/startup_stm32f767zitx.s.obj	d8ccbddc0abeac2
+13	278	7079308540680255	CMakeFiles/TelemetryV2.dir/Core/Src/syscalls.c.obj	c4ee5d665d524588
+1379	1688	7079308554058020	TelemetryV2.elf	2d5e590a3b452023
+49	606	7079308543963358	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c.obj	85772eabf46d8f9f
+9	547	7079308543163549	CMakeFiles/TelemetryV2.dir/Core/Src/stm32f7xx_it.c.obj	a61d37097cc8bd5d
+18	218	7079308540148384	CMakeFiles/TelemetryV2.dir/Core/Src/sysmem.c.obj	953839fd7dd47837
+5	515	7079308542796403	CMakeFiles/TelemetryV2.dir/Core/Src/stm32f7xx_hal_msp.c.obj	9d9d2da43742fbdd
+22	554	7079308543485182	CMakeFiles/TelemetryV2.dir/Core/Src/system_stm32f7xx.c.obj	6e0b6a7ffe7efc8c
+1	536	7079308543163549	CMakeFiles/TelemetryV2.dir/Core/Src/main.c.obj	2d6068df0773c177
+34	599	7079308543963358	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c.obj	1e8247dea1dfe7ec
+515	1117	7079308549093594	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c.obj	edf4ae581b257e75
+41	677	7079308544683506	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c.obj	4ddd020965633635
+218	742	7079308545296659	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c.obj	61dfd3e0f174a22a
+202	788	7079308545723731	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c.obj	bc78db61a78fcd4f
+278	821	7079308546043323	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c.obj	37359c870cb222c2
+536	1120	7079308549093594	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c.obj	f15d007f9af4f508
+554	1156	7079308549578637	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c.obj	708b3aafca6dee07
+600	1174	7079308549738653	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c.obj	d2202dc72e3ad8bf
+607	1228	7079308550378520	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c.obj	2df3eb5ffc47954c
+742	1285	7079308550963066	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c.obj	84a521bc001881a
+677	1303	7079308551098474	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c.obj	b1c1a6f83bebd338
+547	1379	7079308551896520	CMakeFiles/TelemetryV2.dir/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c.obj	d59a765fcf07225d

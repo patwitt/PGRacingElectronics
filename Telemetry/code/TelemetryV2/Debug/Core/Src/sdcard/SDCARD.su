@@ -1,0 +1,16 @@
+../Core/Src/sdcard/SDCARD.c:31:6:sdDeInit	16	static
+../Core/Src/sdcard/SDCARD.c:39:6:sdInit	16	static
+../Core/Src/sdcard/SDCARD.c:59:6:openAllFiles	8	static
+../Core/Src/sdcard/SDCARD.c:89:5:createHeaders	56	static
+../Core/Src/sdcard/SDCARD.c:135:5:openFile	168	static
+../Core/Src/sdcard/SDCARD.c:189:6:statsSave2	296	static
+../Core/Src/sdcard/SDCARD.c:200:6:statsSave	304	static
+../Core/Src/sdcard/SDCARD.c:217:6:ecuSaveData	272	static
+../Core/Src/sdcard/SDCARD.c:228:6:telebackSaveData	288	static
+../Core/Src/sdcard/SDCARD.c:254:6:gpsSaveData	320	static
+../Core/Src/sdcard/SDCARD.c:267:6:IMUSaveData	320	static
+../Core/Src/sdcard/SDCARD.c:298:6:mlxSaveData	288	static
+../Core/Src/sdcard/SDCARD.c:318:6:absSaveData	136	static
+../Core/Src/sdcard/SDCARD.c:328:6:adcSaveData	176	static
+../Core/Src/sdcard/SDCARD.c:343:6:sdFlush	8	static
+../Core/Src/sdcard/SDCARD.c:356:6:sdMountFailHandler	8	static

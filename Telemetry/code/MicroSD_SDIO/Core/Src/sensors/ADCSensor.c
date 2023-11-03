@@ -26,11 +26,10 @@ void adcInit(ADCSensor* sens,ADC_HandleTypeDef * adc,int channel,FIL* f)
 	}
 	sens->adcChannel = channel;
 	sens->adc = adc;
-	sens->timeFromLastSuccRead = 0;
-	ADC_SetActiveChannel(sens);
+	adcSetActiveChannel(sens);
 	HAL_ADC_Start_DMA(adc, &sens->data, 1);
 }
-void damperInit(ADCSensor* sens,SENSORS id,FIL * f){
+void damperInit(ADCSensor* sens,int id,FIL * f){
 	switch(id){
 	case DAMPERLF:
 		adcInit(sens,&hadc1,ADC_CHANNEL_0,f);
@@ -43,14 +42,13 @@ void damperInit(ADCSensor* sens,SENSORS id,FIL * f){
 	default:
 		break;
 	}
-
+	sens->timeToNextRead = 50;
 	sens->dataReady = 0;
 	RTC_DateTypeDef date;
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 	sprintf(sens->path,"DAMP%02d%02d.csv",date.Date,date.Month);
 	sens->ID = id;
 	sens->adcType = damper;
-	sens->timeToNextRead = DAMPER_DATA_RATE;
 
 }
 void steeringInit(ADCSensor* sens){
@@ -62,9 +60,8 @@ void steeringInit(ADCSensor* sens){
 	HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 	sprintf(sens->path,"WHEEl%02d%02d.csv",date.Date,date.Month);
 	sens->adcType = steeringWheel;
-	sens->timeToNextRead = STEERING_DATA_RATE;
 }
-void ADC_SetActiveChannel(ADCSensor* sens)
+void adcSetActiveChannel(ADCSensor* sens)
 {
   ADC_ChannelConfTypeDef sConfig = {0};
   sConfig.Channel = sens->adcChannel;
@@ -76,7 +73,7 @@ void ADC_SetActiveChannel(ADCSensor* sens)
   }
 }
 void adcGetData(ADCSensor * sens){
-	ADC_SetActiveChannel(sens);
+	adcSetActiveChannel(sens);
 	HAL_ADC_Start(sens->adc);
 	HAL_ADC_PollForConversion(sens->adc, HAL_MAX_DELAY);
 	sens->data = HAL_ADC_GetValue(sens->adc);
@@ -84,5 +81,5 @@ void adcGetData(ADCSensor * sens){
 }
 void adcSendData(ADCSensor * sens)
 {
-	printf("[%d] ADC: %f", HAL_GetTick(), sens->data);
+	printf("[%d] ADC: %d", HAL_GetTick(), sens->data);
 }

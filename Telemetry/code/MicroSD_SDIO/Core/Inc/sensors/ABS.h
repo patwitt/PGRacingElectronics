@@ -12,9 +12,9 @@
 #include "sdcard/sdmmc.h"
 #include "ff.h"
 #include "stdio.h"
-#include "sensorFunctions.h"
-#pragma once
 
+#pragma once
+#define ABS_CONST 0.9454
 /* *******ABS SECTION  ********/
 
 
@@ -26,13 +26,16 @@ typedef struct ABS{
 	float data;
 	int ID;
 	//ABS data asynchronous
-	int timeToZeroSpeed; //after that time if not new input we assume car is not moving
+	int timeToNextRead; //after that time if not new input we assume car is not moving
 	TIM_HandleTypeDef * timer;
 	int timerChannel;
-	uint8_t raw[10];
+	uint8_t rawData[10];
 	uint8_t counter;
+	int timestamp;
 
 }ABSSensor;
 
-void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef * tim,int channel,FIL* f);
-void absCalculate(ABSSensor * sens);
+void ABSInit(ABSSensor * sens,int id,TIM_HandleTypeDef * tim,int channel,FIL* f);
+void ABSCallbackHandler(TIM_HandleTypeDef *htim);
+void ABSCalculate(ABSSensor * sens);
+void sendWheelSpeedByCan(int id);

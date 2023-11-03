@@ -47,7 +47,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+int getSeconds();
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

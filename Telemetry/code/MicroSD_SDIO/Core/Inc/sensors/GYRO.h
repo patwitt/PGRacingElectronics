@@ -14,38 +14,40 @@
 #include "sdcard/sdmmc.h"
 #include "ff.h"
 #include "stdio.h"
-#include "sensorFunctions.h"
+//#include "sensorFunctions.h"
 #include "sensors/MPU9250.h"
 
 #pragma once
 /* *******GYRO SECTION  ********/
+struct SensorStatus;
 
-typedef struct gyroData
+
+typedef struct IMURawData
 {
 	int16_t acc_data[3];
 	int16_t mag_data[3];
 	int16_t gyro_data[3];
-}gyroData;
+}IMUData;
 
-typedef struct gyroDataCalc
+typedef struct IMUCalculatedData
 {
 	double acc_data_calc[3];
 	double gyro_data_calc[3];
-}gyroDataCalculated;
+}IMUDataCalculated;
 
-typedef struct GYRO{
+typedef struct IMU{
 	FIL *File; //GYRO File to write
 	char path[20]; // path of file to write;
 	int dataReady; // flag to check if data is ready to read/write to file
-	int saveRate;
 	int timeToNextRead;
-	gyroDataCalculated data;
+	IMUDataCalculated data;
 	I2C_HandleTypeDef i2c;
-}GyroSensor;
+	int timestamp;
+}IMUSensor;
 
 //GYRO FUNCS
-void gyroInit(GyroSensor * gyro);
+void IMUInit(IMUSensor * gyro);
 
-void gyroGetData(GyroSensor * sens);
+void IMUGetData(IMUSensor * sens);
 
-void gyroConvertData(struct gyroData * input, struct gyroDataCalc * output);
+void IMUConvertData(struct IMURawData * input, struct IMUCalculatedData * output);

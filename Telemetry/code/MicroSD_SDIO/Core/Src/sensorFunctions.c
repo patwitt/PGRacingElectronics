@@ -6,69 +6,57 @@
  */
 
 //INCLUDES
-
+#include "basicFunctions.h"
 #include "sensorFunctions.h"
-#include "sensors/ABS.h"
-#include "sensors/ADCSensor.h"
-#include "sensors/GPS.h"
-#include "sensors/GYRO.h"
-#include "sensors/MLX.h"
-#include "tim.h"
-#include "can.h"
-#include "ecumaster.h"
 #include "handler.h"
-#include "string.h"
+
 extern UART_HandleTypeDef huart7;
 
 /* *******GLOBAL VARIABLES ********/
 extern sensorDataHandler _dataHandler[];
-extern ABSSensor absLFSensor;
-extern ABSSensor absRFSensor;
-extern GPSSensor gpsSensor;
-extern EcumasterData EcuData;
+ABSSensor absLFSensor;
+ABSSensor absRFSensor;
+GPSSensor gpsSensor;
+
 MLXSensor mlxLFSensor;
 MLXSensor mlxRFSensor;
-GyroSensor gyro;
+IMUInnerSensor IMUInnerSensor;
 SensorStatus statusRegister;
 ADCSensor sWheelSensor;
 ADCSensor damperLFSensor;
 ADCSensor damperRFSensor;
+ADCSensor damperLRSensor;
+ADCSensor damperRRSensor;
+TeleBackData teleData;
+EcumasterData ecuData;
 
-void enumToSensor(char *buf,SENSORS sensor){
+
+const char* enumToSensor(SENSORS sensor){
 	switch(sensor){
 	case GPS:
-		strcpy(buf,"GPS");
-		break;
+		return "GPS";
 	case GYRO:
-		strcpy(buf,"GYRO");
-		break;
+		return "GYRO";
 	case MLXLF:
-		strcpy(buf,"MLXLF");
-		break;
+		return "MLXLF";
 	case MLXRF:
-		strcpy(buf,"MLXRF");
-		break;
+		return "MLXRF";
 	case ABSLF:
-		strcpy(buf,"ABSLF");
-		break;
+		return "ABSLF";
 	case ABSRF:
-		strcpy(buf,"ABSRF");
-		break;
+		return "ABSRF";
 	case WHEEL:
-		strcpy(buf,"STEER");
-		break;
+		return "STEER";
 	case DAMPERLF:
-		strcpy(buf,"DAMPLF");
-		break;
+		return"DAMPLF";
 	case DAMPERRF:
-		strcpy(buf,"DAMPRF");
-		break;
+		return "DAMPRF";
 	case ECU:
-		strcpy(buf,"ECU");
-		break;
+		return "ECU";
+	case TELEBACK:
+		return "BACK";
 	default:
-		itoa(sensor,buf,10);
-		break;
+		return "";
 
 	}
 }
@@ -76,9 +64,8 @@ void enumToSensor(char *buf,SENSORS sensor){
 void initSensors()
 {
 
-
 	if(_dataHandler[GYRO].isActive){
-		gyroInit(&gyro);
+		IMUInit(&IMUInnerSensor);
 	}
 	if(_dataHandler[GPS].isActive){
 		 GPSInit(&gpsSensor);
@@ -87,18 +74,17 @@ void initSensors()
 		mlxInit(&mlxLFSensor,MLXLF,&hi2c1,0);
 	}
 	if(_dataHandler[MLXRF].isActive){
-		mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxRFSensor.File);
+		mlxInit(&mlxRFSensor,MLXRF,&hi2c3,mlxLFSensor.File);
 	}
 	if(_dataHandler[ABSLF].isActive){
 	    HAL_TIM_Base_Start(&htim3);
-		HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
-		absInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_1, 0);
+		HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_4);
+		ABSInit(&absLFSensor, ABSLF, &htim3, TIM_CHANNEL_4, 0);
 	}
 	if(_dataHandler[ABSRF].isActive){
 	    HAL_TIM_Base_Start(&htim4);
 		HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_1);
-
-
+		ABSInit(&absRFSensor, ABSRF, &htim4, TIM_CHANNEL_1, absLFSensor.File);
 	}
 	if(_dataHandler[WHEEL].isActive){
 		steeringInit(&sWheelSensor);
@@ -109,13 +95,25 @@ void initSensors()
 	if(_dataHandler[DAMPERRF].isActive){
 		damperInit(&damperRFSensor, DAMPERRF, damperLFSensor.File);
 	}
-	if(_dataHandler[ECU].isActive){
-		  EcuInit(&EcuData);
+	if(_dataHandler[DAMPERLR].isActive){
+		damperInit(&damperLRSensor, DAMPERLR,  damperLFSensor.File);
 	}
-	HAL_CAN_Start(&hcan2);
+	if(_dataHandler[DAMPERRR].isActive){
+		damperInit(&damperRRSensor, DAMPERRR, damperLFSensor.File);
+	}
+	if(_dataHandler[ECU].isActive){
+		  EcuInit(&ecuData);
+	}
+	if(_dataHandler[TELEBACK].isActive){
+		TeleBackInit(&teleData);
+	}
+	//Check if can still works!
+
     HAL_CAN_Start(&hcan1);
-    HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
     HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+	HAL_CAN_Start(&hcan2);
+	HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
+
 
 }
 int statusToInt()

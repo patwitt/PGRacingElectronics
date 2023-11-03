@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under Ultimate Liberty license
@@ -21,11 +21,12 @@
 #include "can.h"
 
 /* USER CODE BEGIN 0 */
-#include "ecumaster.h"
+
 #include "sensorFunctions.h"
 #include "fatfs.h"
 #include "handler.h"
-EcumasterData EcuData;
+extern EcumasterData ecuData;
+extern TeleBackData teleData;
 extern sensorDataHandler _dataHandler[];
 /* USER CODE END 0 */
 
@@ -60,10 +61,10 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  /*
+
   CAN_FilterTypeDef canfilterconfig;
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
+  canfilterconfig.FilterBank = 0;  // which filter bank to use from the assigned ones
   canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
   canfilterconfig.FilterIdHigh = 0;
   canfilterconfig.FilterIdLow = 0;
@@ -71,9 +72,9 @@ void MX_CAN1_Init(void)
   canfilterconfig.FilterMaskIdLow = 0;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 10;
+  canfilterconfig.SlaveStartFilterBank = 1;
   HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
-*/
+
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -115,7 +116,7 @@ void MX_CAN2_Init(void)
   canfilterconfig.FilterMaskIdLow = 0;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 10;
+  canfilterconfig.SlaveStartFilterBank = 14;
   HAL_CAN_ConfigFilter(&hcan2, &canfilterconfig);
   /* USER CODE END CAN2_Init 2 */
 
@@ -153,6 +154,8 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     /* CAN1 interrupt Init */
     HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 2, 0);
     HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
 
   /* USER CODE END CAN1_MspInit 1 */
@@ -210,6 +213,7 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 
     /* CAN1 interrupt Deinit */
     HAL_NVIC_DisableIRQ(CAN1_RX0_IRQn);
+    HAL_NVIC_DisableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspDeInit 1 */
 
   /* USER CODE END CAN1_MspDeInit 1 */
@@ -242,16 +246,10 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 }
 
 /* USER CODE BEGIN 1 */
-extern UART_HandleTypeDef huart3;
-void sendWheelSpeedByCan(int id){
-	 uint32_t* TxMailBox = 0;
-	CAN_TxHeaderTypeDef pHeader;
-	pHeader.DLC = 2;
-	pHeader.IDE = CAN_ID_STD;
-	pHeader.StdId = 0x560 + id;
-	pHeader.RTR = CAN_RTR_DATA;
-	uint16_t data = (uint16_t)absLFSensor.data;
-	HAL_CAN_AddTxMessage(&hcan2, &pHeader,&data , TxMailBox);
+
+
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+;
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
@@ -261,7 +259,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
 	//
 	if (hcan->Instance == CAN1) {
-		HAL_UART_Transmit(&huart3,(uint8_t*) "got internal frame\r\n", 20, 200);
 		//ComputeEcumasterFrame(RxHeader, RxData);
 		ComputeInternalFrame(RxHeader, RxData);
 	} else {
@@ -271,52 +268,60 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 }
 extern FIL* EcuFile;
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
-	_dataHandler[ECU].dataReady = 1;
+	if (RxHeader.StdId >= Frame1 && RxHeader.StdId <= Frame7) {
+		_dataHandler[ECU].dataReady = 1;
+	}
 	if (RxHeader.StdId == Frame1) {
-		EcuData.rpm = LittleToBigEndian(&RxData[0]);
-		EcuData.tps = RxData[2];
-		EcuData.iat = RxData[3];
-		EcuData.map = LittleToBigEndian(&RxData[4]);
-		EcuData.injPW = LittleToBigEndian(&RxData[6]);
+		ecuData.rpm = LittleToBigEndian(&RxData[0]);
+		ecuData.tps = RxData[2];
+		ecuData.iat = RxData[3];
+		ecuData.map = LittleToBigEndian(&RxData[4]);
+		ecuData.injPW = LittleToBigEndian(&RxData[6]);
 	} else if (RxHeader.StdId == Frame3) {
-		EcuData.speed = LittleToBigEndian(&RxData[0]);
-		EcuData.oilTemp = RxData[3];
-		EcuData.oilPress = RxData[4];
-		EcuData.clt = LittleToBigEndian(&RxData[6]);
+		ecuData.speed = LittleToBigEndian(&RxData[0]);
+		ecuData.oilTemp = RxData[3];
+		ecuData.oilPress = RxData[4];
+		ecuData.clt = LittleToBigEndian(&RxData[6]);
 	} else if (RxHeader.StdId == Frame4) {
-		EcuData.ignAngle = RxData[0];
-		EcuData.ignDwell = RxData[1];
-		EcuData.lambda = RxData[2];
-		EcuData.lambdaCorrection = RxData[3];
-		EcuData.egt1 = LittleToBigEndian(&RxData[4]);
-		EcuData.egt2 = LittleToBigEndian(&RxData[6]);
+		ecuData.ignAngle = RxData[0];
+		ecuData.ignDwell = RxData[1];
+		ecuData.lambda = RxData[2];
+		ecuData.lambdaCorrection = RxData[3];
+		ecuData.egt1 = LittleToBigEndian(&RxData[4]);
+		ecuData.egt2 = LittleToBigEndian(&RxData[6]);
 	} else if (RxHeader.StdId == Frame5) {
-		EcuData.gear = RxData[0];
-		EcuData.ecuTemp = RxData[1];
-		EcuData.batt = LittleToBigEndian(&RxData[2]);
-		EcuData.errflag = LittleToBigEndian(&RxData[5]);
-		EcuData.flags1 = RxData[7];
+		ecuData.gear = RxData[0];
+		ecuData.ecuTemp = RxData[1];
+		ecuData.batt = LittleToBigEndian(&RxData[2]);
+		ecuData.errflag = LittleToBigEndian(&RxData[5]);
+		ecuData.flags1 = RxData[7];
 	} else if (RxHeader.StdId == Frame6) {
-		EcuData.DBWPosition = RxData[0];
-		EcuData.DBWTrigger = RxData[1];
-		EcuData.TCDRPMRaw = LittleToBigEndian(&RxData[2]);
-		EcuData.TCDRPM = LittleToBigEndian(&RxData[4]);
-		EcuData.TCTorqueReduction = RxData[6];
-		EcuData.PitLimitTorqueReduction = RxData[7];
+		ecuData.DBWPosition = RxData[0];
+		ecuData.DBWTrigger = RxData[1];
+		ecuData.TCDRPMRaw = LittleToBigEndian(&RxData[2]);
+		ecuData.TCDRPM = LittleToBigEndian(&RxData[4]);
+		ecuData.TCTorqueReduction = RxData[6];
+		ecuData.PitLimitTorqueReduction = RxData[7];
 	}else if (RxHeader.StdId == 0x1FE) {
-		EcuData.BurnedFuel = (float)(LittleToBigEndian(RxData))/8192.0;
-	}else
-	{
-		//printf("%d,%lu,",getSeconds(),RxHeader.StdId);
-		//for(int i=0; i< RxHeader.DLC;i++){
-		//	printf(" %d",RxData[i]);
-		//}
-		//printf("\n");
+		ecuData.BurnedFuel = (float)(LittleToBigEndian(RxData))/8192.0;
 	}
 }
 
 void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t *RxData) {
-
+	 if (RxHeader.StdId == DamperRRFrame){
+			teleData.DamperRRData = LittleToBigEndian(RxData);
+			teleData.DamperRRReady = 1;
+		}else if (RxHeader.StdId == DamperLRFrame){
+			teleData.DamperLRData = LittleToBigEndian(RxData);
+			teleData.DamperLRReady = 1;
+		}else if (RxHeader.StdId == ABSRRFrame){
+			teleData.ABSRRData = LittleToBigEndian(RxData);
+			teleData.ABSRRReady = 1;
+		}else if (RxHeader.StdId == ABSLRFrame){
+			teleData.ABSLRData = LittleToBigEndian(RxData);
+			teleData.ABSLRReady = 1;
+		}
+		_dataHandler[TELEBACK].dataReady = TeleBackAnyDataReady(teleData);
 }
 
 uint16_t LittleToBigEndian(uint8_t *data) {

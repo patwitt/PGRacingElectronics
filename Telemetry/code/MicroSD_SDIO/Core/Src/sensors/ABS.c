@@ -11,10 +11,10 @@
 extern RTC_HandleTypeDef hrtc;
 extern SensorStatus statusRegister;
 extern sensorDataHandler _dataHandler[];
-ABSSensor absLFSensor;
-ABSSensor absRFSensor;
+extern ABSSensor absLFSensor;
+extern ABSSensor absRFSensor;
 /******** ABS SECTION  ********/
-void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef* tim,int channel,FIL *f){
+void ABSInit(ABSSensor * sens,int id,TIM_HandleTypeDef* tim,int channel,FIL *f){
 	if(f == 0)
 	{
 		sens->File = (FIL*)malloc(sizeof(FIL));
@@ -39,34 +39,34 @@ void absInit(ABSSensor * sens,SENSORS id,TIM_HandleTypeDef* tim,int channel,FIL 
 	sens->timer = tim;
 	sens->timerChannel = channel;
 	for(int i=0;i<10;i++){
-		sens->raw[i] = 0;
+		sens->rawData[i] = 0;
 	}
 	sens->counter = 0;
 	sens->data = 0;
 }
 
-void absCalculate(ABSSensor * sens)
+void ABSCalculate(ABSSensor * sens)
 {
 	sens->data = 0;
 	 for(int i=0;i<10;i++)
 	 {
-		 sens->data += sens->raw[i];
+		 sens->data += sens->rawData[i];
 	 }
-	 sens->data *= 0.9454;
+	 sens->data *= ABS_CONST;
 	 sens->counter++;
 	 if(sens->counter>=10){
 		 sens->counter = 0;
 	 }
-	 sens->raw[sens->counter] = 0;
+	 sens->rawData[sens->counter] = 0;
 
 
-	 sendWheelSpeedByCan(ABSLF);
+	 sendWheelSpeedByCan(sens->ID);
 }
 void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	if (htim == absLFSensor.timer) {
 	    switch (HAL_TIM_GetActiveChannel(absLFSensor.timer)) {
 	      case HAL_TIM_ACTIVE_CHANNEL_1:
-	    	  absLFSensor.raw[absLFSensor.counter]++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+	    	  absLFSensor.rawData[absLFSensor.counter]++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 	    	 // _dataHandler[ABSLF].dataReady = 1;
 	        break;
 	      default:
@@ -75,11 +75,23 @@ void ABSCallbackHandler(TIM_HandleTypeDef *htim){
 	  }else if(htim == absRFSensor.timer) {
 	      switch (HAL_TIM_GetActiveChannel(absRFSensor.timer)) {
 	        case HAL_TIM_ACTIVE_CHANNEL_1:
-	        	absRFSensor.raw[absRFSensor.counter];//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+	        	absRFSensor.rawData[absRFSensor.counter]++;//HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 	        	//_dataHandler[ABSRF].dataReady = 1;
 	          break;
 	        default:
 	          break;
 	       }
 	  }
+}
+
+void sendWheelSpeedByCan(int id){
+	ABSSensor* sensor = (ABSSensor*)_dataHandler[id].sensorStruct;
+	uint32_t* TxMailBox = 0;
+	CAN_TxHeaderTypeDef pHeader;
+	pHeader.DLC = 2;
+	pHeader.IDE = CAN_ID_STD;
+	pHeader.StdId = 0x560 + id;
+	pHeader.RTR = CAN_RTR_DATA;
+	uint16_t data =(uint16_t)sensor->data;
+	HAL_StatusTypeDef res =HAL_CAN_AddTxMessage(&hcan2, &pHeader,&data , TxMailBox);
 }

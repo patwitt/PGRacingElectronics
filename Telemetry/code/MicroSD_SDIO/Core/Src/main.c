@@ -25,6 +25,7 @@
 #include "fatfs.h"
 #include "i2c.h"
 #include "rtc.h"
+#include "sdmmc.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -66,11 +67,10 @@
 
 /* USER CODE BEGIN PV */
 
-extern EcumasterData EcuData;
+
 extern sensorDataHandler _dataHandler[];
 extern SensorStatus statusRegister;
-extern ADCSensor damperRFSensor;
-extern ADCSensor damperLFSensor;
+
 extern FIL* EcuFile;
 extern FIL* StatsFile;
 extern char ecuPath[];
@@ -88,21 +88,21 @@ FATFS fileSystem;
 
 int sendFileToUart(FIL * f,char * path)
 {
+
 	 FRESULT res;
 	 UINT dmy;
-	 char buff[1000];
+	 uint8_t buff[1000];
 	 f_close(f);
 	 res = f_open(f, path, FA_READ);
 	 if (res) return res;
 	 HAL_Delay(1000);
-	 sprintf(buff,"%s\n", path);
-	 HAL_UART_Transmit(&huart7,  buff, strlen(buff), HAL_MAX_DELAY);
+	 int length = sprintf(buff,"%s\n", path);
+	 HAL_UART_Transmit(&huart7,  buff, length, HAL_MAX_DELAY);
 	 //HAL_UART_Transmit(&huart7,  '\n', 1, HAL_MAX_DELAY);
 	 HAL_Delay(1000);
 	 while (res == FR_OK && !f_eof(f)) {
-
-	        res = f_read(f, buff, 1000, &dmy);
-	        HAL_UART_Transmit(&huart7, buff, dmy,HAL_MAX_DELAY);
+        res = f_read(f, buff, 1000, &dmy);
+        HAL_UART_Transmit(&huart7, buff, dmy,HAL_MAX_DELAY);
 	 }
 	 HAL_Delay(1000);
 	 HAL_UART_Transmit(&huart7, "\n", 1, HAL_MAX_DELAY);
@@ -124,9 +124,9 @@ int sendAllFilesToUart()
 	{
 		sendFileToUart(mlxLFSensor.File, mlxLFSensor.path);
 	}
-	if(f_stat(gyro.path, &f)==FR_OK)
+	if(f_stat(IMUInnerSensor.path, &f)==FR_OK)
 	{
-		sendFileToUart(gyro.File, gyro.path);
+		sendFileToUart(IMUInnerSensor.File, IMUInnerSensor.path);
 	}
 	if(f_stat(gpsSensor.path, &f)==FR_OK)
 	{
@@ -150,40 +150,34 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   if (htim == &htim14 )
   {
-
-	 statusRegister.checkTime -= 25;
-	 if( statusRegister.checkTime <= 0)
-	 {
-		 //Check all sensors
-		 statusRegister.checkTime = SENSOR_ALL_CHECK_TIME;
-		 printStatusRegister();
-
+	 IMUInnerSensor.timeToNextRead -= 25;
+	 if(IMUInnerSensor.timeToNextRead <= 0){
+		 _dataHandler[GYRO].dataReady = 1;
+		 IMUInnerSensor.timeToNextRead = 100;
 	 }
-	 gyro.timeToNextRead -= 25;
-		 if(gyro.timeToNextRead <= 0){
-			 _dataHandler[GYRO].dataReady = 1;
-			 gyro.timeToNextRead = 250;
-		 }
 	 damperLFSensor.timeToNextRead -= 25;
 	 if(damperLFSensor.timeToNextRead <= 0){
 		 _dataHandler[DAMPERRF].dataReady = 1;
 		 _dataHandler[DAMPERLF].dataReady = 1;
+		 _dataHandler[DAMPERLR].dataReady = 1;
+		 _dataHandler[DAMPERRR].dataReady = 1;
 		 damperLFSensor.timeToNextRead = 50;
 	 }
-	 absLFSensor.timeToZeroSpeed -= 25;
-	 if(absLFSensor.timeToZeroSpeed <= 0)
+	 absLFSensor.timeToNextRead -= 25;
+	 if(absLFSensor.timeToNextRead <= 0)
 	 {
-		 absCalculate(&absLFSensor);
-		 absLFSensor.timeToZeroSpeed = 25;
+		 ABSCalculate(&absLFSensor);
+		 absLFSensor.timestamp = getSeconds();
+		 absLFSensor.timeToNextRead = 25;
 		 _dataHandler[ABSLF].dataReady = 1;
 	 }
-	 absRFSensor.timeToZeroSpeed -= 25;
-	 if(absLFSensor.timeToZeroSpeed <= 0)
+	 absRFSensor.timeToNextRead -= 25;
+	 if(absRFSensor.timeToNextRead <= 0)
 	 {
-		 absCalculate(&absRFSensor);
-		 absRFSensor.timeToZeroSpeed = 25;
+		 ABSCalculate(&absRFSensor);
+		 absRFSensor.timestamp = getSeconds();
+		 absRFSensor.timeToNextRead = 25;
 		 _dataHandler[ABSRF].dataReady = 1;
-
 	 }
   }
 }
@@ -196,10 +190,8 @@ int getTime(RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
 int getSeconds(){
 	RTC_TimeTypeDef time;
 	RTC_DateTypeDef date;
-
 	int sub = getTime(&time,&date);
 	return ((time.Hours*60+time.Minutes)*60+time.Seconds)*1000+sub;
-
 }
 
 //ABS
@@ -219,6 +211,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 	}else if(huart ==&huart3)
 	{
+		/*
 		received_command[command_lenght] = bufor;
 		command_lenght++;
 		if(bufor == '\n'){
@@ -228,6 +221,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 		}
 		HAL_UART_Receive_IT(&huart3, &(bufor), 1);
+		*/
 	}
 }
 
@@ -261,9 +255,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART3_UART_Init();
-  MX_FATFS_Init();
   MX_DMA_Init();
+  MX_FATFS_Init();
+  MX_USART3_UART_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_UART7_Init();
@@ -300,9 +294,9 @@ int main(void)
 
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+  printf("Current Date: %02d/%02d/%04d\n", date.Date, date.Month,2000 + date.Year);
+  printf("Current time: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
 
-  //
 
   /* USER CODE END 2 */
 
@@ -323,29 +317,29 @@ int main(void)
 			  {
 				  if(_dataHandler[i].getDataHandler != NULL)
 				  {
-					  startTime = HAL_GetTick();
+					  //startTime = HAL_GetTick();
 					   _dataHandler[i].getDataHandler(_dataHandler[i].sensorStruct);
-					  statsSave(0, startTime, i);
+					 // statsSave(0, startTime, i);
 
 				  }
 				  if(_dataHandler[i].dataReady == 1 && _dataHandler[i].saveDataHandler != NULL)
 				  {
-					  startTime = HAL_GetTick();
+					  //startTime = HAL_GetTick();
 					  _dataHandler[i].saveDataHandler(_dataHandler[i].sensorStruct);
+					  //statsSave(1, startTime, i);
 					  _dataHandler[i].dataReady = 0;
-					  statsSave(1, startTime, i);
 				  }
 
 			  }
 		  }
-		  startTime = HAL_GetTick();
-		  sendEcuLogs(EcuData);
-		  statsSave(2, startTime, 9);
-		  startTime = HAL_GetTick();
+		  //startTime = HAL_GetTick();
+		  sendEcuLogs(ecuData);
+		  //statsSave(2, startTime, 9);
+		  //startTime = HAL_GetTick();
 		  sdFlush();
-		  statsSave(3, startTime, 9);
+		  //statsSave(3, startTime, 9);
 	  }else{
-		  printf("SDCard not initialized\r\n");
+		  printf("SD card not initialized\n");
 	  }
 
 	}

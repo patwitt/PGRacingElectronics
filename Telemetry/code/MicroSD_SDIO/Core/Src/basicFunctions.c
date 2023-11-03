@@ -9,6 +9,7 @@
 #define BASICFUNCTIONS_H_
 #define defaultI2C hi2c2
 #define uartDef huart3
+#define UART_MODE 0
 /* Includes ------------------------------------------------------------------*/
 #include "basicFunctions.h"
 #include "stdint.h"
@@ -51,9 +52,21 @@ int _write(int file, char *ptr, int len)
 int __io_putchar(int ch){
 	if(ch == '\n')
 	{
+		#if UART_MODE == 0
 		HAL_UART_Transmit(&uartDef, (uint8_t*)"\r", 1,HAL_MAX_DELAY);
+		#elif UART_MODE == 1
+		HAL_UART_Transmit_IT(&uartDef, (uint8_t*)"\r", 1);
+		#elif UART_MODE == 2
+		HAL_UART_Transmit_DMA(&uartDef, (uint8_t*)"\r", 1);
+		#endif
 	}
-	HAL_UART_Transmit(&uartDef, (uint8_t*)&ch, 1,HAL_MAX_DELAY);
+		#if UART_MODE == 0
+		HAL_UART_Transmit(&uartDef, (uint8_t*)&ch, 1,HAL_MAX_DELAY);
+		#elif UART_MODE == 1
+		HAL_UART_Transmit_IT(&uartDef, (uint8_t*)&ch, 1);
+		#elif UART_MODE == 2
+		HAL_UART_Transmit_DMA(&uartDef, (uint8_t*)&ch, 1);
+		#endif
 	return 1;
 }
 #endif /* BASICFUNCTIONS_H_ */

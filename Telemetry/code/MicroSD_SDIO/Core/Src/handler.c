@@ -5,12 +5,9 @@
  *      Author: Patryk
  */
 #include "handler.h"
-#include "ecumaster.h"
+#include "sdcard/SDCARD.h"
 
-extern EcumasterData EcuData;
-extern ADCSensor damperRFSensor;
 
-extern ADCSensor damperLFSensor;
 sensorDataHandler _dataHandler[SENSORS_N] = {
 		{
 				.sensorType = GPS,
@@ -22,15 +19,15 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = GYRO,
-				.sensorStruct = (&gyro),
-				.getDataHandler = gyroGetData,
-				.saveDataHandler = gyroSaveData,
+				.sensorStruct = (&IMUInnerSensor),
+				.getDataHandler = IMUGetData,
+				.saveDataHandler = IMUSaveData,
 				.dataReady = 0,
 				.isActive = 1,
 		},
 		{
 				.sensorType = MLXLF,
-				//.sensorStruct = (void*)(&mlxFSensor),
+				.sensorStruct = (void*)(&mlxLFSensor),
 				.getDataHandler = mlxGetData,
 				.saveDataHandler = mlxSaveData,
 				.dataReady = 0,
@@ -86,9 +83,17 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		},
 		{
 				.sensorType = ECU,
-				.sensorStruct = (void*)(&EcuData),
+				.sensorStruct = (void*)(&ecuData),
 				.getDataHandler = NULL,
 				.saveDataHandler = ecuSaveData,
+				.dataReady = 0,
+				.isActive = 1,
+		},
+		{
+				.sensorType = TELEBACK,
+				.sensorStruct = (void*)(&teleData),
+				.getDataHandler = NULL,
+				.saveDataHandler = telebackSaveData,
 				.dataReady = 0,
 				.isActive = 1,
 		},

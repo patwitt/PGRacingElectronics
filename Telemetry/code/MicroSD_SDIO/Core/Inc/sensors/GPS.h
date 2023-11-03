@@ -15,7 +15,7 @@
 #include "sdcard/sdmmc.h"
 #include "ff.h"
 #include "stdio.h"
-#include "sensorFunctions.h"
+
 #pragma once
 
 typedef struct GPS{
@@ -29,6 +29,7 @@ typedef struct GPS{
 	uint8_t buforSize;
 	char data[255];
 	UART_HandleTypeDef * uart;
+	int timestamp;
 }GPSSensor;
 
 void GPSInit(GPSSensor * sens);

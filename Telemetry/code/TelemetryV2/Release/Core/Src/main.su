@@ -1,0 +1,13 @@
+../Core/Src/main.c:104:5:sendFileToUart.part.0	1032	static
+../Core/Src/main.c:104:5:sendFileToUart	16	static
+../Core/Src/main.c:128:5:sendAllFilesToUart	72	static
+../Core/Src/main.c:210:6:getUTCTimeFormat	48	static
+../Core/Src/main.c:219:5:getTime	16	static
+../Core/Src/main.c:225:5:getSeconds	32	static
+../Core/Src/main.c:159:5:measureTime	8	static
+../Core/Src/main.c:163:6:HAL_TIM_PeriodElapsedCallback	8	static
+../Core/Src/main.c:233:6:HAL_TIM_IC_CaptureCallback	0	static
+../Core/Src/main.c:240:6:HAL_UART_RxCpltCallback	0	static
+../Core/Src/main.c:457:6:Error_Handler	16	static,ignoring_inline_asm
+../Core/Src/main.c:395:6:SystemClock_Config	88	static
+../Core/Src/main.c:269:5:main	64	static

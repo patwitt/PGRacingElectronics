@@ -1,0 +1,2 @@
+../Core/Src/sensors/TeleBack.c:10:5:TeleBackAnyDataReady	0	static
+../Core/Src/sensors/TeleBack.c:14:6:TeleBackInit	24	static

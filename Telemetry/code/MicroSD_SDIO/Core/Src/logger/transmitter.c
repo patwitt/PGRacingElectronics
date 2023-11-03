@@ -11,11 +11,11 @@
 #include "basicFunctions.h"
 #pragma once
 ecuLogRegister _ecuLog = {
-	.cltOn = 1,
-	.oilTempOn = 1,
-	.battOn = 1,
-	.oilPressOn =1,
-	.BurnedFuelOn =1,
+	.cltOn = 0,
+	.oilTempOn = 0,
+	.battOn = 0,
+	.oilPressOn =0,
+	.BurnedFuelOn =0,
 };
 
 void parseCommand(char * command){

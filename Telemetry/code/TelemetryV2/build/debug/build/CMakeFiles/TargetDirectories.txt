@@ -1,0 +1,3 @@
+C:/Users/Patryk/Desktop/PGR/PGRacingElectronics/Telemetry/code/TelemetryV2/build/debug/build/CMakeFiles/TelemetryV2.dir
+C:/Users/Patryk/Desktop/PGR/PGRacingElectronics/Telemetry/code/TelemetryV2/build/debug/build/CMakeFiles/edit_cache.dir
+C:/Users/Patryk/Desktop/PGR/PGRacingElectronics/Telemetry/code/TelemetryV2/build/debug/build/CMakeFiles/rebuild_cache.dir

@@ -5,21 +5,21 @@
  *      Author: Patryk
  */
 #include "sensorFunctions.h"
-#include "sdcard/SDCARD.h"
-#include "sensors/ABS.h"
-#include "sensors/ADCSensor.h"
-#include "sensors/GPS.h"
-#include "sensors/GYRO.h"
-#include "sensors/MLX.h"
+
 #pragma once
 
-extern GyroSensor gyro;
+extern IMUInnerSensor IMUInnerSensor;
 extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
 extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
 extern GPSSensor gpsSensor;
 extern ADCSensor sWheelSensor;
+extern ADCSensor damperLFSensor;
+extern ADCSensor damperRFSensor;
+extern EcumasterData ecuData;
+extern TeleBackData teleData;
+
 
 typedef void (*getDataHander)(void*);
 typedef struct

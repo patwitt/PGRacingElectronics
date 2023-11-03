@@ -9,12 +9,12 @@
 #include "string.h"
 #include "handler.h"
 
-extern UART_HandleTypeDef huart3;
+
 extern UART_HandleTypeDef huart7;
 extern RTC_HandleTypeDef hrtc;
 extern sensorDataHandler _dataHandler[];
 extern SensorStatus statusRegister;
-GPSSensor gpsSensor;
+extern GPSSensor gpsSensor;
 typedef struct{
 	float lat;
 	float lon;
@@ -153,10 +153,12 @@ void GPSCallbackHandler(){
 		gpsSensor.bufor[gpsSensor.buforSize]= 0;
 		strcpy(gpsSensor.data,gpsSensor.bufor);
 		gpsSensor.bufor[0]= '\0';
+		gpsSensor.buforSize = 0;
 		gpsSensor.Rx_data = '\0';
 		gpsSensor.dataReady = 1;
 		_dataHandler[GPS].dataReady = 1;
-		gpsSensor.buforSize = 0;
+		gpsSensor.timestamp = getSeconds();
+
 	  }
 	  if(gpsSensor.buforSize > 255)
 	  {

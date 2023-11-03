@@ -7,14 +7,21 @@
 
 //INCLUDES
 
-#include "basicFunctions.h"
-
-#include "i2c.h"
-
+#include "stdint.h"
+#include "sensors/ABS.h"
+#include "sensors/ADCSensor.h"
+#include "sensors/GPS.h"
+#include "sensors/GYRO.h"
+#include "sensors/MLX.h"
+#include "sensors/TeleBack.h"
+#include "can.h"
+#include "ecumaster.h"
+#include "string.h"
+#include "tim.h"
 
 #pragma once
-#define DEBUG 1 // Debug writing on/off
-#define SENSORS_N 10
+
+#define SENSORS_N 11
 
 typedef enum{
 
@@ -27,7 +34,12 @@ typedef enum{
 	WHEEL,
 	DAMPERLF,
 	DAMPERRF,
-	ECU
+	ECU,
+	TELEBACK,
+	DAMPERLR,
+	DAMPERRR,
+	ABSLR,
+	ABSRR
 
 }SENSORS;
 
@@ -64,12 +76,10 @@ typedef struct {
 
 	uint16_t checkTime;
 
-
-
 } SensorStatus;
 typedef enum SensorsDeafultTimings{
 	MLX_DATA_RATE = 1000,
-	GYRO_DATA_RATE = 250,
+	IMU_DATA_RATE = 250,
 	DAMPER_DATA_RATE = 50,
 	STEERING_DATA_RATE = 50,
 	ECU_DATA_RATE = 100,
@@ -84,7 +94,7 @@ typedef enum SensorsDeafultTimings{
 
 void initSensors();
 
-void enumToSensor(char *buf,SENSORS sensor);
+const char* enumToSensor(SENSORS sensor);
 
 int statusToInt();
 

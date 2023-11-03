@@ -35,9 +35,11 @@ int openFile(FIL * file, char * path, BYTE mode);
 
 void statsSave(int operation, int time, int sensor);
 
+void telebackSaveData(TeleBackData * teleBack);
+
 void ecuSaveData(EcumasterData ecu);
 
-void gyroSaveData(GyroSensor* sens);
+void IMUSaveData(IMUSensor* sens);
 
 void mlxSaveData(MLXSensor* mlx);
 

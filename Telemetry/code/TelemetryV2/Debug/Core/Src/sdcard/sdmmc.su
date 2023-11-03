@@ -1,0 +1,3 @@
+../Core/Src/sdcard/sdmmc.c:33:6:MX_SDMMC2_SD_Init	4	static
+../Core/Src/sdcard/sdmmc.c:56:6:HAL_SD_MspInit	192	static
+../Core/Src/sdcard/sdmmc.c:170:6:HAL_SD_MspDeInit	16	static

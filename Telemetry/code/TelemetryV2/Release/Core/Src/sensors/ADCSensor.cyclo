@@ -1,0 +1,7 @@
+ADCSensor.c:19:6:adcInit	4
+ADCSensor.c:37:6:damperInit	5
+ADCSensor.c:72:6:steeringInit	1
+ADCSensor.c:82:6:adcSetActiveChannel	2
+ADCSensor.c:93:6:adcSendDataByCan	1
+ADCSensor.c:104:6:adcGetData	1
+ADCSensor.c:111:6:adcSendData	1

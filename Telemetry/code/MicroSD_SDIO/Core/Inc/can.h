@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under Ultimate Liberty license
@@ -43,7 +43,7 @@ void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
+//void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
 void ComputeEcumasterFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);
 void ComputeInternalFrame(CAN_RxHeaderTypeDef RxHeader, uint8_t* RxData);
 uint16_t LittleToBigEndian(uint8_t* data);

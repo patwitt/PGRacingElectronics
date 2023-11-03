@@ -9,20 +9,22 @@
 #include<stdio.h>
 #include "ecumaster.h"
 #include "string.h"
+#include "sensors/TeleBack.h"
+#include "handler.h"
 #define FILE_DEFAULT_MODE FA_WRITE | FA_OPEN_APPEND
 
-extern GyroSensor gyro;
+extern IMUInnerSensor IMUInnerSensor;
 extern MLXSensor mlxLFSensor;
 extern MLXSensor mlxRFSensor;
 extern ABSSensor absLFSensor;
 extern ABSSensor absRFSensor;
 extern ADCSensor damperLFSensor;
-extern ADCSensor damperRFSensor;
 extern GPSSensor gpsSensor;
+extern TeleBackData teleData;
 extern SensorStatus statusRegister;
+extern sensorDataHandler _dataHandler[];
 
-
-const char GYRO_HEADER[] = "gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n";
+const char IMU_HEADER[] = "gyro_x,gyro_y,gyro_z,acc_x,acc_y,acc_z\r\n";
 
 
 void sdDeInit(FATFS* fs)
@@ -38,8 +40,9 @@ void sdInit(FATFS* fs)
 	  if (f_mount(fs, "", 1) == FR_OK)
 	  {
 		  statusRegister.SDCARD = SENSOR_OK;
-		  if(DEBUG)
+			#if DEBUG
 			  printf("SDCard mounting success!\n");
+			#endif
 
 	  }else
 	  {
@@ -57,14 +60,16 @@ void openAllFiles()
 
 	if(statusRegister.SDCARD == SENSOR_OK)
 	{
-		openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
+		if(_dataHandler[GPS].isActive){
+			openFile(gpsSensor.File,gpsSensor.path,FILE_DEFAULT_MODE);
+		}
 		EcuFile = (FIL*)malloc(sizeof(FIL));
-
-		StatsFile = (FIL*)malloc(sizeof(FIL));
-		openFile(StatsFile,"Stats.txt",FILE_DEFAULT_MODE);
 		openFile(EcuFile,ecuPath,FILE_DEFAULT_MODE);
+		if(_dataHandler[TELEBACK].isActive){
+			openFile(teleData.File,teleData.path,FILE_DEFAULT_MODE);
+		}
 		if(statusRegister.GYRO == SENSOR_OK){
-			openFile(gyro.File, gyro.path, FILE_DEFAULT_MODE);
+			openFile(IMUInnerSensor.File, IMUInnerSensor.path, FILE_DEFAULT_MODE);
 		}
 		if(statusRegister.MLXLF == SENSOR_OK){
 			openFile(mlxLFSensor.File, mlxLFSensor.path, FILE_DEFAULT_MODE);
@@ -75,6 +80,8 @@ void openAllFiles()
 		if(statusRegister.DamperLF == SENSOR_OK){
 			openFile(damperLFSensor.File, damperLFSensor.path, FILE_DEFAULT_MODE);
 		}
+		StatsFile = (FIL*)malloc(sizeof(FIL));
+		openFile(StatsFile,"Stats.txt",FILE_DEFAULT_MODE);
 
 	}
 }
@@ -90,7 +97,7 @@ int createHeaders(FIL * file,char * path)
 	}
 
 	if(strstr(path,"GYRO") != NULL){
-		fres = f_write(file, GYRO_HEADER, strlen(GYRO_HEADER), &bytesWritten);
+		fres = f_write(file, IMU_HEADER, strlen(IMU_HEADER), &bytesWritten);
 	}else if(strstr(path,"MLX")!= NULL){
 		char headerText[25];
 		fres =  f_write(file, "ID,", strlen("ID,"), &bytesWritten);
@@ -166,29 +173,67 @@ int openFile(FIL * file, char * path, BYTE mode)
 
 }
 
-void statsSave(int operation, int time, int sensor){
+void statsSave2(char* operation, int time){
 	UINT bw;
 	char dataBuffer[255];
-	char sensorBuffer[15];
-	enumToSensor(sensorBuffer, sensor);
 	int duration = measureTime(time);
-	int dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %s took time: %d\r\n",getSeconds(),operation,sensorBuffer,duration);
+	int dataLength = sprintf(dataBuffer,"[%d] Operation: %s took time: %d\r\n",getSeconds(),operation,duration);
+	f_write(StatsFile, dataBuffer,dataLength,&bw);
+	f_sync(StatsFile);
+}
+void statsSave(int operation, int time, int sensor){
+	int duration = measureTime(time);
+	UINT bw;
+	char dataBuffer[255];
+	const char * sensorBuffer;
+	int dataLength;
+	sensorBuffer = enumToSensor(sensor);
+	if(sensorBuffer[0] != 0){
+		dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %s took time: %d\r\n",getSeconds(),operation,sensorBuffer,duration);
+	}else
+	{
+		dataLength = sprintf(dataBuffer,"[%d] Operation: %d from Sensors: %d took time: %d\r\n",getSeconds(),operation,sensor,duration);
+	}
+
 	f_write(StatsFile, dataBuffer,dataLength,&bw);
 	f_sync(StatsFile);
 }
 void ecuSaveData(EcumasterData ecu){
 	UINT bw;
 	char dataBuffer[255];
-	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
+	int dataLength = sprintf(dataBuffer, "%d,", getSeconds());
 	f_write(EcuFile, dataBuffer, dataLength, &bw);
-	for(int i = 0; i < sizeof(ecu); i++)
-	 {
-		dataLength = sprintf(dataBuffer,"%X",((char*)&ecu)[i]);
-	        f_write(EcuFile, dataBuffer, dataLength, &bw);
-	 }
+	f_write(EcuFile, &ecu, sizeof(ecu), &bw);
 	//int res = f_write(EcuFile, &ecu, sizeof(ecu), &bw);
 	f_write(EcuFile, "\r\n", 2, &bw);
 	//f_sync(EcuFile);
+}
+
+void telebackSaveData(TeleBackData * teleBack){
+	UINT bw;
+	char dataBuffer[255];
+	int dataLength;
+	if(teleBack->ABSLRReady){
+		dataLength = sprintf(dataBuffer, "%d,%d,%d\r\n", getSeconds(),ABSLR,teleBack->ABSLRData);
+		f_write(teleBack->File, dataBuffer, dataLength, &bw);
+		teleBack->ABSLRReady = 0;
+	}
+	if(teleBack->ABSRRReady){
+		dataLength = sprintf(dataBuffer, "%d,%d,%d\r\n", getSeconds(),ABSRR,teleBack->ABSRRData);
+		f_write(teleBack->File, dataBuffer, dataLength, &bw);
+		teleBack->ABSRRReady = 0;
+	}
+	if(teleBack->DamperLRReady){
+		dataLength = sprintf(dataBuffer, "%d,%d,%d\r\n", getSeconds(),DAMPERLR,teleBack->DamperLRData);
+		f_write(teleBack->File, dataBuffer, dataLength, &bw);
+		teleBack->DamperLRReady = 0;
+	}
+	if(teleBack->DamperRRReady){
+		dataLength = sprintf(dataBuffer, "%d,%d,%d\r\n", getSeconds(),DAMPERRR,teleBack->DamperRRData);
+		f_write(teleBack->File, dataBuffer, dataLength, &bw);
+		teleBack->DamperRRReady = 0;
+	}
+
 }
 void gpsSaveData(GPSSensor * sens)
 {
@@ -196,18 +241,18 @@ void gpsSaveData(GPSSensor * sens)
 	UINT writedBytes;
 	FRESULT status = 0;
 	//Save time stamp
-	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
+	int dataLength = sprintf(dataBuffer, "%d,", sens->timestamp);
 	status = f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	status = status | f_write(sens->File,sens->data,strlen(sens->data),&writedBytes);
-	printf("%s,%s\n",dataBuffer,sens->data);
+	printf("%s",sens->data);
 }
-void gyroSaveData(GyroSensor* sens)
+void IMUSaveData(IMUInnerSensor* sens)
 {
 	char dataBuffer[255];
 	UINT writedBytes;
 	FRESULT status = 0;
-	//Save time stamp
-	int dataLength = sprintf(dataBuffer, "%lu,", getSeconds());
+	//Save time stamp and id
+	int dataLength = sprintf(dataBuffer, "%d,1,", sens->timestamp);
 	status = f_write(sens->File, dataBuffer, strlen(dataBuffer), &writedBytes);
 	printf(dataBuffer);
 	for (int i = 0; i < 3; i++)
@@ -235,12 +280,12 @@ void mlxSaveData(MLXSensor* mlx)
 	char dataBuffer[255];
 	UINT writedBytes;
 	//Save time stamp and mlx ID
-	int dataLength = sprintf(dataBuffer, "%lu,%d", getSeconds(),mlx->ID);
+	int dataLength = sprintf(dataBuffer, "%d,%d", mlx->timestamp,mlx->ID);
 	int fres = f_write(mlx->File, dataBuffer, dataLength, &writedBytes);
 
 	for(int i=0;i<784;i++)
 	{
-		dataLength =sprintf(dataBuffer,"%2.2f,", mlx->data[i]);
+		dataLength = sprintf(dataBuffer,"%2.2f,", mlx->data[i]);
 		fres = fres | f_write(mlx->File, dataBuffer, dataLength, &writedBytes);
 	}
 
@@ -248,31 +293,32 @@ void mlxSaveData(MLXSensor* mlx)
 	f_write(mlx->File, dataBuffer, 2, &writedBytes);
 	f_sync(mlx->File);
 }
-extern CAN_HandleTypeDef hcan2;
+
 
 void absSaveData(ABSSensor * sens)
 {
-	char dataBuffer[255];
+	char dataBuffer[100];
 	UINT writedBytes;
-	int dataLength = sprintf(dataBuffer, "%lu,%d,%f\r\n", getSeconds(),sens->ID,sens->data);
-
-	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+	int dataLength = sprintf(dataBuffer, "%d,%d,%f\r\n", sens->timestamp,sens->ID,sens->data);
 	printf(dataBuffer);
+	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
+
 }
 
 void adcSaveData(ADCSensor * sens)
 {
-	char dataBuffer[255];
+	char dataBuffer[100];
 	UINT writedBytes;
-	int dataLength = sprintf(dataBuffer, "%lu,%d,%d\r\n", getSeconds(), sens->ID,sens->data);
+	int dataLength = sprintf(dataBuffer, "%d,%d,%f\r\n", getSeconds(), sens->ID,sens->data);
 	f_write(sens->File, dataBuffer, dataLength, &writedBytes);
 	printf(dataBuffer);
 }
 void sdFlush(){
-	f_sync(gyro.File);
+	f_sync(IMUInnerSensor.File);
 	f_sync(absLFSensor.File);
 	f_sync(gpsSensor.File);
 	f_sync(damperLFSensor.File);
+	f_sync(teleData.File);
 	f_sync(EcuFile);
 }
 void sdMountFailHandler()
