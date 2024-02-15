@@ -1,4 +1,0 @@
-../Core/Src/sensorFunctions.c:34:13:enumToSensor	16	static
-../Core/Src/sensorFunctions.c:64:6:initSensors	16	static
-../Core/Src/sensorFunctions.c:119:5:statusToInt	16	static
-../Core/Src/sensorFunctions.c:134:6:printStatusRegister	24	static

@@ -1,3 +1,0 @@
-usb_otg.c:31:6:MX_USB_OTG_FS_HCD_Init	2
-usb_otg.c:57:6:HAL_HCD_MspInit	3
-usb_otg.c:97:6:HAL_HCD_MspDeInit	2

@@ -23,7 +23,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 				.getDataHandler = IMUGetData,
 				.saveDataHandler = IMUSaveData,
 				.dataReady = 0,
-				.isActive = 1,
+				.isActive = 0,
 		},
 		{
 				.sensorType = MLXLF,
@@ -60,7 +60,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 		{
 				.sensorType = WHEEL,
 				.sensorStruct = (void*)(&sWheelSensor),
-				.getDataHandler = //adcGetData,
+				.getDataHandler = 0,//adcGetData,
 				.saveDataHandler = adcSaveData,
 				.dataReady = 0,
 				.isActive = 0,

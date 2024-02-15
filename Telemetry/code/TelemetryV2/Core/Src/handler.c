@@ -23,7 +23,7 @@ sensorDataHandler _dataHandler[SENSORS_N] = {
 				.getDataHandler = IMUGetData,
 				.saveDataHandler = IMUSaveData,
 				.dataReady = 0,
-				.isActive = 1,
+				.isActive = 0,
 		},
 		{
 				.sensorType = MLXLF,

@@ -1,3 +1,0 @@
-../Core/Src/sensors/IMU.c:16:6:IMUInit	24	static
-../Core/Src/sensors/IMU.c:33:6:IMUConvertData	16	static
-../Core/Src/sensors/IMU.c:44:6:IMUGetData	40	static

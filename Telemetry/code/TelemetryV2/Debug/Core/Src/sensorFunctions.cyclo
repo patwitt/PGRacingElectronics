@@ -1,4 +1,0 @@
-sensorFunctions.c:34:13:enumToSensor	12
-sensorFunctions.c:64:6:initSensors	14
-sensorFunctions.c:119:5:statusToInt	1
-sensorFunctions.c:134:6:printStatusRegister	4

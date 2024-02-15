@@ -1,3 +1,0 @@
-../Core/Src/sensors/MLX90640_I2C_Driver.c:22:6:MLX90640_I2CInit	8	static
-../Core/Src/sensors/MLX90640_I2C_Driver.c:28:5:MLX90640_I2CRead	56	static
-../Core/Src/sensors/MLX90640_I2C_Driver.c:54:5:MLX90640_I2CWrite	48	static

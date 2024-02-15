@@ -1,9 +1,0 @@
-../Core/Src/sensors/GPS.c:22:8:splitCSV	40	static
-../Core/Src/sensors/GPS.c:44:8:getCoords	40	static
-../Core/Src/sensors/GPS.c:56:5:isDataValid	16	static
-../Core/Src/sensors/GPS.c:67:6:GPSReinitUart	16	static
-../Core/Src/sensors/GPS.c:89:6:GPSInit	24	static
-../Core/Src/sensors/GPS.c:114:6:GPSSetDataRate	32	static
-../Core/Src/sensors/GPS.c:140:6:GPSDisableNmea	96	static
-../Core/Src/sensors/GPS.c:208:6:GPSChangeBaudrate	88	static
-../Core/Src/sensors/GPS.c:253:6:GPSCallbackHandler	8	static

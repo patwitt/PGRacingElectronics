@@ -24,6 +24,7 @@
 #include "fatfs.h"
 #include "i2c.h"
 #include "rtc.h"
+#include "sdmmc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -70,7 +71,8 @@
 
  extern sensorDataHandler _dataHandler[];
  extern SensorStatus statusRegister;
-
+ extern RTC_TimeTypeDef globalTime;
+ extern RTC_DateTypeDef globalDate;
  extern FIL* EcuFile;
  extern FIL* StatsFile;
  extern char ecuPath[];
@@ -141,9 +143,7 @@ int sendAllFilesToUart()
 	return 0;
 
 }
-int measureTime(uint32_t startTime){
-	return getSeconds()- startTime;
-}
+
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -165,6 +165,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		 _dataHandler[DAMPERLF].dataReady = 1;
 		 _dataHandler[DAMPERRR].dataReady = 1;
 		 _dataHandler[DAMPERLR].dataReady = 1;
+		 _dataHandler[WHEEL].dataReady = 1;
 		 damperLFSensor.timeToNextRead = 5;
 	 }
 	 damperLFSensor.sendDataByCanTime -= 5;
@@ -203,18 +204,8 @@ void getUTCTimeFormat(char arr[25])
 	  int mili = ((time.SecondFraction-time.SubSeconds)/((float)time.SecondFraction+1) * 1000);
     sprintf(arr,"%02d:%02d:%02d:%03d", time.Hours, time.Minutes, time.Seconds,mili );
 }
-int getTime(RTC_TimeTypeDef* time, RTC_DateTypeDef* date)
-{
-	HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
-    return ((time->SecondFraction-time->SubSeconds)/((float)time->SecondFraction+1) * 1000);
-}
-int getSeconds(){
-	RTC_TimeTypeDef time;
-	RTC_DateTypeDef date;
-	int sub = getTime(&time,&date);
-	return ((time.Hours*60+time.Minutes)*60+time.Seconds)*1000+sub;
-}
+
+
 
 //ABS
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
@@ -321,9 +312,9 @@ int main(void)
     RTC_TimeTypeDef time;
     RTC_DateTypeDef date;
 
-    int mili = getTime(&time,&date);
-    printf("Current Date: %02d/%02d/%04d\n", date.Date, date.Month,2000 + date.Year);
-    printf("Current time: %02d:%02d:%02d:%03d\n", time.Hours, time.Minutes, time.Seconds,mili);
+    int mili = getTime();
+    printf("Current Date: %02d/%02d/%04d\n", globalDate.Date, globalDate.Month,2000 + globalDate.Year);
+    printf("Current time: %02d:%02d:%02d:%03d\n", globalTime.Hours, globalTime.Minutes, globalTime.Seconds,mili);
     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, 1);
     int counter = 0;
 	int timePassed = HAL_GetTick();
@@ -338,10 +329,10 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 
-  		  counter++;
-  		  for(SENSORS i=0;i<SENSORS_N;i++)
-  		  {
-  			  if( _dataHandler[i].isActive)
+    	counter++;
+    	for(SENSORS i=0;i<SENSORS_N;i++)
+  		{
+  			if( _dataHandler[i].isActive)
   			  {
   				  if(_dataHandler[i].getDataHandler != NULL)
   				  {
@@ -363,24 +354,24 @@ int main(void)
   			  	  }
   			  }
   		  }
-  		  //sendEcuLogs(ecuData);
+		//sendEcuLogs(ecuData);
   		  if(counter >= 100){
   			 if((statusRegister.SDCARD & 0b100) < SENSOR_FAIL)
-  			  			  	  {
-  			sdFlush();
-  			//f_sync(StatsFile);
-  			counter = 0;
-  			  			  	  }
+  			 {
+				sdFlush();
+				//f_sync(StatsFile);
+				counter = 0;
+			}
   		  }
 
   	  }
 
-  	}
+
 
 
 
   /* USER CODE END 3 */
-
+}
 
 /**
   * @brief System Clock Configuration
@@ -394,6 +385,7 @@ void SystemClock_Config(void)
   /** Configure LSE Drive Capability
   */
   HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_HIGH);
 
   /** Configure the main internal regulator output voltage
   */
@@ -403,9 +395,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;

@@ -1,7 +1,0 @@
-../Core/Src/sensors/ADCSensor.c:20:6:adcInit	24	static
-../Core/Src/sensors/ADCSensor.c:41:6:damperInit	32	static
-../Core/Src/sensors/ADCSensor.c:76:6:steeringInit	24	static
-../Core/Src/sensors/ADCSensor.c:87:6:adcSetActiveChannel	32	static
-../Core/Src/sensors/ADCSensor.c:98:6:adcSendDataByCan	48	static
-../Core/Src/sensors/ADCSensor.c:109:6:adcGetData	16	static
-../Core/Src/sensors/ADCSensor.c:116:6:adcSendData	16	static

@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name Kondensator)(type KiCad)(uri ${KIPRJMOD}/Kondensator.pretty)(options "")(descr ""))
-)

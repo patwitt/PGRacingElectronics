@@ -1,4 +1,0 @@
-ABS.c:17:6:ABSInit	5
-ABS.c:48:6:ABSCalculate	3
-ABS.c:66:6:ABSCallbackHandler	3
-ABS.c:82:6:sendWheelSpeedByCan	3
