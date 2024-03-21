@@ -57,38 +57,38 @@ static const GearSensorPlausibilityEnum plausibilityDebounceMap[DEBOUNCE_STATUS_
 //! Gear Sensor configuration
 static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 [GEAR_SENS_1] = {
-		 .adcExpectedReading = 3270U,
+		 .adcExpectedReading = 1566U,
 		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_N] = {
-		 .adcExpectedReading = 4020U,
+		 .adcExpectedReading = 3875U,
 		 .adcResolution = 420U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_2] = {
-	     .adcExpectedReading = 2715U,
+	     .adcExpectedReading = 912U,
 		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_3] = {
-		 .adcExpectedReading = 2235U,
-		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
+		 .adcExpectedReading = 566U,
+		 .adcResolution = 100U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_4] = {
-	     .adcExpectedReading = 1618U,
-		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
+	     .adcExpectedReading = 342U,
+		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_5] = {
-		 .adcExpectedReading = 1079U,
-		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
+		 .adcExpectedReading = 195U,
+		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
-	     .adcExpectedReading = 520U,
-		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
+	     .adcExpectedReading = 75U,
+		 .adcResolution = 50U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_IN_PROG] = {

@@ -18,7 +18,7 @@
 static __IO uint32 timers[N_PROCESS];
 static __IO boolean hasElapsed = FALSE;
 
-static SwTimerStats combinedStats; /**< Single frame statistics */
+static SwTimerStats combinedStats_; /**< Single frame statistics */
 static SchedulerType* schedule_ = NULL;  /**< Pointer to list of tasks */
 
 static void SchedulerExecuteTasks(void);
@@ -49,7 +49,7 @@ ErrorEnum SchedulerInit(SchedulerType* const schedule, TIM_HandleTypeDef *const 
 		/* Assign scheduler timer to stop watch - no return */
 		StopWatchInit(timer);
 
-		SwTimerInitStats(&combinedStats, UINT32_MAX);
+		SwTimerInitStats(&combinedStats_, UINT32_MAX);
 
 	   for (uint32_t i = 0U; i < N_PROCESS; ++i)
 	   {
@@ -116,15 +116,15 @@ static void SchedulerExecuteTasks(void)
 
    for (uint32_t i = 0U; i < N_PROCESS; ++i) {
          if (timers[i] >= schedule_[i].period) {
-            TimerStopWatchStartLap(&taskStopWatch);
+            //TimerStopWatchStartLap(&taskStopWatch);
             schedule_[i].handler();
-            SwTimerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
+            //SwTimerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
             timers[i] = 0U;
          }
    }
 
    const uint32_t frameDuration = TimerStopWatchCaptureDuration(&frameStopWatch);
-   SwTimerUpdateStats(&combinedStats, frameDuration);
+   SwTimerUpdateStats(&combinedStats_, frameDuration);
 
    //SchedulerUpdateCpuLoadStats(frameDuration);
    WatchdogFeed();

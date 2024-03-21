@@ -30,12 +30,16 @@ typedef struct {
 #define DEG_1_2_UP (DEG_DEFAULT + DEG_UP_MAX)   //!< Degrees for up-shift 1 -> 2
 #define DEG_UP     (DEG_DEFAULT + 80U)          //!< Degrees for up-shifts (gears 2, 3, 4, 5)
 #define DEG_N_2_UP (DEG_DEFAULT + 50U)          //!< Degrees for up-shift N -> 2
-#define DEG_1_N    (DEG_DEFAULT + 27U)          //!< Degrees for shift 1 -> N @NOTE: !This is only option for going to NEUTRAL (DOWNSHIFT)!
+#define DEG_1_N    (DEG_DEFAULT + 32U)          //!< Degrees for shift 1 -> N @NOTE: !This is only option for going to NEUTRAL (DOWNSHIFT)!
 
 /* DOWNSHIFTS */
 #define DEG_2_1_D  (DEG_DEFAULT - DEG_DOWN_MAX) //!< Degrees for down-shift 2 -> 1
 #define DEG_DOWN   (DEG_DEFAULT - 80U)          //!< Degrees for down-shifts (gears 3, 4, 5, 6)
 #define DEG_N_1_D  (DEG_DEFAULT - 50U)          //!< Degrees for down-shift N -> 1
+
+static const GearServoDegData Prohibited = {
+ DEG_PROHIBITED, DEG_PROHIBITED, DEG_PROHIBITED ,GEAR_COUNT, GEAR_COUNT
+};
 
 static const GearServoDegData GearShiftDegMap[GEAR_COUNT] = {
      /* --------------------------------------------------------------------------------------------- */
@@ -56,11 +60,17 @@ static const GearServoDegData GearShiftDegMap[GEAR_COUNT] = {
 	 /* G 5    |     5 -> 4      |   5 -> 6        |     DEG NONE    |    5 -> 4      |     3 -> 4    */
 	 [GEAR_5] = {   DEG_DOWN,        DEG_UP,         DEG_PROHIBITED,      GEAR_4,           GEAR_6    },
 	 /* G 6    |     6 -> 5      |    NONE         |     DEG NONE    |    6 -> 5      |   GEAR NONE   */
-	 [GEAR_6] = {   DEG_DOWN,      DEG_PROHIBITED,   DEG_PROHIBITED,      GEAR_5,       GEAR_DISABLED },
+	 [GEAR_6] = {   DEG_DOWN,      DEG_PROHIBITED,   DEG_PROHIBITED,      GEAR_5,         GEAR_COUNT  },
+	 /* G 5    |     5 -> 4      |   5 -> 6        |     DEG NONE    |   GEAR NONE    |   GEAR NONE   */
+	 [GEAR_BYPASS] = { DEG_DOWN,    DEG_UP,          DEG_PROHIBITED,    GEAR_COUNT,       GEAR_COUNT  },
      /* --------------------------------------------------------------------------------------------- */
 	 /* --------------------------------- ANYTHING ELSE IS INVALID ---------------------------------- */
-	 [GEAR_INIT]     = { DEG_PROHIBITED, DEG_PROHIBITED, DEG_PROHIBITED ,GEAR_DISABLED, GEAR_DISABLED },
-	 [GEAR_DISABLED] = { DEG_PROHIBITED, DEG_PROHIBITED, DEG_PROHIBITED ,GEAR_DISABLED, GEAR_DISABLED }
+	 [GEAR_UNKNOWN]       = Prohibited,
+	 [GEAR_INIT]          = Prohibited,
+	 [GEAR_DISABLED]      = Prohibited,
+	 [GEAR_SENS_FAILURE]  = Prohibited,
+	 [GEAR_SERVO_FAILURE] = Prohibited,
+	 [GEAR_IMPLAUSIBLE]   = Prohibited
 };
 
 #endif /* SRC_APPLICATION_GEARCONTROL_SRC_GEARCONTROL_MAP_H_ */

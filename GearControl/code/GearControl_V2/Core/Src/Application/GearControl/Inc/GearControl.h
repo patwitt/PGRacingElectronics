@@ -29,11 +29,13 @@ typedef enum {
 	GEAR_SENS_FAILURE     = 10U,
 	GEAR_SERVO_FAILURE    = 11U,
 	GEAR_IMPLAUSIBLE      = 12U,
-	GEAR_COUNT            = 13U
+	GEAR_BYPASS           = 13U,
+	GEAR_COUNT            = 14U
 } GearStates;
 
 ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim);
 void GearControl_Process(void);
 GearStates GearControl_GetGear(void);
+bool_t GearControl_IsBypass(void);
 
 #endif /* SRC_APPLICATION_GEARCONTROL_INC_GEARCONTROL_H_ */

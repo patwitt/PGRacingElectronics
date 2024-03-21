@@ -287,7 +287,7 @@ void DMA2_Stream4_IRQHandler(void)
 
 	#if CONFIG_RUN_DEBUG
 	  /* For STMSTUDIO */
-	  debugAdc1[ADC_CHANNEL_GEAR_SENS] = *adc1Channels[ADC_CHANNEL_GEAR_SENS].raw;
+	  debugAdc1[ADC_CHANNEL_GEAR_SENS] = adc1Channels[ADC_CHANNEL_GEAR_SENS].avgData.avg;
 	  //debugAdc1[ADC_CHANNEL_IS] = *adc1Channels[ADC_CHANNEL_IS].raw;
 	#endif
   }
