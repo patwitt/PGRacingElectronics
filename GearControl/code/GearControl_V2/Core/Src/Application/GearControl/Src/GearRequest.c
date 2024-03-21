@@ -69,6 +69,7 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 			}
 			break;
 
+		case GEAR_BYPASS:
 		case GEAR_N:
 		case GEAR_2:
 		case GEAR_3:
@@ -80,7 +81,6 @@ static inline GearRequestEnum GearRequest_Validate(const GearRequestEnum request
 					ret = request;
 					break;
 				default:
-
 					break;
 			}
 			break;

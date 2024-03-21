@@ -85,6 +85,8 @@ typedef struct {
 	uint32_t clutchTimeout;
 	uint32_t gearTickStart;
 	SwTimerStats timStats;
+	uint8_t bypass;
+	CAN_RxMsgType* gearModeCan;
 } GearControlHandler;
 
 //! Gear servo configuration
@@ -141,7 +143,9 @@ static __IO GearControlHandler gearCtrl = {
 		.debCnt = 0U,
 		.gearDebounceMs = 10U,
 		.canShiftStatusMap = shiftCanMap,
-		.delayTim = 0U
+		.delayTim = 0U,
+		.bypass = FALSE,
+		.gearModeCan = NULL
 };
 
 /* ---------------------------- */
@@ -166,7 +170,7 @@ static inline GearShiftStates GearCtrl_ShiftSuccessful(void);
 
 static inline GearShiftStates GearCtrl_CheckGearAgainstSensor(GearStates *const establishedGear);
 static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establishedGear);
-
+static inline void GearCtrl_Bypass(void);
 static inline void ShiftHandler_Monitoring(void);
 /* ---------------------------- */
 /*        Local functions       */
@@ -239,12 +243,12 @@ static inline GearStates GearCtrlState_Init(void)
 	GearStates nextState = GEAR_INIT;
 
 	/* Check sensor plausibility before initialization */
-	if (GearSensor_GetPlausibility() == GEAR_SENS_PLAUSIBLE) {
-
+	if ((GearSensor_GetPlausibility() == GEAR_SENS_PLAUSIBLE) &&
+		(GearControl_IsBypass() == FALSE)) {
 		const GearSensorStatesEnum gearSens = GearSensor_GetState();
 
 		/* Initialization will continue only if gear sensor gives valid reading */
-		if (gearSens <= GEAR_SENS_6) {
+		if (gearSens <= GEAR_SENS_6){
 			/* Enable gear shifting servo */
 			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
 				/* Gear sensor reading OK, proceed with normal operation */
@@ -320,6 +324,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				/* Set new request for down-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesDown;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearDown;
+
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
 				break;
 
@@ -327,6 +332,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				/* Set new request for up-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesUp;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearUp;
+
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_UP);
 				break;
 
@@ -624,6 +630,10 @@ static inline GearShiftStates GearCtrl_GearMonitoring(GearStates *const establis
 	/* Keep old shifting state */
 	GearShiftStates nextShiftState = gearCtrl.shiftState;
 
+	if (GearControl_IsBypass() == TRUE) {
+		return SHIFT_IDLE;
+	}
+
 	/* Check if reading is not unknown */
 	if (GearSensor_GetState() != GEAR_SENS_UNKNOWN) {
 		/* Check gear sensor reading plausibility */
@@ -757,44 +767,66 @@ static inline GearStates GearCtrlState_ShiftHandler(void)
  */
 static void GearControl_StateMachine(void)
 {
-	switch (gearCtrl.gear) {
-		case GEAR_INIT:
-			/* Init state is handled separately */
-			gearCtrl.gear = GearCtrlState_Init();
-			break;
+		switch (gearCtrl.gear) {
+			case GEAR_INIT:
+				/* Init state is handled separately */
+				gearCtrl.gear = GearCtrlState_Init();
+				break;
 
-		case GEAR_1:
-		case GEAR_N:
-		case GEAR_2:
-		case GEAR_3:
-		case GEAR_4:
-		case GEAR_5:
-		case GEAR_6:
-			/* All other states representing gears use the same shift handler */
-			gearCtrl.gear = GearCtrlState_ShiftHandler();
-			break;
-
-		case GEAR_UNKNOWN:
-		case GEAR_SENS_FAILURE:
-		case GEAR_IMPLAUSIBLE:
-			/* Recover gear state */
-			GearCtrl_ResetRequest(&gearCtrl.request);
-			/* Go to default position and call handler to recover gear from sensor reading */
-			if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
+			case GEAR_1:
+			case GEAR_N:
+			case GEAR_2:
+			case GEAR_3:
+			case GEAR_4:
+			case GEAR_5:
+			case GEAR_6:
+			case GEAR_BYPASS:
+				/* All other states representing gears use the same shift handler */
 				gearCtrl.gear = GearCtrlState_ShiftHandler();
-			} else {
-				gearCtrl.gear = GEAR_SERVO_FAILURE;
-			}
-			break;
+				break;
 
-		case GEAR_SERVO_FAILURE:
-		case GEAR_DISABLED:
-		case GEAR_COUNT:
-		default:
-			/* Gear shifting is disabled, unrecoverable without MCU reset */
-			GearCtrl_ResetRequest(&gearCtrl.request);
-			(void)Servo_SetDefaultPos(gearCtrl.servo);
-			break;
+			case GEAR_UNKNOWN:
+			case GEAR_SENS_FAILURE:
+			case GEAR_IMPLAUSIBLE:
+				/* Recover gear state */
+				GearCtrl_ResetRequest(&gearCtrl.request);
+				/* Go to default position and call handler to recover gear from sensor reading */
+				if (Servo_SetDefaultPos(gearCtrl.servo) == ERROR_OK) {
+					gearCtrl.gear = GearCtrlState_ShiftHandler();
+				} else {
+					gearCtrl.gear = GEAR_SERVO_FAILURE;
+				}
+				break;
+
+			case GEAR_SERVO_FAILURE:
+			case GEAR_DISABLED:
+			case GEAR_COUNT:
+			default:
+				/* Gear shifting is disabled, unrecoverable without MCU reset */
+				GearCtrl_ResetRequest(&gearCtrl.request);
+				(void)Servo_SetDefaultPos(gearCtrl.servo);
+				break;
+		}
+}
+
+static inline void GearCtrl_Bypass(void)
+{
+	uint8_t* gear_mode_can = CAN_GetRxNewData(CAN_RX_MSG_GEAR_MODE);
+
+	if (gear_mode_can != NULL) {
+		/* Process bypass only on new CAN message */
+		gearCtrl.bypass = gear_mode_can[0];
+
+		if (gearCtrl.bypass == TRUE) {
+			if (Servo_EnableAndGoToDefaultPos(gearCtrl.servo) == ERROR_OK) {
+				gearCtrl.gear = GEAR_BYPASS;
+				gearCtrl.bypass = FALSE;
+			}
+		} else {
+			(void)Servo_Disable(gearCtrl.servo);
+			gearCtrl.gear = GEAR_INIT;
+			gearCtrl.shiftState = SHIFT_INIT;
+		}
 	}
 }
 
@@ -861,6 +893,9 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
  */
 void GearControl_Process(void)
 {
+	/* Check Bypass status */
+	GearCtrl_Bypass();
+
 	/* Update CAN Status based on current shifting state */
 	GearControlCAN_UpdateStatus(gearCtrl.canShiftStatusMap[gearCtrl.shiftState]);
 
@@ -879,4 +914,9 @@ void GearControl_Process(void)
 GearStates GearControl_GetGear(void)
 {
 	return gearCtrl.gear;
+}
+
+bool_t GearControl_IsBypass(void)
+{
+	return gearCtrl.gear == GEAR_BYPASS;
 }

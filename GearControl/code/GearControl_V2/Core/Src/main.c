@@ -195,6 +195,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+
   MX_CAN1_Init();
   MX_TIM1_Init();
   MX_DMA_Init();
@@ -613,12 +614,14 @@ static void MX_TIM2_Init(void)
   TIM_IC_InitTypeDef sConfigIC = {0};
 
   /* USER CODE BEGIN TIM2_Init 1 */
-
+  // Timer used for scheduler frame measurement
+  // prescaler - 84Mhz / 840 = 100 000 Hz
+  // period - measure ticks in 1ms - 100 000 Hz / 1000 Hz = 100 ticks per ms
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 0;
+  htim2.Init.Prescaler = 839;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 167;
+  htim2.Init.Period = 100;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_IC_Init(&htim2) != HAL_OK)

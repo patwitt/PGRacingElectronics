@@ -45,10 +45,19 @@
 #define TPS_INIT_DELAY_MS (100U)
 #define TPS_INIT_CALIBRATION_MS (500U)
 
-#define APPS_FEASIBLE_MIN (800U)
-#define APPS_FEASIBLE_MAX (3000U)
-#define APPS_MIN_MEASURED_F (1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (3200.0f) //(3200.0f)
+/* CALIBRATION VALUES START */
+/* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
+#define APPS_FEASIBLE_MIN  (900.0f)  //(700U)  //(800U)
+/* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
+#define APPS_FEASIBLE_MAX  (2000.0f) //(3500U) //(3000U)
+#define APPS_MIN_MEASURED_F (792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+
+#define TPS_FEASIBLE_MIN (800U)
+#define TPS_FEASIBLE_MAX (3600U)
+#define TPS_MIN_MEASURED_F (730.0f)
+#define TPS_MAX_MEASURED_F (3700.0f)
+/* CALIBRATION VALUES END */
 
 #define APPS_POS_MAX_F (1000.0f)
 #define APPS_POS_MIN_F (0.0f)
@@ -58,11 +67,8 @@
 #define TPS_CALIBRATION_OOR (4000U)
 #define TPS_IDLE_POS_MAX_DIFF (20U)
 #define TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES (50U)
-#define TPS_FEASIBLE_MIN (800U)
-#define TPS_FEASIBLE_MAX (3600U)
+
 #define TPS_CALIBRATION_SPEED (380.0f) // 0-1000
-#define TPS_MIN_MEASURED_F (730.0f)
-#define TPS_MAX_MEASURED_F (3700.0f)
 #define TPS_POS_MAX_F (1000.0f)
 #define TPS_POS_MIN_F (0.0f)
 #define TPS_DIVISOR_F(min, max) (TPS_POS_MAX_F / (max - min))
@@ -158,6 +164,7 @@ typedef struct
 	/* DBW state */
 	DBW_States state;
 	SafetyTriggerHandler *const safety_trigger;
+	bool_t apps_calib_request;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
 	float* revMatchTarget;
@@ -237,7 +244,8 @@ static DbwHandle dbw = {
 	.revMatchTarget = NULL,
 #endif
 	.state = DBW_DISABLED,
-	.safety_trigger = &safety_trigger_
+	.safety_trigger = &safety_trigger_,
+	.apps_calib_request = FALSE
 };
 
 /* APPS interpolation */
@@ -376,13 +384,16 @@ static DBW_States DBW_HandlerInit(void)
  */
 static DBW_States DBW_HandlerCalibrateAPPS(void)
 {
+#define APPS_CALIB_MAX_LIMIT_PERCENT (1.0f)
+
 	DBW_States nextState = DBW_CALIBRATE_APPS;
 	apps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*apps_.apps1->raw + *apps_.apps2->raw));
 	Utils_UpdateMax_U16(apps_.plausibility->absDiff, &apps_.plausibility->maxAbsDiff);
 
 	if (!SwTimerHasElapsed(&apps_.timer)) {
 		if (apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed) {
-			Utils_UpdateMinMax_U16(*apps_.apps2->raw, &apps_.limits->calibMin, &apps_.limits->calibMax);
+			/* Use 10 sample average OR apps2->raw */
+			Utils_UpdateMinMax_U16(apps_.apps2->avgData.avg, &apps_.limits->calibMin, &apps_.limits->calibMax);
 		}
 	} else {
 		if ((apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed) &&
@@ -390,7 +401,7 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 		    (apps_.limits->calibMax > APPS_FEASIBLE_MAX)) {
 			/* Calibration OK */
 			apps_.limits->min = (float)apps_.limits->calibMin;
-			apps_.limits->max = (float)apps_.limits->calibMax;
+			apps_.limits->max = (float)(apps_.limits->calibMax) * ((100.0f - APPS_CALIB_MAX_LIMIT_PERCENT) / 100.0f);
 			DCMotor_Enable();
 			nextState = DBW_RUN;
 		} else {
@@ -477,12 +488,11 @@ void DBW_RevMatchRestoreNormalOperation(void)
 /**
  * @brief TPS sensor calibration sequence.
  * 
- * The function is called every time the ADC interrupt is triggered. It checks if the difference
- * between the two ADC values is within a certain range. If it is, it updates the minimum and maximum
- * values. If it isn't, it checks if the difference is within the range for a certain number of times.
- * If it is, it changes the direction of the motor. If it isn't, it stops the motor. If the minimum and
- * maximum values are within a certain range, it enables the motor and changes the state to DBW_RUN. If
- * they aren't, it changes the state to DBW_DISABLED.
+ * It checks if the difference between the two TPS sensor signals is within a correct range.
+ * If it is, it updates the minimum and maximum values. If it isn't, it checks if the difference is
+ * within the range for a certain number of times. If it is, it changes the direction of the motor.
+ * If it isn't, it stops the motor. If the minimum and maximum values are within a certain range,
+ * it enables the motor and changes the state to DBW_RUN. If they aren't, it changes the state to DBW_DISABLED.
  * 
  * @return The next state of the DBW_States enum.
  */
@@ -500,7 +510,8 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 		if (isPlausible) {
 			++tps_.calibOkCnt;
 			/* Continue going UP/DOWN */
-			Utils_UpdateMinMax_U16(*tps_.tps2->raw, &tps_.limits->calibMin, &tps_.limits->calibMax);
+			/* Use 10 sample average OR tps2->raw */
+			Utils_UpdateMinMax_U16(tps_.tps2->avgData.avg, &tps_.limits->calibMin, &tps_.limits->calibMax);
 		} else {
 			/* Invalid plausibility, reached end */
 			if (tps_.calibNokCnt > tps_.calibOkCnt) {
@@ -749,6 +760,11 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
  */
 static void DBW_StateMachine(void)
 {
+	if (dbw.apps_calib_request == TRUE) {
+		dbw.state = DBW_CALIBRATE_APPS;
+		dbw.apps_calib_request = FALSE;
+	}
+
 	switch (dbw.state) {
 		case DBW_INIT:
 			dbw.state = DBW_HandlerInit();
@@ -768,7 +784,6 @@ static void DBW_StateMachine(void)
 
 			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
 				dbw.state = DBW_HandlerRun();
-
 				DBW_SafetyCheck();
 			} else {
 				dbw.state = DBW_DISABLED;
@@ -798,8 +813,8 @@ ErrorEnum DBW_Init(void)
 {
 	ErrorEnum err = ERROR_OK;
 
-	tps_.tps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_1);
-	tps_.tps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_2);
+	tps_.tps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_2);
+	tps_.tps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_1);
 	apps_.apps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_APPS_1);
 	apps_.apps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_APPS_2);
 
@@ -867,7 +882,7 @@ void DBW_RequestAppsCalibration(void)
 		SwTimerStart(&apps_.timer, APPS_CALIBRATION_TIME_MS);
 		apps_.limits->calibMin = UINT16_MAX;
 		apps_.limits->calibMax = 0U;
-		dbw.state = DBW_CALIBRATE_APPS;
+		dbw.apps_calib_request = TRUE;
 	}
 }
 

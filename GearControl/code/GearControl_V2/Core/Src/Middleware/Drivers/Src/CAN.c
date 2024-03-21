@@ -34,6 +34,12 @@ static CAN_RxMsgType canRxMsgsConfig[CAN_RX_MSG_COUNT] = {
 			.halErr = HAL_OK,
 			.newData = FALSE,
 			.buffer = {0U}
+		},
+		[CAN_RX_MSG_GEAR_MODE] = {
+			.stdId = CAN_RX_MSG_STDID_GEAR_MODE,
+			.halErr = HAL_OK,
+			.newData = FALSE,
+			.buffer = {0U}
 		}
 };
 
@@ -103,9 +109,9 @@ static HAL_StatusTypeDef CAN_HALInit(void)
 	HAL_StatusTypeDef status = HAL_OK;
 
 	filterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-	filterconfig.FilterIdHigh = 0x4;
+	filterconfig.FilterIdHigh = 0x51;
 	filterconfig.FilterIdLow = 0x0000;
-	filterconfig.FilterMaskIdHigh = 0x4;
+	filterconfig.FilterMaskIdHigh = 0x51;
 	filterconfig.FilterMaskIdLow = 0x0000;
 	filterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
 	filterconfig.FilterBank = 0;
@@ -159,6 +165,10 @@ static inline void CAN_DecodeRxMsg(CAN_RxHeaderTypeDef *const rxHeader, const ui
 
 		case CAN_RX_MSG_STDID_TELEMETRY:
 			CAN_UpdateRxMsg(rxHeader, &canHandler_.rxMsg[CAN_RX_MSG_TELEMETRY], rxBuffer, status);
+			break;
+
+		case CAN_RX_MSG_STDID_GEAR_MODE:
+			CAN_UpdateRxMsg(rxHeader, &canHandler_.rxMsg[CAN_RX_MSG_GEAR_MODE], rxBuffer, status);
 			break;
 
 		default:

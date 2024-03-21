@@ -84,6 +84,12 @@ float PID_Update(float *target, const float measurement)
 	pid.integrator = CLAMP_MIN(pid.integrator, limMinInt);
 
 	pid.deltaMeas = measurement - pid.prevMeas;
+#if 0
+	pid.differentiator = -(2.0f * pid.Kd * pid.deltaMeas						/* Note: derivative on measurement, therefore minus sign in front of equation! */
+	                     + (2.0f * pid.tau - pid.T) * pid.differentiator)
+	                     / (2.0f * pid.tau + pid.T);
+#endif
+
 	pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
 
 	/* Compute output */
