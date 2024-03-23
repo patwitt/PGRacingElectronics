@@ -33,7 +33,7 @@
  */
 
 #define APPS_CALIBRATION_TIME_MS (5000U)
-#define TPS_CALIBRATION_TIME_MS (1000U)
+#define TPS_CALIBRATION_TIME_MS (3000U)
 
 #define ADC_MAX (4096U)
 #define TPS_ADC_MAX_DIFF_THRESHOLD (410U)  // 10% of 5V
@@ -68,7 +68,7 @@
 #define TPS_IDLE_POS_MAX_DIFF (20U)
 #define TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES (50U)
 
-#define TPS_CALIBRATION_SPEED (380.0f) // 0-1000
+#define TPS_CALIBRATION_SPEED (500.0f)//(380.0f) // 0-1000
 #define TPS_POS_MAX_F (1000.0f)
 #define TPS_POS_MIN_F (0.0f)
 #define TPS_DIVISOR_F(min, max) (TPS_POS_MAX_F / (max - min))
@@ -165,6 +165,7 @@ typedef struct
 	DBW_States state;
 	SafetyTriggerHandler *const safety_trigger;
 	bool_t apps_calib_request;
+	float err_pos_percent;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
 	float* revMatchTarget;
@@ -245,7 +246,8 @@ static DbwHandle dbw = {
 #endif
 	.state = DBW_DISABLED,
 	.safety_trigger = &safety_trigger_,
-	.apps_calib_request = FALSE
+	.apps_calib_request = FALSE,
+	.err_pos_percent = 0.0f
 };
 
 /* APPS interpolation */
@@ -606,6 +608,9 @@ static DBW_States DBW_HandlerRun(void)
 {
 	tps_.position = DBW_ConvertTpsRawValue();
 	apps_.target = DBW_SetTargetValue();
+	apps_.target = 500.0f;
+
+	dbw.err_pos_percent = ((apps_.target - tps_.position) / 1000.0f) * 100.0f; // 0-100 [%]
 
 #if CONFIG_PID_ENABLE_RC_LPF
 	/* Low-Pass Filter on samples */
@@ -780,7 +785,7 @@ static void DBW_StateMachine(void)
 
 		case DBW_RUN:
 			DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+			//DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
 
 			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
 				dbw.state = DBW_HandlerRun();

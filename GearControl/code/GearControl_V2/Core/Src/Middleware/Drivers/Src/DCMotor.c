@@ -81,8 +81,9 @@ ErrorEnum DCMotor_Init(void) {
 
 	if (err == ERROR_OK) {
 		if (htim1.Instance != NULL) {
-			  dcController.PWM_H_plus = &htim1.Instance->CCR4;
-			  dcController.PWM_H_minus = &htim1.Instance->CCR1;
+			// TODO REVERSE!!! FOR BOSCH!!!
+			  dcController.PWM_H_plus = &htim1.Instance->CCR1;
+			  dcController.PWM_H_minus = &htim1.Instance->CCR4;
 			  DCMotor_Disable();
 			  if (dcController.state != DC_MOTOR_DISABLED) {
 				  err = ERROR_DBW_DC_MOTOR_INIT;

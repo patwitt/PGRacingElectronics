@@ -90,7 +90,7 @@ float PID_Update(float *target, const float measurement)
 	                     / (2.0f * pid.tau + pid.T);
 #endif
 
-	//pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
+	pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
 
 	/* Compute output */
 	pid.out = proportional + pid.integrator + pid.differentiator;
