@@ -30,6 +30,8 @@ typedef struct
 	/* Samping time */
 	const float T;
 
+	float springBias;
+
 	/* previous samples */
 	float integrator;
 	float error;
@@ -47,13 +49,6 @@ typedef struct
 	/* Output */
 	float out;
 } PIDController;
-
-#if 0
-	/* Derivative band-limited differentiator */
-	pid.differentiator = -(2.0f * pid.Kd * (measurement - pid.prevMeas)	/* Note: derivative on measurement, therefore minus sign in front of equation! */
-	                        + (2.0f * pid.tau - pid.T) * pid.differentiator)
-	                        / (2.0f * pid.tau + pid.T);
-#endif
 
 float PID_Update(float *target, const float measurement);
 

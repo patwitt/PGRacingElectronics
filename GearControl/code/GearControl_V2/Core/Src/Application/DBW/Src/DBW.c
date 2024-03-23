@@ -33,7 +33,7 @@
  */
 
 #define APPS_CALIBRATION_TIME_MS (5000U)
-#define TPS_CALIBRATION_TIME_MS (1000U)
+#define TPS_CALIBRATION_TIME_MS (2000U)
 
 #define ADC_MAX (4096U)
 #define TPS_ADC_MAX_DIFF_THRESHOLD (410U)  // 10% of 5V
@@ -50,13 +50,13 @@
 #define APPS_FEASIBLE_MIN  (900.0f)  //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
 #define APPS_FEASIBLE_MAX  (2000.0f) //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (792.0f) //(1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+#define APPS_MIN_MEASURED_F (725.0f)//(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (4075.0f)//(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
 #define TPS_FEASIBLE_MIN (800U)
 #define TPS_FEASIBLE_MAX (3600U)
-#define TPS_MIN_MEASURED_F (730.0f)
-#define TPS_MAX_MEASURED_F (3700.0f)
+#define TPS_MIN_MEASURED_F (735.0f)//(730.0f)
+#define TPS_MAX_MEASURED_F (3420.0f)
 /* CALIBRATION VALUES END */
 
 #define APPS_POS_MAX_F (1000.0f)
@@ -68,7 +68,7 @@
 #define TPS_IDLE_POS_MAX_DIFF (20U)
 #define TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES (50U)
 
-#define TPS_CALIBRATION_SPEED (380.0f) // 0-1000
+#define TPS_CALIBRATION_SPEED (700.0f)//(380.0f) // 0-1000
 #define TPS_POS_MAX_F (1000.0f)
 #define TPS_POS_MIN_F (0.0f)
 #define TPS_DIVISOR_F(min, max) (TPS_POS_MAX_F / (max - min))
@@ -129,6 +129,7 @@ typedef struct {
 	uint16 calibNokCnt;
 	RCFilter rcFilter;
 	IIRFilter iirFilter;
+	bool_t calib_start;
 	float posMin;
 	float posMax;
 } TpsSensorType;
@@ -165,6 +166,9 @@ typedef struct
 	DBW_States state;
 	SafetyTriggerHandler *const safety_trigger;
 	bool_t apps_calib_request;
+	float err_pos_percent;
+	SwTimerType timer;
+	bool_t stressTest;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
 	float* revMatchTarget;
@@ -206,6 +210,7 @@ static SensorLimitsType appsLim = {
 
 /* Sensors */
 static TpsSensorType tps_ = {
+	.calib_start = FALSE,
 	.tps1 = NULL,
 	.tps2 = NULL,
 	.idlePosMin = UINT16_MAX,
@@ -245,7 +250,9 @@ static DbwHandle dbw = {
 #endif
 	.state = DBW_DISABLED,
 	.safety_trigger = &safety_trigger_,
-	.apps_calib_request = FALSE
+	.apps_calib_request = FALSE,
+	.err_pos_percent = 0.0f,
+	.stressTest = FALSE
 };
 
 /* APPS interpolation */
@@ -362,6 +369,7 @@ static DBW_States DBW_HandlerInit(void)
 					tps_.calibNokCnt = 0U;
 					nextState = DBW_CALIBRATE_TPS;
 #else
+					//DBW_TriggerStressTest();
 					nextState = DBW_RUN;
 					LED_SetStatus(LED_SOLID);
 #endif
@@ -500,32 +508,36 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 {
 	DBW_States nextState = DBW_CALIBRATE_TPS;
 
-	tps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*tps_.tps2->raw + *tps_.tps1->raw));
+	tps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (tps_.tps2->avgData.avg + tps_.tps1->avgData.avg));
 	Utils_UpdateMax_U16(tps_.plausibility->absDiff, &tps_.plausibility->maxAbsDiff);
 
 	if (!SwTimerHasElapsed(&tps_.timer)) {
+#if 0
 		/* Run TPS calibration to set new MIN/MAX ADC values */
 		const bool_t isPlausible = (tps_.plausibility->absDiff < tps_.plausibility->maxDiffAllowed);
 
 		if (isPlausible) {
+			tps_.calib_start = TRUE;
 			++tps_.calibOkCnt;
 			/* Continue going UP/DOWN */
 			/* Use 10 sample average OR tps2->raw */
 			Utils_UpdateMinMax_U16(tps_.tps2->avgData.avg, &tps_.limits->calibMin, &tps_.limits->calibMax);
 		} else {
-			/* Invalid plausibility, reached end */
-			if (tps_.calibNokCnt > tps_.calibOkCnt) {
-				if (tps_.calibNokCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) {
-					nextState = DBW_DISABLED;
-					tps_.error = ERROR_DBW_TPS_CALIBRATION;
+			if (tps_.calib_start) {
+				/* Invalid plausibility, reached end */
+				if (tps_.calibNokCnt > tps_.calibOkCnt) {
+					if (tps_.calibNokCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) {
+						nextState = DBW_DISABLED;
+						tps_.error = ERROR_DBW_TPS_CALIBRATION;
+					}
 				}
+				++tps_.calibNokCnt;
 			}
-			++tps_.calibNokCnt;
 		}
 
 		switch (tps_.calibrationDirection) {
 			case DC_MOTOR_ROTATE_PLUS:
-				 if ((!isPlausible) && ((tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) || (*tps_.tps2->raw > TPS_CALIBRATION_OOR))) {
+				 if ((!isPlausible) && ((tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) || (tps_.tps2->avgData.avg > TPS_CALIBRATION_OOR))) {
 						/* UP calibration finished successfully, change direction */
 						tps_.calibNokCnt = 0U;
 						tps_.calibOkCnt = 0U;
@@ -547,6 +559,7 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 				DCMotor_Disable();
 				break;
 		}
+#endif
 	} else {
 		/* Timer elapsed, calibration finished */
 		if ((tps_.limits->calibMin < TPS_FEASIBLE_MIN) &&
@@ -557,9 +570,12 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 			tps_.limits->max = (float)tps_.limits->calibMax;
 			LED_SetStatus(LED_SOLID);
 			nextState = DBW_RUN;
+			tps_.calib_start = FALSE;
 		} else {
+			DCMotor_Disable();
 			nextState = DBW_DISABLED;
 			tps_.error = ERROR_DBW_TPS_CALIBRATION;
+			tps_.calib_start = FALSE;
 		}
 	}
 
@@ -595,6 +611,36 @@ static inline float DBW_SetTargetValue(void)
 	return throttleTarget;
 }
 
+void DBW_TriggerStressTest(void)
+{
+	dbw.stressTest = TRUE;
+	SwTimerStart(&dbw.timer, 1000U);
+}
+
+static void DBW_StressTest(const uint32_t nCycles)
+{
+	static uint32_t cycles_cnt = 0U;
+
+	if (dbw.stressTest == TRUE) {
+		if (cycles_cnt < nCycles) {
+			if (SwTimerHasElapsed(&dbw.timer)) {
+				if (apps_.target > 900.0f) {
+					apps_.target = 200.0f;
+				} else {
+					apps_.target = 800.0f;
+				}
+
+				SwTimerStart(&dbw.timer, 2000U);
+				++cycles_cnt;
+			}
+		} else {
+			dbw.stressTest = FALSE;
+			cycles_cnt = 0U;
+		}
+	}
+}
+
+
 /**
  * @brief Drive-By-Wire PID runner.
  *
@@ -605,7 +651,14 @@ static inline float DBW_SetTargetValue(void)
 static DBW_States DBW_HandlerRun(void)
 {
 	tps_.position = DBW_ConvertTpsRawValue();
-	apps_.target = DBW_SetTargetValue();
+
+	if (!dbw.stressTest) {
+		apps_.target = DBW_SetTargetValue();
+	} else {
+		DBW_StressTest(100);
+	}
+
+	dbw.err_pos_percent = ((apps_.target - tps_.position) / 1000.0f) * 100.0f; // 0-100 [%]
 
 #if CONFIG_PID_ENABLE_RC_LPF
 	/* Low-Pass Filter on samples */
@@ -613,7 +666,9 @@ static DBW_States DBW_HandlerRun(void)
 	apps_.target = RCFilter_Update(&apps_.rcFilter, apps_.target);
 #elif CONFIG_PID_ENABLE_IIR
 	tps_.position = IIRFilter_Update(&tps_.iirFilter, tps_.position);
-	apps_.target = IIRFilter_Update(&apps_.iirFilter, apps_.target);
+	if (!dbw.stressTest) {
+		apps_.target = IIRFilter_Update(&apps_.iirFilter, apps_.target);
+	}
 #endif
 
 	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
@@ -684,8 +739,8 @@ static inline float DBW_ConvertAppsRawValue(void)
 {
 	float targetApps = APPS_POS_MIN_F;
 
-	if (apps_.apps2->avgData.avg >= apps_.limits->min) {
-		targetApps = ((float)apps_.apps2->avgData.avg - apps_.limits->min) * APPS_DIVISOR_F(apps_.limits->min, apps_.limits->max);
+	if (apps_.apps1->avgData.avg >= apps_.limits->min) {
+		targetApps = ((float)apps_.apps1->avgData.avg - apps_.limits->min) * APPS_DIVISOR_F(apps_.limits->min, apps_.limits->max);
 		targetApps = CLAMP_MAX(targetApps, APPS_POS_MAX_F);
 	}
 
@@ -780,7 +835,7 @@ static void DBW_StateMachine(void)
 
 		case DBW_RUN:
 			DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+			//DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
 
 			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
 				dbw.state = DBW_HandlerRun();
@@ -813,8 +868,8 @@ ErrorEnum DBW_Init(void)
 {
 	ErrorEnum err = ERROR_OK;
 
-	tps_.tps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_2);
-	tps_.tps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_1);
+	tps_.tps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_1);
+	tps_.tps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_TPS_2);
 	apps_.apps1 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_APPS_1);
 	apps_.apps2 = ADC_getAdcChannelPtr(ADC_2_HANDLE, ADC_CHANNEL_APPS_2);
 
@@ -827,6 +882,10 @@ ErrorEnum DBW_Init(void)
 
 		if (err == ERROR_OK) {
 			err = SwTimerRegister(&tps_.timer);
+		}
+
+		if (err == ERROR_OK) {
+			err = SwTimerRegister(&dbw.timer);
 		}
 
 		if (err == ERROR_OK) {

@@ -116,9 +116,9 @@ static void SchedulerExecuteTasks(void)
 
    for (uint32_t i = 0U; i < N_PROCESS; ++i) {
          if (timers[i] >= schedule_[i].period) {
-            //TimerStopWatchStartLap(&taskStopWatch);
+            TimerStopWatchStartLap(&taskStopWatch);
             schedule_[i].handler();
-            //SwTimerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
+            SwTimerUpdateStats(&schedule_[i].stats, TimerStopWatchCaptureDuration(&taskStopWatch));
             timers[i] = 0U;
          }
    }

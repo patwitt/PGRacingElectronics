@@ -21,9 +21,9 @@
 // .Kp = 6.66f, .Ki = 11.89f, .Kd = 15.69f
 #if CONFIG_PID_INTERPOLATE_CONSTANTS
 static const PID_InterpolationTableEnum currentTable = PID_INTEPROLATE_WORKING_TABLE;
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 0.0f, .Ki = 0.0f, .Kd = 0.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .springBias = 0.0f, .tau = 0.1f, .T = 0.001f, .Kp = 3.0f, .Ki = 11.6f, .Kd = 0.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #else
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 7.0f, .Ki = 11.89f, .Kd = 15.69f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .springBias = 40.0f, .tau = 0.42f, .T = 0.001f, .Kp = 2.5f, .Ki = 11.6f, .Kd = 0.690f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #endif
 
 /* ---------------------------- */
@@ -56,8 +56,8 @@ float PID_Update(float *target, const float measurement)
 #if CONFIG_PID_INTERPOLATE_CONSTANTS
 	/* Interpolate Kp, Ki, Kd gains as per look-up tables */
 	const float errorAbs = pid.error > 0.0f ? pid.error : (pid.error * (-1.0f));
-	pid.Kp = Utils_interpolateTable1d(PID_InterpolationTables[currentTable].table1d_Kp, errorAbs);
-	pid.Ki = Utils_interpolateTable1d(PID_InterpolationTables[currentTable].table1d_Ki, errorAbs);
+	//pid.Kp = Utils_interpolateTable1d(PID_InterpolationTables[currentTable].table1d_Kp, errorAbs);
+	//pid.Ki = Utils_interpolateTable1d(PID_InterpolationTables[currentTable].table1d_Ki, errorAbs);
 	pid.Kd = Utils_interpolateTable1d(PID_InterpolationTables[currentTable].table1d_Kd, errorAbs);
 #endif
 
@@ -84,21 +84,22 @@ float PID_Update(float *target, const float measurement)
 	pid.integrator = CLAMP_MIN(pid.integrator, limMinInt);
 
 	pid.deltaMeas = measurement - pid.prevMeas;
-#if 0
-	pid.differentiator = -(2.0f * pid.Kd * pid.deltaMeas						/* Note: derivative on measurement, therefore minus sign in front of equation! */
-	                     + (2.0f * pid.tau - pid.T) * pid.differentiator)
-	                     / (2.0f * pid.tau + pid.T);
-#endif
 
-	//pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
+#if CONFIG_PID_D_LPF
+	pid.differentiator = -(2.0f * pid.Kd * (pid.deltaMeas)	/* Note: derivative on measurement, therefore minus sign in front of equation! */
+	                        + (2.0f * pid.tau - pid.T) * pid.differentiator)
+	                        / (2.0f * pid.tau + pid.T);
+#else
+	pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
+#endif
 
 	/* Compute output */
 	pid.out = proportional + pid.integrator + pid.differentiator;
 
 	/* Spring BIAS */
-	//if (pid.out > 0.0f) {
-	pid.out += PID_OUTPUT_SPRING_BIAS;
-	//}
+	if (pid.out > 0.0f) {
+		pid.out += pid.springBias;
+	}
 
 #if CONFIG_PID_APPLY_BRAKE
 	PIDHacks_ApplyBrake(&pid, measurement, target);

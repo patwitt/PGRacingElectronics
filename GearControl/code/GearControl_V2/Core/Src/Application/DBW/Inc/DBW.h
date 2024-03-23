@@ -12,12 +12,13 @@
 #include "DefineConfig.h"
 
 #define TPS_BIAS_OFFSET (14.0f)
-#define TPS_IDLE (10.0f + TPS_BIAS_OFFSET) // 6%
+#define TPS_IDLE (0.0f) //(10.0f + TPS_BIAS_OFFSET) // 6%
 
 ErrorEnum DBW_Init(void);
 void DBW_Process(void);
 void DBW_Disable(boolean isError);
 void DBW_RequestAppsCalibration(void);
+void DBW_TriggerStressTest(void);
 
 #if CONFIG_ENABLE_REV_MATCH
 typedef enum {

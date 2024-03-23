@@ -24,43 +24,43 @@ typedef enum {
 
 /* --------------------------- TABLE LPF --------------------------- */
 /* Kp gains look-up table */
-static const float Kp_X_err_1[KP_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 570.0f, 710.4f, 860.7f, 1000.0f};
-static const float Kp_Y_1[KP_LUT_CNT]     = {6.0f, 6.0f,  6.0f,   5.0f,   5.0f,   5.0f,   4.5f,   4.5f};
-static const table_1d table1d_Kp_1 = {.x_values = &Kp_X_err_1[0U], .y_values = &Kp_Y_1[0U], .x_length = KP_LUT_CNT};
+ float Kp_X_err_1[KP_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 570.0f, 710.4f, 860.7f, 1000.0f};
+ float Kp_Y_1[KP_LUT_CNT]     = {6.0f, 6.0f,  6.0f,   5.0f,   5.0f,   5.0f,   4.5f,   4.5f};
+ table_1d table1d_Kp_1 = {.x_values = &Kp_X_err_1[0U], .y_values = &Kp_Y_1[0U], .x_length = KP_LUT_CNT};
 
 /* Ki gains look-up table */
-static const float Ki_X_err_1[KI_LUT_CNT] = {4.0f,  5.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 100.0f};
-static const float Ki_Y_1[KI_LUT_CNT]     = {2.9f, 2.6f,  2.3f,  2.3f,  3.3f,  3.3f,  5.0f,  5.0f};
-static const table_1d table1d_Ki_1 = {.x_values = &Ki_X_err_1[0U], .y_values = &Ki_Y_1[0U], .x_length = KI_LUT_CNT};
+ float Ki_X_err_1[KI_LUT_CNT] = {4.0f,  5.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 100.0f};
+ float Ki_Y_1[KI_LUT_CNT]     = {2.9f, 2.6f,  2.3f,  2.3f,  3.3f,  3.3f,  5.0f,  5.0f};
+ table_1d table1d_Ki_1 = {.x_values = &Ki_X_err_1[0U], .y_values = &Ki_Y_1[0U], .x_length = KI_LUT_CNT};
 
 /* Kd gains look-up table */
-static const float Kd_X_err_1[KD_LUT_CNT] = {0.0f,  180.0f, 185.0f, 250.0f, 260.0f, 270.0f, 280.0f, 290.0f};
-static const float Kd_Y_1[KD_LUT_CNT]     = {0.09f, 0.09f,  0.09f,   0.09f,  0.09f,   0.09f,   0.09f,   0.09f};
-static const table_1d table1d_Kd_1 = {.x_values = &Kd_X_err_1[0U], .y_values = &Kd_Y_1[0U], .x_length = KD_LUT_CNT};
+ float Kd_X_err_1[KD_LUT_CNT] = {0.0f,  180.0f, 185.0f, 250.0f, 260.0f, 270.0f, 280.0f, 290.0f};
+ float Kd_Y_1[KD_LUT_CNT]     = {0.09f, 0.09f,  0.09f,   0.09f,  0.09f,   0.09f,   0.09f,   0.09f};
+ table_1d table1d_Kd_1 = {.x_values = &Kd_X_err_1[0U], .y_values = &Kd_Y_1[0U], .x_length = KD_LUT_CNT};
 
 /* --------------------------- TABLE WORKING --------------------------- */
 /* Kp gains look-up table */
-static const float Kp_X_err_2[KP_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 570.0f, 710.4f, 860.7f, 1000.0f};
-static const float Kp_Y_2[KP_LUT_CNT]     = {6.8f, 6.8f, 6.8f,   6.8f,   6.8f,   6.8f,   6.8f,   6.8f};
-static const table_1d table1d_Kp_2 = {.x_values = &Kp_X_err_2[0U], .y_values = &Kp_Y_2[0U], .x_length = KP_LUT_CNT};
+ float Kp_X_err_2[KP_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 571.0f, 710.4f, 860.7f, 1000.0f};
+ float Kp_Y_2[KP_LUT_CNT]     = {2.5f, 2.5f, 2.5f,   2.5f,   2.5f,   2.5f,   2.5f,   2.5f};
+ table_1d table1d_Kp_2 = {.x_values = &Kp_X_err_2[0U], .y_values = &Kp_Y_2[0U], .x_length = KP_LUT_CNT};
 
 /* Ki gains look-up table */
-static const float Ki_X_err_2[KI_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 570.0f, 710.4f, 860.7f, 1000.0f};
-static const float Ki_Y_2[KI_LUT_CNT]     = {11.89f, 11.89f,  11.89f,  11.89f,  11.89f, 11.89f,  11.89f,  11.89f};
-static const table_1d table1d_Ki_2 = {.x_values = &Ki_X_err_2[0U], .y_values = &Ki_Y_2[0U], .x_length = KI_LUT_CNT};
+ float Ki_X_err_2[KI_LUT_CNT] = {0.0f,  5.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 1000.0f};
+ float Ki_Y_2[KI_LUT_CNT]     = {1.0f, 1.0f,  1.0f,  0.0f,  0.0f, 0.0f,  0.0f,  0.0f};
+ table_1d table1d_Ki_2 = {.x_values = &Ki_X_err_2[0U], .y_values = &Ki_Y_2[0U], .x_length = KI_LUT_CNT};
 
 /* Kd gains look-up table */
-static const float Kd_X_err_2[KD_LUT_CNT] = {5.0f,  10.0f, 40.0f, 130.0f, 570.0f, 710.4f, 860.7f, 1000.0f};
-static const float Kd_Y_2[KD_LUT_CNT]     = {4.69f, 8.69f,  15.69f,   15.69f,  15.69f,   15.69f,   15.69f,   15.69f};
-static const table_1d table1d_Kd_2 = {.x_values = &Kd_X_err_2[0U], .y_values = &Kd_Y_2[0U], .x_length = KD_LUT_CNT};
+ float Kd_X_err_2[KD_LUT_CNT] = {0.0f,  180.0f, 185.0f, 250.0f, 260.0f, 270.0f, 280.0f, 290.0f};
+ float Kd_Y_2[KD_LUT_CNT]     = {20.0f,  35.0f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f, 0.0f};
+ table_1d table1d_Kd_2 = {.x_values = &Kd_X_err_2[0U], .y_values = &Kd_Y_2[0U], .x_length = KD_LUT_CNT};
 
 typedef struct {
-	const table_1d *const table1d_Kp;
-	const table_1d *const table1d_Ki;
-	const table_1d *const table1d_Kd;
+	 table_1d * table1d_Kp;
+	table_1d * table1d_Ki;
+	table_1d * table1d_Kd;
 } PID_InterpolationTable;
 
-static const PID_InterpolationTable PID_InterpolationTables[PID_INTERPOLATE_TABLE_COUNT] = {
+PID_InterpolationTable PID_InterpolationTables[PID_INTERPOLATE_TABLE_COUNT] = {
 		[PID_INTEPROLATE_LPF_TABLE] = {
 			.table1d_Kp = &table1d_Kp_1,
 			.table1d_Ki = &table1d_Ki_1,
