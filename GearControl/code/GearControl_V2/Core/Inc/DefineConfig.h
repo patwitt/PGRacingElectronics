@@ -34,7 +34,6 @@
 /* ADC configs */
 #define CONFIG_ADC_SHOW_MIN_MAX          (TRUE) //!< Add min/max on ADC readings
 
-/* PID configs */
 #define CONFIG_PID_ENABLE_RC_LPF         (FALSE) //!< Enable RC Low-Pass Filter for PID inputs
 #define CONFIG_PID_ENABLE_IIR            (TRUE)  //!< Enable IIR Filter for PID Inputs
 #define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE) //!< Interpolate PID constants over 1D Table

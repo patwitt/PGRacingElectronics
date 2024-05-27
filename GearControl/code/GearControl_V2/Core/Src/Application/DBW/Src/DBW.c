@@ -18,6 +18,7 @@
 #include "SwTimer.h"
 #include "RCFilter.h"
 #include "IIRFilter.h"
+#include "KalmanFilter.h"
 
 /* ---------------------------- */
 /*          Local data          */
@@ -47,11 +48,11 @@
 
 /* CALIBRATION VALUES START */
 /* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
-#define APPS_FEASIBLE_MIN  (900.0f)  //(700U)  //(800U)
+#define APPS_FEASIBLE_MIN  (1600.0f)  //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
-#define APPS_FEASIBLE_MAX  (2000.0f) //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (792.0f) //(1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+#define APPS_FEASIBLE_MAX  (2300.0f) //(3500U) //(3000U)
+#define APPS_MIN_MEASURED_F (1450.0f)//(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (2580.0f)//(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
 #define TPS_FEASIBLE_MIN (800U)
 #define TPS_FEASIBLE_MAX (3600U)
@@ -131,6 +132,8 @@ typedef struct {
 	IIRFilter iirFilter;
 	float posMin;
 	float posMax;
+	float percent;
+	KalmanFilter kalman;
 } TpsSensorType;
 
 typedef struct {
@@ -148,22 +151,25 @@ typedef struct {
 	IIRFilter iirFilter;
 	float posMin;
 	float posMax;
+	float percent;
+	KalmanFilter kalman;
 } AppsSensorType;
 
 typedef struct {
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
-	uint32_t safety_cnt;
+	uint32_t safetyCnt;
 	boolean status;
 } SafetyTriggerHandler;
 
 typedef struct
 {
+	float errPosPercent;
 	TpsSensorType *const tps;
 	AppsSensorType *const apps;
 	/* DBW state */
 	DBW_States state;
-	SafetyTriggerHandler *const safety_trigger;
+	SafetyTriggerHandler *const safetyTrigger;
 	bool_t apps_calib_request;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
@@ -215,7 +221,10 @@ static TpsSensorType tps_ = {
 	.limits = &tpsLim,
 	.calibrationDirection = DC_MOTOR_DISABLED,
 	.posMin = 1001.0f,
-	.posMax = 0.0f
+	.posMax = 0.0f,
+	.kalman = {
+		.P_k_k1 = 1.0f
+	}
 };
 
 static AppsSensorType apps_ = {
@@ -225,18 +234,22 @@ static AppsSensorType apps_ = {
 	.plausibility = &appsPlaus,
 	.limits = &appsLim,
 	.posMin = 1001.0f,
-	.posMax = 0.0f
+	.posMax = 0.,
+	.kalman = {
+		.P_k_k1 = 1.0f
+	}
 };
 
-static SafetyTriggerHandler safety_trigger_ = {
+static SafetyTriggerHandler safetyTrigger_ = {
 	    .gpioPort = GEAR_CUT_GPIO_Port,
 		.gpioPin  = GEAR_CUT_Pin,
-		.safety_cnt = 0U,
+		.safetyCnt = 0U,
 		.status = true
 };
 
 /* DBW */
-static DbwHandle dbw = {
+static DbwHandle dbw_ = {
+	.errPosPercent = 0.0f,
 	.tps = &tps_,
 	.apps = &apps_,
 #if CONFIG_ENABLE_REV_MATCH
@@ -244,7 +257,7 @@ static DbwHandle dbw = {
 	.revMatchTarget = NULL,
 #endif
 	.state = DBW_DISABLED,
-	.safety_trigger = &safety_trigger_,
+	.safetyTrigger = &safetyTrigger_,
 	.apps_calib_request = FALSE
 };
 
@@ -254,10 +267,8 @@ static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 3
 static const float APPS_pos_Y[APPS_INTERPOLATION_CNT]     = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
 static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
-
-
 #define SAFETY_MAX_TARGET_TO_POSITION_DIFF (500U)
-#define SAFETY_TRIGGER_MS (1000U)
+#define safetyTrigger_MS (1000U)
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
@@ -290,32 +301,32 @@ static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 
 
 static inline void DBW_TurnOffSafetyLine(void)
 {
-	HAL_GPIO_WritePin(dbw.safety_trigger->gpioPort, dbw.safety_trigger->gpioPin, GPIO_PIN_RESET);
-	dbw.safety_trigger->status = false;
+	HAL_GPIO_WritePin(dbw_.safetyTrigger->gpioPort, dbw_.safetyTrigger->gpioPin, GPIO_PIN_RESET);
+	dbw_.safetyTrigger->status = false;
 }
 
 static inline void DBW_TurnOnSafetyLine(void)
 {
-	HAL_GPIO_WritePin(dbw.safety_trigger->gpioPort, dbw.safety_trigger->gpioPin, GPIO_PIN_SET);
-	dbw.safety_trigger->status = true;
+	HAL_GPIO_WritePin(dbw_.safetyTrigger->gpioPort, dbw_.safetyTrigger->gpioPin, GPIO_PIN_SET);
+	dbw_.safetyTrigger->status = true;
 }
 
 static void DBW_SafetyCheck(void)
 {
-	if (abs(dbw.tps->position - dbw.apps->target) < SAFETY_MAX_TARGET_TO_POSITION_DIFF) {
-		if (dbw.safety_trigger->safety_cnt > 0U) {
-			--dbw.safety_trigger->safety_cnt;
+	if (abs(dbw_.tps->position - dbw_.apps->target) < SAFETY_MAX_TARGET_TO_POSITION_DIFF) {
+		if (dbw_.safetyTrigger->safetyCnt > 0U) {
+			--dbw_.safetyTrigger->safetyCnt;
 		}
 	} else {
-		if (dbw.safety_trigger->safety_cnt <= SAFETY_TRIGGER_MS) {
-		++dbw.safety_trigger->safety_cnt;
+		if (dbw_.safetyTrigger->safetyCnt <= safetyTrigger_MS) {
+		++dbw_.safetyTrigger->safetyCnt;
 		}
 	}
 
-	if (dbw.safety_trigger->safety_cnt >= SAFETY_TRIGGER_MS) {
+	if (dbw_.safetyTrigger->safetyCnt >= safetyTrigger_MS) {
 		// Turn off safety line
 		DBW_TurnOffSafetyLine();
-	} else if (dbw.safety_trigger->safety_cnt == 0U) {
+	} else if (dbw_.safetyTrigger->safetyCnt == 0U) {
 		// Target is OK for at least 1s
 		DBW_TurnOnSafetyLine();
 	} else {
@@ -340,7 +351,7 @@ static DBW_States DBW_HandlerInit(void)
 
 	if (HAL_GetTick() > TPS_INIT_DELAY_MS) {
 		/* Get idle min/max values */
-		Utils_UpdateMinMax_U16(*tps_.tps2->raw, &tps_.idlePosMin, &tps_.idlePosMax);
+		Utils_UpdateMinMax_U16(tps_.tps2->avgData.avg, &tps_.idlePosMin, &tps_.idlePosMax);
 		/* TPS IDLE calibration */
 		if (HAL_GetTick() > (TPS_INIT_DELAY_MS + TPS_INIT_CALIBRATION_MS)) {
 			nextState = DBW_DISABLED;
@@ -455,13 +466,13 @@ DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
 {
 	DbwRevMatchStatus revMatchStatus = REV_MATCH_DBW_OK;
 
-	if ((dbw.state == DBW_RUN) &&
+	if ((dbw_.state == DBW_RUN) &&
 	    (tps_.error == ERROR_OK) &&
 	    (apps_.error == ERROR_OK)) {
 		if ((target != NULL) &&
 			DBW_IsRevMatchTargetInRange(*target)) {
-				dbw.revMatchTarget = target;
-				dbw.revMatchControl = TRUE;
+				dbw_.revMatchTarget = target;
+				dbw_.revMatchControl = TRUE;
 		} else {
 			revMatchStatus = REV_MATCH_TARGET_INVALID;
 		}
@@ -480,8 +491,8 @@ DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
  */
 void DBW_RevMatchRestoreNormalOperation(void)
 {
-	dbw.revMatchControl = FALSE;
-	dbw.revMatchTarget = NULL;
+	dbw_.revMatchControl = FALSE;
+	dbw_.revMatchTarget = NULL;
 }
 #endif
 
@@ -581,10 +592,10 @@ static inline float DBW_SetTargetValue(void)
 
 #if CONFIG_ENABLE_REV_MATCH
 	/* Check if Rev match control is enabled */
-	if ((dbw.revMatchControl) &&
-		(dbw.revMatchTarget != NULL) &&
-		(DBW_IsRevMatchTargetInRange(*dbw.revMatchTarget))) {
-		throttleTarget = *dbw.revMatchTarget;
+	if ((dbw_.revMatchControl) &&
+		(dbw_.revMatchTarget != NULL) &&
+		(DBW_IsRevMatchTargetInRange(*dbw_.revMatchTarget))) {
+		throttleTarget = *dbw_.revMatchTarget;
 	} else {
 		throttleTarget = DBW_ConvertAppsRawValue();
 	}
@@ -606,6 +617,11 @@ static DBW_States DBW_HandlerRun(void)
 {
 	tps_.position = DBW_ConvertTpsRawValue();
 	apps_.target = DBW_SetTargetValue();
+
+	tps_.position = KalmanFilter_Update(&tps_.kalman, tps_.position);
+	apps_.target = KalmanFilter_Update(&apps_.kalman, apps_.target);
+
+	dbw_.errPosPercent = ((apps_.target - tps_.position) / 1000.0f) * 100.0f; // 0-100 [%]
 
 #if CONFIG_PID_ENABLE_RC_LPF
 	/* Low-Pass Filter on samples */
@@ -760,22 +776,22 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
  */
 static void DBW_StateMachine(void)
 {
-	if (dbw.apps_calib_request == TRUE) {
-		dbw.state = DBW_CALIBRATE_APPS;
-		dbw.apps_calib_request = FALSE;
+	if (dbw_.apps_calib_request == TRUE) {
+		dbw_.state = DBW_CALIBRATE_APPS;
+		dbw_.apps_calib_request = FALSE;
 	}
 
-	switch (dbw.state) {
+	switch (dbw_.state) {
 		case DBW_INIT:
-			dbw.state = DBW_HandlerInit();
+			dbw_.state = DBW_HandlerInit();
 			break;
 
 		case DBW_CALIBRATE_APPS:
-			dbw.state = DBW_HandlerCalibrateAPPS();
+			dbw_.state = DBW_HandlerCalibrateAPPS();
 			break;
 
 		case DBW_CALIBRATE_TPS:
-			dbw.state = DBW_HandlerCalibrateTPS();
+			dbw_.state = DBW_HandlerCalibrateTPS();
 			break;
 
 		case DBW_RUN:
@@ -783,10 +799,10 @@ static void DBW_StateMachine(void)
 			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
 
 			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
-				dbw.state = DBW_HandlerRun();
+				dbw_.state = DBW_HandlerRun();
 				DBW_SafetyCheck();
 			} else {
-				dbw.state = DBW_DISABLED;
+				dbw_.state = DBW_DISABLED;
 			}
 			break;
 
@@ -831,7 +847,7 @@ ErrorEnum DBW_Init(void)
 
 		if (err == ERROR_OK) {
 			if (DCMotor_Init() == ERROR_OK) {
-				dbw.state = DBW_INIT;
+				dbw_.state = DBW_INIT;
 
 #if CONFIG_PID_ENABLE_RC_LPF
 				/* Initialize Low-Pass Filters */
@@ -863,7 +879,7 @@ ErrorEnum DBW_Init(void)
 void DBW_Process(void)
 {
 	if (DCMotor_GetState() == DC_MOTOR_FAILURE) {
-		dbw.state = DBW_DISABLED;
+		dbw_.state = DBW_DISABLED;
 	}
 
 	DBW_StateMachine();
@@ -877,12 +893,12 @@ void DBW_Process(void)
  */
 void DBW_RequestAppsCalibration(void)
 {
-	if (dbw.state != DBW_DISABLED) {
+	if (dbw_.state != DBW_DISABLED) {
 		DCMotor_Disable();
 		SwTimerStart(&apps_.timer, APPS_CALIBRATION_TIME_MS);
 		apps_.limits->calibMin = UINT16_MAX;
 		apps_.limits->calibMax = 0U;
-		dbw.apps_calib_request = TRUE;
+		dbw_.apps_calib_request = TRUE;
 	}
 }
 
@@ -897,7 +913,7 @@ void DBW_Disable(boolean isError)
 {
 	/* Disable DBW */
 	if (isError) {
-		dbw.state = DBW_DISABLED;
+		dbw_.state = DBW_DISABLED;
 	}
 	DCMotor_Disable();
 }

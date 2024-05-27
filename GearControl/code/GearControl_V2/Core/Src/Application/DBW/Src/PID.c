@@ -23,7 +23,7 @@
 static const PID_InterpolationTableEnum currentTable = PID_INTEPROLATE_WORKING_TABLE;
 static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 0.0f, .Ki = 0.0f, .Kd = 0.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #else
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 7.0f, .Ki = 11.89f, .Kd = 15.69f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 0.01f, .T = 0.001f, .Kp = 7.0f, .Ki = 12.0f, .Kd = 14.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #endif
 
 /* ---------------------------- */
@@ -84,20 +84,15 @@ float PID_Update(float *target, const float measurement)
 	pid.integrator = CLAMP_MIN(pid.integrator, limMinInt);
 
 	pid.deltaMeas = measurement - pid.prevMeas;
-#if 0
-	pid.differentiator = -(2.0f * pid.Kd * pid.deltaMeas						/* Note: derivative on measurement, therefore minus sign in front of equation! */
-	                     + (2.0f * pid.tau - pid.T) * pid.differentiator)
-	                     / (2.0f * pid.tau + pid.T);
-#endif
 
-	//pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
+	pid.differentiator = pid.Kd * pid.deltaMeas * pid.T;
 
 	/* Compute output */
 	pid.out = proportional + pid.integrator + pid.differentiator;
 
 	/* Spring BIAS */
 	//if (pid.out > 0.0f) {
-	pid.out += PID_OUTPUT_SPRING_BIAS;
+	//pid.out += PID_OUTPUT_SPRING_BIAS;
 	//}
 
 #if CONFIG_PID_APPLY_BRAKE
