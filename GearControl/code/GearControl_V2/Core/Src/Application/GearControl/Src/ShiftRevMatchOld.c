@@ -4,7 +4,7 @@
  *  Created on: 08.08.2022
  *      Author: Patryk Wittbrodt
  */
-
+#if 0
 #include "RPMTables.h"
 #include "GearControl.h"
 #include "DefineConfig.h"
@@ -20,6 +20,56 @@
 /*          Local data          */
 /* ---------------------------- */
 
+#define RPM_THROTTLE_LUT_CNT (16U)
+
+//! Engine RPM Lookup Table X values
+static const float X_Rpm[RPM_THROTTLE_LUT_CNT] = {
+	812.5f,
+	1625.0f,
+	2437.5f,
+	3250.0f,
+	4062.5f,
+	4875.0f,
+	5687.5f,
+	6500.0f,
+	7312.5f,
+	8215.0f,
+	8937.5f,
+	9750.0f,
+	10562.5f,
+	11375.0f,
+	12187.5f,
+	13000.0f
+};
+
+//! Throttle Degrees Lookup Table Y values
+static const float Y_ThrottleDeg[RPM_THROTTLE_LUT_CNT] = {
+	62.5f,
+	125.0f,
+	187.5f,
+	250.0f,
+	312.5f,
+	375.0f,
+	437.5f,
+	500.0f,
+	562.5f,
+	625.0f,
+	687.5f,
+	750.0f,
+	812.5f,
+	875.0f,
+	937.5f,
+	1000.0f
+};
+
+//! throttle degrees <- RPM map
+static const table_1d RpmThrottleMap = {
+	.x_length = RPM_THROTTLE_LUT_CNT,
+	.x_values = X_Rpm,
+	.y_values = Y_ThrottleDeg
+};
+
+#if REVMATCH_FROM_ENGINE_RPM
 #define GEAR_1_TRANSMISSION_RATIO (2.3125f)
 #define GEAR_2_TRANSMISSION_RATIO (1.857f)
 #define GEAR_3_TRANSMISSION_RATIO (1.565f)
@@ -32,128 +82,6 @@
 #define DOWNSHIFT_RPM_G3_MULTIPLIER (GEAR_3_TRANSMISSION_RATIO / GEAR_4_TRANSMISSION_RATIO) //!< 115.93%
 #define DOWNSHIFT_RPM_G4_MULTIPLIER (GEAR_4_TRANSMISSION_RATIO / GEAR_5_TRANSMISSION_RATIO) //!< 109.05%
 #define DOWNSHIFT_RPM_G5_MULTIPLIER (GEAR_5_TRANSMISSION_RATIO / GEAR_6_TRANSMISSION_RATIO) //!< 108.98%
-
-
-#define RPM_THROTTLE_LUT_CNT (13U)
-
-//! Engine RPM Lookup Table X values
-static const float X_Rpm[RPM_THROTTLE_LUT_CNT] = {
-	1000.0f,
-	2000.0f,
-	3000.0f,
-	4000.0f,
-	5000.0f,
-	6000.0f,
-	7000.0f,
-	8000.0f,
-	9000.0f,
-	10000.0f,
-	11000.0f,
-	12000.0f,
-	13000.0f
-};
-
-//! Gear 3 -> 2 Throttle Degrees Map 0-1000 [0-100%]
-static const float Y_Gear3ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f
-};
-
-//! Gear 4 -> 3 Throttle Degrees Map 0-1000 [0-100%]
-static const float Y_Gear4ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f
-};
-
-//! Gear 5 -> 4 Throttle Degrees Map 0-1000 [0-100%]
-static const float Y_Gear5ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f
-};
-
-//! Gear 6 -> 5 Throttle Degrees Map 0-1000 [0-100%]
-static const float Y_Gear6ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f,
-	300.0f
-};
-
-static const table_1d RpmThrottleMap[GEAR_UNKNOWN] = {
-	[GEAR_1] = {
-			.x_length = 0,
-	},
-	[GEAR_N] = {
-			.x_length = 0,
-	},
-	[GEAR_2] = {
-			.x_length = 0,
-	},
-	[GEAR_3] = {
-			.x_length = RPM_THROTTLE_LUT_CNT,
-			.x_values = X_Rpm,
-			.y_values = Y_Gear3ThrottleMap
-	},
-	[GEAR_4] = {
-			.x_length = RPM_THROTTLE_LUT_CNT,
-			.x_values = X_Rpm,
-			.y_values = Y_Gear4ThrottleMap
-	},
-	[GEAR_5] = {
-			.x_length = RPM_THROTTLE_LUT_CNT,
-			.x_values = X_Rpm,
-			.y_values = Y_Gear5ThrottleMap
-	},
-	[GEAR_6] = {
-			.x_length = RPM_THROTTLE_LUT_CNT,
-			.x_values = X_Rpm,
-			.y_values = Y_Gear6ThrottleMap
-	},
-};
-
-#if REVMATCH_FROM_ENGINE_RPM
 
 //! RPM multiplier table for available gears
 static const float downshiftRpmMultiplier[GEAR_6] = {
@@ -472,3 +400,4 @@ void ShiftRevMatch_Process(void) {}
 ErrorEnum ShiftRevMatch_Init(void) { return ERROR_OK; }
 bool_t ShiftRevMatch_IsFinished(void) {return TRUE; }
 #endif // CONFIG_ENABLE_REV_MATCH
+#endif

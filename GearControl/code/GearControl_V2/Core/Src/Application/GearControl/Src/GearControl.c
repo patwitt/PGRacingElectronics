@@ -441,7 +441,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
  */
 static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest *const request)
 {
-	/* Shift down procedure - TODO add rev match */
+	/* Shift down procedure - Throttle Blip */
 	typedef enum {
 		SHIFT_PROCEDURE_DOWN_TRIGGERS,
 		SHIFT_PROCEDURE_DOWN_DELAY,
@@ -455,15 +455,10 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
 
 	switch (downProcedureState) {
 		case SHIFT_PROCEDURE_DOWN_TRIGGERS:
-			/* Clutch Slip */
-			if (ClutchControl_TriggerSlip(gearCtrl.downShiftSlipCfg->slipDeg,
-					                      gearCtrl.downShiftSlipCfg->direction) == ERROR_OK) {
-				/* Go to delay */
-				downProcedureState = SHIFT_PROCEDURE_DOWN_DELAY;
-			} else {
-				/* Clutch slip fail, exec gear */
-				nextShiftState = SHIFT_EXEC;
-			}
+			/* Trigger Throttle Blip */
+			ShiftRevMatch_Trigger(request->expectedGear);
+			/* Go to delay OR wait until Throttle Pos is reached */
+			downProcedureState = SHIFT_PROCEDURE_DOWN_DELAY;
 			break;
 
 		case SHIFT_PROCEDURE_DOWN_DELAY:
@@ -478,8 +473,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
 			break;
 
 		case SHIFT_PROCEDURE_DOWN_REVMATCH:
-			/* Trigger revmatch */
-			ShiftRevMatch_Trigger(request->expectedGear);
+			/* Throttle Blip finished, execute gear shift */
 			downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
 			nextShiftState = SHIFT_EXEC;
 			break;

@@ -37,7 +37,7 @@
 #define TPS_CALIBRATION_TIME_MS (1000U)
 
 #define ADC_MAX (4096U)
-#define TPS_ADC_MAX_DIFF_THRESHOLD (410U)  // 10% of 5V
+#define TPS_ADC_MAX_DIFF_THRESHOLD (410U)//(410U)  // 10% of 5V
 #define APPS_ADC_MAX_DIFF_THRESHOLD (410U) // 10% of 5V
 
 #define TPS_DEBOUNCE_MS (100U)
@@ -48,16 +48,16 @@
 
 /* CALIBRATION VALUES START */
 /* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
-#define APPS_FEASIBLE_MIN  (1600.0f)  //(700U)  //(800U)
+#define APPS_FEASIBLE_MIN  (1700.0f)  //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
 #define APPS_FEASIBLE_MAX  (2300.0f) //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (1450.0f)//(792.0f) //(1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (2580.0f)//(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+#define APPS_MIN_MEASURED_F (1488.0f)//(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (2870.0f)//(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
-#define TPS_FEASIBLE_MIN (800U)
+#define TPS_FEASIBLE_MIN (1100U)
 #define TPS_FEASIBLE_MAX (3600U)
-#define TPS_MIN_MEASURED_F (730.0f)
-#define TPS_MAX_MEASURED_F (3700.0f)
+#define TPS_MIN_MEASURED_F (900.0f)
+#define TPS_MAX_MEASURED_F (3900.0f)
 /* CALIBRATION VALUES END */
 
 #define APPS_POS_MAX_F (1000.0f)
@@ -159,6 +159,7 @@ typedef struct {
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
 	uint32_t safetyCnt;
+	uint32_t resetCnt;
 	boolean status;
 } SafetyTriggerHandler;
 
@@ -241,8 +242,8 @@ static AppsSensorType apps_ = {
 };
 
 static SafetyTriggerHandler safetyTrigger_ = {
-	    .gpioPort = GEAR_CUT_GPIO_Port,
-		.gpioPin  = GEAR_CUT_Pin,
+	    .gpioPort = GPIOB,
+		.gpioPin  = GPIO_PIN_12,
 		.safetyCnt = 0U,
 		.status = true
 };
@@ -267,8 +268,8 @@ static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 3
 static const float APPS_pos_Y[APPS_INTERPOLATION_CNT]     = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
 static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
-#define SAFETY_MAX_TARGET_TO_POSITION_DIFF (500U)
-#define safetyTrigger_MS (1000U)
+#define SAFETY_MAX_TARGET_TO_POSITION_DIFF (300.0f)
+#define safetyTrigger_MS (2000U)
 /* ---------------------------- */
 /* Local function declarations  */
 /* ---------------------------- */
@@ -313,24 +314,62 @@ static inline void DBW_TurnOnSafetyLine(void)
 
 static void DBW_SafetyCheck(void)
 {
-	if (abs(dbw_.tps->position - dbw_.apps->target) < SAFETY_MAX_TARGET_TO_POSITION_DIFF) {
-		if (dbw_.safetyTrigger->safetyCnt > 0U) {
-			--dbw_.safetyTrigger->safetyCnt;
-		}
-	} else {
-		if (dbw_.safetyTrigger->safetyCnt <= safetyTrigger_MS) {
-		++dbw_.safetyTrigger->safetyCnt;
-		}
-	}
+#define SAFETY_TRIGGER_MS (500U)
+#define SAFETY_TRIGGER_RESET_MS (1200U)
 
-	if (dbw_.safetyTrigger->safetyCnt >= safetyTrigger_MS) {
-		// Turn off safety line
-		DBW_TurnOffSafetyLine();
-	} else if (dbw_.safetyTrigger->safetyCnt == 0U) {
-		// Target is OK for at least 1s
-		DBW_TurnOnSafetyLine();
-	} else {
-		// Do nothing
+	typedef enum  {
+		TRIGGER_POLL,
+		TRIGGER_ACTIVATED
+	} TriggerStates;
+
+	static TriggerStates state = TRIGGER_POLL;
+
+	float tps_pos = DBW_ConvertTpsRawValue();
+	float apps_pos = DBW_ConvertAppsRawValue();
+
+	bool_t safetyOK = (abs(tps_pos - apps_pos) < SAFETY_MAX_TARGET_TO_POSITION_DIFF);
+
+	switch (state) {
+		case TRIGGER_POLL:
+			if (safetyOK) {
+				if (dbw_.safetyTrigger->safetyCnt > 0U) {
+					--dbw_.safetyTrigger->safetyCnt;
+				}
+			} else {
+				if (dbw_.safetyTrigger->safetyCnt <= SAFETY_TRIGGER_MS) {
+					++dbw_.safetyTrigger->safetyCnt;
+				}
+			}
+
+			if (dbw_.safetyTrigger->safetyCnt >= SAFETY_TRIGGER_MS) {
+				// Turn off safety line
+				DBW_TurnOffSafetyLine();
+				dbw_.state = DBW_DISABLED;
+				dbw_.safetyTrigger->resetCnt = 0U;
+				state = TRIGGER_ACTIVATED;
+			}
+			break;
+
+		case TRIGGER_ACTIVATED:
+		default:
+			if (safetyOK) {
+				if (dbw_.safetyTrigger->resetCnt < SAFETY_TRIGGER_RESET_MS) {
+					++dbw_.safetyTrigger->resetCnt;
+				}
+			} else {
+				if (dbw_.safetyTrigger->resetCnt > 0U) {
+					--dbw_.safetyTrigger->resetCnt;
+				}
+			}
+
+			if (dbw_.safetyTrigger->resetCnt >= SAFETY_TRIGGER_RESET_MS) {
+				// Target is OK for at least N s
+				DBW_TurnOnSafetyLine();
+				dbw_.safetyTrigger->safetyCnt = 0U;
+				state = TRIGGER_POLL;
+			}
+
+			break;
 	}
 }
 
@@ -808,8 +847,18 @@ static void DBW_StateMachine(void)
 
 		case DBW_DISABLED:
 		default:
-			DCMotor_Disable();
-			LED_SetStatus(LED_BLINK_1HZ);
+			//DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
+			//DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+			DBW_SafetyCheck();
+
+			if ((dbw_.safetyTrigger->safetyCnt == 0U)) {
+				DCMotor_Enable();
+				LED_SetStatus(LED_SOLID);
+				dbw_.state = DBW_HandlerRun();
+			} else {
+				DCMotor_Disable();
+				LED_SetStatus(LED_BLINK_1HZ);
+			}
 			break;
 	}
 }
