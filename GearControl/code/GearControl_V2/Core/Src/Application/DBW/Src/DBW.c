@@ -37,7 +37,7 @@
 #define TPS_CALIBRATION_TIME_MS (1000U)
 
 #define ADC_MAX (4096U)
-#define TPS_ADC_MAX_DIFF_THRESHOLD (410U)//(410U)  // 10% of 5V
+#define TPS_ADC_MAX_DIFF_THRESHOLD (410U)  //(410U)  // 10% of 5V
 #define APPS_ADC_MAX_DIFF_THRESHOLD (410U) // 10% of 5V
 
 #define TPS_DEBOUNCE_MS (100U)
@@ -48,11 +48,11 @@
 
 /* CALIBRATION VALUES START */
 /* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
-#define APPS_FEASIBLE_MIN  (1700.0f)  //(700U)  //(800U)
+#define APPS_FEASIBLE_MIN (1250.0f) //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
-#define APPS_FEASIBLE_MAX  (2300.0f) //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (1488.0f)//(792.0f) //(1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (2870.0f)//(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+#define APPS_FEASIBLE_MAX (2600.0f)	  //(3500U) //(3000U)
+#define APPS_MIN_MEASURED_F (1350.0f) //(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (2450.0f) //(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
 #define TPS_FEASIBLE_MIN (1100U)
 #define TPS_FEASIBLE_MAX (3600U)
@@ -90,7 +90,8 @@ typedef enum
 	DBW_DISABLED
 } DBW_States;
 
-typedef struct {
+typedef struct
+{
 	float max;
 	float min;
 	uint16 calibMin;
@@ -99,7 +100,8 @@ typedef struct {
 	const uint16 feasibleMax;
 } SensorLimitsType;
 
-typedef struct {
+typedef struct
+{
 	const uint16 maxDiffAllowed;
 	const uint8_t debounceMs;
 	const ErrorEnum errorFlag;
@@ -108,11 +110,12 @@ typedef struct {
 	uint8_t debounceCnt;
 } PlausibilityParamType;
 
-typedef struct {
+typedef struct
+{
 	/* TPS1 ADC Channel */
-	__IO AdcDataChannel* tps1;
+	__IO AdcDataChannel *tps1;
 	/* TPS2 ADC Channel */
-	__IO AdcDataChannel* tps2;
+	__IO AdcDataChannel *tps2;
 	/* TPS ADC in IDLE position */
 	uint16 constTpsIdle;
 	/* IDLE min */
@@ -136,15 +139,16 @@ typedef struct {
 	KalmanFilter kalman;
 } TpsSensorType;
 
-typedef struct {
+typedef struct
+{
 	/* APPS1 ADC Channel */
-	__IO AdcDataChannel* apps1;
+	__IO AdcDataChannel *apps1;
 	/* APPS2 ADC Channel */
-	__IO AdcDataChannel* apps2;
+	__IO AdcDataChannel *apps2;
 	ErrorEnum error;
 	PlausibilityParamType *const plausibility;
 	SensorLimitsType *const limits;
-	float target; /* Target position 0-1000 -> 0.1% of max range (around 50deg) */
+	float target;			  /* Target position 0-1000 -> 0.1% of max range (around 50deg) */
 	float interpolatedTarget; /* Interpolated target position */
 	SwTimerType timer;
 	RCFilter rcFilter;
@@ -155,7 +159,8 @@ typedef struct {
 	KalmanFilter kalman;
 } AppsSensorType;
 
-typedef struct {
+typedef struct
+{
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
 	uint32_t safetyCnt;
@@ -174,7 +179,7 @@ typedef struct
 	bool_t apps_calib_request;
 #if CONFIG_ENABLE_REV_MATCH
 	bool_t revMatchControl;
-	float* revMatchTarget;
+	float *revMatchTarget;
 #endif
 } DbwHandle;
 
@@ -183,15 +188,13 @@ static PlausibilityParamType tpsPlaus = {
 	.maxAbsDiff = 0U,
 	.maxDiffAllowed = TPS_ADC_MAX_DIFF_THRESHOLD,
 	.debounceMs = TPS_DEBOUNCE_MS,
-	.errorFlag = ERROR_DBW_TPS_PLAUSIBILITY
-};
+	.errorFlag = ERROR_DBW_TPS_PLAUSIBILITY};
 
 static PlausibilityParamType appsPlaus = {
 	.maxAbsDiff = 0U,
 	.maxDiffAllowed = APPS_ADC_MAX_DIFF_THRESHOLD,
 	.debounceMs = APPS_DEBOUNCE_MS,
-	.errorFlag = ERROR_DBW_APPS_PLAUSIBILITY
-};
+	.errorFlag = ERROR_DBW_APPS_PLAUSIBILITY};
 
 /* Limits */
 static SensorLimitsType tpsLim = {
@@ -200,16 +203,14 @@ static SensorLimitsType tpsLim = {
 	.calibMax = 0U,
 	.calibMin = UINT16_MAX,
 	.feasibleMin = TPS_FEASIBLE_MIN,
-	.feasibleMax = TPS_FEASIBLE_MAX
-};
+	.feasibleMax = TPS_FEASIBLE_MAX};
 static SensorLimitsType appsLim = {
 	.min = APPS_MIN_MEASURED_F,
 	.max = APPS_MAX_MEASURED_F,
 	.calibMax = 0U,
 	.calibMin = UINT16_MAX,
 	.feasibleMin = APPS_FEASIBLE_MIN,
-	.feasibleMax = APPS_FEASIBLE_MAX
-};
+	.feasibleMax = APPS_FEASIBLE_MAX};
 
 /* Sensors */
 static TpsSensorType tps_ = {
@@ -224,9 +225,7 @@ static TpsSensorType tps_ = {
 	.posMin = 1001.0f,
 	.posMax = 0.0f,
 	.kalman = {
-		.P_k_k1 = 1.0f
-	}
-};
+		.P_k_k1 = 1.0f}};
 
 static AppsSensorType apps_ = {
 	.apps1 = NULL,
@@ -237,16 +236,13 @@ static AppsSensorType apps_ = {
 	.posMin = 1001.0f,
 	.posMax = 0.,
 	.kalman = {
-		.P_k_k1 = 1.0f
-	}
-};
+		.P_k_k1 = 1.0f}};
 
 static SafetyTriggerHandler safetyTrigger_ = {
-	    .gpioPort = GPIOB,
-		.gpioPin  = GPIO_PIN_12,
-		.safetyCnt = 0U,
-		.status = true
-};
+	.gpioPort = GPIOB,
+	.gpioPin = GPIO_PIN_12,
+	.safetyCnt = 0U,
+	.status = true};
 
 /* DBW */
 static DbwHandle dbw_ = {
@@ -259,13 +255,12 @@ static DbwHandle dbw_ = {
 #endif
 	.state = DBW_DISABLED,
 	.safetyTrigger = &safetyTrigger_,
-	.apps_calib_request = FALSE
-};
+	.apps_calib_request = FALSE};
 
 /* APPS interpolation */
 #define APPS_INTERPOLATION_CNT (12U)
 static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 300.0f, 400.0f, 500.0f, 600.0f, 700.0f, 800.0f, 900.0f, 950.0f, 1000.0f};
-static const float APPS_pos_Y[APPS_INTERPOLATION_CNT]     = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
+static const float APPS_pos_Y[APPS_INTERPOLATION_CNT] = {0.0f, 50.0f, 100.0f, 150.0f, 200.0f, 250.0f, 300.0f, 350.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
 static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
 #define SAFETY_MAX_TARGET_TO_POSITION_DIFF (300.0f)
@@ -317,7 +312,8 @@ static void DBW_SafetyCheck(void)
 #define SAFETY_TRIGGER_MS (500U)
 #define SAFETY_TRIGGER_RESET_MS (1200U)
 
-	typedef enum  {
+	typedef enum
+	{
 		TRIGGER_POLL,
 		TRIGGER_ACTIVATED
 	} TriggerStates;
@@ -329,93 +325,114 @@ static void DBW_SafetyCheck(void)
 
 	bool_t safetyOK = (abs(tps_pos - apps_pos) < SAFETY_MAX_TARGET_TO_POSITION_DIFF);
 
-	switch (state) {
-		case TRIGGER_POLL:
-			if (safetyOK) {
-				if (dbw_.safetyTrigger->safetyCnt > 0U) {
-					--dbw_.safetyTrigger->safetyCnt;
-				}
-			} else {
-				if (dbw_.safetyTrigger->safetyCnt <= SAFETY_TRIGGER_MS) {
-					++dbw_.safetyTrigger->safetyCnt;
-				}
+	switch (state)
+	{
+	case TRIGGER_POLL:
+		if (safetyOK)
+		{
+			if (dbw_.safetyTrigger->safetyCnt > 0U)
+			{
+				--dbw_.safetyTrigger->safetyCnt;
 			}
-
-			if (dbw_.safetyTrigger->safetyCnt >= SAFETY_TRIGGER_MS) {
-				// Turn off safety line
-				DBW_TurnOffSafetyLine();
-				dbw_.state = DBW_DISABLED;
-				dbw_.safetyTrigger->resetCnt = 0U;
-				state = TRIGGER_ACTIVATED;
+		}
+		else
+		{
+			if (dbw_.safetyTrigger->safetyCnt <= SAFETY_TRIGGER_MS)
+			{
+				++dbw_.safetyTrigger->safetyCnt;
 			}
-			break;
+		}
 
-		case TRIGGER_ACTIVATED:
-		default:
-			if (safetyOK) {
-				if (dbw_.safetyTrigger->resetCnt < SAFETY_TRIGGER_RESET_MS) {
-					++dbw_.safetyTrigger->resetCnt;
-				}
-			} else {
-				if (dbw_.safetyTrigger->resetCnt > 0U) {
-					--dbw_.safetyTrigger->resetCnt;
-				}
+		if (dbw_.safetyTrigger->safetyCnt >= SAFETY_TRIGGER_MS)
+		{
+			// Turn off safety line
+			DBW_TurnOffSafetyLine();
+			dbw_.state = DBW_DISABLED;
+			dbw_.safetyTrigger->resetCnt = 0U;
+			state = TRIGGER_ACTIVATED;
+		}
+		break;
+
+	case TRIGGER_ACTIVATED:
+	default:
+		if (safetyOK)
+		{
+			if (dbw_.safetyTrigger->resetCnt < SAFETY_TRIGGER_RESET_MS)
+			{
+				++dbw_.safetyTrigger->resetCnt;
 			}
-
-			if (dbw_.safetyTrigger->resetCnt >= SAFETY_TRIGGER_RESET_MS) {
-				// Target is OK for at least N s
-				DBW_TurnOnSafetyLine();
-				dbw_.safetyTrigger->safetyCnt = 0U;
-				state = TRIGGER_POLL;
+		}
+		else
+		{
+			if (dbw_.safetyTrigger->resetCnt > 0U)
+			{
+				--dbw_.safetyTrigger->resetCnt;
 			}
+		}
 
-			break;
+		if (dbw_.safetyTrigger->resetCnt >= SAFETY_TRIGGER_RESET_MS)
+		{
+			// Target is OK for at least N s
+			DBW_TurnOnSafetyLine();
+			dbw_.safetyTrigger->safetyCnt = 0U;
+			state = TRIGGER_POLL;
+		}
+
+		break;
 	}
 }
 
 /**
  * @brief Drive-By-Wire Initialization state.
- * 
+ *
  * It waits for a certain amount of time, then it reads the TPS sensor and calculates the idle
- * position. 
+ * position.
  * If the idle position is within a certain range, it enables the DC motor and starts the calibration
- * process. 
+ * process.
  * If the idle position is not within the range, it sets an error flag.
- * 
+ *
  * @return The next state of the DBW_HandlerInit function.
  */
 static DBW_States DBW_HandlerInit(void)
 {
 	DBW_States nextState = DBW_INIT;
 
-	if (HAL_GetTick() > TPS_INIT_DELAY_MS) {
+	if (HAL_GetTick() > TPS_INIT_DELAY_MS)
+	{
+
+		DBW_TurnOnSafetyLine();
+
 		/* Get idle min/max values */
 		Utils_UpdateMinMax_U16(tps_.tps2->avgData.avg, &tps_.idlePosMin, &tps_.idlePosMax);
 		/* TPS IDLE calibration */
-		if (HAL_GetTick() > (TPS_INIT_DELAY_MS + TPS_INIT_CALIBRATION_MS)) {
+		if (HAL_GetTick() > (TPS_INIT_DELAY_MS + TPS_INIT_CALIBRATION_MS))
+		{
 			nextState = DBW_DISABLED;
 
 			// 728/735
-			if (abs(tps_.idlePosMax - tps_.idlePosMin) < TPS_IDLE_POS_MAX_DIFF) {
+			if (abs(tps_.idlePosMax - tps_.idlePosMin) < TPS_IDLE_POS_MAX_DIFF)
+			{
 				tps_.constTpsIdle = (uint16)((tps_.idlePosMax + tps_.idlePosMin) / 2U);
-					/* Init OK */
-					DCMotor_Enable();
+				/* Init OK */
+				DCMotor_Enable();
 
 #if CONFIG_DBW_CALIBRATE_TPS_AUTO
-					/* Start TPS calibration */
-					SwTimerStart(&tps_.timer, TPS_CALIBRATION_TIME_MS);
-					tps_.calibrationDirection = DC_MOTOR_ROTATE_PLUS;
-					DCMotor_Update(TPS_CALIBRATION_SPEED, tps_.calibrationDirection);
-					tps_.limits->calibMax = 0U;
-					tps_.limits->calibMin = UINT16_MAX;
-					tps_.calibOkCnt = 0U;
-					tps_.calibNokCnt = 0U;
-					nextState = DBW_CALIBRATE_TPS;
+				/* Start TPS calibration */
+				SwTimerStart(&tps_.timer, TPS_CALIBRATION_TIME_MS);
+				tps_.calibrationDirection = DC_MOTOR_ROTATE_PLUS;
+				DCMotor_Update(TPS_CALIBRATION_SPEED, tps_.calibrationDirection);
+				tps_.limits->calibMax = 0U;
+				tps_.limits->calibMin = UINT16_MAX;
+				tps_.calibOkCnt = 0U;
+				tps_.calibNokCnt = 0U;
+				nextState = DBW_CALIBRATE_TPS;
 #else
-					nextState = DBW_RUN;
-					LED_SetStatus(LED_SOLID);
+				nextState = DBW_RUN;
+				LED_SetStatus(LED_SOLID);
 #endif
-			} else {
+			}
+			else
+			{
 				tps_.error = ERROR_DBW_TPS_INIT;
 			}
 		}
@@ -426,10 +443,10 @@ static DBW_States DBW_HandlerInit(void)
 
 /**
  * @brief APPS sensor calibration sequence.
- * 
+ *
  * It checks if the difference between the two APPS sensors is within a certain threshold, and if so,
  * it updates the calibration limits.
- * 
+ *
  * @return The next state of the DBW_HandlerCalibrateAPPS function.
  */
 static DBW_States DBW_HandlerCalibrateAPPS(void)
@@ -440,21 +457,28 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 	apps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*apps_.apps1->raw + *apps_.apps2->raw));
 	Utils_UpdateMax_U16(apps_.plausibility->absDiff, &apps_.plausibility->maxAbsDiff);
 
-	if (!SwTimerHasElapsed(&apps_.timer)) {
-		if (apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed) {
+	if (!SwTimerHasElapsed(&apps_.timer))
+	{
+		if (apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed)
+		{
 			/* Use 10 sample average OR apps2->raw */
 			Utils_UpdateMinMax_U16(apps_.apps2->avgData.avg, &apps_.limits->calibMin, &apps_.limits->calibMax);
 		}
-	} else {
+	}
+	else
+	{
 		if ((apps_.plausibility->absDiff < apps_.plausibility->maxDiffAllowed) &&
-		    (apps_.limits->calibMin < APPS_FEASIBLE_MIN) &&
-		    (apps_.limits->calibMax > APPS_FEASIBLE_MAX)) {
+			(apps_.limits->calibMin < APPS_FEASIBLE_MIN) &&
+			(apps_.limits->calibMax > APPS_FEASIBLE_MAX))
+		{
 			/* Calibration OK */
 			apps_.limits->min = (float)apps_.limits->calibMin;
 			apps_.limits->max = (float)(apps_.limits->calibMax) * ((100.0f - APPS_CALIB_MAX_LIMIT_PERCENT) / 100.0f);
 			DCMotor_Enable();
 			nextState = DBW_RUN;
-		} else {
+		}
+		else
+		{
 			nextState = DBW_DISABLED;
 			apps_.error = ERROR_DBW_APPS_CALIBRATION;
 		}
@@ -466,7 +490,7 @@ static DBW_States DBW_HandlerCalibrateAPPS(void)
 #if CONFIG_ENABLE_REV_MATCH
 /**
  * @brief Get absolute error between target and throttle position.
- * 
+ *
  * @return The absolute value of the difference between the target position and the current position.
  */
 float DBW_GetTargetPositionAbsError(void)
@@ -478,9 +502,9 @@ float DBW_GetTargetPositionAbsError(void)
 
 /**
  * @brief Check if throttle target is in range.
- * 
+ *
  * @param target The throttle target value.
- * 
+ *
  * @return TRUE if throttle target is in range, FALSE otherwise.
  */
 static inline bool_t DBW_IsRevMatchTargetInRange(const float target)
@@ -493,12 +517,12 @@ static inline bool_t DBW_IsRevMatchTargetInRange(const float target)
 
 /**
  * @brief Set RevMatch Control if possible.
- * 
+ *
  * If the DBW is running, the TPS and APPS are OK, and the target is in range,
  * then set the target from revmatch module and enable the control.
- * 
+ *
  * @param target The throttle target value from rev match module.
- * 
+ *
  * @return a DbwRevMatchStatus enum.
  */
 DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
@@ -506,16 +530,22 @@ DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
 	DbwRevMatchStatus revMatchStatus = REV_MATCH_DBW_OK;
 
 	if ((dbw_.state == DBW_RUN) &&
-	    (tps_.error == ERROR_OK) &&
-	    (apps_.error == ERROR_OK)) {
+		(tps_.error == ERROR_OK) &&
+		(apps_.error == ERROR_OK))
+	{
 		if ((target != NULL) &&
-			DBW_IsRevMatchTargetInRange(*target)) {
-				dbw_.revMatchTarget = target;
-				dbw_.revMatchControl = TRUE;
-		} else {
+			DBW_IsRevMatchTargetInRange(*target))
+		{
+			dbw_.revMatchTarget = target;
+			dbw_.revMatchControl = TRUE;
+		}
+		else
+		{
 			revMatchStatus = REV_MATCH_TARGET_INVALID;
 		}
-	} else {
+	}
+	else
+	{
 		revMatchStatus = REV_MATCH_DBW_FAILURE;
 	}
 
@@ -524,9 +554,9 @@ DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
 
 /**
  * @brief Restore normal Drive-by-Wire operation from throttle pedal position.
- * 
+ *
  * This is called after revmatching sequence is finished.
- * 
+ *
  */
 void DBW_RevMatchRestoreNormalOperation(void)
 {
@@ -537,13 +567,13 @@ void DBW_RevMatchRestoreNormalOperation(void)
 
 /**
  * @brief TPS sensor calibration sequence.
- * 
+ *
  * It checks if the difference between the two TPS sensor signals is within a correct range.
  * If it is, it updates the minimum and maximum values. If it isn't, it checks if the difference is
  * within the range for a certain number of times. If it is, it changes the direction of the motor.
  * If it isn't, it stops the motor. If the minimum and maximum values are within a certain range,
  * it enables the motor and changes the state to DBW_RUN. If they aren't, it changes the state to DBW_DISABLED.
- * 
+ *
  * @return The next state of the DBW_States enum.
  */
 static DBW_States DBW_HandlerCalibrateTPS(void)
@@ -553,19 +583,25 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 	tps_.plausibility->absDiff = (uint16_t)abs(ADC_MAX - (*tps_.tps2->raw + *tps_.tps1->raw));
 	Utils_UpdateMax_U16(tps_.plausibility->absDiff, &tps_.plausibility->maxAbsDiff);
 
-	if (!SwTimerHasElapsed(&tps_.timer)) {
+	if (!SwTimerHasElapsed(&tps_.timer))
+	{
 		/* Run TPS calibration to set new MIN/MAX ADC values */
 		const bool_t isPlausible = (tps_.plausibility->absDiff < tps_.plausibility->maxDiffAllowed);
 
-		if (isPlausible) {
+		if (isPlausible)
+		{
 			++tps_.calibOkCnt;
 			/* Continue going UP/DOWN */
 			/* Use 10 sample average OR tps2->raw */
 			Utils_UpdateMinMax_U16(tps_.tps2->avgData.avg, &tps_.limits->calibMin, &tps_.limits->calibMax);
-		} else {
+		}
+		else
+		{
 			/* Invalid plausibility, reached end */
-			if (tps_.calibNokCnt > tps_.calibOkCnt) {
-				if (tps_.calibNokCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) {
+			if (tps_.calibNokCnt > tps_.calibOkCnt)
+			{
+				if (tps_.calibNokCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES)
+				{
 					nextState = DBW_DISABLED;
 					tps_.error = ERROR_DBW_TPS_CALIBRATION;
 				}
@@ -573,41 +609,49 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 			++tps_.calibNokCnt;
 		}
 
-		switch (tps_.calibrationDirection) {
-			case DC_MOTOR_ROTATE_PLUS:
-				 if ((!isPlausible) && ((tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) || (*tps_.tps2->raw > TPS_CALIBRATION_OOR))) {
-						/* UP calibration finished successfully, change direction */
-						tps_.calibNokCnt = 0U;
-						tps_.calibOkCnt = 0U;
-						tps_.calibrationDirection = DC_MOTOR_ROTATE_MINUS;
-						DCMotor_Update(TPS_CALIBRATION_SPEED, tps_.calibrationDirection);
-				}
-				break;
+		switch (tps_.calibrationDirection)
+		{
+		case DC_MOTOR_ROTATE_PLUS:
+			if ((!isPlausible) && ((tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES) || (*tps_.tps2->raw > TPS_CALIBRATION_OOR)))
+			{
+				/* UP calibration finished successfully, change direction */
+				tps_.calibNokCnt = 0U;
+				tps_.calibOkCnt = 0U;
+				tps_.calibrationDirection = DC_MOTOR_ROTATE_MINUS;
+				DCMotor_Update(TPS_CALIBRATION_SPEED, tps_.calibrationDirection);
+			}
+			break;
 
-			case DC_MOTOR_ROTATE_MINUS:
-				if ((!isPlausible) && (tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES)) {
-					/* DOWN calibration finished successfully */
-					tps_.calibrationDirection = DC_MOTOR_DISABLED;
-					DCMotor_Disable();
-				}
-				break;
-
-			case DC_MOTOR_DISABLED:
-			default:
+		case DC_MOTOR_ROTATE_MINUS:
+			if ((!isPlausible) && (tps_.calibOkCnt > TPS_MIN_CALIBRATION_PLAUSIBILITY_SAMPLES))
+			{
+				/* DOWN calibration finished successfully */
+				tps_.calibrationDirection = DC_MOTOR_DISABLED;
 				DCMotor_Disable();
-				break;
+			}
+			break;
+
+		case DC_MOTOR_DISABLED:
+		default:
+			DCMotor_Disable();
+			break;
 		}
-	} else {
+	}
+	else
+	{
 		/* Timer elapsed, calibration finished */
 		if ((tps_.limits->calibMin < TPS_FEASIBLE_MIN) &&
-			(tps_.limits->calibMax > TPS_FEASIBLE_MAX)) {
+			(tps_.limits->calibMax > TPS_FEASIBLE_MAX))
+		{
 			/* Calibration OK */
 			DCMotor_Enable();
 			tps_.limits->min = (float)tps_.limits->calibMin;
 			tps_.limits->max = (float)tps_.limits->calibMax;
 			LED_SetStatus(LED_SOLID);
 			nextState = DBW_RUN;
-		} else {
+		}
+		else
+		{
 			nextState = DBW_DISABLED;
 			tps_.error = ERROR_DBW_TPS_CALIBRATION;
 		}
@@ -618,11 +662,11 @@ static DBW_States DBW_HandlerCalibrateTPS(void)
 
 /**
  * @brief Set DBW throttle target.
- * 
+ *
  * If rev match control is enabled, and the rev match target is not null, and the target is in range,
  * then set the throttle target to the rev match target, otherwise set the target to the converted apps raw
  * value.
- * 
+ *
  * @return The throttle target value.
  */
 static inline float DBW_SetTargetValue(void)
@@ -633,9 +677,12 @@ static inline float DBW_SetTargetValue(void)
 	/* Check if Rev match control is enabled */
 	if ((dbw_.revMatchControl) &&
 		(dbw_.revMatchTarget != NULL) &&
-		(DBW_IsRevMatchTargetInRange(*dbw_.revMatchTarget))) {
+		(DBW_IsRevMatchTargetInRange(*dbw_.revMatchTarget)))
+	{
 		throttleTarget = *dbw_.revMatchTarget;
-	} else {
+	}
+	else
+	{
 		throttleTarget = DBW_ConvertAppsRawValue();
 	}
 #else
@@ -675,11 +722,13 @@ static DBW_States DBW_HandlerRun(void)
 
 #if CONFIG_ADC_SHOW_MIN_MAX
 	static bool_t startPosMeas = FALSE;
-	if (tps_.position > TPS_F_MIN_CALC_THRESHOLD) {
+	if (tps_.position > TPS_F_MIN_CALC_THRESHOLD)
+	{
 		startPosMeas = TRUE;
 	}
 
-	if (startPosMeas) {
+	if (startPosMeas)
+	{
 		Utils_UpdateMinMax_F(tps_.position, &tps_.posMin, &tps_.posMax);
 	}
 #endif
@@ -699,8 +748,7 @@ static DBW_States DBW_HandlerRun(void)
 
 	static const DCMotorDirectionEnum directionToRotationMap[] = {
 		[FALSE] = DC_MOTOR_ROTATE_MINUS,
-		[TRUE] = DC_MOTOR_ROTATE_PLUS
-	};
+		[TRUE] = DC_MOTOR_ROTATE_PLUS};
 
 	DCMotor_Update(pidOut, directionToRotationMap[(uint8_t)direction]);
 
@@ -709,17 +757,18 @@ static DBW_States DBW_HandlerRun(void)
 
 /**
  * @brief Convert the raw TPS value to a percentage value between 0 and 1000.
- * 
+ *
  * The first thing we do is set the default value of tpsPos to TPS_POS_MIN_F. This is the default value
  * of 0.0.
- * 
+ *
  * @return Coverted TPS raw value to float.
  */
 static inline float DBW_ConvertTpsRawValue(void)
 {
 	float tpsPos = TPS_POS_MIN_F;
 
-	if (tps_.tps2->avgData.avg >= tps_.limits->min) {
+	if (tps_.tps2->avgData.avg >= tps_.limits->min)
+	{
 		tpsPos = ((float)tps_.tps2->avgData.avg - tps_.limits->min) * TPS_DIVISOR_F(tps_.limits->min, tps_.limits->max);
 		tpsPos = CLAMP_MAX(tpsPos, TPS_POS_MAX_F);
 	}
@@ -729,17 +778,18 @@ static inline float DBW_ConvertTpsRawValue(void)
 
 /**
  * @brief Convert the raw APPS value to a percentage value between 0 and 1000.
- * 
+ *
  * The first thing we do is set the default value of targetApps to TPS_POS_MIN_F. This is the default value
  * of 0.0.
- * 
+ *
  * @return Coverted APPS raw value to float.
  */
 static inline float DBW_ConvertAppsRawValue(void)
 {
 	float targetApps = APPS_POS_MIN_F;
 
-	if (apps_.apps2->avgData.avg >= apps_.limits->min) {
+	if (apps_.apps2->avgData.avg >= apps_.limits->min)
+	{
 		targetApps = ((float)apps_.apps2->avgData.avg - apps_.limits->min) * APPS_DIVISOR_F(apps_.limits->min, apps_.limits->max);
 		targetApps = CLAMP_MAX(targetApps, APPS_POS_MAX_F);
 	}
@@ -750,31 +800,36 @@ static inline float DBW_ConvertAppsRawValue(void)
 #if CONFIG_DBW_ADJUST_SENS_LIMITS
 /**
  * @brief Adjust sensor limits dynamically.
- * 
+ *
  * If the invalid value is greater than the feasible max, then the max is decremented by 1.0f. If the
  * invalid value is less than the feasible min, then the min is incremented by 1.0f.
- * 
+ *
  * @param limits       Pointer to the limits structure.
  * @param invalidValue The value that is outside the feasible range.
  */
 static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 invalidValue)
 {
-	if (invalidValue > limits->feasibleMax) {
+	if (invalidValue > limits->feasibleMax)
+	{
 		limits->max -= 1.0f;
 	}
-	else if (invalidValue < limits->feasibleMin) {
+	else if (invalidValue < limits->feasibleMin)
+	{
 		limits->min += 1.0f;
-	} else { /* Do nothing, actual error inside normal range */}
+	}
+	else
+	{ /* Do nothing, actual error inside normal range */
+	}
 }
 #endif
 /**
  * @brief Drive-By-Wire sensors plausibility checks.
- * 
+ *
  * If the sensor value is within the feasible range, then check if the difference between the two
  * sensors is within the allowed range. If it is, then decrement the debounce counter. If it isn't,
  * then increment the debounce counter. If the debounce counter is zero, then there is no error. If the
  * debounce counter is greater than the debounce time, then there is an error.
- * 
+ *
  * @param plausibility Pointer to a struct of type PlausibilityParamType.
  * @param limits       The limits of the sensor.
  * @param sens1        The value of the first sensor reading.
@@ -783,30 +838,41 @@ static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 
  */
 static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, SensorLimitsType *const limits, const uint16 sens1, const uint16 sens2, ErrorEnum *const error)
 {
-	if (sens2 < limits->feasibleMax && sens2 > limits->feasibleMin) {
+	if (sens2 < limits->feasibleMax && sens2 > limits->feasibleMin)
+	{
 		plausibility->absDiff = (uint16_t)abs(ADC_MAX - (sens1 + sens2));
 		Utils_UpdateMax_U16(plausibility->absDiff, &plausibility->maxAbsDiff);
 
-		if ((plausibility->absDiff) < plausibility->maxDiffAllowed) {
-			if (plausibility->debounceCnt > 0U) {
+		if ((plausibility->absDiff) < plausibility->maxDiffAllowed)
+		{
+			if (plausibility->debounceCnt > 0U)
+			{
 				--plausibility->debounceCnt;
 			}
-		} else {
+		}
+		else
+		{
 #if CONFIG_DBW_ADJUST_SENS_LIMITS
 			/* Actively adjust limits */
 			DBW_AdjustSensorLimits(limits, sens2);
 #endif
-			if (*error == ERROR_OK) {
+			if (*error == ERROR_OK)
+			{
 				++plausibility->debounceCnt;
 			}
 		}
 
-		if (plausibility->debounceCnt == 0U) {
+		if (plausibility->debounceCnt == 0U)
+		{
 			*error = ERROR_OK;
 		}
-		else if (plausibility->debounceCnt > plausibility->debounceMs) {
+		else if (plausibility->debounceCnt > plausibility->debounceMs)
+		{
 			*error = plausibility->errorFlag;
-		} else { /* Nothing */ }
+		}
+		else
+		{ /* Nothing */
+		}
 	}
 }
 
@@ -815,51 +881,59 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
  */
 static void DBW_StateMachine(void)
 {
-	if (dbw_.apps_calib_request == TRUE) {
+	if (dbw_.apps_calib_request == TRUE)
+	{
 		dbw_.state = DBW_CALIBRATE_APPS;
 		dbw_.apps_calib_request = FALSE;
 	}
 
-	switch (dbw_.state) {
-		case DBW_INIT:
-			dbw_.state = DBW_HandlerInit();
-			break;
+	switch (dbw_.state)
+	{
+	case DBW_INIT:
+		dbw_.state = DBW_HandlerInit();
+		break;
 
-		case DBW_CALIBRATE_APPS:
-			dbw_.state = DBW_HandlerCalibrateAPPS();
-			break;
+	case DBW_CALIBRATE_APPS:
+		dbw_.state = DBW_HandlerCalibrateAPPS();
+		break;
 
-		case DBW_CALIBRATE_TPS:
-			dbw_.state = DBW_HandlerCalibrateTPS();
-			break;
+	case DBW_CALIBRATE_TPS:
+		dbw_.state = DBW_HandlerCalibrateTPS();
+		break;
 
-		case DBW_RUN:
-			DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+	case DBW_RUN:
+		DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
+		DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
 
-			if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK)) {
-				dbw_.state = DBW_HandlerRun();
-				DBW_SafetyCheck();
-			} else {
-				dbw_.state = DBW_DISABLED;
-			}
-			break;
-
-		case DBW_DISABLED:
-		default:
-			//DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			//DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+		if ((apps_.error == ERROR_OK) && (tps_.error == ERROR_OK))
+		{
+			dbw_.state = DBW_HandlerRun();
 			DBW_SafetyCheck();
+		}
+		else
+		{
+			dbw_.state = DBW_DISABLED;
+		}
+		break;
 
-			if ((dbw_.safetyTrigger->safetyCnt == 0U)) {
-				DCMotor_Enable();
-				LED_SetStatus(LED_SOLID);
-				dbw_.state = DBW_HandlerRun();
-			} else {
-				DCMotor_Disable();
-				LED_SetStatus(LED_BLINK_1HZ);
-			}
-			break;
+	case DBW_DISABLED:
+	default:
+		// DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
+		// DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+		DBW_SafetyCheck();
+
+		if ((dbw_.safetyTrigger->safetyCnt == 0U))
+		{
+			DCMotor_Enable();
+			LED_SetStatus(LED_SOLID);
+			dbw_.state = DBW_HandlerRun();
+		}
+		else
+		{
+			DCMotor_Disable();
+			LED_SetStatus(LED_BLINK_1HZ);
+		}
+		break;
 	}
 }
 
@@ -868,10 +942,10 @@ static void DBW_StateMachine(void)
 /* ---------------------------- */
 /**
  * @brief Initialization of the Drive-By-Wire module.
- * 
+ *
  * It initializes the DBW module by initializing the ADC channels, the timers, the DC motor, and the
  * filters.
- * 
+ *
  * @return an error code.
  */
 ErrorEnum DBW_Init(void)
@@ -886,36 +960,46 @@ ErrorEnum DBW_Init(void)
 	if ((tps_.tps1 != NULL) && (tps_.tps1->raw != NULL) &&
 		(tps_.tps2 != NULL) && (tps_.tps2->raw != NULL) &&
 		(apps_.apps1 != NULL) && (apps_.apps1->raw != NULL) &&
-		(apps_.apps2 != NULL) && (apps_.apps2->raw != NULL)) {
+		(apps_.apps2 != NULL) && (apps_.apps2->raw != NULL))
+	{
 
 		err = SwTimerRegister(&apps_.timer);
 
-		if (err == ERROR_OK) {
+		if (err == ERROR_OK)
+		{
 			err = SwTimerRegister(&tps_.timer);
 		}
 
-		if (err == ERROR_OK) {
-			if (DCMotor_Init() == ERROR_OK) {
+		if (err == ERROR_OK)
+		{
+			if (DCMotor_Init() == ERROR_OK)
+			{
 				dbw_.state = DBW_INIT;
 
 #if CONFIG_PID_ENABLE_RC_LPF
 				/* Initialize Low-Pass Filters */
 				err = RCFilter_Init(&apps_.rcFilter, LPF_RC_CUTOFF_FREQ_HZ, LPF_RC_TIME_CONSTANT_S);
-				if (err == ERROR_OK) {
+				if (err == ERROR_OK)
+				{
 					err = RCFilter_Init(&tps_.rcFilter, LPF_RC_CUTOFF_FREQ_HZ, LPF_RC_TIME_CONSTANT_S);
 				}
 #elif CONFIG_PID_ENABLE_IIR
 				/* Initialize IIR Filters */
 				err = IIRFilter_Init(&apps_.iirFilter, IIR_FILTER_ALPHA);
-				if (err == ERROR_OK) {
+				if (err == ERROR_OK)
+				{
 					err = IIRFilter_Init(&tps_.iirFilter, IIR_FILTER_ALPHA);
 				}
 #endif
-			} else {
+			}
+			else
+			{
 				err = ERROR_DBW_DC_MOTOR_INIT;
 			}
 		}
-	} else {
+	}
+	else
+	{
 		err = ERROR_NULL;
 	}
 
@@ -927,7 +1011,8 @@ ErrorEnum DBW_Init(void)
  */
 void DBW_Process(void)
 {
-	if (DCMotor_GetState() == DC_MOTOR_FAILURE) {
+	if (DCMotor_GetState() == DC_MOTOR_FAILURE)
+	{
 		dbw_.state = DBW_DISABLED;
 	}
 
@@ -936,13 +1021,14 @@ void DBW_Process(void)
 
 /**
  * @brief Request APPS sensor calibration.
- * 
+ *
  * It starts a timer, sets the calibration limits to the maximum and minimum possible values, and sets
  * the state to calibrate the APPS.
  */
 void DBW_RequestAppsCalibration(void)
 {
-	if (dbw_.state != DBW_DISABLED) {
+	if (dbw_.state != DBW_DISABLED)
+	{
 		DCMotor_Disable();
 		SwTimerStart(&apps_.timer, APPS_CALIBRATION_TIME_MS);
 		apps_.limits->calibMin = UINT16_MAX;
@@ -953,15 +1039,16 @@ void DBW_RequestAppsCalibration(void)
 
 /**
  * @brief Disable Drive-By-Wire.
- * 
+ *
  * If the DBW is enabled, disable it and set the state to disabled.
- * 
+ *
  * @param isError TRUE if error should be set, FALSE otherwise.
  */
 void DBW_Disable(boolean isError)
 {
 	/* Disable DBW */
-	if (isError) {
+	if (isError)
+	{
 		dbw_.state = DBW_DISABLED;
 	}
 	DCMotor_Disable();

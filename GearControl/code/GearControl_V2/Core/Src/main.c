@@ -98,10 +98,10 @@ TIM_HandleTypeDef htim3;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_ADC1_Init(void);
+static void MX_DMA_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_TIM1_Init(void);
-static void MX_DMA_Init(void);
+static void MX_ADC1_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_TIM2_Init(void);
@@ -196,9 +196,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_ADC1_Init();
   MX_CAN1_Init();
   MX_TIM1_Init();
+  MX_ADC1_Init();
   MX_TIM3_Init();
   MX_ADC2_Init();
   MX_TIM2_Init();
@@ -746,6 +746,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
+
   /*Configure GPIO pins : SW_GEAR_UP_Pin SW_GEAR_DOWN_Pin */
   GPIO_InitStruct.Pin = SW_GEAR_UP_Pin|SW_GEAR_DOWN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -766,12 +769,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : OE_Pin */
-  GPIO_InitStruct.Pin = OE_Pin;
+  /*Configure GPIO pins : OE_Pin PC10 */
+  GPIO_InitStruct.Pin = OE_Pin|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(OE_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
 
