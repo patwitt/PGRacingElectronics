@@ -324,6 +324,11 @@ static void DBW_SafetyCheck(void)
 	float apps_pos = DBW_ConvertAppsRawValue();
 
 	bool_t safetyOK = (abs(tps_pos - apps_pos) < SAFETY_MAX_TARGET_TO_POSITION_DIFF);
+	if (apps_.error != ERROR_OK || tps_.error != ERROR_OK)
+	{
+		safetyOK = FALSE;
+		dbw_.safetyTrigger->safetyCnt = SAFETY_TRIGGER_MS;
+	}
 
 	switch (state)
 	{
@@ -861,18 +866,26 @@ static void DBW_PlausibilityCheck(PlausibilityParamType *const plausibility, Sen
 				++plausibility->debounceCnt;
 			}
 		}
+	}
+	else if (*error == ERROR_OK)
+	{
+		++plausibility->debounceCnt;
+	}
+	else
+	{
+		;
+	}
 
-		if (plausibility->debounceCnt == 0U)
-		{
-			*error = ERROR_OK;
-		}
-		else if (plausibility->debounceCnt > plausibility->debounceMs)
-		{
-			*error = plausibility->errorFlag;
-		}
-		else
-		{ /* Nothing */
-		}
+	if (plausibility->debounceCnt == 0U)
+	{
+		*error = ERROR_OK;
+	}
+	else if (plausibility->debounceCnt > plausibility->debounceMs)
+	{
+		*error = plausibility->errorFlag;
+	}
+	else
+	{ /* Nothing */
 	}
 }
 
@@ -918,8 +931,8 @@ static void DBW_StateMachine(void)
 
 	case DBW_DISABLED:
 	default:
-		// DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-		// DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+		DBW_PlausibilityCheck(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
+				DBW_PlausibilityCheck(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
 		DBW_SafetyCheck();
 
 		if ((dbw_.safetyTrigger->safetyCnt == 0U))
