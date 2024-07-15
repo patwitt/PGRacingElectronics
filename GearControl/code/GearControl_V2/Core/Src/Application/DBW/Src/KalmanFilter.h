@@ -14,6 +14,8 @@ typedef struct {
 	float kalman_adc_old;
 	float Kg;
 	float P_k_k1;
+	const float Q;
+	const float R;
 } KalmanFilter;
 
 float KalmanFilter_Update(KalmanFilter* kalman, const float ADC_Value);

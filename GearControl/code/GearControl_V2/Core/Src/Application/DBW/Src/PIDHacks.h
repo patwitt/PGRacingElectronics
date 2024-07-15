@@ -11,7 +11,7 @@
 #include "Types.h"
 #include "PID.h"
 #include "Utils.h"
-#include "DBW.h"
+#include "DBWTypes.h"
 
 /* ---------------------------- */
 /*         Local data           */
