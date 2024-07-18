@@ -1,5 +1,14 @@
 #include "KalmanFilter.h"
 
+
+/*
+ * Q: Regulation noise, Q increases, dynamic response becomes faster,
+ * and convergence stability becomes worse
+ *
+ * R: Test noise, R increases, dynamic response becomes slower,
+ * convergence stability becomes better
+ *
+ */
 float KalmanFilter_Update(KalmanFilter* kalman, const float ADC_Value)
 {
     float x_k1_k1;

@@ -324,8 +324,11 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				/* Set new request for down-shift */
 				servoDeg = gearCtrl.servoDegMap[gearCtrl.gear].degreesDown;
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearDown;
-
+#if CONFIG_ENABLE_THROTTLE_BLIP
+				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_DOWN);
+#else
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
+#endif
 				break;
 
 			case GEAR_REQUEST_SHIFT_UP:
@@ -390,15 +393,6 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 
 	switch (upProcedureState) {
 		case SHIFT_PROCEDURE_UP_TRIGGERS:
-#if 0
-			/* Clutch Slip */
-			if (ClutchControl_TriggerSlip(gearCtrl.upShiftSlipCfg->slipDeg,
-					                        gearCtrl.upShiftSlipCfg->direction) == ERROR_OK) {
-				gearCtrl.clutchTimeout = gearCtrl.upShiftSlipCfg->slipDelayMs;
-			} else {
-				gearCtrl.clutchTimeout = 0U;
-			}
-#endif
 			/* Injectors Cut */
 			InjectorsCut_Trigger();
 			/* Go to delay */
@@ -410,16 +404,11 @@ static inline GearShiftStates GearCtrl_ShiftProcedureUp(void)
 			/* Tick delay timer */
 			SwTimerDelay_Tick(&gearCtrl.delayTim);
 
-			/* Check if both clutch slip delay and injectors cut delay has elapsed */
-#if 0
-			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.clutchTimeout) &&
-			    SwTimerDelay_Elapsed(&gearCtrl.delayTim, INJECTORS_CUT_TRIGGER_DELAY_MS)) {
-#endif
+			/* Check if Injectors cut delay has elapsed */
 			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, INJECTORS_CUT_TRIGGER_DELAY_MS)) {
 				upProcedureState = SHIFT_PROCEDURE_UP_TRIGGERS;
 				nextShiftState = SHIFT_EXEC;
 				gearCtrl.delayTim = 0U;
-				//gearCtrl.clutchTimeout = 0U;
 			}
 			break;
 	}
@@ -445,7 +434,7 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
 	typedef enum {
 		SHIFT_PROCEDURE_DOWN_TRIGGERS,
 		SHIFT_PROCEDURE_DOWN_DELAY,
-		SHIFT_PROCEDURE_DOWN_REVMATCH
+		SHIFT_PROCEDURE_DOWN_EXEC
 	} ShiftProcedureDownStates;
 
 	static ShiftProcedureDownStates downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
@@ -458,21 +447,22 @@ static inline GearShiftStates GearCtrl_ShiftProcedureDown(__IO GearShiftRequest 
 			/* Trigger Throttle Blip */
 			ShiftRevMatch_Trigger(request->expectedGear);
 			/* Go to delay OR wait until Throttle Pos is reached */
-			downProcedureState = SHIFT_PROCEDURE_DOWN_DELAY;
+			downProcedureState = SHIFT_PROCEDURE_DOWN_EXEC;
 			break;
 
+		// Skipping delay for now
 		case SHIFT_PROCEDURE_DOWN_DELAY:
 			/* Tick delay timer */
 			SwTimerDelay_Tick(&gearCtrl.delayTim);
 
 			/* Check if clutch slip delay has elapsed */
 			if (SwTimerDelay_Elapsed(&gearCtrl.delayTim, gearCtrl.downShiftSlipCfg->slipDelayMs)) {
-				downProcedureState = SHIFT_PROCEDURE_DOWN_REVMATCH;
+				downProcedureState = SHIFT_PROCEDURE_DOWN_EXEC;
 				gearCtrl.delayTim = 0U;
 			}
 			break;
 
-		case SHIFT_PROCEDURE_DOWN_REVMATCH:
+		case SHIFT_PROCEDURE_DOWN_EXEC:
 			/* Throttle Blip finished, execute gear shift */
 			downProcedureState = SHIFT_PROCEDURE_DOWN_TRIGGERS;
 			nextShiftState = SHIFT_EXEC;

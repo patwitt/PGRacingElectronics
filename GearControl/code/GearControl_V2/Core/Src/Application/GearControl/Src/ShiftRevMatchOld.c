@@ -8,7 +8,7 @@
 #include "RPMTables.h"
 #include "GearControl.h"
 #include "DefineConfig.h"
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 #include "ShiftRevMatch.h"
 #include "ClutchControl.h"
 #include "GearWatchdog.h"
@@ -147,7 +147,7 @@ static GearWatchdogType revMatchWdg = {
 
 //<! Shift Rev Match handler
 static ShiftRevMatchHandler shiftRevMatch_ = {
-	.state = REVMATCH_INACTIVE,
+	.state = REVMATCH_IDLE,
 	/* Data associate variables */
 	.rpmDataNew = FALSE,
 	.wheelSpeedDataNew = FALSE,
@@ -259,10 +259,10 @@ static inline RevMatchStates ShiftRevMatch_ThrottleBlipEngineRPM(void)
 				}
 			}
 		} else {
-			nextState = REVMATCH_INACTIVE;
+			nextState = REVMATCH_IDLE;
 		}
 	} else {
-		nextState = REVMATCH_INACTIVE;
+		nextState = REVMATCH_IDLE;
 	}
 
 	return nextState;
@@ -315,7 +315,7 @@ static void ShiftRevMatch_StateMachine(void)
 			ShiftRevMatch_Finish();
 			break;
 
-		case REVMATCH_INACTIVE:
+		case REVMATCH_IDLE:
 		default:
 			/* Ensure that DBW works in normal operation */
 			DBW_RevMatchRestoreNormalOperation();
@@ -350,7 +350,7 @@ ErrorEnum ShiftRevMatch_Init(void)
 bool_t ShiftRevMatch_IsFinished(void)
 {
 	return ((shiftRevMatch_.state == REVMATCH_FINISHED) ||
-			(shiftRevMatch_.state == REVMATCH_INACTIVE));
+			(shiftRevMatch_.state == REVMATCH_IDLE));
 }
 
 /**
@@ -399,5 +399,5 @@ void ShiftRevMatch_Trigger(const GearStates revMatchGear) { (void)revMatchGear; 
 void ShiftRevMatch_Process(void) {}
 ErrorEnum ShiftRevMatch_Init(void) { return ERROR_OK; }
 bool_t ShiftRevMatch_IsFinished(void) {return TRUE; }
-#endif // CONFIG_ENABLE_REV_MATCH
+#endif // CONFIG_ENABLE_THROTTLE_BLIP
 #endif

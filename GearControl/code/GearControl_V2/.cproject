@@ -54,6 +54,7 @@
 									<listOptionValue builtIn="false" value="../Core/Src/Application/GearControl/Inc"/>
 									<listOptionValue builtIn="false" value="../Core/Src/PlatformLow/Inc"/>
 									<listOptionValue builtIn="false" value="../Core/Src/Middleware/Drivers/Inc"/>
+									<listOptionValue builtIn="false" value="../Core/Src/Middleware/Filtering/Inc"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.466970392" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

@@ -19,8 +19,108 @@
 #define WHEEL_RPM_MIN (59.0f)
 #define WHEEL_RPM_MAX (1600.0f)
 
-#define ENGINE_RPM_MIN (2000U)
-#define ENGINE_RPM_MAX (13000U)
+
+#define GEAR_1_TRANSMISSION_RATIO (2.3125f)
+#define GEAR_2_TRANSMISSION_RATIO (1.857f)
+#define GEAR_3_TRANSMISSION_RATIO (1.565f)
+#define GEAR_4_TRANSMISSION_RATIO (1.35f)
+#define GEAR_5_TRANSMISSION_RATIO (1.238f)
+#define GEAR_6_TRANSMISSION_RATIO (1.136f)
+
+#define DOWNSHIFT_RPM_G1_MULTIPLIER (GEAR_1_TRANSMISSION_RATIO / GEAR_2_TRANSMISSION_RATIO) //!< 124.53%
+#define DOWNSHIFT_RPM_G2_MULTIPLIER (GEAR_2_TRANSMISSION_RATIO / GEAR_3_TRANSMISSION_RATIO) //!< 118.69%
+#define DOWNSHIFT_RPM_G3_MULTIPLIER (GEAR_3_TRANSMISSION_RATIO / GEAR_4_TRANSMISSION_RATIO) //!< 115.93%
+#define DOWNSHIFT_RPM_G4_MULTIPLIER (GEAR_4_TRANSMISSION_RATIO / GEAR_5_TRANSMISSION_RATIO) //!< 109.05%
+#define DOWNSHIFT_RPM_G5_MULTIPLIER (GEAR_5_TRANSMISSION_RATIO / GEAR_6_TRANSMISSION_RATIO) //!< 108.98%
+
+
+#define RPM_THROTTLE_LUT_CNT (13U)
+
+//! Engine RPM Lookup Table X values
+static const float X_Rpm[RPM_THROTTLE_LUT_CNT] = {
+	1000.0f,
+	2000.0f,
+	3000.0f,
+	4000.0f,
+	5000.0f,
+	6000.0f,
+	7000.0f,
+	8000.0f,
+	9000.0f,
+	10000.0f,
+	11000.0f,
+	12000.0f,
+	13000.0f
+};
+
+//! Gear 3 -> 2 Throttle Degrees Map 0-1000 [0-100%]
+static const float Y_Gear2ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f
+};
+
+//! Gear 4 -> 3 Throttle Degrees Map 0-1000 [0-100%]
+static const float Y_Gear3ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f
+};
+
+//! Gear 5 -> 4 Throttle Degrees Map 0-1000 [0-100%]
+static const float Y_Gear4ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f
+};
+
+//! Gear 6 -> 5 Throttle Degrees Map 0-1000 [0-100%]
+static const float Y_Gear5ThrottleMap[RPM_THROTTLE_LUT_CNT] = {
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f,
+	300.0f
+};
+
 
 #if REVMATCH_FROM_WHEEL_RPM
 static const float EngineRPM_Y[RPM_TABLE_LENGTH] = {

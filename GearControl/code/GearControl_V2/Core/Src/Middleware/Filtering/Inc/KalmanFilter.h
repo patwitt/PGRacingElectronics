@@ -2,11 +2,11 @@
  * KalmanFilter.h
  *
  *  Created on: May 27, 2024
- *      Author: lorem
+ *      Author: Patryk Wittbrodt
  */
 
-#ifndef SRC_APPLICATION_DBW_SRC_KALMANFILTER_H_
-#define SRC_APPLICATION_DBW_SRC_KALMANFILTER_H_
+#ifndef SRC_MIDDLEWARE_FILTERING_SRC_KALMANFILTER_H_
+#define SRC_MIDDLEWARE_FILTERING_SRC_KALMANFILTER_H_
 
 typedef struct {
 	float ADC_OLD_Value;
@@ -20,4 +20,4 @@ typedef struct {
 
 float KalmanFilter_Update(KalmanFilter* kalman, const float ADC_Value);
 
-#endif /* SRC_APPLICATION_DBW_SRC_KALMANFILTER_H_ */
+#endif /* SRC_MIDDLEWARE_FILTERING_SRC_KALMANFILTER_H_ */

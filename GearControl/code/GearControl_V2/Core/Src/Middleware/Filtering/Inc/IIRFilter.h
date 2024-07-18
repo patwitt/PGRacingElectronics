@@ -5,8 +5,8 @@
  *      Author: Patryk Wittbrodt
  */
 
-#ifndef IIR_FILTER_H_
-#define IIR_FILTER_H_
+#ifndef SRC_MIDDLEWARE_FILTERING_SRC_IIR_FILTER_H_
+#define SRC_MIDDLEWARE_FILTERING_SRC_IIR_FILTER_H_
 
 #include "Types.h"
 
@@ -18,4 +18,4 @@ typedef struct {
 ErrorEnum IIRFilter_Init(IIRFilter *const filter, const float alpha);
 float IIRFilter_Update(IIRFilter *const filter, const float newSample);
 
-#endif /* IIR_FILTER_H_ */
+#endif /* SRC_MIDDLEWARE_FILTERING_SRC_IIR_FILTER_H_ */

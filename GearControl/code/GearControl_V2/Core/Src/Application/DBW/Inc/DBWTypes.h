@@ -74,6 +74,9 @@
 #define SAFETY_MAX_TARGET_TO_POSITION_DIFF (101.0f)
 #define SAFETY_POWER_OFF_RECOVER (TRUE)
 
+#define ENGINE_RPM_MIN (500U)
+#define ENGINE_RPM_MAX (14000U)
+
 typedef struct {
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
@@ -105,9 +108,18 @@ typedef enum
 	DBW_RUN,
 	DBW_CALIBRATE_APPS,
 	DBW_CALIBRATE_TPS,
+#if CONFIG_MAP_RPM_TEST
+	DBW_RPM_TEST,
+#endif
 	DBW_DISABLED,
 	DBW_DISABLED_UNRECOVERABLE
 } DBW_States;
+
+typedef enum {
+	REV_MATCH_DBW_FAILURE,
+	REV_MATCH_TARGET_INVALID,
+	REV_MATCH_DBW_OK
+} DbwRevMatchStatus;
 
 typedef struct {
 	/* TPS1 ADC Channel */
@@ -165,7 +177,7 @@ typedef struct
 	DBW_States state;
 	DBWSafety_TriggerHandler *const safetyTrigger;
 	bool_t apps_calib_request;
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 	bool_t revMatchControl;
 	float* revMatchTarget;
 #endif

@@ -47,13 +47,11 @@ static inline TriggerStates ProcessTriggerPoll(DbwHandle *const dbw_, const bool
 	if (safetyOK) {
 		dbw_->safetyTrigger->safetyCnt = 0U;
 	} else {
-		if (dbw_->safetyTrigger->safetyCnt <= SAFETY_TRIGGER_MS) {
-			++dbw_->safetyTrigger->safetyCnt;
-		}
+		SwTimerDelay_Tick(&dbw_->safetyTrigger->safetyCnt);
 	}
 
-	/* CHECK ALL TRIGGERS - PLAUSIBILITY & TPS -> APPS ERROR */
-	if ((dbw_->safetyTrigger->safetyCnt > SAFETY_TRIGGER_MS) ||
+	/* CHECK ALL TRIGGERS - PLAUSIBILITY & TPS, APPS ERROR */
+	if (SwTimerDelay_Elapsed(&dbw_->safetyTrigger->safetyCnt, SAFETY_TRIGGER_MS) ||
 		(dbw_->apps->error != ERROR_OK) ||
 		(dbw_->tps->error != ERROR_OK)) {
 		/* Disable DBW and go to CV1.6.5 Check */
@@ -77,9 +75,10 @@ static inline TriggerStates ProcessPowerOff(DbwHandle *const dbw_)
 		state = POWER_OFF_RECOVER;
 		dbw_->safetyTrigger->safetyCnt = 0U;
 	} else {
-		++dbw_->safetyTrigger->safetyCnt;
-		// N ms elapsed, if TPS is NOT IDLE +/- 5%, SAFETY LINE OFF!
-		if (dbw_->safetyTrigger->safetyCnt > SAFETY_POWER_OFF_MS) {
+		SwTimerDelay_Tick(&dbw_->safetyTrigger->safetyCnt);
+
+		/* N ms elapsed, if TPS is NOT IDLE +/- 5%, SAFETY LINE OFF! */
+		if (SwTimerDelay_Elapsed(&dbw_->safetyTrigger->safetyCnt, SAFETY_POWER_OFF_MS)) {
 			TurnOffSafetyLine(dbw_);
 			state = POWER_OFF_RECOVER;
 			dbw_->safetyTrigger->safetyCnt = 0U;
@@ -94,15 +93,13 @@ static inline TriggerStates ProcessPowerOffRecover(DbwHandle *const dbw_, const 
 	TriggerStates state = POWER_OFF_RECOVER;
 
 	if ((safetyOK) && (DBWUtils_IsIdle(dbw_->tps))) {
-		if (dbw_->safetyTrigger->safetyCnt < SAFETY_POWER_OFF_RESET_MS) {
-			++dbw_->safetyTrigger->safetyCnt;
-		}
+		SwTimerDelay_Tick(&dbw_->safetyTrigger->safetyCnt);
 	} else {
 		dbw_->safetyTrigger->safetyCnt = 0U;
 	}
 
-	if (dbw_->safetyTrigger->safetyCnt > SAFETY_POWER_OFF_RESET_MS) {
-		// Target is OK for at least N ms
+	if (SwTimerDelay_Elapsed(&dbw_->safetyTrigger->safetyCnt, SAFETY_POWER_OFF_RESET_MS)) {
+		/* Target is OK for at least N ms */
 		TurnOnSafetyLine(dbw_);
 		*recover = SAFETY_POWER_OFF_RECOVER;
 		dbw_->safetyTrigger->safetyCnt = 0U;

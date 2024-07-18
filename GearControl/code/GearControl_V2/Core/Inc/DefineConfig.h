@@ -17,7 +17,9 @@
 /* !Gear shifting ENABLE/DISABLE feature configs! */
 #define CONFIG_ENABLE_INJECTORS_CUT      (FEATURE_ENABLED) //!< Enable Injectors Cut on gearshifts
 #define CONFIG_ENABLE_CLUTCH_SLIP        (FEATURE_DISABLE) //!< Enable Clutch Slip on gearshifts
-#define CONFIG_ENABLE_REV_MATCH          (FEATURE_DISABLE) //!< Enable rev matching
+#define CONFIG_ENABLE_THROTTLE_BLIP      (FEATURE_DISABLE) //!< Enable rev matching
+
+#define CONFIG_MAP_RPM_TEST (FEATURE_DISABLE) //!< Enable RPM Test
 
 /* Injectors Cut configs */
 #define INJECTORS_CUT_OG  (FALSE)
@@ -39,5 +41,4 @@
 #define CONFIG_ENABLE_KALMAN             (TRUE)
 #define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE) //!< Interpolate PID constants over 1D Table
 #define CONFIG_PID_APPLY_BRAKE           (TRUE)  //!< Apply PID Brake. Should be enabled for good performance
-#define CONFIG_DBW_APPS_INTERPOLATION    (FALSE)  //!< Interpolate pedal position -> target
 #endif // INC_DEFINE_CONFIG_H

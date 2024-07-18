@@ -5,8 +5,8 @@
  *      Author: Patryk Wittbrodt
  */
 
-#ifndef RC_FILTER_H_
-#define RC_FILTER_H_
+#ifndef SRC_MIDDLEWARE_FILTERING_SRC_RC_FILTER_H_
+#define SRC_MIDDLEWARE_FILTERING_SRC_RC_FILTER_H_
 
 #include "Types.h"
 
@@ -20,4 +20,4 @@ typedef struct {
 ErrorEnum RCFilter_Init(RCFilter *const filter, const float cutoffFreqHz, const float sampleTimeS);
 float RCFilter_Update(RCFilter *const filter, const float newSample);
 
-#endif /* RC_FILTER_H_ */
+#endif /* SRC_MIDDLEWARE_FILTERING_SRC_RC_FILTER_H_ */

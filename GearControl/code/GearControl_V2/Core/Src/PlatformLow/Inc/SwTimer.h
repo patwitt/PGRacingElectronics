@@ -53,6 +53,14 @@ ErrorEnum SwTimerRegister(SwTimerType* timer);
 void SwTimerStart(SwTimerType* timer, const uint32_t period);
 
 /**
+ * @brief Restart is basically forced start
+ *
+ * @param timer Software timer structure to be started
+ *
+ */
+void SwTimerRestart(SwTimerType* timer, const uint32_t period);
+
+/**
  * @brief Check if the given timer is active
  *
  * @param timer Software timer structure to check

@@ -10,21 +10,17 @@
 
 #include "Types.h"
 #include "DefineConfig.h"
+#include "DBWTypes.h"
 
 ErrorEnum DBW_Init(void);
 void DBW_Process(void);
 void DBW_RequestAppsCalibration(void);
 
-#if CONFIG_ENABLE_REV_MATCH
-typedef enum {
-	REV_MATCH_DBW_FAILURE,
-	REV_MATCH_TARGET_INVALID,
-	REV_MATCH_DBW_OK
-} DbwRevMatchStatus;
+#if CONFIG_ENABLE_THROTTLE_BLIP
 
 float DBW_GetTargetPositionAbsError(void);
 DbwRevMatchStatus DBW_RevMatchSetControl(float *const target);
 void DBW_RevMatchRestoreNormalOperation(void);
-#endif // CONFIG_ENABLE_REV_MATCH
+#endif // CONFIG_ENABLE_THROTTLE_BLIP
 
 #endif /* SRC_APPLICATION_DBW_INC_DBW_H_ */

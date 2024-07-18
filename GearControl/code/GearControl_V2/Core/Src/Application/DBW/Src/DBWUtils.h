@@ -70,4 +70,21 @@ static inline bool_t DBWUtils_IsIdle(TpsSensorType *const tps_)
 	return (DBWUtils_ConvertTpsRaw(tps_) <= TPS_IDLE_MARK);
 }
 
+static inline void DBWUtils_FilterSensor(float *const value,
+		KalmanFilter *const kalman,
+		RCFilter *const rcF,
+		IIRFilter *const iirF)
+{
+#if CONFIG_ENABLE_KALMAN
+	*value = KalmanFilter_Update(kalman, *value);
+#endif
+
+#if CONFIG_PID_ENABLE_RC_LPF
+	/* Low-Pass Filter on samples */
+	*value = RCFilter_Update(rcF, *value);
+#elif CONFIG_PID_ENABLE_IIR
+	*value = IIRFilter_Update(iirF, *value);
+#endif
+}
+
 #endif /* SRC_APPLICATION_DBW_SRC_DBWUTILS_H_ */

@@ -103,6 +103,16 @@ void SwTimerStart(SwTimerType* timer, const uint32_t period)
    }
 }
 
+void SwTimerRestart(SwTimerType* timer, const uint32_t period)
+{
+   if (NULL_CHECK1(timer)) {
+	  timer->period = period / SYSTICK_RESOLUTION_IN_MS;
+      timer->count = DEFAULT_COUNT;
+      timer->elapsed = FALSE;
+      timer->active = TRUE;
+   }
+}
+
 bool_t SwTimerHasElapsed(const SwTimerType* timer)
 {
    bool_t elapsed = FALSE;

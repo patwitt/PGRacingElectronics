@@ -25,6 +25,10 @@
 #include "IIRFilter.h"
 #include "KalmanFilter.h"
 
+#if CONFIG_MAP_RPM_TEST
+#include "DBWTest.h"
+#endif
+
 /* ---------------------------- */
 /*          Local data          */
 /* ---------------------------- */
@@ -77,11 +81,7 @@ static TpsSensorType tps_ = {
 	.posMax = 0.0f,
 	.kalman = {
 		.P_k_k1 = 1.0f,
-/* Q: Regulation noise, Q increases, dynamic response becomes faster,
- * and convergence stability becomes worse */
 		.Q = 0.001f,
-/* R: Test noise, R increases, dynamic response becomes slower,
- * convergence stability becomes better */
 		.R = 0.005f
 	}
 };
@@ -93,9 +93,11 @@ static AppsSensorType apps_ = {
 	.plausibility = &appsPlaus,
 	.limits = &appsLim,
 	.posMin = 1001.0f,
-	.posMax = 0.,
+	.posMax = 0.0f,
 	.kalman = {
-		.P_k_k1 = 1.0f
+		.P_k_k1 = 1.0f,
+		.Q = 0.001f,
+		.R = 0.005f
 	}
 };
 
@@ -111,7 +113,7 @@ static DbwHandle dbw_ = {
 	.errPosPercent = 0.0f,
 	.tps = &tps_,
 	.apps = &apps_,
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 	.revMatchControl = FALSE,
 	.revMatchTarget = NULL,
 #endif
@@ -125,9 +127,9 @@ static DbwHandle dbw_ = {
 /* ---------------------------- */
 
 /* Set Target */
-static inline float DBW_SetTargetValue(void);
+static inline void DBW_SetTarget(void);
 static inline void DBW_UpdateAppsTps(void);
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 static inline bool_t DBW_IsRevMatchTargetInRange(const float target);
 #endif
 
@@ -192,9 +194,7 @@ static DBW_States DBW_HandlerInit(void)
 	return nextState;
 }
 
-
-
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 /**
  * @brief Get absolute error between target and throttle position.
  * 
@@ -239,7 +239,7 @@ DbwRevMatchStatus DBW_RevMatchSetControl(float *const target)
 	if ((dbw_.state == DBW_RUN) &&
 	    (tps_.error == ERROR_OK) &&
 	    (apps_.error == ERROR_OK)) {
-		if ((target != NULL) &&
+		if (NULL_CHECK1(target) &&
 			DBW_IsRevMatchTargetInRange(*target)) {
 				dbw_.revMatchTarget = target;
 				dbw_.revMatchControl = TRUE;
@@ -276,46 +276,37 @@ void DBW_RevMatchRestoreNormalOperation(void)
  * 
  * @return The throttle target value.
  */
-static inline float DBW_SetTargetValue(void)
+static inline void DBW_SetTarget(void)
 {
-	float throttleTarget = 0.0f;
-
-#if CONFIG_ENABLE_REV_MATCH
+#if CONFIG_ENABLE_THROTTLE_BLIP
 	/* Check if Rev match control is enabled */
 	if ((dbw_.revMatchControl) &&
-		(dbw_.revMatchTarget != NULL) &&
+		NULL_CHECK1(dbw_.revMatchTarget) &&
 		(DBW_IsRevMatchTargetInRange(*dbw_.revMatchTarget))) {
-		throttleTarget = *dbw_.revMatchTarget;
+		apps_.target = *dbw_.revMatchTarget;
 	} else {
-		throttleTarget = DBWUtils_ConvertAppsRaw(dbw_.apps);
+		/* Normal target from APPS */
+		apps_.target = DBWUtils_ConvertAppsRaw(&apps_);
+		DBWUtils_FilterSensor(&apps_.target, &apps_.kalman, &apps_.rcFilter, &apps_.iirFilter);
 	}
 #else
-	throttleTarget = DBWUtils_ConvertAppsRaw(dbw_.apps);
+	/* Normal target from APPS */
+	apps_.target = DBWUtils_ConvertAppsRaw(&apps_);
+	DBWUtils_FilterSensor(&apps_.target, &apps_.kalman, &apps_.rcFilter, &apps_.iirFilter);
 #endif
-
-	return throttleTarget;
+	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
 }
 
 static inline void DBW_UpdateAppsTps(void)
 {
+	/* Determine TPS position */
 	tps_.position = DBWUtils_ConvertTpsRaw(dbw_.tps);
-	apps_.target = DBW_SetTargetValue();
-#if CONFIG_ENABLE_KALMAN
-	tps_.position = KalmanFilter_Update(&tps_.kalman, tps_.position);
-	apps_.target = KalmanFilter_Update(&apps_.kalman, apps_.target);
-#endif
+	DBWUtils_FilterSensor(&tps_.position, &tps_.kalman, &tps_.rcFilter, &apps_.iirFilter);
+
+	/* Set target from APPS or Throttle Blip */
+	DBW_SetTarget();
+
 	dbw_.errPosPercent = ((apps_.target - tps_.position) / 1000.0f) * 100.0f; // 0-100 [%]
-
-#if CONFIG_PID_ENABLE_RC_LPF
-	/* Low-Pass Filter on samples */
-	tps_.position = RCFilter_Update(&tps_.rcFilter, tps_.position);
-	apps_.target = RCFilter_Update(&apps_.rcFilter, apps_.target);
-#elif CONFIG_PID_ENABLE_IIR
-	tps_.position = IIRFilter_Update(&tps_.iirFilter, tps_.position);
-	apps_.target = IIRFilter_Update(&apps_.iirFilter, apps_.target);
-#endif
-
-	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
 
 #if CONFIG_ADC_SHOW_MIN_MAX
 	static bool_t startPosMeas = FALSE;
@@ -338,14 +329,8 @@ static inline void DBW_UpdateAppsTps(void)
  */
 static DBW_States DBW_HandlerRun(void)
 {
-#if CONFIG_DBW_APPS_INTERPOLATION
-	apps_.interpolatedTarget = Utils_interpolateTable1d(&table1d_APPS, apps_.target);
-	/* Update PID output with interpolated target */
-	float pidOut = PID_Update(&apps_.interpolatedTarget, tps_.position);
-#else
 	/* Update PID output */
 	float pidOut = PID_Update(&apps_.target, tps_.position);
-#endif
 
 	/* Direction */
 	bool_t direction = (pidOut >= 0.0f);
@@ -397,6 +382,12 @@ static void DBW_StateMachine(void)
 			dbw_.state = DBW_CALIBRATE_APPS;
 			dbw_.apps_calib_request = FALSE;
 		}
+
+#if CONFIG_MAP_RPM_TEST
+	if (DBWTest_GetState() != DBW_TEST_IDLE) {
+		dbw_.apps->target = DBWTest_GetTpsTarget();
+	}
+#endif
 	}
 
 	switch (dbw_.state) {
@@ -478,6 +469,12 @@ ErrorEnum DBW_Init(void)
 			err = SwTimerRegister(&tps_.timer);
 		}
 
+#if CONFIG_MAP_RPM_TEST
+		if (err == ERROR_OK) {
+			err = DBWTest_Init();
+		}
+#endif
+
 		if (err == ERROR_OK) {
 			if (DCMotor_Init() == ERROR_OK) {
 				dbw_.state = DBW_INIT;
@@ -516,6 +513,10 @@ void DBW_Process(void)
 	}
 
 	DBW_StateMachine();
+
+#if CONFIG_MAP_RPM_TEST
+	DBWTest_Process();
+#endif
 }
 
 /**
