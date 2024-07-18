@@ -264,6 +264,7 @@ static const float APPS_pos_Y[APPS_INTERPOLATION_CNT] = {0.0f, 50.0f, 100.0f, 15
 static const table_1d table1d_APPS = {.x_values = &APPS_pos_X[0U], .y_values = &APPS_pos_Y[0U], .x_length = APPS_INTERPOLATION_CNT};
 
 #define SAFETY_MAX_TARGET_TO_POSITION_DIFF (300.0f)
+#define SAFETY_MAX_IDLE_POS (100.0f)
 #define safetyTrigger_MS (2000U)
 /* ---------------------------- */
 /* Local function declarations  */
@@ -328,6 +329,9 @@ static void DBW_SafetyCheck(void)
 	{
 		safetyOK = FALSE;
 		dbw_.safetyTrigger->safetyCnt = SAFETY_TRIGGER_MS;
+	}else if (state == TRIGGER_ACTIVATED && tps_pos > SAFETY_MAX_IDLE_POS)
+	{
+		safetyOK = FALSE;		
 	}
 
 	switch (state)
