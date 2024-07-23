@@ -37,6 +37,6 @@
 #define CONFIG_PID_ENABLE_RC_LPF         (FALSE) //!< Enable RC Low-Pass Filter for PID inputs
 #define CONFIG_PID_ENABLE_IIR            (TRUE)  //!< Enable IIR Filter for PID Inputs
 #define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE) //!< Interpolate PID constants over 1D Table
-#define CONFIG_PID_APPLY_BRAKE           (TRUE)  //!< Apply PID Brake. Should be enabled for good performance
+#define CONFIG_PID_APPLY_BRAKE           (FALSE)  //!< Apply PID Brake. Should be enabled for good performance
 #define CONFIG_DBW_APPS_INTERPOLATION    (FALSE)  //!< Interpolate pedal position -> target
 #endif // INC_DEFINE_CONFIG_H

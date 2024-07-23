@@ -19,6 +19,7 @@
 #include "RCFilter.h"
 #include "IIRFilter.h"
 #include "KalmanFilter.h"
+#include <math.h>
 
 /* ---------------------------- */
 /*          Local data          */
@@ -51,7 +52,7 @@
 #define APPS_FEASIBLE_MIN (1250U) //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
 #define APPS_FEASIBLE_MAX (2600U)	  //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (1350.0f) //(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MIN_MEASURED_F (1450.0f) //(792.0f) //(1550.0f) //(720.0f)
 #define APPS_MAX_MEASURED_F (2450.0f) //(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
 #define TPS_FEASIBLE_MIN (250U)
@@ -802,6 +803,8 @@ static inline float DBW_ConvertAppsRawValue(void)
 		targetApps = ((float)apps_.apps2->avgData.avg - apps_.limits->min) * APPS_DIVISOR_F(apps_.limits->min, apps_.limits->max);
 		targetApps = CLAMP_MAX(targetApps, APPS_POS_MAX_F);
 	}
+
+	targetApps = pow(targetApps / APPS_POS_MAX_F, 1.7f) * APPS_POS_MAX_F;
 
 	return targetApps;
 }
