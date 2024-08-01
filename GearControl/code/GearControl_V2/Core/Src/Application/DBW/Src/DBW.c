@@ -19,6 +19,7 @@
 #include "RCFilter.h"
 #include "IIRFilter.h"
 #include "KalmanFilter.h"
+#include "GearControl.h"
 #include <math.h>
 
 /* ---------------------------- */
@@ -49,11 +50,11 @@
 
 /* CALIBRATION VALUES START */
 /* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
-#define APPS_FEASIBLE_MIN (1250U) //(700U)  //(800U)
+#define APPS_FEASIBLE_MIN (900U) //(700U)  //(800U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
-#define APPS_FEASIBLE_MAX (2600U)	  //(3500U) //(3000U)
-#define APPS_MIN_MEASURED_F (1450.0f) //(792.0f) //(1550.0f) //(720.0f)
-#define APPS_MAX_MEASURED_F (2450.0f) //(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
+#define APPS_FEASIBLE_MAX (2800U)	  //(3500U) //(3000U)
+#define APPS_MIN_MEASURED_F (1250.0f) //(792.0f) //(1550.0f) //(720.0f)
+#define APPS_MAX_MEASURED_F (2500.0f) //(2300.0f) //(3390.0f) //(3200.0f) //(3200.0f)
 
 #define TPS_FEASIBLE_MIN (250U)
 #define TPS_FEASIBLE_MAX (4000U)
@@ -64,6 +65,7 @@
 #define APPS_POS_MAX_F (1000.0f)
 #define APPS_POS_MIN_F (0.0f)
 #define APPS_DIVISOR_F(min, max) (APPS_POS_MAX_F / (max - min))
+#define APPS_GAMMA_F (1.7f)
 
 #define TPS_F_MIN_CALC_THRESHOLD (500.0f)
 #define TPS_CALIBRATION_OOR (4000U)
@@ -804,7 +806,7 @@ static inline float DBW_ConvertAppsRawValue(void)
 		targetApps = CLAMP_MAX(targetApps, APPS_POS_MAX_F);
 	}
 
-	targetApps = pow(targetApps / APPS_POS_MAX_F, 1.7f) * APPS_POS_MAX_F;
+	targetApps = pow(targetApps / APPS_POS_MAX_F, APPS_GAMMA_F) * APPS_POS_MAX_F;
 
 	return targetApps;
 }
