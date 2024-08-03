@@ -65,9 +65,14 @@ static inline float DBWUtils_ConvertAppsRaw(AppsSensorType *const apps_)
 
 static inline bool_t DBWUtils_IsIdle(TpsSensorType *const tps_)
 {
-#define TPS_IDLE_MARK (TPS_IDLE + 50.0f) // IDLE + 5%
+	if (tps_->error != ERROR_OK) {
+		return FALSE;
+	}
 
-	return (DBWUtils_ConvertTpsRaw(tps_) <= TPS_IDLE_MARK);
+#define TPS_IDLE_MARK (150.0f) // IDLE + 5%
+	float tps_pos = DBWUtils_ConvertTpsRaw(tps_);
+
+	return (tps_pos <= TPS_IDLE_MARK);
 }
 
 static inline void DBWUtils_FilterSensor(float *const value,

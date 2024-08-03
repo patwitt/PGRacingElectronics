@@ -57,7 +57,7 @@ static const GearSensorPlausibilityEnum plausibilityDebounceMap[DEBOUNCE_STATUS_
 //! Gear Sensor configuration
 static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 	 [GEAR_SENS_1] = {
-		 .adcExpectedReading = 1566U,
+		 .adcExpectedReading = 2430U,
 		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
@@ -67,27 +67,27 @@ static GearSensorConfigType GearSensorConfig[GEAR_SENS_COUNT] = {
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_2] = {
-	     .adcExpectedReading = 912U,
+	     .adcExpectedReading = 1763U,
 		 .adcResolution = GEAR_SENSOR_ADC_RESOLUTION,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_3] = {
-		 .adcExpectedReading = 566U,
+		 .adcExpectedReading = 1270U,
 		 .adcResolution = 100U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_4] = {
-	     .adcExpectedReading = 342U,
+	     .adcExpectedReading = 810U,
 		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_5] = {
-		 .adcExpectedReading = 195U,
+		 .adcExpectedReading = 465U,
 		 .adcResolution = 80U,
 		 .validCnt = 0U
 	 },
 	 [GEAR_SENS_6] = {
-	     .adcExpectedReading = 75U,
+	     .adcExpectedReading = 215U,
 		 .adcResolution = 50U,
 		 .validCnt = 0U
 	 },

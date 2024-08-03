@@ -9,6 +9,7 @@
 #include "DBWUtils.h"
 #include "stdlib.h"
 #include "SwTimer.h"
+
 /* Plausibility */
 #if CONFIG_DBW_ADJUST_SENS_LIMITS
 static void DBW_AdjustSensorLimits(SensorLimitsType *const limits, const uint16 invalidValue);
@@ -27,18 +28,6 @@ typedef enum  {
 /* ---------------------------- */
 /*        Local functions       */
 /* ---------------------------- */
-
-static inline void TurnOffSafetyLine(DbwHandle *const dbw_)
-{
-	HAL_GPIO_WritePin(dbw_->safetyTrigger->gpioPort, dbw_->safetyTrigger->gpioPin, GPIO_PIN_RESET);
-	dbw_->safetyTrigger->status = false;
-}
-
-static inline void TurnOnSafetyLine(DbwHandle *const dbw_)
-{
-	HAL_GPIO_WritePin(dbw_->safetyTrigger->gpioPort, dbw_->safetyTrigger->gpioPin, GPIO_PIN_SET);
-	dbw_->safetyTrigger->status = true;
-}
 
 static inline TriggerStates ProcessTriggerPoll(DbwHandle *const dbw_, const bool_t safetyOK)
 {
@@ -71,7 +60,8 @@ static inline TriggerStates ProcessPowerOff(DbwHandle *const dbw_)
 {
 	TriggerStates state = TRIGGER_POWER_OFF;
 
-	if (DBWUtils_IsIdle(dbw_->tps)) {
+	if (DBWUtils_IsIdle(dbw_->tps) &&
+		(dbw_->apps->error == ERROR_OK)) {
 		state = POWER_OFF_RECOVER;
 		dbw_->safetyTrigger->safetyCnt = 0U;
 	} else {
@@ -92,7 +82,9 @@ static inline TriggerStates ProcessPowerOffRecover(DbwHandle *const dbw_, const 
 {
 	TriggerStates state = POWER_OFF_RECOVER;
 
-	if ((safetyOK) && (DBWUtils_IsIdle(dbw_->tps))) {
+	if ((safetyOK) &&
+		DBWUtils_IsIdle(dbw_->tps) &&
+		(dbw_->apps->error == ERROR_OK)) {
 		SwTimerDelay_Tick(&dbw_->safetyTrigger->safetyCnt);
 	} else {
 		dbw_->safetyTrigger->safetyCnt = 0U;
@@ -109,9 +101,60 @@ static inline TriggerStates ProcessPowerOffRecover(DbwHandle *const dbw_, const 
 	return state;
 }
 
+/**
+ * @brief Drive-By-Wire sensors plausibility checks.
+ *
+ * CV1.6.6
+ *
+ * If plausibility does not occur between the values of at least two TPSs
+ * and this persists for more than 100ms, the power to the electronic throttle
+ * must be immediately shut down. Plausibility is defined as a deviation of
+ * less than ten percentage points between the sensor values as defined in CV1.4.3
+ * and no detected failures as defined in T11.9.
+ * AS must check this signal consistency on a low level itself.
+ */
+static inline void DBWSafety_PlausibilitySens(DBWSafety_PlausibilityType *const plausibility,
+								 SensorLimitsType *const limits,
+								 const uint16 sens1, const uint16 sens2,
+								 ErrorEnum *const error)
+{
+	plausibility->absDiff = (uint16_t)abs(ADC_MAX - (sens1 + sens2));
+	Utils_UpdateMax_U16(plausibility->absDiff, &plausibility->maxAbsDiff);
+
+	if (plausibility->absDiff < plausibility->maxDiffAllowed) {
+		plausibility->debounceCnt = 0U;
+	} else {
+#if CONFIG_DBW_ADJUST_SENS_LIMITS
+		/* Actively adjust limits */
+		DBW_AdjustSensorLimits(limits, sens2);
+#endif
+		if (*error == ERROR_OK) {
+			SwTimerDelay_Tick(&plausibility->debounceCnt);
+		}
+	}
+
+	if (plausibility->debounceCnt == 0U) {
+		*error = ERROR_OK;
+	} else if (SwTimerDelay_Elapsed(&plausibility->debounceCnt, plausibility->debounceMs)) {
+		*error = plausibility->errorFlag;
+	} else { /* Nothing */ }
+}
+
 /* ---------------------------- */
 /*       Global functions       */
 /* ---------------------------- */
+
+ErrorEnum DBWSafety_Init(DbwHandle *const dbw_)
+{
+	ErrorEnum err = ERROR_NULL;
+
+	if NULL_CHECK1(dbw_) {
+		TurnOnSafetyLine(dbw_);
+		err = ERROR_OK;
+	}
+
+	return err;
+}
 
 /**
  * @brief Drive-By-Wire Power to the line safety check.
@@ -139,7 +182,7 @@ bool_t DBWSafety_CheckPowerOff(DbwHandle *const dbw_)
 
 	static TriggerStates state = TRIGGER_POLL;
 
-	bool_t safetyOK = (abs(dbw_->tps->position - dbw_->apps->target) <= SAFETY_MAX_TARGET_TO_POSITION_DIFF);
+	const bool_t safetyOK = (abs(dbw_->tps->position - dbw_->apps->target) <= SAFETY_MAX_TARGET_TO_POSITION_DIFF);
 
 	switch (state) {
 		case TRIGGER_POLL:
@@ -159,45 +202,8 @@ bool_t DBWSafety_CheckPowerOff(DbwHandle *const dbw_)
 	return recover;
 }
 
-/**
- * @brief Drive-By-Wire sensors plausibility checks.
- *
- * CV1.6.6
- *
- * If plausibility does not occur between the values of at least two TPSs
- * and this persists for more than 100ms, the power to the electronic throttle
- * must be immediately shut down. Plausibility is defined as a deviation of
- * less than ten percentage points between the sensor values as defined in CV1.4.3
- * and no detected failures as defined in T11.9.
- * AS must check this signal consistency on a low level itself.
- */
-void DBWSafety_Plausibility(DBWSafety_PlausibilityType *const plausibility,
-								 SensorLimitsType *const limits,
-								 const uint16 sens1, const uint16 sens2,
-								 ErrorEnum *const error)
+void DBWSafety_Plausibility(TpsSensorType *const tps, AppsSensorType *const apps)
 {
-	if (sens2 < limits->feasibleMax && sens2 > limits->feasibleMin) {
-		plausibility->absDiff = (uint16_t)abs(ADC_MAX - (sens1 + sens2));
-		Utils_UpdateMax_U16(plausibility->absDiff, &plausibility->maxAbsDiff);
-
-		if ((plausibility->absDiff) < plausibility->maxDiffAllowed) {
-			if (plausibility->debounceCnt > 0U) {
-				--plausibility->debounceCnt;
-			}
-		} else {
-#if CONFIG_DBW_ADJUST_SENS_LIMITS
-			/* Actively adjust limits */
-			DBW_AdjustSensorLimits(limits, sens2);
-#endif
-			if (*error == ERROR_OK) {
-				++plausibility->debounceCnt;
-			}
-		}
-
-		if (plausibility->debounceCnt == 0U) {
-			*error = ERROR_OK;
-		} else if (plausibility->debounceCnt > plausibility->debounceMs) {
-			*error = plausibility->errorFlag;
-		} else { /* Nothing */ }
-	}
+	DBWSafety_PlausibilitySens(tps->plausibility, tps->limits, tps->tps1->avgData.avg, tps->tps2->avgData.avg, &tps->error);
+	DBWSafety_PlausibilitySens(apps->plausibility, apps->limits, apps->apps1->avgData.avg, apps->apps2->avgData.avg, &apps->error);
 }

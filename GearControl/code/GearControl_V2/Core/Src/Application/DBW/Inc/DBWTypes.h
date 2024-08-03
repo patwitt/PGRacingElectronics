@@ -33,19 +33,19 @@
 #define TPS_DEBOUNCE_MS (100U)
 #define APPS_DEBOUNCE_MS (100U)
 
-#define TPS_INIT_DELAY_MS (100U)
+#define TPS_INIT_DELAY_MS (200U)
 #define TPS_INIT_CALIBRATION_MS (500U)
 
 /* CALIBRATION VALUES START */
 /* MEASURED LOWER THRESHOLD MUST BE LOWER THAN FEASIBLE MIN! */
-#define APPS_FEASIBLE_MIN  (1250U)
+#define APPS_FEASIBLE_MIN  (900U)
 /* MEASURED HIGHER THRESHOLD MUST BE HIGHER THAN FEASIBLE MAX! */
-#define APPS_FEASIBLE_MAX  (2600U)
-#define APPS_MIN_MEASURED_F (1350.0f)
-#define APPS_MAX_MEASURED_F (2450.0f)
+#define APPS_FEASIBLE_MAX  (2800U)
+#define APPS_MIN_MEASURED_F (1250.0f)
+#define APPS_MAX_MEASURED_F (2500.0f)
 
-#define TPS_FEASIBLE_MIN (250U)
-#define TPS_FEASIBLE_MAX (4000U)
+#define TPS_FEASIBLE_MIN (500U)
+#define TPS_FEASIBLE_MAX (3800U)
 #define TPS_MIN_MEASURED_F (900.0f)
 #define TPS_MAX_MEASURED_F (3900.0f)
 /* CALIBRATION VALUES END */
@@ -77,6 +77,8 @@
 #define ENGINE_RPM_MIN (500U)
 #define ENGINE_RPM_MAX (14000U)
 
+#define APPS_GAMMA_F (1.7f)
+
 typedef struct {
 	GPIO_TypeDef *const gpioPort;
 	const uint16_t gpioPin;
@@ -86,11 +88,11 @@ typedef struct {
 
 typedef struct {
 	const uint16 maxDiffAllowed;
-	const uint8_t debounceMs;
+	const uint32_t debounceMs;
 	const ErrorEnum errorFlag;
 	uint16_t absDiff;
 	uint16_t maxAbsDiff;
-	uint8_t debounceCnt;
+	__IO uint32_t debounceCnt;
 } DBWSafety_PlausibilityType;
 
 typedef struct {

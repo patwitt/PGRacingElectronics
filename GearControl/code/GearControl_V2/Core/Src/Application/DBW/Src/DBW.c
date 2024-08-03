@@ -25,6 +25,8 @@
 #include "IIRFilter.h"
 #include "KalmanFilter.h"
 
+#include <math.h>
+
 #if CONFIG_MAP_RPM_TEST
 #include "DBWTest.h"
 #endif
@@ -142,6 +144,14 @@ static DBW_States DBW_HandlerRun(void);
 /*        Local functions       */
 /* ---------------------------- */
 
+static inline void DBW_SetNormalApps(void)
+{
+	apps_.target = DBWUtils_ConvertAppsRaw(&apps_);
+	DBWUtils_FilterSensor(&apps_.target, &apps_.kalman, &apps_.rcFilter, &apps_.iirFilter);
+#if CONFIG_DBW_APPS_NONLINEAR
+	apps_.target = pow(apps_.target / APPS_POS_MAX_F, APPS_GAMMA_F) * APPS_POS_MAX_F;
+#endif
+}
 
 /**
  * @brief Drive-By-Wire Initialization state.
@@ -266,7 +276,6 @@ void DBW_RevMatchRestoreNormalOperation(void)
 }
 #endif
 
-
 /**
  * @brief Set DBW throttle target.
  * 
@@ -285,14 +294,11 @@ static inline void DBW_SetTarget(void)
 		(DBW_IsRevMatchTargetInRange(*dbw_.revMatchTarget))) {
 		apps_.target = *dbw_.revMatchTarget;
 	} else {
-		/* Normal target from APPS */
-		apps_.target = DBWUtils_ConvertAppsRaw(&apps_);
-		DBWUtils_FilterSensor(&apps_.target, &apps_.kalman, &apps_.rcFilter, &apps_.iirFilter);
+		DBW_SetNormalApps();
 	}
 #else
 	/* Normal target from APPS */
-	apps_.target = DBWUtils_ConvertAppsRaw(&apps_);
-	DBWUtils_FilterSensor(&apps_.target, &apps_.kalman, &apps_.rcFilter, &apps_.iirFilter);
+	DBW_SetNormalApps();
 #endif
 	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
 }
@@ -404,8 +410,7 @@ static void DBW_StateMachine(void)
 			break;
 
 		case DBW_RUN:
-			DBWSafety_Plausibility(tps_.plausibility, tps_.limits, tps_.tps1->avgData.avg, tps_.tps2->avgData.avg, &tps_.error);
-			DBWSafety_Plausibility(apps_.plausibility, apps_.limits, apps_.apps1->avgData.avg, apps_.apps2->avgData.avg, &apps_.error);
+			DBWSafety_Plausibility(dbw_.tps, dbw_.apps);
 
 			/* NORMAL OPERATION */
 			(void)DBWSafety_CheckPowerOff(&dbw_);
@@ -417,6 +422,8 @@ static void DBW_StateMachine(void)
 			break;
 
 		case DBW_DISABLED:
+			DBWSafety_Plausibility(dbw_.tps, dbw_.apps);
+
 			if (DBWSafety_CheckPowerOff(&dbw_) == SAFETY_POWER_OFF_RECOVER) {
 				/* Go back to normal operation */
 				DCMotor_Enable();
@@ -432,6 +439,7 @@ static void DBW_StateMachine(void)
 		case DBW_DISABLED_UNRECOVERABLE:
 		default:
 			/* Unrecoverable */
+			TurnOffSafetyLine(&dbw_);
 			DCMotor_Disable();
 			LED_SetStatus(LED_BLINK_1HZ);
 			break;
@@ -474,6 +482,8 @@ ErrorEnum DBW_Init(void)
 			err = DBWTest_Init();
 		}
 #endif
+
+		err = DBWSafety_Init(&dbw_);
 
 		if (err == ERROR_OK) {
 			if (DCMotor_Init() == ERROR_OK) {

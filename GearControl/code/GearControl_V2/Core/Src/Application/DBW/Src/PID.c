@@ -23,7 +23,7 @@
 static const PID_InterpolationTableEnum currentTable = PID_INTEPROLATE_WORKING_TABLE;
 static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 1.0f, .T = 0.001f, .Kp = 0.0f, .Ki = 0.0f, .Kd = 0.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #else
-static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 0.01f, .T = 0.001f, .Kp = 7.0f, .Ki = 12.0f, .Kd = 14.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
+static PIDController pid = {.limMax = 1000.0f, .limMin = -1000.0f, .tau = 0.01f, .T = 0.001f, .Kp = 4.0f, .Ki = 4.0f, .Kd = -2000.0f, .differentiator = 0.0f, .avgSlopeData.nSamples = N_SAMPLES_F};
 #endif
 
 /* ---------------------------- */

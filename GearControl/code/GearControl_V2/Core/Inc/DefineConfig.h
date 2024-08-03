@@ -32,7 +32,7 @@
 /* DBW configs */
 #define CONFIG_DBW_CALIBRATE_TPS_AUTO    (TRUE)  //!< Automatically calibrate TPS thresholds
 #define CONFIG_DBW_ADJUST_SENS_LIMITS    (FALSE) //!< Automatically adjust TPS and APPS sensor limits
-
+#define CONFIG_DBW_APPS_NONLINEAR        (TRUE)  //!< Non-linear APPS characteristics
 /* ADC configs */
 #define CONFIG_ADC_SHOW_MIN_MAX          (FALSE) //!< Add min/max on ADC readings
 
@@ -40,5 +40,5 @@
 #define CONFIG_PID_ENABLE_IIR            (TRUE)  //!< Enable IIR Filter for PID Inputs
 #define CONFIG_ENABLE_KALMAN             (TRUE)
 #define CONFIG_PID_INTERPOLATE_CONSTANTS (FALSE) //!< Interpolate PID constants over 1D Table
-#define CONFIG_PID_APPLY_BRAKE           (TRUE)  //!< Apply PID Brake. Should be enabled for good performance
+#define CONFIG_PID_APPLY_BRAKE           (FALSE)  //!< Apply PID Brake. Should be enabled for good performance
 #endif // INC_DEFINE_CONFIG_H
