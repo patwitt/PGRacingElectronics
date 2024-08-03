@@ -87,6 +87,7 @@ typedef struct {
 	SwTimerStats timStats;
 	uint8_t bypass;
 	CAN_RxMsgType* gearModeCan;
+	GearRevMatchingConfig *revMatchingCfg;
 } GearControlHandler;
 
 //! Gear servo configuration
@@ -112,6 +113,12 @@ static const ClutchSlipConfig downShiftClutchSlipConfig = {
 	.slipDeg = CLUTCH_DOWNSHIFT_SLIP_DEG,
 	.slipDelayMs = CLUTCH_DOWNSHIFT_DELAY_MS,
 	.direction = CLUTCH_DIR_DOWNSHIFT
+};
+
+static GearRevMatchingConfig gearRevMatchingConfig = {
+	.revMatchingTimeMs = { 0, 0, 0, 300U, 200U, 200U, 200U },
+	.revMatchingTpsTarget = { 0, 0, 0, 400U, 150U, 200U, 200U },
+	.revMatchingTimer = 0U
 };
 
 //! This must be before gearWdg declaration
@@ -145,7 +152,8 @@ static __IO GearControlHandler gearCtrl = {
 		.canShiftStatusMap = shiftCanMap,
 		.delayTim = 0U,
 		.bypass = FALSE,
-		.gearModeCan = NULL
+		.gearModeCan = NULL,
+		.revMatchingCfg = &gearRevMatchingConfig
 };
 
 /* ---------------------------- */
@@ -326,6 +334,7 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 				expectedGear = gearCtrl.servoDegMap[gearCtrl.gear].expGearDown;
 
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
+				gearCtrl.revMatchingCfg->revMatchingTimer = gearCtrl.revMatchingCfg->revMatchingTimeMs[gearCtrl.gear];
 				break;
 
 			case GEAR_REQUEST_SHIFT_UP:
@@ -356,6 +365,9 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 			gearCtrl.gearTickStart = SwTimerGetUptime();
 			/* Go to next selected shift state on valid request */
 			nextShiftState = request->shiftProcedure;
+			if (nextShiftState == SHIFT_PROCEDURE_DOWN) {
+
+			}
 			/* Disable MicroSwitches - shift is being processed */
 			MicroSwitch_SetControl(MS_CONTROL_DISABLED);
 		}
@@ -898,6 +910,11 @@ void GearControl_Process(void)
 
 	/* Gear watchdog process */
 	GearWatchdog_Process();
+
+	if(gearCtrl.revMatchingCfg->revMatchingTimer > 0U)
+	{
+		gearCtrl.revMatchingCfg->revMatchingTimer--;
+	}
 }
 
 /**
@@ -913,4 +930,14 @@ GearStates GearControl_GetGear(void)
 bool_t GearControl_IsBypass(void)
 {
 	return gearCtrl.gear == GEAR_BYPASS;
+}
+
+bool_t GearControl_IsRevMatchingActive(void)
+{
+	return gearCtrl.revMatchingCfg->revMatchingTimer > 0U;
+}
+
+uint16_t GearControl_GetRevMatchingTpsTarget(void)
+{
+	return gearCtrl.revMatchingCfg->revMatchingTpsTarget[gearCtrl.gear];
 }

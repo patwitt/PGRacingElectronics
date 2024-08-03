@@ -698,7 +698,9 @@ static inline float DBW_SetTargetValue(void)
 		throttleTarget = DBW_ConvertAppsRawValue();
 	}
 #else
-	throttleTarget = DBW_ConvertAppsRawValue();
+	throttleTarget = GearControl_IsRevMatchingActive() ? GearControl_GetRevMatchingTpsTarget() : DBW_ConvertAppsRawValue();
+	//throttleTarget = DBW_ConvertAppsRawValue();
+
 #endif
 
 	return throttleTarget;

@@ -33,9 +33,18 @@ typedef enum {
 	GEAR_COUNT            = 14U
 } GearStates;
 
+typedef struct {
+	const uint16_t revMatchingTimeMs[GEAR_UNKNOWN] ;
+	const uint16_t revMatchingTpsTarget[GEAR_UNKNOWN];
+	uint16_t revMatchingTimer;
+} GearRevMatchingConfig;
+
+
 ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim);
 void GearControl_Process(void);
 GearStates GearControl_GetGear(void);
 bool_t GearControl_IsBypass(void);
+bool_t GearControl_IsRevMatchingActive(void);
+uint16_t GearControl_GetRevMatchingTpsTarget(void);
 
 #endif /* SRC_APPLICATION_GEARCONTROL_INC_GEARCONTROL_H_ */
