@@ -10,6 +10,7 @@
 #include "GearControlCAN.h"
 #include "ClutchControl.h"
 #include "ShiftRevMatch.h"
+#include "GearRevMatch.h"
 #include "InjectorsCut.h"
 #include "Utils.h"
 #include "GearRequest.h"
@@ -23,6 +24,7 @@
 /* ---------------------------- */
 
 #define SHIFT_TIME_STATS_MAX (0xFFU)
+#define GEAR_SHIFT_TIMEOUT_MS (300U)
 
 //! Shift states - dynamic action of gear-shift
 typedef enum {
@@ -327,6 +329,9 @@ static inline GearShiftStates GearCtrl_ShiftProcessRequests(__IO GearShiftReques
 #if CONFIG_ENABLE_THROTTLE_BLIP
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_PROCEDURE_DOWN);
 #else
+				/* Trigger rev match */
+				GearRevMatch_Trigger(gearCtrl.gear);
+
 				GearCtrl_SetRequest(request, servoDeg, expectedGear, SHIFT_EXEC);
 #endif
 				break;
@@ -852,6 +857,10 @@ ErrorEnum GearControl_Init(TIM_HandleTypeDef *const htim)
 	/* Initialize injectors cut module */
 	if (err == ERROR_OK) {
 		err = InjectorsCut_Init();
+	}
+
+	if (err == ERROR_OK) {
+		err = GearRevMatch_Init();
 	}
 
 	if (err == ERROR_OK) {

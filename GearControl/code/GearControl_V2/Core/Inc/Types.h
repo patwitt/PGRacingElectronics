@@ -103,4 +103,24 @@ typedef enum {
 	ERROR_COUNT
 } ErrorEnum;
 
+typedef enum {
+	/* ! This order must be unchanged ! begin */
+	GEAR_1                = 0U,
+	GEAR_N                = 1U,
+	GEAR_2                = 2U,
+	GEAR_3                = 3U,
+	GEAR_4                = 4U,
+	GEAR_5                = 5U,
+	GEAR_6                = 6U,
+	GEAR_UNKNOWN          = 7U,
+	/* ! This order must be unchanged ! end */
+	GEAR_INIT             = 8U,
+	GEAR_DISABLED         = 9U,
+	GEAR_SENS_FAILURE     = 10U,
+	GEAR_SERVO_FAILURE    = 11U,
+	GEAR_IMPLAUSIBLE      = 12U,
+	GEAR_BYPASS           = 13U,
+	GEAR_COUNT            = 14U
+} GearStates;
+
 #endif // INC_TYPES_H

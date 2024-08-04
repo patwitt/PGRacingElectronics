@@ -27,6 +27,8 @@
 
 #include <math.h>
 
+#include "GearRevMatch.h"
+
 #if CONFIG_MAP_RPM_TEST
 #include "DBWTest.h"
 #endif
@@ -298,7 +300,12 @@ static inline void DBW_SetTarget(void)
 	}
 #else
 	/* Normal target from APPS */
-	DBW_SetNormalApps();
+	if (GearRevMatch_IsActive()) {
+		apps_.target = GearRevMatch_GetTpsTarget();
+	} else {
+		DBW_SetNormalApps();
+	}
+
 #endif
 	apps_.target = CLAMP_MIN(apps_.target, TPS_IDLE);
 }
