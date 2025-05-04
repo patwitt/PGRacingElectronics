@@ -7,6 +7,7 @@
 
 #include "DBW.h"
 #if CONFIG_ENABLE_DBW
+#include "CAN.h"
 #include "DCMotor.h"
 #include "Utils.h"
 #include "main.h"
@@ -1039,6 +1040,10 @@ void DBW_Process(void)
 	{
 		dbw_.state = DBW_DISABLED;
 	}
+
+	CAN_TxUpdateData(CAN_TX_MSG_APPS, 1, apps_.apps1->avgData.avg>>4);
+	CAN_TxUpdateData(CAN_TX_MSG_APPS, 2, apps_.apps2->avgData.avg>>4);
+
 
 	DBW_StateMachine();
 }

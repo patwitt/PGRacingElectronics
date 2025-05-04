@@ -64,7 +64,17 @@ static CAN_TxMsgType canTxMsgsConfig[CAN_TX_MSG_COUNT] = {
 			},
 			.error = HAL_OK,
 			.buffer = {0U}
-		}
+		},
+	[CAN_TX_MSG_APPS] = {
+				.txHeader = {
+					.DLC = CAN_DATA_BYTES_COUNT,
+					.IDE = CAN_ID_STD,
+					.RTR = CAN_RTR_DATA,
+					.StdId = CAN_TX_MSG_STDID_APPS
+				},
+				.error = HAL_OK,
+				.buffer = {0U}
+			}
 };
 
 /* CAN Handler */

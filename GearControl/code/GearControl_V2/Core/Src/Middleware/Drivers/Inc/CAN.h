@@ -43,7 +43,8 @@ typedef enum {
 typedef enum {
 	CAN_TX_MSG_GEARINFO = 0x00U,
 	CAN_TX_MSG_INJ_CUT  = 0x01U,
-	CAN_TX_MSG_COUNT    = 0x02U
+	CAN_TX_MSG_APPS 	= 0x02U,
+	CAN_TX_MSG_COUNT    = 0x03U
 } CAN_TxMsgEnum;
 
 typedef enum {
@@ -56,7 +57,8 @@ typedef enum {
 
 typedef enum {
 	CAN_TX_MSG_STDID_GEARINFO = 0x300U,
-	CAN_TX_MSG_INJECTORS_CUT  = 0x666U
+	CAN_TX_MSG_INJECTORS_CUT  = 0x666U,
+	CAN_TX_MSG_STDID_APPS 	  = 0x295U
 } CAN_TxMsgStdIdEnum;
 
 /* Rx Message Type */
