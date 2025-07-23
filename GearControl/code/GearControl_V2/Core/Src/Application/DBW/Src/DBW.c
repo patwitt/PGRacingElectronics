@@ -261,6 +261,8 @@ static DbwHandle dbw_ = {
 	.safetyTrigger = &safetyTrigger_,
 	.apps_calib_request = FALSE};
 
+static CAN_RxMsgType* safetyFrameCfg[2];
+
 /* APPS interpolation */
 #define APPS_INTERPOLATION_CNT (12U)
 static const float APPS_pos_X[APPS_INTERPOLATION_CNT] = {0.0f, 100.0f, 200.0f, 300.0f, 400.0f, 500.0f, 600.0f, 700.0f, 800.0f, 900.0f, 950.0f, 1000.0f};
@@ -324,6 +326,8 @@ static void DBW_SafetyCheck(void)
 	} TriggerStates;
 
 	static TriggerStates state = TRIGGER_POLL;
+	static bool_t canSafetyNok_1 = false;
+	static bool_t canSafetyNok_2 = false;
 
 	float tps_pos = DBW_ConvertTpsRawValue();
 	float apps_pos = DBW_ConvertAppsRawValue();
@@ -359,7 +363,7 @@ static void DBW_SafetyCheck(void)
 		if (dbw_.safetyTrigger->safetyCnt >= SAFETY_TRIGGER_MS)
 		{
 			// Turn off safety line
-			DBW_TurnOffSafetyLine();
+			//DBW_TurnOffSafetyLine();
 			dbw_.state = DBW_DISABLED;
 			dbw_.safetyTrigger->resetCnt = 0U;
 			state = TRIGGER_ACTIVATED;
@@ -386,13 +390,43 @@ static void DBW_SafetyCheck(void)
 		if (dbw_.safetyTrigger->resetCnt >= SAFETY_TRIGGER_RESET_MS)
 		{
 			// Target is OK for at least N s
-			DBW_TurnOnSafetyLine();
+			//DBW_TurnOnSafetyLine();
 			dbw_.safetyTrigger->safetyCnt = 0U;
 			state = TRIGGER_POLL;
 		}
 
 		break;
 	}
+
+	uint8_t * canBuffer = CAN_GetRxNewData(CAN_RX_MSG_SAFETY_CUT_1);
+	if (canBuffer != NULL)
+	{
+		canSafetyNok_1 = (canBuffer[1] & 0x3) == 0x1;
+		if(canSafetyNok_1 || canSafetyNok_2)
+		{
+			DBW_TurnOffSafetyLine();
+		}
+		else
+		{
+			DBW_TurnOnSafetyLine();
+		}
+	}
+
+	canBuffer = CAN_GetRxNewData(CAN_RX_MSG_SAFETY_CUT_2);
+	if (canBuffer != NULL)
+	{
+		canSafetyNok_2 = (canBuffer[1] & 0x3) == 0x1;
+		if(canSafetyNok_1 || canSafetyNok_2)
+		{
+			DBW_TurnOffSafetyLine();
+		}
+		else
+		{
+			DBW_TurnOnSafetyLine();
+		}
+	}
+
+
 }
 
 /**
@@ -409,6 +443,8 @@ static void DBW_SafetyCheck(void)
 static DBW_States DBW_HandlerInit(void)
 {
 	DBW_States nextState = DBW_INIT;
+	safetyFrameCfg[0]  = CAN_GetRxMsg(CAN_RX_MSG_SAFETY_CUT_1);
+	safetyFrameCfg[1]  = CAN_GetRxMsg(CAN_RX_MSG_SAFETY_CUT_2);
 
 	if (HAL_GetTick() > TPS_INIT_DELAY_MS)
 	{

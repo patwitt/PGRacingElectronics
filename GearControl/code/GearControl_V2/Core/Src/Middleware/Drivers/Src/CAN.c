@@ -40,7 +40,19 @@ static CAN_RxMsgType canRxMsgsConfig[CAN_RX_MSG_COUNT] = {
 			.halErr = HAL_OK,
 			.newData = FALSE,
 			.buffer = {0U}
-		}
+		},
+		[CAN_RX_MSG_SAFETY_CUT_1] = {
+			.stdId = CAN_RX_MSG_STDID_SAFETY_CUT_1,
+			.halErr = HAL_OK,
+			.newData = FALSE,
+			.buffer = {0U}
+		},
+		[CAN_RX_MSG_SAFETY_CUT_2] = {
+			.stdId = CAN_RX_MSG_STDID_SAFETY_CUT_2,
+			.halErr = HAL_OK,
+			.newData = FALSE,
+			.buffer = {0U}
+		},
 };
 
 /* TX messages */
@@ -121,7 +133,7 @@ static HAL_StatusTypeDef CAN_HALInit(void)
 	filterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
 	filterconfig.FilterIdHigh = 0x51;
 	filterconfig.FilterIdLow = 0x0000;
-	filterconfig.FilterMaskIdHigh = 0x51;
+	filterconfig.FilterMaskIdHigh = 0x0000;
 	filterconfig.FilterMaskIdLow = 0x0000;
 	filterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
 	filterconfig.FilterBank = 0;
@@ -179,6 +191,14 @@ static inline void CAN_DecodeRxMsg(CAN_RxHeaderTypeDef *const rxHeader, const ui
 
 		case CAN_RX_MSG_STDID_GEAR_MODE:
 			CAN_UpdateRxMsg(rxHeader, &canHandler_.rxMsg[CAN_RX_MSG_GEAR_MODE], rxBuffer, status);
+			break;
+
+		case CAN_RX_MSG_STDID_SAFETY_CUT_1:
+			CAN_UpdateRxMsg(rxHeader, &canHandler_.rxMsg[CAN_RX_MSG_SAFETY_CUT_1], rxBuffer, status);
+			break;
+
+		case CAN_RX_MSG_STDID_SAFETY_CUT_2:
+			CAN_UpdateRxMsg(rxHeader, &canHandler_.rxMsg[CAN_RX_MSG_SAFETY_CUT_2], rxBuffer, status);
 			break;
 
 		default:

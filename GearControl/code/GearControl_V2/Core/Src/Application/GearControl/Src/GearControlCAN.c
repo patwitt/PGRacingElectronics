@@ -156,18 +156,9 @@ void GearControlCAN_UpdateStatus(const CANShiftStatus shiftStatus)
  */
 void GearControlCAN_Process(void)
 {
-	static uint8_t test = 0;
-	static uint8_t test2=0;
-	test2++;
 
-	if (test2==10)
-	{
-		test2=0;
-		test++;
-		test%=7;
-}
 	/* Update gear data */
-	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.gearByte, test);
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.gearByte, (uint8_t)GearControl_GetGear());
 
 	/* Update stats */
 	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.minTimByte, canReportCtrl.gearTimStats->minT);
