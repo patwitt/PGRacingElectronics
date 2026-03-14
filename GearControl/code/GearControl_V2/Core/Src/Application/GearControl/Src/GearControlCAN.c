@@ -9,6 +9,7 @@
 #include "DefineConfig.h"
 #if CONFIG_ENABLE_CAN
 #include "GearControl.h"
+#include "GearSensor.h"
 #include "CAN.h"
 #include "SwTimer.h"
 
@@ -47,6 +48,8 @@ typedef struct {
 	const CAN_MsgDataBytes minTimByte;
 	const CAN_MsgDataBytes lastTimByte;
 	const CAN_MsgDataBytes maxTimByte;
+	const CAN_MsgDataBytes adcMsbByte;
+	const CAN_MsgDataBytes adcLsbByte;
 	const CAN_TxMsgStdIdEnum msgId;
 	__IO SwTimerStats *gearTimStats;
 } CANReportHandler;
@@ -64,6 +67,8 @@ static CANReportHandler canReportCtrl = {
 		.minTimByte      = CAN_DATA_BYTE_2,
 		.lastTimByte     = CAN_DATA_BYTE_3,
 		.maxTimByte      = CAN_DATA_BYTE_4,
+		.adcLsbByte  	 = CAN_DATA_BYTE_5,
+		.adcMsbByte		 = 7,
 		.gearTimStats = NULL
 };
 
@@ -164,6 +169,10 @@ void GearControlCAN_Process(void)
 	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.minTimByte, canReportCtrl.gearTimStats->minT);
 	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.lastTimByte, canReportCtrl.gearTimStats->lastT);
 	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.maxTimByte, canReportCtrl.gearTimStats->maxT);
+
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.adcLsbByte,	(uint8_t)(GearSensor_GetAdcReading() & 0x00ff));
+	CAN_TxUpdateData(CAN_TX_MSG_GEARINFO, canReportCtrl.adcMsbByte,	(uint8_t)((GearSensor_GetAdcReading() & 0xff00) >> 8));
+
 
 	/* Update shift status data */
 	GearControlCAN_ShiftStatusHandler();

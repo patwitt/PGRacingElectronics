@@ -362,7 +362,7 @@ void CAN_TxUpdateData(const CAN_TxMsgEnum txMsgId, const CAN_MsgDataBytes byte, 
 	if (txMsgId < CAN_TX_MSG_COUNT) {
 		if ((byte < canHandler_.txMsg[txMsgId].txHeader.DLC) &&
 			(byte >= CAN_DATA_BYTE_0) &&
-			(byte <= CAN_DATA_BYTE_5)) {
+			(byte <= 7)) {
 			canHandler_.txMsg[txMsgId].buffer[byte] = data;
 		}
 	}

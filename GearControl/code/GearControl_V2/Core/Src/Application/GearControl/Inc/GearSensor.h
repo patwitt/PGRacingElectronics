@@ -36,6 +36,7 @@ typedef enum {
 
 ErrorEnum GearSensor_Init(void);
 void GearSensor_Process(void);
+uint16_t GearSensor_GetAdcReading(void);
 GearSensorStatesEnum GearSensor_GetState(void);
 GearSensorPlausibilityEnum GearSensor_GetPlausibility(void);
 

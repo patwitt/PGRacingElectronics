@@ -304,6 +304,11 @@ ErrorEnum GearSensor_Init(void)
 	return error;
 }
 
+uint16_t GearSensor_GetAdcReading(void)
+{
+	return gearSens.gearSensAdc->avgData.avg;
+}
+
 /**
  * @brief Get the current state of the gear sensor.
  * 
